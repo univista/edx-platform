@@ -36,9 +36,9 @@ def enqueue_push_course_update(update, course_key):
             )
 
 
-def send_push_course_update(course_key_string, course_channel_id, course_display_name):
+def send_push_course_update(course_key_string, course_subscription_id, course_display_name):
     """
-    Sends a push notification for a course update, given the course' channel_id and display_name.
+    Sends a push notification for a course update, given the course's subscription_id and display_name.
     """
     if settings.PARSE_KEYS:
         try:
@@ -56,7 +56,7 @@ def send_push_course_update(course_key_string, course_channel_id, course_display
                     "title-loc-key": "COURSE_ANNOUNCEMENT_NOTIFICATION_TITLE",
                     "title-loc-args": [],
                 },
-                channels=[course_channel_id],
+                channels=[course_subscription_id],
             )
         except ParseError as error:
             log_exception(error.message)
