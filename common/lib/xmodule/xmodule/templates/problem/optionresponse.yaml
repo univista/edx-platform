@@ -2,23 +2,11 @@
 metadata:
     display_name: Dropdown
     markdown: |
-         Studio offers three types of problems that allow learners to select one or more options from a list that you provide.
-         - Checkbox problems allow learners to select multiple options. Learners can see all the options along with the problem text.
-         - Dropdown problems allow learners to select only one option. Learners only see all the options after they click the dropdown list.
-         - Multiple choice problems allow learners to select only one option. Learners can see all the options along with the problem text.
-
-         To create a dropdown problem in the simple editor:
-         1. Enter the text of the main question between two pairs of angle brackets that point inward (&gt;&gt;&lt;&lt;).
-         2. On a new line, enter the answer options separated by commas.
-         3. Surround the correct answer with parentheses. Make sure to keep the comma outside the parentheses.
-         4. Select all the answer options, and then click the dropdown icon in the component editor toolbar.
-         5. To add an explanation, enter the text of the explanation, and then select the explanation and click the light bulb icon.
-
+         Dropdown problems allow learners to select only one option from a list of options.
          You can use the following example problem as a model.
-         _____________________________________________________________________________
 
           >>Which of the following countries celebrates its independence on August 15?<<
-    
+
           [[(India), Spain, China, Bermuda]]
 
           [explanation]
@@ -27,39 +15,17 @@ metadata:
 data: |
   <problem>
    
-    <p>Studio offers three types of problems that allow learners to select one
-    or more options from a list that you provide.</p>
-    <p>- Checkbox problems allow learners to select multiple options. Learners
-    can see all the options along with the problem text.</p>
-    <p>- Dropdown problems allow learners to select only one option. Learners
-    only see all the options after they click the dropdown list.</p>
-    <p>- Multiple choice problems allow learners to select only one option.
-    Learners can see all the options along with the problem text.</p>
-    <p>To create a dropdown problem in the simple editor:</p>
-    <p>1. Enter the text of the main question between two pairs of angle
-    brackets that point inward (&gt;&gt;&lt;&lt;).</p>
-    <p>2. Enter the answer options on the same line, separated by a comma.</p>
-    <p>3. Surround the correct answer with parentheses. Make sure to keep the
-    comma outside the parentheses.</p>
-    <p>4. Select all the answer options, and then click the dropdown icon in
-    the component editor toolbar.</p>
-    <p>5. To add an explanation, enter the text of the explanation, and then
-    select the explanation and click the light bulb icon.</p>
+    <p>Dropdown problems allow learners to select only one option from a list of options.</p>
     <p>You can use the following example problem as a model.</p>
-    <p>_____________________________________________________________________________</p>
-
-      <fieldset>
-      <legend>Which of the following countries celebrates its independence on August 15?</legend>
-      <optionresponse>
+    <p>Which of the following countries celebrates its independence on August 15?</p>
+    <optionresponse>
         <optioninput options="('India','Spain','China','Bermuda')" correct="India"></optioninput>
-      </optionresponse>
-      </fieldset>
-
-      <solution>
-        <div class="detailed-solution">
+    </optionresponse>
+    <solution>
+      <div class="detailed-solution">
         <p>Explanation</p>
         <p>India became an independent nation on August 15, 1947.</p>
-        </div>
-      </solution>
+      </div>
+    </solution>
   </problem>
 
