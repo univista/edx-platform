@@ -29,7 +29,7 @@ class Env(object):
     # build steps. For local development/testing, this shouldn't be needed.
     if os.environ.get("UNIQUE_TEST_REPORT_DIR", False):
         REPORT_DIR = REPORT_DIR / uuid.uuid4().hex
-        BOK_CHOY_LOG_DIR = BOK_CHOY_LOG_DIR /uuid.uuid4().hex
+        BOK_CHOY_LOG_DIR = BOK_CHOY_LOG_DIR / uuid.uuid4().hex
 
     METRICS_DIR = REPORT_DIR / 'metrics'
 
