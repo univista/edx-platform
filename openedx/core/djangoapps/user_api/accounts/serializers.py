@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 from openedx.core.djangoapps.user_api.accounts import NAME_MIN_LENGTH
 from openedx.core.djangoapps.user_api.serializers import ReadOnlyFieldsSerializerMixin
 
-from student.models import UserProfile, LanguageProficiency
+from student.models import UserProfile, LanguageProficiency, USER_SETTINGS_CHANGED_EVENT_NAME
 from .image_helpers import get_profile_image_urls_for_user
+from eventtracking import tracker
 
 
 PROFILE_IMAGE_KEY_PREFIX = 'image_url'
@@ -60,6 +61,32 @@ class AccountLegacyProfileSerializer(serializers.HyperlinkedModelSerializer, Rea
         # Currently no read-only field, but keep this so view code doesn't need to know.
         read_only_fields = ()
         explicit_read_only_fields = ("profile_image", "requires_parental_consent")
+
+    def __init__(self, *args, **kwargs):
+        super(AccountLegacyProfileSerializer, self).__init__(*args, **kwargs)
+        # We have not found a way using signals to get the language proficiency changes (grouped by user).
+        # As a workaround, store old and new values here and emit them in save_object.
+        if 'data' in kwargs and 'language_proficiencies' in kwargs['data']:
+            self.new_language_proficiencies = kwargs['data']['language_proficiencies']
+            self.old_language_proficiencies = self.data['language_proficiencies']
+        else:
+            self.old_language_proficiencies = None
+
+    def save_object(self, object, **kwargs):
+        super(AccountLegacyProfileSerializer, self).save_object(object, **kwargs)
+        # We will go through this method multiple times on save-- only emit event once.
+        if self.old_language_proficiencies is not None:
+            tracker.emit(
+                USER_SETTINGS_CHANGED_EVENT_NAME,
+                {
+                    "setting": "language_proficiencies",
+                    'old': self.old_language_proficiencies,
+                    'new': self.new_language_proficiencies,
+                    "user_id": self.object.user_id,
+                    "table": self.object.language_proficiencies.model._meta.db_table,
+                }
+            )
+            self.old_language_proficiencies = None
 
     def validate_name(self, attrs, source):
         """ Enforce minimum length for name. """
