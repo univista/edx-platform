@@ -139,3 +139,11 @@ class LoginEnrollmentTestCase(TestCase):
             'course_id': course.id.to_deprecated_string(),
         }
         self.assert_request_status_code(200, url, method="POST", data=request_data)
+
+    def grant_sudo_access(self, region, password):
+
+        self.client.post(
+            '/sudo/?region={}'.format(str(region.replace('/', '_'))),
+            {'password': password},
+            follow=True
+        )

@@ -376,6 +376,14 @@ class CourseTestCase(ModuleStoreTestCase):
             else:
                 self.assertEqual(value, course2_asset_attrs[key])
 
+    def grant_sudo_access(self, region, password):
+
+        self.client.post(
+            '/sudo/?region={}'.format(str(region.replace('/', '_'))),
+            {'password': password},
+            follow=True
+        )
+
 
 def get_url(handler_name, key_value, key_name='usage_key_string', kwargs=None):
     """
