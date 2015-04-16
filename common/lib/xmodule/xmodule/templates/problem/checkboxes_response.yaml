@@ -1,6 +1,6 @@
 ---
 metadata:
-    display_name: Checkbox
+    display_name: Checkboxes
     markdown: |
        Studio offers three types of problems that allow learners to select one or more options from a list that you provide.
        - Checkbox problems allow learners to select multiple options. Learners can see all the options along with the problem text.

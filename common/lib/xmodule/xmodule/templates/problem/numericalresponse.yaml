@@ -1,8 +1,8 @@
 ---
 metadata:
-    display_name: Numerical Response
+    display_name: Numerical Input
     markdown: |
-        In a numerical response problem, learners enter numbers or a specific and relatively simple mathematical expression. Learners enter the response in plain text, and the system then converts the text to a symbolic expression that learners can see below the response field.
+        In a numerical input problem, learners enter numbers or a specific and relatively simple mathematical expression. Learners enter the response in plain text, and the system then converts the text to a symbolic expression that learners can see below the response field.
 
         The system can handle several types of characters, including basic operators, fractions, exponents, and common constants such as "i". Learners can see "Entering Mathematical and Scientific Expressions" in the edX Guide for Students for information about how to enter text into the field.
 
