@@ -53,7 +53,8 @@ def url_class(is_active):
 % if disable_tabs is UNDEFINED or not disable_tabs:
 <nav class="${active_page} wrapper-course-material" aria-label="${_('Course Material')}">
   <div class="course-material">
-    <ol class="course-tabs">
+<!--
+	<ol class="course-tabs">
       % for tab in get_course_tab_list(course, user):
         <%
             tab_is_active = (tab.tab_id == active_page) or (tab.tab_id == default_tab)
@@ -75,6 +76,24 @@ def url_class(is_active):
       % endfor
       <%block name="extratabs" />
     </ol>
+-->
+	<ol class="course-tabs">
+	<li>
+		<a href="/courses/CatalystX/ILX1/2015_T1/courseware" class="">강의듣기</a>
+	</li>
+	<li>
+		<a href="/courses/CatalystX/ILX1/2015_T1/info" class="active">소식<span class="sr">,현재위치</span></a>
+	</li>
+	<li>
+		<a href="/courses/CatalystX/ILX1/2015_T1/discussion/forum" class="">진도율 확인</a>
+	</li>
+	<li>
+		<a href="/courses/CatalystX/ILX1/2015_T1/course_wiki" class="">강의게시판</a>
+	</li>
+	<li>
+		<a href="/courses/CatalystX/ILX1/2015_T1/progress" class="">교재파일</a>
+	</li>
+	</ol>
   </div>
 </nav>
 %endif
