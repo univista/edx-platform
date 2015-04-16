@@ -57,12 +57,12 @@ data: |
               <textline size="40" correct_answer="9" label="Integer #2"/>
       </customresponse>
     
-          <solution>
-              <div class="detailed-solution">
-                  <p>Explanation</p>
-                  <p>Any set of integers on the line \(y = 10 - x\) and \(y = 20 - x\) satisfy these constraints.</p>
-                  <p>To add an image to the solution, use an HTML "img" tag. Make sure to include alt text.</p>
-                  <img src="/static/images/placeholder-image.png width="400" alt="Description of image"/>
-              </div>
-          </solution>
+      <solution>
+          <div class="detailed-solution">
+              <p>Explanation</p>
+              <p>Any set of integers on the line \(y = 10 - x\) and \(y = 20 - x\) satisfy these constraints.</p>
+              <p>To add an image to the solution, use an HTML "img" tag. Make sure to include alt text.</p>
+              <img src="/static/images/placeholder-image.png" width="400" alt="Description of image"/>
+          </div>
+      </solution>
       </problem>
