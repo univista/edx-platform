@@ -49,7 +49,8 @@ from django.utils.http import urlquote_plus
       % endif
 
       <header class="progress-certificates">
-        <h1 class="progress-certificates-title">${_("Course Progress for Student '{username}' ({email})").format(username=student.username, email=student.email)}</h1>
+        <!--<h1 class="progress-certificates-title">${_("Course Progress for Student '{username}' ({email})").format(username=student.username, email=student.email)}</h1>-->
+		<h1 class="progress-certificates-title">교육과정 전체 진도율 확인<!--여기 글자수가 줄어드니까 그래프에 %나와있는 왼쪽 글씨가 그래프를 침범하네요;;--></h1>
       </header>
 
         %if show_generate_cert_btn:
@@ -111,15 +112,19 @@ from django.utils.http import urlquote_plus
 
               <h3><a href="${reverse('courseware_section', kwargs=dict(course_id=course.id.to_deprecated_string(), chapter=chapter['url_name'], section=section['url_name']))}">
                 ${ section['display_name'] }
-                %if total > 0 or earned > 0:
+                <!--
+				%if total > 0 or earned > 0:
                   <span class="sr">
                     ${_("{earned:.3n} of {total:.3n} possible points").format( earned = float(earned), total = float(total) )}
                   </span>
                 %endif
+				-->
                 </a>
+				<!--
                 %if total > 0 or earned > 0:
                   <span> ${"({0:.3n}/{1:.3n}) {2}".format( float(earned), float(total), percentageString )}</span>
                 %endif
+				-->
               </h3>
               <p>
                 ${section['format']}
@@ -137,14 +142,16 @@ from django.utils.http import urlquote_plus
 
               <div class="scores">
                 %if len(section['scores']) > 0:
-                  <h3> ${ _("Problem Scores: ") if section['graded'] else _("Practice Scores: ")} </h3>
+                  <!--<h3> ${ _("Problem Scores: ") if section['graded'] else _("Practice Scores: ")} </h3>-->
+				  <h3>연습문제 : 3문제중 3개 정답</h3>
                   <ol>
                     %for score in section['scores']:
-                    <li>${"{0:.3n}/{1:.3n}".format(float(score.earned),float(score.possible))}</li>
+                    <li><!--${"{0:.3n}/{1:.3n}".format(float(score.earned),float(score.possible))}--></li>
                     %endfor
                   </ol>
                 %else:
-                  <h3 class="no-scores"> ${_("No problem scores in this section")} </h3>
+                  <!--<h3 class="no-scores"> ${_("No problem scores in this section")} </h3>-->
+				  <h3 class="no-scores">현재 점수 기록이 없습니다.</h3>
                 %endif
               </div>
 
