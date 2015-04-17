@@ -296,7 +296,7 @@ FEATURES = {
 
     # Turn on third-party auth. Disabled for now because full implementations are not yet available. Remember to syncdb
     # if you enable this; we don't create tables by default.
-    'ENABLE_THIRD_PARTY_AUTH': False,
+    'ENABLE_THIRD_PARTY_AUTH': True,
 
     # Toggle to enable alternate urls for marketing links
     'ENABLE_MKTG_SITE': False,
@@ -2132,7 +2132,16 @@ for app_name in OPTIONAL_APPS:
 
 # Stub for third_party_auth options.
 # See common/djangoapps/third_party_auth/settings.py for configuration details.
-THIRD_PARTY_AUTH = {}
+THIRD_PARTY_AUTH = {
+        "Google": {
+            "SOCIAL_AUTH_GOOGLE_OAUTH2_KEY": "1074540963717-2er7et0c8aacin6vv6ncoo50tmon841d.apps.googleusercontent.com",
+            "SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET": "omA7skNnKyWICvP-2IegBg89"
+        },
+        "Facebook": {
+            "SOCIAL_AUTH_FACEBOOK_KEY": "584504851686203",
+            "SOCIAL_AUTH_FACEBOOK_SECRET": "16bfcf07fc08640f7d8af13c52bce4b4"
+        }
+}
 
 ### ADVANCED_SECURITY_CONFIG
 # Empty by default
