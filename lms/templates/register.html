@@ -371,16 +371,13 @@
             % if has_extauth_info is UNDEFINED or ask_for_tos :
 
             <div class="field required checkbox" id="field-tos">
-              <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
-              <label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
+              <span class="chk_area"><input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" /><span></span></span>
+              <!--<label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
                 link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
-                link_end='</a>')}</label>
+                link_end='</a>')}</label>-->
+				<label for="tos-yes" class="after-none"><a href="/tos" class="new-vp" tabindex="-1">이용약관 및 규정</a> 동의</label>
             </div>
 
-			<div class="field required checkbox" id="field-tos">
-				<span class="chk_area"><input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" /><span></span></span>
-				<label for="tos-yes" class="after-none"><a href="/tos" class="new-vp" tabindex="-1">이용약관 및 규정</a> 동의</label>
-			</div>
             % endif
 
             % if settings.REGISTRATION_EXTRA_FIELDS['honor_code'] != 'hidden':
@@ -400,13 +397,12 @@
                 link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=honor_code_path),
                 link_end='</a>')}</label>
             </div>
-
+            % endif
+            % endif
 			<div class="field required checkbox" id="field-honorcode">
 				<span class="chk_area"><input id="honorcode-yes" type="checkbox" name="honor_code" value="true" /><span></span></span>
 				<label for="honorcode-yes" class="after-none">메일링 서비스 신청</label>
 			</div>
-            % endif
-            % endif
           </li>
         </ol>
       </div>
