@@ -6,7 +6,7 @@ from courseware.courses import course_image_url, get_course_about_section
 %>
 <%page args="course" />
 <div class="course-card">
-	<a href="/course/body-matters-mcgillx-body101x" class="course-link">
+	<a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" class="course-link">
 		<div class="img-wrapper"><img src="/static/themes/default/images/img_course04.jpg" alt="The Body Matters"/></div>
 	</a>
 	<div class="label">김진영 대표</div>
