@@ -1164,9 +1164,13 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
 
         # Ensure that the external marketing site can
         # detect that the user is logged in.
+<<<<<<< HEAD
         # return set_logged_in_cookie(request, response)
 
         # academyx modified at 30th april
+=======
+        #return set_logged_in_cookie(request, response)
+>>>>>>> b5f12bbb0c880b848ee0dfba130db168cbf7cb92
         return redirect(reverse('dashboard'))
 
     if settings.FEATURES['SQUELCH_PII_IN_LOGS']:
