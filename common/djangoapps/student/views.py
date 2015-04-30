@@ -974,6 +974,7 @@ def accounts_login(request):
 
 
 # Need different levels of logging
+@csrf_exempt
 @ensure_csrf_cookie
 def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,unused-argument
     """AJAX request to log in the user."""
@@ -981,7 +982,8 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
     backend_name = None
     email = None
     password = None
-    redirect_url = None
+    #redirect_url = None
+    redirect_url = 'dashboard' 
     response = None
     running_pipeline = None
     third_party_auth_requested = third_party_auth.is_enabled() and pipeline.running(request)
@@ -1162,7 +1164,10 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
 
         # Ensure that the external marketing site can
         # detect that the user is logged in.
-        return set_logged_in_cookie(request, response)
+        # return set_logged_in_cookie(request, response)
+
+        # academyx modified at 30th april
+        return redirect(reverse('dashboard'))
 
     if settings.FEATURES['SQUELCH_PII_IN_LOGS']:
         AUDIT_LOG.warning(u"Login failed - Account not active for user.id: {0}, resending activation".format(user.id))
