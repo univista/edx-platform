@@ -1,0 +1,174 @@
+## mako
+<%! from django.core.urlresolvers import reverse %>
+<%! from django.utils.translation import ugettext as _ %>
+<%namespace name='static' file='static_content.html'/>
+<%! from microsite_configuration.templatetags.microsite import platform_name %>
+
+<!--
+<div class="wrapper wrapper-footer">
+  <footer>
+    <div class="colophon">
+      <nav class="nav-colophon" aria-label="${_('About')}">
+      <ol>
+          <li class="nav-colophon-01">
+          <a id="about" href="${marketing_link('ABOUT')}">
+              ${_("About")}
+          </a>
+          </li>
+          %if marketing_link('JOBS') and marketing_link('JOBS') != '#':
+            <li class="nav-colophon-02">
+              <a id="jobs" href="${marketing_link('JOBS')}">
+                ${_("Jobs")}
+              </a>
+            </li>
+          %endif
+          %if marketing_link('NEWS') and marketing_link('NEWS') != '#':
+            <li class="nav-colophon-03">
+              <a id="news" href="${marketing_link('NEWS')}">
+                ${_("News")}
+              </a>
+            </li>
+          %endif
+          <li class="nav-colophon-04">
+          <a id="faq" href="${marketing_link('FAQ')}">
+              ${_("FAQ")}
+          </a>
+          </li>
+          <li class="nav-colophon-05">
+          <a id="contact" href="${marketing_link('CONTACT')}">
+              ${_("Contact")}
+          </a>
+          </li>
+      </ol>
+      </nav>
+
+      <div class="wrapper-logo">
+        <p>
+          <a href="/">
+            ## this is just a placeholder logo
+            ## feel free to change this logo to your own by replacing "logo.png" with your own logo
+            <img alt="organization logo placeholder" src="/static/images/default-theme/logo.png">
+          </a>
+        </p>
+      </div>
+
+      <p class="copyright">&copy; ${settings.COPYRIGHT_YEAR} ${settings.PLATFORM_NAME}.</p>
+
+      ## Site operators: Please do not remove this paragraph! This attributes back to edX and makes your acknowledgement of edX's trademarks clear.
+      <p class="copyright">
+        ## Translators: 'EdX', 'edX', and 'Open edX' are trademarks of 'edX Inc.'. Please do not translate any of these trademarks and company names.
+        ${_("EdX, Open edX, and the edX and Open edX logos are registered trademarks or trademarks of {link_start}edX Inc.{link_end}").format(
+            link_start=u"<a href='https://www.edx.org/'>",
+            link_end=u"</a>"
+        )}
+      </p>
+      <nav class="nav-legal" aria-label="${_('Legal')}">
+        <ul>
+        % if marketing_link('HONOR') and marketing_link('HONOR') != '#':
+          <li class="nav-legal-01">
+            <%
+              tos_link = u"<a href='{}'>".format(marketing_link('TOS'))
+              honor_link = u"<a href='{}'>".format(marketing_link('HONOR'))
+            %>
+            ${
+              _("{tos_link_start}Terms of Service{tos_link_end} and {honor_link_start}Honor Code{honor_link_end}").format(
+                tos_link_start=tos_link,
+                tos_link_end="</a>",
+                honor_link_start=honor_link,
+                honor_link_end="</a>",
+              )
+            }
+          </li>
+        % else:
+          <li class="nav-legal-01">
+            <a href="${marketing_link('TOS')}">${_("Terms of Service")}</a>
+          </li>
+        % endif
+          <li class="nav-legal-02">
+            <a href="${marketing_link('PRIVACY')}">${_("Privacy Policy")}</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    ## please leave this link and use one of the logos provided
+    <div class="footer-about-openedx">
+      <p>
+        <a href="http://openedx.org/">
+          ## standard powered-by logo
+          ## Translators: 'Open edX' is a brand, please keep this untranslated. See http://openedx.org for more information.
+          <img src="https://files.edx.org/openedx-logos/edx-openedx-logo-tag.png" alt="${_('Powered by Open edX')}" width="140" />
+          ## greyscale logo for dark background
+          ## <img src="https://files.edx.org/openedx-logos/edx-openedx-logo-tag-light.png" alt="${_('Powered by Open edX')}" width="140" />
+          ## greyscale logo for light background
+          ## <img src="https://files.edx.org/openedx-logos/edx-openedx-logo-tag-dark.png" alt="${_('Powered by Open edX')}" width="140" />
+        </a>
+      </p>
+    </div>
+  </footer>
+</div>
+-->
+	<div class="wrapper wrapper-footer">
+		<footer id="footer" class="clearfix region-footer" role="contentinfo" aria-label="Footer">
+			<div class="region-footer-columns region-container container">
+				<div class="region-container-inner">
+					<!-- regions: Footer first and Footer second -->
+					<div class="region region-footer-first">
+						<div class="region-inner clearfix">
+							<div class="region-container-inner">
+								<div id="block-block-4" class="block block-block block-disclosure copy-detail no-title" >
+									<p><img alt="AcademyX" src="/static/images/ximg/logo.png" /><br />아시아 최고의 기업가정신 교육을 무료로,<br />아카데미X는 국내 최고의 실무 경험을 지닌 교수진과 <br />한국의 스타트업 생태계를 이끌어가는 전문 기업이 모여서 만든 교육 플랫폼으로, <br />기술혁신과 기업가정신 교육을 온라인으로 무료로 제공하고 오프라인 교육을 유료로 <br />제공하는 회사입니다</p>
+									<p class="copyright">© AcademyX.Inc.<br />
+
+									<ul class="clause">
+									<li><a href="#">이용약관</a></li>
+									<li><a href="#">법적고지</a></li>
+									<li><a href="#">개인정보처리방침</a></li>
+									<li><a href="#">환불규정</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="region region-footer-second">
+						<nav id="block-menu-block-7" class="block block-menu-block"  aria-label="About Us" role="navigation">  
+							<h2 class="block-title">아카데미X에 대해서</h2>
+							<div class="menu-block-wrapper menu-block-7 menu-name-menu-about-company-in-footer parent-mlid-0 menu-level-1">
+								<ul class="menu clearfix">
+								<li class="first leaf menu-mlid-11301 menu-depth-1 menu-item-11301"><a href="/about-us">비전과 목표</a></li>
+								<li class="leaf menu-mlid-11306 menu-depth-1 menu-item-11306"><a href="/news-announcements">공지사항</a></li>
+								<li class="leaf menu-mlid-11311 menu-depth-1 menu-item-11311"><a href="/contact-us">교수 참가</a></li>
+								<li class="leaf menu-mlid-11316 menu-depth-1 menu-item-11316"><a href="/about/student-faq">파트너 참가</a></li>
+								<li class="leaf menu-mlid-11321 menu-depth-1 menu-item-11321"><a href="/edx-blog">연락처</a></li>
+								<li class="leaf menu-mlid-11326 menu-depth-1 menu-item-11326"><a href="/donate">질문과답</a></li>
+								<li class="leaf menu-mlid-11331 menu-depth-1 menu-item-11331"><a href="/jobs">채용</a></li>
+								</ul>
+							</div>
+						</nav>
+						<section id="block-block-46" class="block block-block nav block-menu-social" >  
+							<h2 class="block-title">Follow US</h2>
+
+							<div class="footer-follow-links">
+								<a href="https://twitter.com/edXOnline">
+									<i class="fa fa-twitter" aria-hidden="true"></i>
+									<span class="copy">Twitter</span>
+								</a>
+								<a href="http://www.facebook.com/EdxOnline">
+									<i class="fa fa-facebook" aria-hidden="true"></i>
+									<span class="copy">Facebook</span>
+								</a>
+								<a href="https://plus.google.com/+edXOnline" rel="publisher">
+									<i class="fa fa-google-plus" aria-hidden="true"></i>
+									<span class="copy">Google+</span>
+								</a>
+								<a href="https://www.youtube.com/user/edxonline?sub_confirmation=1">
+									<i class="fa fa-youtube" aria-hidden="true"></i>
+									<span class="copy">Youtube</span>
+								</a>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>

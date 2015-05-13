@@ -1,0 +1,164 @@
+<%! 
+  from django.utils.translation import ugettext as _
+  from microsite_configuration import microsite
+%>
+<%inherit file="../main.html" />
+
+<%namespace name='static' file='../static_content.html'/>
+
+<!-- region: Secondary Content -->
+  
+	<div class="region-column-wrapper">
+		<div class="region-columns region-container container">
+			<div class="region-container-inner">
+				<div id="columns" class="columns clearfix">
+					<div id="content-column" class="content-column" role="main" aria-label="Content">
+						<div class="content-inner">
+						<!-- region: Highlighted -->
+							<section id="main-content">
+								<header id="main-content-header" class="clearfix"></header>
+					  		<!-- region: Main Content -->
+								<div id="content" class="region">
+									<div class="region-container-inner">
+										<div id="block-views-members-full" class="block block-views no-title" >
+											<div class="view view-members view-display-members-full">
+												<div class="view-header">
+													<a name="charter-members"></a>
+													<p>"아카데미X는 국개 최고의 실무 경험을 지닌 교수진과 한국의 스타트업 생태계를 이끌어가는 전문 기업이 모여서 만든 교육 플렛폼입니다"</p>
+													<h2 style="margin-bottom:0px;" class="members-header"><span>파운더 파트너</span></h2>
+													<p>아카데미X 파운더 파트너는 아카데미X 비전과 임무를 공유하는 기업으로 아카데미X에 주주로 참여하였으며,<br />아카데미X와 함께 교육 콘텐츠 및 서비스 구축을 함께하며<br />또한 온오프라인 교육 서비스 사업을 공동으로 진행하는 파트너 기업입니다.</p>
+												</div>
+												<div class="view-content">
+													<ul class="member-list">
+													<li class="views-row-odd views-row-first member member-tile member-founder ">
+														<div class="member-logo">
+															<a href="partner-explain.html"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/founder_logo_0.png" alt="PAG&Partners" title="PAG&Partners" /></a>
+														</div>
+														<div class="member-label">PAG&파트너스</div>
+													</li>
+													<li class="views-row-even member member-tile member-founder ">
+														<div class="member-logo">
+															<a href="/school/harvardx"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/founder_logo_1.png" alt="D.FY" title="D.FY" /></a>
+														</div>
+														<div class="member-label">디파이</div>
+													</li>
+													<li class="views-row-odd member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/uc-berkeleyx"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/founder_logo_2.png" alt="BIGBANG ANGELS" title="BIGBANG ANGELS" /></a>
+														</div>
+														<div class="member-label">빅뱅엔젤스</div>
+													</li>
+													<li class="views-row-even member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/utx"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/founder_logo_3.png" alt="ROA CONSULTING" title="ROA CONSULTING" /></a>
+														</div>
+														<div class="member-label">로아컨설팅</div>
+													</li>
+													<li class="views-row-odd member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/anux"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/founder_logo_4.png" alt="SOCIAL MOBILE" title="SOCIAL MOBILE" /></a>
+														</div>
+														<div class="member-label">소셜엔모바일</div>
+													</li>
+													<li class="views-row-even member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/bux"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/founder_logo_5.png" alt="MEET ADVISOR" title="MEET ADVISOR" /></a>
+														</div>
+														<div class="member-label">디앤엘컴퍼니</div>
+													</li>
+													<li class="views-row-odd member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/georgetownx"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/founder_logo_6.png" alt="VENTURE SQUARE" title="VENTURE SQUARE" /></a>
+														</div>
+														<div class="member-label">벤처스퀘어</div>
+													</li>
+													<li class="views-row-even member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/sorbonnex"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/founder_logo_7.png" alt="Rehoboth Business Incubator" title="Rehoboth Business Incubator" /></a>
+														</div>
+														<div class="member-label">르호봇비즈니스인큐베이터</div>
+													</li>
+													<li class="views-row-odd member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/delftx"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/founder_logo_8.png" alt=="UNIVISTA" title="UNIVISTA" /></a>
+														</div>
+														<div class="member-label">유니비스타</div>
+													</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+										<div id="block-views-members-standard" class="block block-views no-title" >
+											<div class="view view-members view-display-members-full">
+												<div class="view-header">
+													<a name="members" id="members"></a>
+													<h2 class="members-header"><span>교육 파트너</span></h2>
+													<p class="copy-detail">교육 파트너는 정부산하 창업 보육 기관, 일반 기업의 창업/교육 프로그램 운영 부서, 대학교 창업보육센터 등으로<br />아카데미X가 구축한 교육 콘텐츠와 서비스를 바탕으로 창업가나<br />사내 기업가 정신 교육이 필요한 이에게 교육 서비스를 제공하는 곳입니다.</p>
+												</div>
+												<div class="view-content">
+													<ul class="member-list">
+													<li class="views-row-odd views-row-first member member-tile member-founder ">
+														<div class="member-logo">
+															<a href="/school/mitx"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/education_logo_0.png" alt="경기콘텐츠진흥원" title="경기콘텐츠진흥원" /></a>
+														</div>
+														<div class="member-label">경기콘텐츠진흥원</div>
+													</li>
+													<li class="views-row-even member member-tile member-founder ">
+														<div class="member-logo">
+															<a href="/school/harvardx"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/education_logo_1.png" alt="SK텔레콤" title="SK텔레콤" /></a>
+														</div>
+														<div class="member-label">SK텔레콤</div>
+													</li>
+													<li class="views-row-odd member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/uc-berkeleyx"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/education_logo_2.png" alt="SK Planet" title="SK Planet" /></a>
+														</div>
+														<div class="member-label">SK Planet</div>
+													</li>
+													<li class="views-row-even member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/utx"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/education_logo_3.png" alt="KT" title="KT" /></a>
+														</div>
+														<div class="member-label">KT</div>
+													</li>
+													<li class="views-row-odd member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/anux"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/education_logo_4.png" alt="Entrue Consulting" title="Entrue Consulting" /></a>
+														</div>
+														<div class="member-label">LG CNS/엔트루컨설팅</div>
+													</li>
+													<li class="views-row-even member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/bux"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/education_logo_5.png" alt="NAVER" title="NAVER" /></a>
+														</div>
+														<div class="member-label">네이버</div>
+													</li>
+													<li class="views-row-odd member member-tile  member-contributor">
+														<div class="member-logo">
+															<a href="/school/georgetownx"><img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/education_logo_6.png" alt="AppCenter" title="AppCenter" /></a>
+														</div>
+														<div class="member-label">앱센터</div>
+													</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section><!-- /end #main-content -->
+							<!-- region: Content Aside -->
+					  </div><!-- /end .content-inner -->
+				</div><!-- /end #content-column -->
+
+				<!-- regions: Sidebar first and Sidebar second -->
+
+			  </div><!-- /end #columns -->
+			</div><!-- /end .region-container-inner -->
+		</div><!-- /end #region-columns -->
+  </div><!-- /end #region-column-wrapper -->
+
+  <!-- region: Tertiary Content -->
+  
+  <!-- region: Tertiary Content -->
+  
+  <!-- Secondary Navigation elements -->

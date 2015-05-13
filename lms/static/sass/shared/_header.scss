@@ -3,8 +3,8 @@
 
 header.global {
   @extend %ui-depth1;
-  border-bottom: 1px solid $m-gray;
-  box-shadow: 0 1px 5px 0 $shadow-l1;
+  border-bottom: 1px solid $m-gray-none;
+  box-shadow: 0 1px 5px 0 $shadow-none;
   background: $header-bg;
   height: 76px;
   position: relative;

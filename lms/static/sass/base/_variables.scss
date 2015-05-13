@@ -161,6 +161,7 @@ $blue-d2: shade($blue,40%);
 $blue-d4: shade($blue,80%);
 
 // edx.org marketing site variables
+$m-gray-none: rgba(255,255,255,0); // transparent
 $m-gray: rgb(138,140,143); // #8A8C8F
 $m-gray-l1: rgb(151,153,155); // #97999B
 $m-gray-l2: rgb(164,166,168); // #A4A6A8
@@ -227,6 +228,7 @@ $shadow-l1: rgba(0,0,0,0.1);
 $shadow-l2: rgba(0,0,0,0.05);
 $shadow-d1: rgba(0,0,0,0.4);
 $shadow-d2: rgba($black, 0.6);
+$shadow-none: rgba(255,255,255, 0);
 
 // ====================
 

@@ -53,22 +53,41 @@ $(document).ready(function(){
         </div>
       % endif
 
-      <h1>${_("Course Updates &amp; News")}</h1>
-      ${get_course_info_section(request, course, 'updates')}
+      <!--<h1>${_("Course Updates &amp; News")}</h1>-->
+	  <h1>수강과목 소식</h1>
+      <!--${get_course_info_section(request, course, 'updates')}-->
+	  <ol>
+	  <li>
+		<h2>March 26, 2015</h2>
+		안녕하세요 여러분, 2월 2일에 우리는, 50 %의 성적을 획득. 즉, 이 과정을 통과했는지 확인합니다. 만약 50 %의 성적에 도달하지 않은 경우, 우리는 3월 1일에 다시 확인합니다.
+	  </li>
+	   <li>
+		<h2>March 26, 2015</h2>
+		안녕하세요 여러분, 여러분 중 일부는 시험 및 이수 시간표의 세부 사항을 요구하고 있다.
+		숙제는 1 월 26 일 예정입니다.  우리는 8월 26일에 시험을 발표 할 예정입니다. 
+		그리고 16번째 9월을 완료 해야 합니다. 우리는 그 점 50 % 이상의 총 점수를 달성 한 모든 사람에게 인증서를 발급합니다.
+		이 과정은 그 이후 열릴 것이며, "자습"모드로 전환됩니다.
+		당신은 당신이 선택하는 어떤 시간에 과정의 일부를 수행 할 수 있도록 모든 숙제와 시험 마감일은 제거됩니다.
+	  </li>
+	  </ol>
     </section>
+<!--
     <section aria-label="${_('Handout Navigation')}" class="handouts">
       <h1>${_(course.info_sidebar_name)}</h1>
       ${get_course_info_section(request, course, 'handouts')}
     </section>
+-->
     % else:
     <section class="updates">
       <h1>${_("Course Updates &amp; News")}</h1>
       ${get_course_info_section(request, course, 'guest_updates')}
     </section>
-    <section aria-label="${_('Handout Navigation')}" class="handouts">
+<!--
+	<section aria-label="${_('Handout Navigation')}" class="handouts">
       <h1>${_("Course Handouts")}</h1>
       ${get_course_info_section(request, course, 'guest_handouts')}
     </section>
+-->
     % endif
   </div>
 </section>

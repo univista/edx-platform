@@ -62,10 +62,13 @@
 
   <link rel="icon" type="image/x-icon" href="${static.url(microsite.get_value('favicon_path', settings.FAVICON_PATH))}" />
 
+
   <%static:css group='style-vendor'/>
   <%static:css group='style-app'/>
   <%static:css group='style-app-extend1'/>
   <%static:css group='style-app-extend2'/>
+  <link href="/static/themes/default/css/default.css" rel="stylesheet" type="text/css" />
+  <link href="/static/themes/default/css/idangerous.swiper.css" rel="stylesheet" type="text/css" />
 
   % if disable_courseware_js:
     <%static:js group='base_vendor'/>
@@ -147,6 +150,7 @@
       ${self.body()}
       <%block name="bodyextra"/>
     </div>
+
 
     <%block name="footer">
       ## Can be overridden by child templates wanting to hide the footer.
