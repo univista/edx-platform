@@ -1706,12 +1706,15 @@ def create_account(request, post_override=None):
         running_pipeline = pipeline.get(request)
         redirect_url = pipeline.get_complete_url(running_pipeline['backend'])
 
+    
     response = JsonResponse({
         'success': True,
         'redirect_url': redirect_url,
     })
     set_marketing_cookie(request, response)
-    return response
+    #return response
+    # academyx modified at 13th May
+    return redirect(reverse('dashboard'))
 
 
 def auto_auth(request):
