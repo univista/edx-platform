@@ -448,7 +448,7 @@ from edxmako.shortcuts import marketing_link
 		<div class="course-detail-overview views-fieldset" data-module="views_fieldsets">
 			<div class="copy-detail course-detail-info views-fieldset" data-module="views_fieldsets">
                                 <div class="course-detail-school item">
-                                        <span class="label">강의명 </span>i${get_course_about_section(course, "title")}
+                                        <span class="label">강의명 </span>${get_course_about_section(course, "title")}
                                 </div>
 				<div class="course-detail-number item">
 					<span class="label">Course Number </span>${course.display_number_with_default | h}
