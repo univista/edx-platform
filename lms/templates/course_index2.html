@@ -5,14 +5,11 @@ from django.core.urlresolvers import reverse
 from courseware.courses import course_image_url, get_course_about_section
 %>
 <%page args="course" />
-
-<div class="course-card">
-        <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" class="course-link">
-                <div class="img-wrapper"><img src="${course_image_url(course)}" alt="${get_course_about_section(course, 'title')} ${course.display_number_with_default}"/></div>
-        </a>
-        <div class="label">${get_course_about_section(course, 'university')}</div>
-        <div class="course-code">${course.display_number_with_default}</div>
-        <div class="title"><p>${get_course_about_section(course, 'title')}</p></div>
-        <div class="availability">${_("Starts")}</div>
-        <div class="date">${course.start_datetime_text()}</div>
-</div>
+<li>
+	<a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
+		<em>${get_course_about_section(course, 'title')}</em>
+		<span>${course.display_number_with_default}</span>
+		<span>${get_course_about_section(course, 'university')}</span>
+	</a>
+	<img src="${course_image_url(course)}" alt="${get_course_about_section(course, 'title')} ${course.display_number_with_default}" />
+</li>
