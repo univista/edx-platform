@@ -531,10 +531,47 @@ from edxmako.shortcuts import marketing_link
 			<div class="course-detail-social views-fieldset" data-module="views_fieldsets">
 				<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
 					<div>
-					<a class="addthis_button_facebook at300b" title="Facebook" href="#"><span class="at4-icon aticon-facebook" style="background-color: rgb(48, 88, 145);"><span class="at_a11y">Share on facebook</span></span></a>
-					<a class="addthis_button_twitter at300b" title="Tweet" href="#"><span class="at4-icon aticon-twitter" style="background-color: rgb(44, 168, 210);"><span class="at_a11y">Share on twitter</span></span></a>
-					<a class="addthis_button_google_plusone_share at300b" href="https://www.addthis.com/bookmark.php?v=300&amp;winname=addthis&amp;pub=ra-532208d8373cadff&amp;source=tbx32-300&amp;lng=ko&amp;s=google_plusone_share&amp;url=https%3A%2F%2Fwww.edx.org%2Fcourse%2Finclusive-leadership-training-becoming-catalystx-ilx1&amp;title=Leadership%20Training%3A%20Becoming%20a%20Successful%20Leader%20%7C%20edX&amp;ate=AT-ra-532208d8373cadff/-/-/55063059a9c034cc/3&amp;frommenu=1&amp;uid=55063059623eec58&amp;ct=1&amp;rsi=55062f638ee471bf&amp;gen=4&amp;pre=http%3A%2F%2F211.214.182.188%3A8880%2F&amp;tt=0&amp;captcha_provider=nucaptcha" target="_blank" title="Google+"><span class="at4-icon aticon-google_plusone_share" style="background-color: rgb(206, 77, 57);"><span class="at_a11y">Share on google_plusone_share</span></span></a>
-					<a class="addthis_button_youtube at300m" href="#"><span class="at4-icon aticon-compact" style="background-color: rgb(252, 109, 76);"><span class="at_a11y">Share on youtube</span></span></a>
+
+              <%
+                site_domain = microsite.get_value('site_domain', settings.SITE_NAME)
+                platform_name = microsite.get_value('platform_name', settings.PLATFORM_NAME)
+
+                # Translators: This text will be automatically posted to the student's
+                # Twitter account. {url} should appear at the end of the text.
+                tweet_text = _("I just registered for {number} {title} through {account}: {url}").format(
+                    number=course.number,
+                    title=get_course_about_section(course, 'title'),
+                    account=microsite.get_value('course_about_twitter_account', settings.PLATFORM_TWITTER_ACCOUNT),
+                    url=u"http://{domain}{path}".format(
+                        domain=site_domain,
+                        path=reverse('about_course', args=[course.id.to_deprecated_string()])
+                    )
+                ).replace(u" ", u"+")
+                tweet_action = u"http://twitter.com/intent/tweet?text={tweet_text}".format(tweet_text=tweet_text)
+
+                facebook_link = microsite.get_value('course_about_facebook_link', settings.PLATFORM_FACEBOOK_ACCOUNT)
+
+                email_subject = u"mailto:?subject={subject}&body={body}".format(
+                    subject=_("Take a course with {platform} online").format(platform=platform_name),
+                    body=_("I just registered for {number} {title} through {platform} {url}").format(
+                        number=course.number,
+                        title=get_course_about_section(course, 'title'),
+                        platform=platform_name,
+                        url=u"http://{domain}{path}".format(
+                            domain=site_domain,
+                            path=reverse('about_course', args=[course.id.to_deprecated_string()]),
+                        )
+                    )
+                ).replace(u" ", u"%20")
+              %>
+
+              <a class="addthis_button_facebook at300b" title="Facebook" href="${facebook_link}"><span class="at4-icon aticon-facebook" style="background-color: rgb(48, 88, 145);"><span class="at_a11y">${_("Post a Facebook message to say you've registered for this course")}</span></span></a>
+              
+
+              <a class="addthis_button_twitter at300b" title="Tweet" href="${tweet_action}"><span class="at4-icon aticon-twitter" style="background-color: rgb(44, 168, 210);"><span class="at_a11y">${_("Tweet that you've registered for this course")}</span></span></a>
+              <a class="addthis_button_google_plusone_share at300b" href="https://www.addthis.com/bookmark.php?v=300&amp;winname=addthis&amp;pub=ra-532208d8373cadff&amp;source=tbx32-300&amp;lng=ko&amp;s=google_plusone_share&amp;url=https%3A%2F%2Fwww.edx.org%2Fcourse%2Finclusive-leadership-training-becoming-catalystx-ilx1&amp;title=Leadership%20Training%3A%20Becoming%20a%20Successful%20Leader%20%7C%20edX&amp;ate=AT-ra-532208d8373cadff/-/-/55063059a9c034cc/3&amp;frommenu=1&amp;uid=55063059623eec58&amp;ct=1&amp;rsi=55062f638ee471bf&amp;gen=4&amp;pre=http%3A%2F%2F211.214.182.188%3A8880%2F&amp;tt=0&amp;captcha_provider=nucaptcha" target="_blank" title="Google+"><span class="at4-icon aticon-google_plusone_share" style="background-color: rgb(206, 77, 57);"><span class="at_a11y">Share on google_plusone_share</span></span></a>
+
+
 					</div>
 				</div>
 			</div>
