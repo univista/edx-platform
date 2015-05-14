@@ -166,7 +166,7 @@ label.after-none:after{content:'' !important;}
 .chk_area input:checked+span {background:#2faa47 url("/static/themes/default/images/ico_checked.png") no-repeat 100% 100%; background-size: 13px auto; -webkit-border-radius: 2px; border-radius: 2px;}
 
 /*교육과정*/
-.content-wrapper .region-container.container{max-width:1280px !important;width:1280px !important;min-width:640px;background:#fff;padding:0;}
+.content-wrapper .region-container.container{max-width:1280px !important;width:1280px !important;padding:0 50px;}
 #page-title {border: 0 none;clip: rect(0px,0px,0px,0px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}
 .search-header {padding: 0 55px 0;overflow:hidden;background:#f5f5f5}
 .search-header h2{font-size: 36px;font-weight:200;line-height: 72px;width: 500px;color: #333333;display: inline;float: left;margin-bottom: 16px;padding-top:13px;padding-bottom: 16px;}
@@ -247,7 +247,7 @@ header[role="banner"], .content-inner, .nav, .region-sidebar-first, .region-side
 .view-display-members-full .member-list.professor li.member-professor{width:578px;height:325px;float:left;position:relative;text-align:left;}
 .view-display-members-full .member-list.professor li.member-professor:hover:after{position:absolute;right:0;top:0;content:'';display:block;border-bottom:325px solid #31b24a;border-left:365px solid transparent;border-right:0 solid transparent;height: 0;width:40px;transition: all 0.25s ease-in-out;z-index:0;}
 .view-display-members-full .member-list.professor li em{display:block;font-size:30px;line-height:34px;font-weight:300;color:#333;font-style:normal;padding:36px 38px 22px}
-.view-display-members-full .member-list.professor li .professor{position:absolute;left:0;top:92px;z-index:30}
+.view-display-members-full .member-list.professor li .professor{position:absolute;left:0;top:92px;z-index:30;padding-left:38px;}
 .view-display-members-full .member-list.professor li .course-list ul{margin:0 0 21px;}
 .view-display-members-full .member-list.professor li .course-list li{list-style:none;padding-left:13px;}
 .view-display-members-full .member-list.professor li .course-list li a{color:#666;font-size:16px;display:inline-block;}
@@ -370,7 +370,7 @@ header[role="banner"], .content-inner, .nav, .region-sidebar-first, .region-side
 .payment .sections .payment-box01 dl dd .agree-area .chk_area{background:#ddd;top:3px;}
 .payment .sections .payment-box01 dl dd .agree-area .is-focused label{color:#2faa47;border-bottom: 1px solid #a5d1ac;}
 .payment .sections .payment-box01 dl dd .agree-area label{display:inline-block;margin-right:40px;border-bottom: 1px solid #b6b6b6;font-size:12px;}
-.payment .sections .payment-box01 dl dd .x-sel{background-image: url("/static/images/ximg/ico_dawn.png");display:inline-block;height:40px;background-position:right center;background-repeat: no-repeat;background-color:#f4f4f4;margin:0;padding:0;}
+.payment .sections .payment-box01 dl dd .x-sel{background-image: url("/static/themes/default/images/ico_dawn.png");display:inline-block;height:40px;background-position:right center;background-repeat: no-repeat;background-color:#f4f4f4;margin:0;padding:0;}
 .payment .sections .payment-box01 dl dd .x-sel select{appearance:button;border-radius: 2px;box-shadow: none;-webkit-appearance:button;-webkit-border-radius: 2px;-webkit-padding-end: 20px;-webkit-padding-start: 2px;-webkit-user-select: none;background:transparent;border:0;color: #666;font-size: inherit;overflow: hidden;padding: 10px 25px 10px 10px;text-overflow: ellipsis;white-space: nowrap;font-size:14px;height:40px;min-width:160px;}
 .payment .sections .payment-box01 dl dt:nth-child(5),.payment .sections dl dd:nth-child(6){height:120px;}
 .payment .sections .payment-box01 dl dd:nth-child(6) > div{display:block;}
@@ -562,7 +562,7 @@ img, embed, object, video {max-width: 100%;}
 .dashboard .profile-sidebar .user-info:after{content:"";display:table;clear:both}
 .dashboard .profile-sidebar .user-info>ul{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;margin:0;padding:20px 0;width:100%;background:#fff}
 .dashboard .profile-sidebar .user-info>ul:after{content:"";display:table;clear:both}
-.dashboard .profile-sidebar .user-info>ul li{border-bottom:1px solid #f4f4f4;list-style:none;margin-bottom:15px;padding:0 20px 17px}
+.dashboard .profile-sidebar .user-info>ul li{border-bottom:1px solid #f4f4f4;list-style:none;margin-bottom:15px;padding:0 18px 17px}
 .dashboard .profile-sidebar .user-info>ul li:after{content:"";display:table;clear:both}
 .dashboard .profile-sidebar .user-info>ul li:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
 .dashboard .profile-sidebar .user-info>ul li:hover .title .icon,.dashboard .profile-sidebar .user-info>ul li:focus .title .icon{opacity:1.0}
@@ -798,140 +798,63 @@ a.fade-cover{opacity:0.5}
 .dashboard-banner .wrapper-msg .msg.has-actions .donate-actions .action-donate{vertical-align:middle;padding-top:10px;padding-bottom:10px;text-shadow:none;text-transform:none;letter-spacing:0;color:#fff;font-weight:600}
 .dashboard-banner .wrapper-msg .msg.has-actions .donate-actions .donation-error-msg{padding:10px 0}
 
+/*20150514 minsuk add*/
+.fa-remove:before, .fa-close:before, .fa-times:before{  content: url("/static/themes/default/images/ico_popclose.png");}
+.chapter h3:before{
+content: "";
+background: url('/static/themes/default/images/ico_up_dawn.png') no-repeat 100% 0;
+position: absolute;
+top: 11px;
+right: 0;
+width: 100%;
+height: 9px;
+overflow: hidden;
+text-align: right;
+}
+.chapter.is-open h3:before{ background-position: 100% -9px; }
 
+.course-index div#accordion ul.ui-accordion-content li.active>a {
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  }
 
-
-
+.course-index div#accordion h3.ui-accordion-header span.ui-icon{background-image: none !important}
 
 </style>
-  <header id="global-navigation" class="global ${"slim" if course else ""}" >
-    <nav aria-label="${_('Global')}">
-    <h1 class="logo">
-      <a href="${marketing_link('ROOT')}">
-        <%block name="navigation_logo">
-            <img src="${static.url(branding.get_logo_url())}" alt="${platform_name()}"/>
-        </%block>
-      </a>
-    </h1>
+<script>
+$('button.close-modal').click(function() {
+  alert( "Handler for .click() called." );
+});
+</script>
 
-    % if course:
-    <h2><span class="provider">${course.display_org_with_default | h}:</span> 
-      ${course.display_number_with_default | h}
-      <%
-        display_name = course.display_name_with_default
-        if settings.FEATURES.get('CUSTOM_COURSES_EDX', False):
-          ccx = get_current_ccx()
-          if ccx:
-            display_name = ccx.display_name
-      %>
-      ${display_name}</h2>
-    % endif
+<header class="global-x" aria-label="Global Navigation">
+        <nav>
+                <h1 class="logo">
+                <a href="/">
+                        <img src="/static/themes/default/images/logo.png" alt="AcademyX"/>
+                </a>
+                </h1>
+                <ul class="gnb">
+                <li><a href="/courses/">교육과정</a></li>
+                <!--<li class="on"><a href="/">교육과정</a></li> 선택시-->
+                <li><a href="/professor">교수진</a></li>
 
-    % if user.is_authenticated():
-    <ol class="left nav-global authenticated">
-      <%block name="navigation_global_links_authenticated">
-        % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
-          <li class="nav-global-01">
-            <a href="${marketing_link('COURSES')}">${_('Find Courses')}</a>
-          </li>
-		  <li><a href="/courses">교육과정</a></li>
-			<li><a href="/professor">교수진</a></li>
-			<li><a href="/">서비스 소개</a></li>
-			<li><a href="/partner">파트너</a></li>
-        % endif
-        %if settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff:
-          <li>
-            ## Translators: This is short for "System administration".
-            <a href="${reverse('sysadmin')}">${_("Sysadmin")}</a>
-          </li>
-        %endif
-      </%block>
-    </ol>
-    <ol class="user">
-      <li class="primary">
-        <a href="${reverse('dashboard')}" class="user-link">
-          <i class="icon fa fa-home" aria-hidden="true"></i>
-          <span class="sr">${_("Dashboard for:")}</span>
-          <div>
-          ${user.username}
-          </div>
-        </a>
-      </li>
-      <li class="primary">
-        <a href="#" class="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr">${_("More options dropdown")}</span><i class="fa fa-sort-desc" aria-hidden="true"></i></a>
-        <ul class="dropdown-menu" aria-label="More Options" role="menu">
-          <%block name="navigation_dropdown_menu_links" >
-            % if settings.MKTG_URL_LINK_MAP.get('FAQ'):
-              <li><a href="${marketing_link('FAQ')}">${_("Help")}</a></li>
-            % endif
-          </%block>
-          <li><a href="${reverse('logout')}" role="menuitem">${_("Sign out")}</a></li>
-        </ul>
-      </li>
-    </ol>
-      % if should_display_shopping_cart_func(): # see shoppingcart.context_processor.user_has_cart_context_processor
-        <ol class="user">
-          <li class="primary">
-            <a class="shopping-cart" href="${reverse('shoppingcart.views.show_cart')}">
-              <i class="icon fa fa-shopping-cart"></i> ${_("Shopping Cart")}
-            </a>
-          </li>
-        </ol>
-      % endif
-    % else:
-    <ol class="left nav-global">
-      <%block name="navigation_global_links">
-        % if microsite.get_value('ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)):
-          <li class="nav-global-01">
-            <a href="${marketing_link('HOW_IT_WORKS')}">${_("How it Works")}</a>
-          </li>
-          <li class="nav-global-02">
-            <a href="${marketing_link('COURSES')}">${_("Courses")}</a>
-          </li>
-          <li class="nav-global-03">
-            <a href="${marketing_link('SCHOOLS')}">${_("Schools")}</a>
-          </li>
-        % endif
-      </%block>
-      % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
-          % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-          <li class="nav-global-04">
-            <a class="cta cta-register" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register Now")}</a>
-          </li>
-		  <li><a href="/courses">교육과정</a></li>
-			<li><a href="/professor">교수진</a></li>
-			<li><a href="/">서비스 소개</a></li>
-			<li><a href="/partner">파트너</a></li>
-          % else:
-          <li class="nav-global-04">
-            <a class="cta cta-register" href="/register">${_("Register Now")}</a>
-          </li>
-		  <li><a href="/courses">교육과정2</a></li>
-			<li><a href="/professor">교수진2</a></li>
-			<li><a href="/">서비스 소개2</a></li>
-			<li><a href="/partner">파트너2</a></li>
-          % endif
-      % endif
-    </ol>
-	<ul class="gnb-blobal">
-			<li><a href="/register">회원가입</a></li>
-			<li><a href="/login">로그인</a></li>
-			</ul>
-
-    <ol class="right nav-courseware">
-    <li class="nav-courseware-01">
-      % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
-          % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-          <a class="cta cta-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Sign in")}</a>
-          % else:
-          <a class="cta cta-login" href="/login${login_query()}">${_("Sign in")}</a>
-          % endif
-      % endif
-    </li>
-    </ol>
-    % endif
-  </nav>
+                <li><a href="/partner">파트너</a></li>
+                </ul>
+                <ul class="gnb-blobal">
+                % if user.is_authenticated():
+                <li><a href="/logout">logout</a></li>
+                % else:
+                <li><a href="/register">회원가입</a></li>
+                <!--<li class="on"><a href="register.html">회원가입</a></li> 선택시-->
+                <li><a href="/login">로그인</a></li>
+                % endif
+                </ul>
+        </nav>
 </header>
+
+
 % if course:
 <!--[if lte IE 8]>
 <div class="ie-banner" aria-hidden="true">${_('<strong>Warning:</strong> Your browser is not fully supported. We strongly recommend using {chrome_link} or {ff_link}.').format(chrome_link='<a href="https://www.google.com/intl/en/chrome/browser/" target="_blank">Chrome</a>', ff_link='<a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a>')}</div>
@@ -943,3 +866,5 @@ a.fade-cover{opacity:0.5}
 %endif
 
 <%include file="help_modal.html"/>
+
+

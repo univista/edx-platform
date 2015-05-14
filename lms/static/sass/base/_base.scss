@@ -6,7 +6,7 @@
 // }
 
 html, body {
-  font-family: $sans-serif;
+  font-family: $theme-sans-font;
   font-size: 1em;
   font-style: normal;
   line-height: 1em;
@@ -23,13 +23,13 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: $base-font-color;
-  font: normal 1.2em/1.2em $serif;
+  font: normal 1.2em/1.2em $theme-sans-font;
   margin: 0;
 }
 
 h1 {
   color: $base-font-color;
-  font: normal 2em/1.4em $sans-serif;
+  font: normal 2em/1.4em $theme-sans-font;
   letter-spacing: 1px;
   margin-bottom: ($baseline*1.5);
   text-align: center;
@@ -51,12 +51,12 @@ p + h2, ul + h2, ol + h2 {
 
 p {
   color: $base-font-color;
-  font: normal 1em/1.6em $serif;
+  font: normal 1em/1.6em $theme-sans-font;
   margin: 0;
 }
 
 span {
-  font: normal 1em/1.6em $sans-serif;
+  font: normal 1em/1.6em $theme-sans-font;
   color: $base-font-color;
 }
 
@@ -81,7 +81,7 @@ p + p, ul + p, ol + p {
 p {
   a:link, a:visited {
     color: $link-color;
-    font: normal 1em/1em $serif;
+    font: normal 1em/1em $theme-sans-font;
     text-decoration: none;
     @include transition(all 0.1s linear 0s);
 
@@ -94,7 +94,7 @@ p {
 
 a:link, a:visited {
   color: $link-color;
-  font: normal 1em/1em $sans-serif;
+  font: normal 1em/1em $theme-sans-font;
   text-decoration: none;
   @include transition(all 0.1s linear 0s);
 
@@ -156,7 +156,7 @@ span.edx {
 
     li {
       color: $base-font-color;
-      font: normal 1em/1.4em $serif;
+      font: normal 1em/1.4em $theme-sans-font;
       margin: 0;
     }
   }

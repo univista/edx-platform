@@ -1,0 +1,208 @@
+<%! 
+  from django.utils.translation import ugettext as _
+  from microsite_configuration import microsite
+%>
+<%inherit file="../main.html" />
+
+<section class="container-x">
+				<section class="member-professor">
+					<em>황병선 대표 교수</em>
+					<div class="professor-images">
+						<img typeof="foaf:Image" class="image-style-none" src="static/images/ximg/img_professor01.png" alt="황병선 대표 교수" title="황병선 대표 교수" />
+					</div>
+					<div class="professor">
+						<div class="course-list">
+							<ul>
+							<li><a href="#">플랫폼 비즈니스 모델 기획</a></li>
+							<li><a href="#">초기 투자 유치를 위한 제안서 작성</a></li>
+							</ul>
+						</div>
+						<p>삼성전자,  LG CNS에서 게임,  IPTV,  안드로이드 프로젝트에 참여.<br />LG전자에서는 게임전략, 전사 서비스 플폼 전략 등을 거쳐<br />직접 소셜, 클라우드 서비스 개발에 참여.<br />현재 퓨처워커라는 필명으로 플랫폼&서비스전략 전문 블로그를 운영 중.</p>
+					</div>
+					<div class="professor-history">
+							<ul>
+							<li>아카데미엑스 대표</li>
+							<li>KAIST 대우교수</li>
+							<li>전) 청강대 전임교수</li>
+							<li>전) LG전자, LG CNS</li>
+							<li>플랫폼, 생태계, BM</li>
+							</ul>
+					</div>
+				</section>
+
+				<section class="course-board">
+					<header>
+						<h2 class="element-invisible">강의 한줄평</h2>
+						<nav>
+							<ul>
+							<li><a href="professor_sub1.html">강의 한줄평</a></li>
+							<li class="on"><a href="professor_sub2.html">Q&A게시판</a></li>
+							</ul>
+						</nav>
+					</header>
+					<section class="board-write">
+						<div>
+							<form>
+								<div class="header">
+									<span class="x-sel">
+										<select>
+										<option>교육과정 선택</option>
+										<option></option>
+										<option></option>
+										</select>
+									</span>
+									<div class="facebook" id="field-honorcode">
+										<span class="chk_area"><input id="honorcode-yes" type="checkbox" name="honor_code" value="true"><span></span></span>
+										<label for="honorcode-yes" class="after-none">페이스북에 공유하기</label>
+									</div>
+								</div>
+								<div class="text">
+									<textarea class="wmd-input" id="wmd-input-reply-body-550f7dbb2a472dc9930025c3" placeholder="내용을 입력해주세요."></textarea>
+									<input class="check" type="button" data-checking="Checking..." value="등록하기">
+								</div>
+							</form>
+						</div>
+					</section>
+					<section class="board-list">
+						<div class="list-select">
+							<span class="x-sel">
+								<select>
+								<option>교육과정 전체</option>
+								<option></option>
+								<option></option>
+								</select>
+							</span>
+							<input class="check" type="button" data-checking="Checking..." value="내가 작성한 글 보기">
+						</div>
+						<div class="discussion-response complete">
+							<header>
+								<div class="response-header-content">
+									<h3>[교육과정명] 스타트업을 위한 플랫폼 비즈니스 모델기획<span>완료</span></h3>
+									<p class="posted-details">
+										<span class="timeago" title="2015-03-23T02:43:07Z">1년전</span> 에 포스팅 됨 by
+										<a href="/courses/McGillX/Body101x/1T2015/discussion/forum/users/5929013" class="username">neuroxjx77</a>
+									</p>
+								</div>
+								<div class="response-header-actions">
+									<div class="actions-button">
+										<ul>
+										<li class="actions-item">
+											<a href="javascript:void(0)" class="action-list-item action-edit" role="button">수정</a>
+										</li>
+									
+										<li class="actions-item">
+											<a href="javascript:void(0)" class="action-list-item action-delete" role="button">삭제</a>
+										</li>
+										</ul>
+									</div>
+								</div>
+							</header>
+							<div class="response-body"><p>나는 모듈의 시험에 MCB80x으로 통과 점수를 득점 나는 아직도 내가 버는 것 믿게 된 인증을받지 못했습니다. 일이 무엇인지 알려주세요?</p></div>
+							<div class="answer">
+								<p>의견에 대한 답변입니다. 이렇게 이렇게 되었습니다. 감사합니다.<br />의견에 대한 답변입니다. 이렇게 이렇게 되었습니다. 감사합니다.</p>
+								<p class="posted-details">
+								<span class="timeago" title="2015-02-23T22:05:21Z">1년전</span>에 포스팅 됨 by 
+								<a href="/courses/SMES/PSYCH101x/1T2015/discussion/forum/users/5385102" class="username">황병선</a>
+								</p>
+								<div class="post-labels">
+								  <span class="post-label-reported is-hidden"><i class="icon fa fa-flag"></i>Reported</span>
+								</div>
+							</div>
+						</div>
+						<div class="discussion-response">
+							<header>
+								<div class="response-header-content">
+									<h3>[교육과정명] 스타트업을 위한 플랫폼 비즈니스 모델기획<span>미완료</span></h3>
+									<p class="posted-details">
+										<span class="timeago" title="2015-03-23T02:43:07Z">1년전</span> 에 포스팅 됨 by
+										<a href="/courses/McGillX/Body101x/1T2015/discussion/forum/users/5929013" class="username">neuroxjx77</a>
+									</p>
+								</div>
+								<div class="response-header-actions">
+									<div class="actions-button">
+										<ul>
+										<li class="actions-item">
+											<a href="javascript:void(0)" class="action-list-item action-edit" role="button">수정</a>
+										</li>
+									
+										<li class="actions-item">
+											<a href="javascript:void(0)" class="action-list-item action-delete" role="button">삭제</a>
+										</li>
+										</ul>
+									</div>
+								</div>
+							</header>
+							<div class="response-body"><p>나는 모듈의 시험에 MCB80x으로 통과 점수를 득점 나는 아직도 내가 버는 것 믿게 된 인증을받지 못했습니다. 일이 무엇인지 알려주세요?</p></div>
+						</div>
+						<div class="discussion-response">
+							<header>
+								<div class="response-header-content">
+									<h3>[교육과정명] 스타트업을 위한 플랫폼 비즈니스 모델기획<span>미완료</span></h3>
+									<p class="posted-details">
+										<span class="timeago" title="2015-03-23T02:43:07Z">1년전</span> 에 포스팅 됨 by
+										<a href="/courses/McGillX/Body101x/1T2015/discussion/forum/users/5929013" class="username">neuroxjx77</a>
+									</p>
+								</div>
+								<div class="response-header-actions">
+									<div class="actions-button">
+										<ul>
+										<li class="actions-item">
+											<a href="javascript:void(0)" class="action-list-item action-edit" role="button">수정</a>
+										</li>
+									
+										<li class="actions-item">
+											<a href="javascript:void(0)" class="action-list-item action-delete" role="button">삭제</a>
+										</li>
+										</ul>
+									</div>
+								</div>
+							</header>
+							<div class="response-body"><p>나는 모듈의 시험에 MCB80x으로 통과 점수를 득점 나는 아직도 내가 버는 것 믿게 된 인증을받지 못했습니다. 일이 무엇인지 알려주세요?</p></div>
+						</div>
+						<div class="discussion-response">
+							<header>
+								<div class="response-header-content">
+									<h3>[교육과정명] 스타트업을 위한 플랫폼 비즈니스 모델기획<span>미완료</span></h3>
+									<p class="posted-details">
+										<span class="timeago" title="2015-03-23T02:43:07Z">1년전</span> 에 포스팅 됨 by
+										<a href="/courses/McGillX/Body101x/1T2015/discussion/forum/users/5929013" class="username">neuroxjx77</a>
+									</p>
+								</div>
+								<div class="response-header-actions">
+									<div class="actions-button">
+										<ul>
+										<li class="actions-item">
+											<a href="javascript:void(0)" class="action-list-item action-edit" role="button">수정</a>
+										</li>
+									
+										<li class="actions-item">
+											<a href="javascript:void(0)" class="action-list-item action-delete" role="button">삭제</a>
+										</li>
+										</ul>
+									</div>
+								</div>
+							</header>
+							<div class="response-body"><p>나는 모듈의 시험에 MCB80x으로 통과 점수를 득점 나는 아직도 내가 버는 것 믿게 된 인증을받지 못했습니다. 일이 무엇인지 알려주세요?</p></div>
+						</div>
+						<div class="discussion-response">
+							<div class="none">
+								<span>작성하신 강의 한줄평 내용이 없습니다.</span>
+							</div>
+						</div>
+					</section>
+					<section class="pagination">
+						<nav class="discussion--paginator discussion-paginator">
+							<ol>
+								<li><a class="discussion-pagination" href="?discussion_page=1" data-page-number="1" title="이전">&lt;</a></li>
+								<li><a class="discussion-pagination" href="?discussion_page=1" data-page-number="1">1</a></li>
+								<li class="current-page"><span>2</span></li>
+								<li><a class="discussion-pagination" href="?discussion_page=3" data-page-number="3">3</a></li>
+
+								<li>…</li>
+								<li><a class="discussion-pagination" href="?discussion_page=97" data-page-number="97">97</a></li>
+								<li><a class="discussion-pagination" href="?discussion_page=2" data-page-number="2" title="다음">&gt;</a></li>
+							</ol>
+						</nav>
+					</section>
+				</section>
+			</section>

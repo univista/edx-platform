@@ -1,0 +1,37 @@
+<%! 
+  from django.utils.translation import ugettext as _
+  from microsite_configuration import microsite
+%>
+<%inherit file="../main.html" />
+
+<!--교재파일 wrapper-->
+		<div class="container">
+			<div class="book-wrapper">
+				<section class="book-sidebar" aria-label="Textbook Navigation">
+					<ul id="booknav" tabindex="0">
+					<li>
+						<a class="chapter" rel="/c4x/SMES/PSYCH101x/asset/Chapter_1-Intro_to_Psych__1_.pdf" href="#">1장 구글과 안드로이드의 미래</a>
+					</li>
+					<li>
+						<a class="chapter" rel="/c4x/SMES/PSYCH101x/asset/Chapter_1.2_History_of_Psychology.pdf" href="#">2장 HTML5의 개요</a>
+					</li>
+					<li>
+						<a class="chapter" rel="/c4x/SMES/PSYCH101x/asset/Chapter_2_Psychological_Science.pdf" href="#">3장 HTML5의 전망</a>
+					</li>
+					</ul>
+				</section>
+				<div class="book">
+					<iframe
+					title="Chapter 1: Introduction"
+					id="viewer-frame"
+					src="https://courses.edx.org/courses/SMES/PSYCH101x/1T2015/pdfbook/0/?viewer=true&file=/c4x/SMES/PSYCH101x/asset/Chapter_1-Intro_to_Psych__1_.pdf#zoom=page-fit&disableRange=true"
+					width="906"
+					height="1108"
+					frameborder="0"
+					seamless
+					tabindex="1"
+					aria-live="polite"></iframe>
+				</div>
+			</div>
+		</div>
+<!--교재파일 wrapper-->

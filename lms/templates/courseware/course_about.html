@@ -112,94 +112,12 @@ from edxmako.shortcuts import marketing_link
 
   <script src="${static.url('js/course_info.js')}"></script>
   <link rel="stylesheet" href="/static/css/m2ly6jxt.css">
+
 </%block>
 
 <%block name="pagetitle">${get_course_about_section(course, "title")}</%block>
 
 <section class="course-info">
-  <!--<header class="course-profile">
-    <div class="intro-inner-wrapper">
-      <div class="table">
-      <section class="intro">
-        <hgroup>
-          <h1>
-            ${get_course_about_section(course, "title")}
-            % if not self.theme_enabled():
-              <a href="#">${get_course_about_section(course, "university")}</a>
-            % endif
-          </h1>
-        </hgroup>
-
-        <div class="main-cta">
-        %if user.is_authenticated() and registered:
-          %if show_courseware_link:
-            <a href="${course_target}">
-          %endif
-
-          <span class="register disabled">${_("You are registered for this course")}</span>
-
-          %if show_courseware_link:
-            <strong>${_("View Courseware")}</strong>
-            </a>
-          %endif
-
-        %elif in_cart:
-          <span class="add-to-cart">
-            ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
-          </span>
-        % elif is_course_full:
-          <span class="register disabled">
-            ${_("Course is full")}
-          </span>
-        % elif invitation_only and not can_enroll:
-          <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
-        ## Shib courses need the enrollment button to be displayed even when can_enroll is False,
-        ## because AnonymousUsers cause can_enroll for shib courses to be False, but we need them to be able to click
-        ## so that they can register and become a real user that can enroll.
-        % elif not is_shib_course and not can_enroll:
-          <span class="register disabled">${_("Enrollment is Closed")}</span>
-        %elif can_add_course_to_cart:
-          <%
-          if user.is_authenticated():
-            reg_href = "#"
-            reg_element_id = "add_to_cart_post"
-          else:
-            reg_href = reg_then_add_to_cart_link
-            reg_element_id = "reg_then_add_to_cart"
-          %>
-          <a href="${reg_href}" class="add-to-cart" id="${reg_element_id}">
-            ${_("Add {course_name} to Cart ({price})")\
-              .format(course_name=course.display_number_with_default, price=course_price)}
-          </a>
-          <div id="register_error"></div>
-        %else:
-          <a href="#" class="register">
-            ${_("Register for {course_name}").format(course_name=course.display_number_with_default) | h}
-          </a>
-          <div id="register_error"></div>
-        %endif
-        </div>
-
-      </section>
-      % if get_course_about_section(course, "video"):
-      <a href="#video-modal" class="media" rel="leanModal">
-        <div class="hero">
-          <img src="${course_image_url(course)}" alt="" />
-          <div class="play-intro"></div>
-        </div>
-      </a>
-      %else:
-      <div class="media">
-        <div class="hero">
-          <img src="${course_image_url(course)}" alt="" />
-        </div>
-      </div>
-      % endif
-    </div>
-      </div>
-  </header>
--->
-
   <section class="container">
   <section id="main-content">
     <section class="details">
@@ -208,18 +126,8 @@ from edxmako.shortcuts import marketing_link
           <a class="instructor-info-action" href="${studio_url}">${_("View About Page in studio")}</a>
         </div>
       % endif
-<!--
-      <nav aria-label="${_('Course About')}">
-        <a href="#" class="active">${_("Overview")}</a>
-      ##  <a href="#">${_("FAQ")}</a>
-      ##  <a href="#">${_("Requirements")}</a>
-      ##  <a href="#">${_("Text-book")}</a>
-      ##  <a href="#">${_("Syllabus")}</a>
-      ##  <a href="#">${_("Reviews")}</a>
-      </nav>
--->
+
       <div class="inner-wrapper">
-        <!--${get_course_about_section(course, "overview")}-->
 
 			<div class="region-container-inner">
 				<div class="course-detail-image">
@@ -306,23 +214,7 @@ from edxmako.shortcuts import marketing_link
 							</div>
 						</div>
 					</div>
-					<div class="view view-course-detail view-id-course_detail view-display-id-footer view-dom-id-c2a4d1cbf2aecf839b86406091e12e17">
-						<div class="view-content">
-							<div>
-								<div class="course-detail-register">
-									<!--<iframe src="course_sub_btn.html" class="iframe iframe-register"></iframe>-->
-									<a class="action access-courseware" href="http://106.249.244.99:8880/course_modes_choose.html" target="_top">수강 신청</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- minsuk add-->
-					<form>
-					<!--<div class="form-actions">-->
-						<button name="submit" type="submit" id="submit" class="btn_block">수강 신청</button>
-					<!-- </div>-->
-					</form>
-					<!-- minsuk add-->
+					<a href="" class="btn_block">수강 신청22</a>	
 				</div>
 			</div>
       </div>
@@ -330,68 +222,6 @@ from edxmako.shortcuts import marketing_link
 
     <section class="course-sidebar">
 	  <section class="course-summary">
-	  <!--
-        <header>
-          % if microsite.get_value('course_about_show_social_links', True):
-          <div class="social-sharing">
-            <div class="sharing-message">${_("Share with friends and family!")}</div>
-            ## TODO: this should probably be an overrideable block,
-            ##       or something allowing themes to do whatever they
-            ##       want here (and on this whole page, really).
-            % if self.stanford_theme_enabled():
-              <a href="http://twitter.com/intent/tweet?text=I+just+registered+for+${course.number}+${get_course_about_section(course, 'title')}!+(http://class.stanford.edu)" class="share">
-                <i class="icon fa fa-twitter"></i><span class="sr">${_("Tweet that you've registered for this course")}</span>
-              </a>
-              <a href="mailto:?subject=Take%20a%20course%20at%20Stanford%20online!&body=I%20just%20registered%20for%20${course.number}%20${get_course_about_section(course, 'title')}+(http://class.stanford.edu)" class="share">
-                <i class="icon fa fa-envelope"></i><span class="sr">${_("Email someone to say you've registered for this course")}</span>
-              </a>
-            % else:
-              <%
-                site_domain = microsite.get_value('site_domain', settings.SITE_NAME)
-                platform_name = microsite.get_value('platform_name', settings.PLATFORM_NAME)
-
-                # Translators: This text will be automatically posted to the student's
-                # Twitter account. {url} should appear at the end of the text.
-                tweet_text = _("I just registered for {number} {title} through {account}: {url}").format(
-                    number=course.number,
-                    title=get_course_about_section(course, 'title'),
-                    account=microsite.get_value('course_about_twitter_account', settings.PLATFORM_TWITTER_ACCOUNT),
-                    url=u"http://{domain}{path}".format(
-                        domain=site_domain,
-                        path=reverse('about_course', args=[course.id.to_deprecated_string()])
-                    )
-                ).replace(u" ", u"+")
-                tweet_action = u"http://twitter.com/intent/tweet?text={tweet_text}".format(tweet_text=tweet_text)
-
-                facebook_link = microsite.get_value('course_about_facebook_link', settings.PLATFORM_FACEBOOK_ACCOUNT)
-
-                email_subject = u"mailto:?subject={subject}&body={body}".format(
-                    subject=_("Take a course with {platform} online").format(platform=platform_name),
-                    body=_("I just registered for {number} {title} through {platform} {url}").format(
-                        number=course.number,
-                        title=get_course_about_section(course, 'title'),
-                        platform=platform_name,
-                        url=u"http://{domain}{path}".format(
-                            domain=site_domain,
-                            path=reverse('about_course', args=[course.id.to_deprecated_string()]),
-                        )
-                    )
-                ).replace(u" ", u"%20")
-              %>
-              <a href="${tweet_action}" class="share">
-                <i class="icon fa fa-twitter"></i><span class="sr">${_("Tweet that you've registered for this course")}</span>
-              </a>
-              <a href="${facebook_link}" class="share">
-                <i class="icon fa fa-thumbs-up"></i><span class="sr">${_("Post a Facebook message to say you've registered for this course")}</span>
-              </a>
-              <a href="${email_subject}" class="share">
-                <i class="icon fa fa-envelope"></i><span class="sr">${_("Email someone to say you've registered for this course")}</span>
-              </a>
-            % endif
-          </div>
-          % endif
-        </header>
-		-->
 		<div class="course-detail-video">
 			<a href="http://www.youtube.com/watch?v=a3TxshdwpzI" class="video-modal-link" data-video="a3TxshdwpzI">
 				<div class="playvideo"></div>
@@ -424,18 +254,7 @@ from edxmako.shortcuts import marketing_link
 				<h3>수강에 필요한 학습 </h3>
 				<p>기본적인 통계 과목 학습이 필요합니다. 기본적인 통계 과목 학습이 필요합니다.</p>
 			</div>
-			<div class="hide-phone">
-				<div class="view view-course-detail view-id-course_detail view-display-id-footer view-dom-id-c8a6a879378dfc581a3c7d38e1bfc109">
-					<div class="view-content">
-						<div>
-							<div class="course-detail-register">
-								<!--<iframe src="course_sub_btn.html" class="iframe iframe-register"></iframe>-->
-								<a class="action access-courseware" href="/courses/CatalystX/ILX1/2015_T1/info" target="_top">수강 신청</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<button name="submit" type="submit" id="submit" class="btn_block">수강 신청</button>
 			
 			<div class="course-detail-social views-fieldset" data-module="views_fieldsets">
 				<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -446,66 +265,13 @@ from edxmako.shortcuts import marketing_link
 					<a class="addthis_button_youtube at300m" href="#"><span class="at4-icon aticon-compact" style="background-color: rgb(252, 109, 76);"><span class="at_a11y">Share on youtube</span></span></a>
 					</div>
 				</div>
+				<!--수강생 한줄평
+				<iframe src="reviews.html" id="ct_widget_iframe" class="ct-iframe" style="display: block; height: 610px;" scrolling="no"></iframe>-->
+				<!--//수강생 한줄평-->
 			</div>
+
 		</div>
 
-<!--
-        <ol class="important-dates">
-          <li class="important-dates-item"><i class="icon fa fa-info-sign"></i><p class="important-dates-item-title">${_("Course Number")}</p><span class="important-dates-item-text course-number">${course.display_number_with_default | h}</span></li>
-          % if not course.start_date_is_still_default:
-            <li class="important-dates-item"><i class="icon fa fa-calendar"></i><p class="important-dates-item-title">${_("Classes Start")}</p><span class="important-dates-item-text start-date">${course.start_datetime_text()}</span></li>
-          % endif
-            ## We plan to ditch end_date (which is not stored in course metadata),
-            ## but for backwards compatibility, show about/end_date blob if it exists.
-            % if get_course_about_section(course, "end_date") or course.end:
-            <li class="important-dates-item">
-                <i class="icon fa fa-calendar"></i>
-                <p class="important-dates-item-title">${_("Classes End")}</p>
-                <span class="important-dates-item-text final-date">
-                    % if get_course_about_section(course, "end_date"):
-                        ${get_course_about_section(course, "end_date")}
-                    % else:
-                        ${course.end_datetime_text()}
-                    % endif
-                </span>
-            </li>
-            % endif
-
-          % if get_course_about_section(course, "effort"):
-            <li class="important-dates-item"><i class="icon fa fa-pencil"></i><p class="important-dates-item-title">${_("Estimated Effort")}</p><span class="important-dates-item-text effort">${get_course_about_section(course, "effort")}</span></li>
-          % endif
-
-          ##<li class="important-dates-item"><i class="icon fa fa-clock-o"></i><p class="important-dates-item-title">${_('Course Length')}</p><span class="important-dates-item-text course-length">${_('{number} weeks').format(number=15)}</span></li>
-
-          %if course_price and (can_add_course_to_cart or is_cosmetic_price_enabled):
-            <li class="important-dates-item">
-              <i class="icon fa fa-money"></i>
-              <p class="important-dates-item-title">${_("Price")}</p>
-              <span class="important-dates-item-text">${course_price}</span>
-            </li>
-          %endif
-
-          % if pre_requisite_courses:
-          <% prc_target = reverse('about_course', args=[unicode(pre_requisite_courses[0]['key'])]) %>
-          <li class="prerequisite-course important-dates-item">
-            <i class="icon fa fa-list-ul"></i>
-            <p class="important-dates-item-title">${_("Prerequisites")}</p>
-            ## Multiple pre-requisite courses are not supported on frontend that's why we are pulling first element
-            <span class="important-dates-item-text pre-requisite"><a href="${prc_target}">${pre_requisite_courses[0]['display']}</a></span>
-            <p class="tip">
-            ${_("You must successfully complete {link_start}{prc_display}{link_end} before you begin this course.").format(
-              link_start='<a href="{}">'.format(prc_target),
-              link_end='</a>',
-              prc_display=pre_requisite_courses[0]['display'],
-            )}
-            </p>
-          </li>
-          % endif
-          % if get_course_about_section(course, "prerequisites"):
-            <li class="important-dates-item"><i class="icon fa fa-book"></i><p class="important-dates-item-title">${_("Requirements")}</p><span class="important-dates-item-text prerequisites">${get_course_about_section(course, "prerequisites")}</span></li>
-          % endif
-        </ol>
--->
       </section>
 
       ## For now, ocw links are the only thing that goes in additional resources
