@@ -310,8 +310,52 @@ from edxmako.shortcuts import marketing_link
 						<div class="view-content">
 							<div>
 								<div class="course-detail-register">
-									<!--<iframe src="course_sub_btn.html" class="iframe iframe-register"></iframe>-->
-									<a class="action access-courseware" href="http://106.249.244.99:8880/course_modes_choose.html" target="_top">수강 신청</a>
+
+       %if user.is_authenticated() and registered:
+          %if show_courseware_link:
+            <a class="action access-courseware" href="${course_target}">
+          %endif
+          %if show_courseware_link:
+            <strong>수강 듣기</strong>
+            </a>
+          %endif
+
+        %elif in_cart:
+          <span class="add-to-cart">
+            ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
+          </span>
+        % elif is_course_full:
+          <span class="register disabled">
+            ${_("Course is full")}
+          </span>
+        % elif invitation_only and not can_enroll:
+          <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
+        ## Shib courses need the enrollment button to be displayed even when can_enroll is False,
+        ## because AnonymousUsers cause can_enroll for shib courses to be False, but we need them to be able to click
+        ## so that they can register and become a real user that can enroll.
+        % elif not is_shib_course and not can_enroll:
+          <span class="register disabled">${_("Enrollment is Closed")}</span>
+        %elif can_add_course_to_cart:
+          <%
+          if user.is_authenticated():
+            reg_href = "#"
+            reg_element_id = "add_to_cart_post"
+          else:
+            reg_href = reg_then_add_to_cart_link
+            reg_element_id = "reg_then_add_to_cart"
+          %>
+          <a href="${reg_href}" class="add-to-cart action access-courseware" id="${reg_element_id}">
+            ${_("Add {course_name} to Cart ({price})")\
+              .format(course_name=course.display_number_with_default, price=course_price)}
+          </a>
+          <div id="register_error"></div>
+        %else:
+          <a href="#" class="register action access-courseware">
+            수강등록 
+          </a>
+          <div id="register_error"></div>
+        %endif
+
 								</div>
 							</div>
 						</div>
@@ -385,45 +429,100 @@ from edxmako.shortcuts import marketing_link
           % endif
         </header>
 		-->
-		<div class="course-detail-video">
-			<a href="http://www.youtube.com/watch?v=a3TxshdwpzI" class="video-modal-link" data-video="a3TxshdwpzI">
-				<div class="playvideo"></div>
-				<div class="description">Watch the Course Intro Video</div>
-				<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/video01.jpg" width="320" height="211" alt="Inclusive Leadership Training: Becoming a Successful Leader" />
-			</a>
-			<div id="schema-videoobject" class="video-inline">
-				<div id="video-player" data-video="a3TxshdwpzI"></div>
-			</div>
-		</div>
+
+     % if get_course_about_section(course, "video"):
+      <a href="#video-modal" class="media" rel="leanModal">
+        <div class="hero">
+          <img typeof="foaf:Image" class="image-style-none" src="${course_image_url(course)}" width="320" height="211" alt="" />
+          <div class="play-intro"></div>
+        </div>
+      </a>
+      %else:
+      <div class="media">
+        <div class="hero">
+          <img typeof="foaf:Image" class="image-style-none" src="${course_image_url(course)}" width="320" height="211" alt="" />
+        </div>
+      </div>
+      % endif
+
 		<div class="course-detail-overview views-fieldset" data-module="views_fieldsets">
 			<div class="copy-detail course-detail-info views-fieldset" data-module="views_fieldsets">
-				<div class="course-detail-school item">
-					<span class="label">소속기관 </span>
-					<a href="/school/catalystx">PAG&파트너스</a>
-				</div>
+                                <div class="course-detail-school item">
+                                        <span class="label">강의명 </span>i${get_course_about_section(course, "title")}
+                                </div>
 				<div class="course-detail-number item">
-					<span class="label">강의교수 </span>황병선
+					<span class="label">Course Number </span>${course.display_number_with_default | h}
 				</div>
+                                <div class="course-detail-number item">
+                                        <span class="label">소속기관 </span>${get_course_about_section(course, "university")}
+                                </div>
+
 				<div class="course-detail-start item">
-					<span class="label">개강일 </span>2015-01-21
+					<span class="label">개강일 </span>${course.start_datetime_text()}
 				</div>
-				<div class="course-detail-length item">
-					<span class="label">수강신청 </span>2015-01-21 ~ 2015-02-01
-				</div>
-				<div class="course-detail-effort item"><span class="label">학습기간 </span>4주
-				</div>  
+
+
+                    % if get_course_about_section(course, "end_date"):
+                                <div class="course-detail-length item">
+                                        <span class="label">종료일 </span>i${get_course_about_section(course, "end_date")}
+                                </div>
+                    % endif
 			</div>
 			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
-				<h3>수강에 필요한 학습 </h3>
-				<p>기본적인 통계 과목 학습이 필요합니다. 기본적인 통계 과목 학습이 필요합니다.</p>
+				<p>${get_course_about_section(course, 'short_description')}</p>
 			</div>
 			<div class="hide-phone">
 				<div class="view view-course-detail view-id-course_detail view-display-id-footer view-dom-id-c8a6a879378dfc581a3c7d38e1bfc109">
 					<div class="view-content">
 						<div>
 							<div class="course-detail-register">
-								<!--<iframe src="course_sub_btn.html" class="iframe iframe-register"></iframe>-->
-								<a class="action access-courseware" href="/courses/CatalystX/ILX1/2015_T1/info" target="_top">수강 신청</a>
+
+
+        %if user.is_authenticated() and registered:
+          %if show_courseware_link:
+            <a class="action access-courseware" href="${course_target}">
+          %endif
+          %if show_courseware_link:
+            <strong>수강 듣기</strong>
+            </a>
+          %endif
+
+        %elif in_cart:
+          <span class="add-to-cart">
+            ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
+          </span>
+        % elif is_course_full:
+          <span class="register disabled">
+            ${_("Course is full")}
+          </span>
+        % elif invitation_only and not can_enroll:
+          <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
+        ## Shib courses need the enrollment button to be displayed even when can_enroll is False,
+        ## because AnonymousUsers cause can_enroll for shib courses to be False, but we need them to be able to click
+        ## so that they can register and become a real user that can enroll.
+        % elif not is_shib_course and not can_enroll:
+          <span class="register disabled">${_("Enrollment is Closed")}</span>
+        %elif can_add_course_to_cart:
+          <%
+          if user.is_authenticated():
+            reg_href = "#"
+            reg_element_id = "add_to_cart_post"
+          else:
+            reg_href = reg_then_add_to_cart_link
+            reg_element_id = "reg_then_add_to_cart"
+          %>
+          <a href="${reg_href}" class="add-to-cart action access-courseware" id="${reg_element_id}">
+            ${_("Add {course_name} to Cart ({price})")\
+              .format(course_name=course.display_number_with_default, price=course_price)}
+          </a>
+          <div id="register_error"></div>
+        %else:
+          <a href="#" class="register action access-courseware">
+            수강등록
+          </a>
+          <div id="register_error"></div>
+        %endif
+
 							</div>
 						</div>
 					</div>
