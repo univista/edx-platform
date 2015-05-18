@@ -99,99 +99,37 @@
 		<dd class="professor-list">
 			<a href="#none" class="arrow-left">이전</a>
 			<a href="#none" class="arrow-right">다음</a>
-			<div class="swiper-container">
-				<ul class="swiper-wrapper">
-				<li class="swiper-slide">
-					<div class="xcover">
-						<a href="#">
-							<em>비즈니스 모델과<br />고객가치명제 디자인</em>
-							<span>컴퓨터그래픽스 종합</span>
-							<span>황병선 교수님</span>
-						</a>
-						<img src="/static/themes/default/images/img_professor01.png" alt="" />
-					</div>
-				</li>
-				<li class="swiper-slide">
-					<div class="xcover">
-						<a href="#">
-							<em>O2O 트렌드로 배우는<br />서비스 전략의 이해</em>
-							<span>컴퓨터그래픽스 종합</span>
-							<span>황병선 교수님</span>
-						</a>
-						<img src="/static/themes/default/images/img_professor02.png" alt="" />
-					</div>
-				</li>
-				<li class="swiper-slide">
-					<div class="xcover">
-						<a href="#">
-							<em>3컴퓨터그래픽스<br />운용기능사 완전 정복<br />개념부터 완성까지</em>
-							<span>컴퓨터그래픽스 종합</span>
-							<span>황병선 교수님</span>
-						</a>
-						<img src="/static/themes/default/images/img_professor01.png" alt="" />
-					</div>
-				</li>
-				<li class="swiper-slide">
-					<div class="xcover">
-						<a href="#">
-							<em>4컴퓨터그래픽스<br />운용기능사 완전 정복<br />개념부터 완성까지</em>
-							<span>컴퓨터그래픽스 종합</span>
-							<span>황병선 교수님</span>
-						</a>
-						<img src="/static/themes/default/images/img_professor02.png" alt="" />
-					</div>
-				</li>
-				</ul>
-			</div>
-			<div class="pagination"></div>
+% if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+                        <div class="swiper-container">
+                                <ul class="swiper-wrapper">
+    %for course in courses[:9]:
+<%include file="course_index1.html" args="course=course" />
+    %endfor
+                                </ul>
+                        </div>
+                        <div class="pagination"></div>
+% endif
 		</dd>
 		</dl>
 	</div>
 	<!-- //추천 과정 부분 -->
 
 	<!-- 바로 신청 가능한 과정 부분 -->
-	<div class="sub-con">
-		<dl>
-		<dt><h2>바로 신청 가능한 과정</h2></dt>
-		<dd>아카데미 엑스는 온라인 미디어 인터넷 기술과 디지털 지식에 뿌리를 두고 있습니다. &nbsp;<a href="/courses">자세히보기</a></dd>
-		<dd class="class-list">
-			<ul>
-			<li>
-				<a href="#">
-					<em>웹디자인 기능사 자격증<br />실기/필기 종합세트</em>
-					<span>컴퓨터그래픽스 종합</span>
-					<span>황병선 교수님</span>
-				</a>
-				<img src="/static/themes/default/images/img_professor02_01.png" alt="" />
-			</li>
-			<li>
-				<a href="#">
-					<em>컴퓨터그래픽스<br />운용기능사 완전 정복<br />개념부터 완성까지<br />7일 코스</em>
-					<span>컴퓨터그래픽스 종합</span>
-					<span>황병선 교수님</span>
-				</a>
-				<img src="/static/themes/default/images/img_professor02_02.png" alt="" />
-			</li>
-			<li>
-				<a href="#">
-					<em>컴퓨터그래픽스<br />운용기능사 완전 정복<br />개념부터 완성까지</em>
-					<span>컴퓨터그래픽스 종합</span>
-					<span>황병선 교수님</span>
-				</a>
-				<img src="/static/themes/default/images/img_professor02_03.png" alt="" />
-			</li>
-			<li>
-				<a href="#">
-					<em>컴퓨터그래픽스<br />운용기능사 완전 정복<br />개념부터 완성까지</em>
-					<span>컴퓨터그래픽스 종합</span>
-					<span>황병선 교수님</span>
-				</a>
-				<img src="/static/themes/default/images/img_professor02_04.png" alt="" />
-			</li>
-			</ul>
-		</dd>
-		</dl>
-	</div>
+% if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+        <div class="sub-con">
+                <dl>
+                <dt><h2>바로 신청 가능한 과정</h2></dt>
+                <dd>아카데미 엑스는 온라인 미디어 인터넷 기술과 디지털 지식에 뿌리를 두고 있습니다. &nbsp;<a href="/courses">자세히보기</a></dd>
+                <dd class="class-list">
+                        <ul>
+    %for course in courses[:9]:
+<%include file="course_index2.html" args="course=course" />
+    %endfor
+                        </ul>
+                </dd>
+                </dl>
+        </div>
+% endif
 	<!-- //바로 신청 가능한 과정 부분 -->
 
 	<!-- 아카데미X 소개 부분 -->
