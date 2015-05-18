@@ -99,29 +99,37 @@
 		<dd class="professor-list">
 			<a href="#none" class="arrow-left">이전</a>
 			<a href="#none" class="arrow-right">다음</a>
+% if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
 			<div class="swiper-container">
 				<ul class="swiper-wrapper">
+    %for course in courses[:9]:
 <%include file="course_index1.html" args="course=course" />
+    %endfor
 				</ul>
 			</div>
 			<div class="pagination"></div>
+% endif
 		</dd>
 		</dl>
 	</div>
 	<!-- //추천 과정 부분 -->
 
 	<!-- 바로 신청 가능한 과정 부분 -->
+% if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
 	<div class="sub-con">
 		<dl>
 		<dt><h2>바로 신청 가능한 과정</h2></dt>
 		<dd>아카데미 엑스는 온라인 미디어 인터넷 기술과 디지털 지식에 뿌리를 두고 있습니다. &nbsp;<a href="/courses">자세히보기</a></dd>
 		<dd class="class-list">
 			<ul>
+    %for course in courses[:9]:
 <%include file="course_index2.html" args="course=course" />
+    %endfor
 			</ul>
 		</dd>
 		</dl>
 	</div>
+% endif
 	<!-- //바로 신청 가능한 과정 부분 -->
 
 	<!-- 아카데미X 소개 부분 -->

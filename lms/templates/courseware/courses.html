@@ -130,12 +130,23 @@
 													<h3>추천 교육과정</h3>
 												</div>
 												<div class="view-content">
-													<%include file="../course.html" args="course=course" />
+
+
+        %for course in courses:
+        <li class="courses-listing-item">
+          <%include file="../course.html" args="course=course" />
+        </li>
+        %endfor
 												</div>
 											</div>
 											<!-- //추천교육과정 -->
 											<div class="filtered">
-												<%include file="../course.html" args="course=course" />
+
+        %for course in courses:
+        <li class="courses-listing-item">
+          <%include file="../course.html" args="course=course" />
+        </li>
+        %endfor
 											</div>
 											<div class="loading hidden">
 												<p>

@@ -329,12 +329,12 @@ from edxmako.shortcuts import marketing_link
             ${_("Course is full")}
           </span>
         % elif invitation_only and not can_enroll:
-          <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
+          <a class="action access-courseware"><strong>${_("Enrollment in this course is by invitation only")}</strong></a>
         ## Shib courses need the enrollment button to be displayed even when can_enroll is False,
         ## because AnonymousUsers cause can_enroll for shib courses to be False, but we need them to be able to click
         ## so that they can register and become a real user that can enroll.
         % elif not is_shib_course and not can_enroll:
-          <span class="register disabled">${_("Enrollment is Closed")}</span>
+          <a class="action access-courseware"><strong>${_("Enrollment is Closed")}</strong></a>
         %elif can_add_course_to_cart:
           <%
           if user.is_authenticated():
@@ -501,7 +501,7 @@ from edxmako.shortcuts import marketing_link
         ## because AnonymousUsers cause can_enroll for shib courses to be False, but we need them to be able to click
         ## so that they can register and become a real user that can enroll.
         % elif not is_shib_course and not can_enroll:
-          <span class="register disabled">${_("Enrollment is Closed")}</span>
+          <a class="action access-courseware"><strong>${_("Enrollment is Closed")}</strong></a>
         %elif can_add_course_to_cart:
           <%
           if user.is_authenticated():
