@@ -133,34 +133,58 @@ def courses(request):
 @ensure_csrf_cookie
 @cache_if_anonymous()
 def professor(request):
-    """
-    Render "find courses" page.  The course selection work is done in courseware.courses.
-    """
-    courses = get_courses(request.user, request.META.get('HTTP_HOST'))
-
-    if microsite.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
-                           settings.FEATURES["ENABLE_COURSE_SORTING_BY_START_DATE"]):
-        courses = sort_by_start_date(courses)
-    else:
-        courses = sort_by_announcement(courses)
-
     return render_to_response("academyx/professor.html")
 
 @ensure_csrf_cookie
 @cache_if_anonymous()
 def partner(request):
-    """
-    Render "find courses" page.  The course selection work is done in courseware.courses.
-    """
-    courses = get_courses(request.user, request.META.get('HTTP_HOST'))
-
-    if microsite.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
-                           settings.FEATURES["ENABLE_COURSE_SORTING_BY_START_DATE"]):
-        courses = sort_by_start_date(courses)
-    else:
-        courses = sort_by_announcement(courses)
-
     return render_to_response("academyx/partner.html")
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def adx_terms_service(request):
+    return render_to_response("academyx/adx_terms_service.html")
+
+
+
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def certificate(request):
+    return render_to_response("academyx/certificate.html")
+
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def course_readings(request):
+    return render_to_response("academyx/course_readings.html")
+
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def partner_explain(request):
+    return render_to_response("academyx/partner_explain.html")
+
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def professor_sub(request):
+    return render_to_response("academyx/professor_sub.html")
+
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def reviews(request):
+    return render_to_response("academyx/reviews.html")
+
+
+
+
+
+
+
+
+
 
 def render_accordion(request, course, chapter, section, field_data_cache):
     """

@@ -281,6 +281,12 @@ if settings.COURSEWARE_ENABLED:
         url(r'^courses/?$', 'branding.views.courses', name="courses"),
         url(r'^professor/?$', 'branding.views.professor', name="courses"),
         url(r'^partner/?$', 'branding.views.partner', name="courses"),
+        url(r'^adx_terms_service/?$', 'branding.views.adx_terms_service', name="courses"),
+        url(r'^certificate/?$', 'branding.views.certificate', name="courses"),
+        url(r'^course_readings/?$', 'branding.views.course_readings', name="courses"),
+        url(r'^partner_explain/?$', 'branding.views.partner_explain', name="courses"),
+        url(r'^professor_sub/?$', 'branding.views.professor_sub', name="courses"),
+        url(r'^reviews/?$', 'branding.views.reviews', name="courses"),
 
         url(r'^change_enrollment$',
             'student.views.change_enrollment', name="change_enrollment"),
