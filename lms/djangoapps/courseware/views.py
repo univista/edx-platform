@@ -162,8 +162,6 @@ def partner(request):
 
     return render_to_response("academyx/partner.html")
 
-
-
 def render_accordion(request, course, chapter, section, field_data_cache):
     """
     Draws navigation bar. Takes current position in accordion as
