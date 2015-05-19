@@ -73,16 +73,16 @@ site_status_msg = get_site_status_msg(course_id)
 .sub-con .professor-list > div li a em{display:block;font-family:'NanumBarunGothic';font-weight:300;font-size:30px;line-height:40px;letter-spacing:-0.4px;padding-bottom:20px;word-wrap:break-word;}
 .sub-con .professor-list > div li a span{display:block;line-height:22px;font-size:14px;color:#666;padding-left:3px;letter-spacing:-0.2px;}
 .sub-con .professor-list > div li a span:last-child{color:#32b04a;}
-.sub-con .professor-list > div li img{position:absolute;right:7px;bottom:0;z-index:10;max-width:300px;height:auto;}
+.sub-con .professor-list > div li img{position:absolute;right:7px;bottom:0;z-index:10;max-width:384px;height:auto;}
 .sub-con .class-list ul{overflow:hidden;}
-.sub-con .class-list li{float:left;position:relative;background:#fff;width:280px;height:410px;margin-right:15px;}
+.sub-con .class-list li{float:left;position:relative;background:#fff;width:280px;height:410px;margin-right:15px;overflow:hidden;}
 .sub-con .class-list li:hover:after{position:absolute;right:0;bottom:0;content:'';display:block;border-bottom:280px solid #31b24a;border-left:280px solid transparent;border-right:0 solid transparent;height: 0;width:0;transition: all 0.25s ease-in-out;z-index:0;}
 .sub-con .class-list li:nth-child(4n){margin-right:0;}
 .sub-con .class-list li a{display:block;position:absolute;left:0;top:0;width:215px;height:319px;z-index:11;padding-top:21px;padding-left:25px;}
 .sub-con .class-list li a em{display:block;font-family:'NanumBarunGothic';font-weight:200;font-size:20px;line-height:28px;letter-spacing:-0.2px;padding-bottom:11px;}
 .sub-con .class-list li a span{display:block;line-height:18px;font-size:12px;color:#666;padding-left:3px;letter-spacing:-0.2px;}
 .sub-con .class-list li a span:last-child{color:#32b04a;}
-.sub-con .class-list li img{position:absolute;right:0;bottom:0;z-index:10;max-width:220px;height:auto;}
+.sub-con .class-list li img{position:absolute;right:0;bottom:0;z-index:10;max-width:361px;height:auto;}
 /*.sub-con.v2{padding-top:70px;background:#fff;}*/
 .sub-con.v2{padding:70px 0 55px;background:#fff;width:100%;}
 .sub-con.v2 .academyxIntro{width:1170px;margin:0 auto;}
@@ -867,7 +867,25 @@ text-align: right;
 
 
 /* certificate */
-.certificate_list li.venturesquire{background: url("/static/themes/default/images/venturesquire.jpg") no-repeat 0px 0px;}
+.certificate_list li.venturesquire{  background: url("/static/themes/default/images/certificate/venturesquire.jpg") no-repeat 0px 0px;
+  background-size: 100%;
+  padding: 29px 34px;
+  position: relative;
+}}
+.certificate_list li.venturesquire h3.logo{/*background: url("/static/themes/default/images/certificate/venturesquire_logo.png") no-repeat 0px 0px;*/width: 29%;
+  display: inline-block;
+  padding-left: 26%;
+  margin-bottom: 10px;}
+.venturesquire .certificate_info{font-size:0.75em;}
+.venturesquire .certificate_info spna{display:block;}
+.venturesquire .certificate_info .certificate_course{font-size:1.7em;color:#2faa47}
+.venturesquire .certificate_info .certificate_text{font-size:0.8em;line-height:1.2;}
+.venturesquire .list_footer{position:relative;}
+.venturesquire .list_footer .qr_coder{width:170px; height:110px}
+.venturesquire .list_footer .date{}
+.venturesquire .list_footer .issuing{position:absolute;left:10%;top:0}
+.venturesquire .list_footer .agencies{position:absolute;left:10%;top:20px}
+.venturesquire .list_footer .signWrite{position:absolute;left:30%;top:20px}
 </style>
 <script>
 $('button.close-modal').click(function() {
