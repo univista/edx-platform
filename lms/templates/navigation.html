@@ -237,7 +237,7 @@ header[role="banner"], .content-inner, .nav, .region-sidebar-first, .region-side
 .members-header{background-image: url("/static/themes/default/images/bg_h2.png");background-position: center;background-repeat: repeat-x;border: 0;font-weight: 700;margin:0;padding:0;text-align: center;text-transform: uppercase;}
 .members-header span{display: inline-block;padding: 0 18px;background: #f4f4f4;font-size: 36px;font-family: 'NanumBarunGothic';font-weight: 200;line-height:36px;}
 .view-members .view-header{padding-top:35px;}
-.view-members .view-header p{padding-top: 23px;padding-bottom:35px;font-size: 16px;color: #666;text-align: center;}
+.view-members .view-header p{padding-top: 23px;padding-bottom:35px;font-size: 16px;color: #666;text-align: center;font-family: 'NanumBarunGothic';}
 .view-members .view-content{width:100%;overflow:hidden;}
 .view-display-members-full .view-content{display: table;text-align: center;}
 .view-display-members-full .member-list{margin:0 -7px;overflow: auto;padding: 0;}
@@ -798,6 +798,50 @@ a.fade-cover{opacity:0.5}
 .dashboard-banner .wrapper-msg .msg.has-actions .donate-actions .action-donate{vertical-align:middle;padding-top:10px;padding-bottom:10px;text-shadow:none;text-transform:none;letter-spacing:0;color:#fff;font-weight:600}
 .dashboard-banner .wrapper-msg .msg.has-actions .donate-actions .donation-error-msg{padding:10px 0}
 
+/*payment*/
+.payment,.payment span{font-size:14px;line-height:18px;color:#666}
+.payment h2{font-size:26px;line-height:34px;font-weight:300;color:#333;}
+.payment section:first-child{padding-bottom:50px;}
+.payment .sections{margin-top:35px}
+.payment .sections dl{overflow:hidden;width:100%;border-top:1px solid #ddd}
+.payment .sections dl:nth-child(2){margin:0;}
+.payment .sections .payment-box01 dl,.payment .sections .payment-box03 dl{margin:0;border-top:0;}
+.payment .sections dl dt{float:left;width:170px;height:62px;box-sizing:border-box;background:#f4f4f4;margin:0;border-bottom:1px solid #ddd;line-height:20px;padding:20px;font-weight:700;}
+.payment .sections dl dt:after{content:'*';display:inline-block;color:#f44821;position:relative;top:3px;left:4px;}
+.payment .sections dl dd{float:left;width:930px;height:62px;margin:0;border-bottom:1px solid #ddd;padding:10px 20px;box-sizing:border-box;}
+.payment .sections dl dd label{font-size:14px;line-height:16px;}
+.payment .sections dl dd > div{height:40px;line-height:40px;display:inline-block;}
+.payment .sections dl dd > div > input[type="button"]{margin-left:15px;margin-top:5px;padding:5px 14px;font-size:12px;line-height:20px;vertical-align:top;}
+.payment .sections dl dd .radio-area{vertical-align: middle;}
+.payment .sections dl dd .radio-area input:checked + span{background: url("../images/ximg/ico_radio_checked.png") no-repeat scroll 100% 100% / 10px 10px #2faa47;border-radius: 5px;position: relative;top: -5px;}
+.payment .sections dl dd .post-type-label{display:inline-block;margin-right:20px;}
+.payment section .all-agree{display:inline-block;}
+.payment section .all-agree label{display:inline-block;margin-right:40px;font-size:14px;color:#666;}
+.payment section .all-agree .chk_area{top:3px;}
+.payment section:last-child .all-agree{padding-top:15px;}
+.payment .sections .payment-box01 > span{display:block;margin-top:18px;}
+.payment .sections .payment-box02 > span{display:block;line-height:22px;}
+.payment .sections .payment-box02 > span:first-child{margin-top:15px;}
+.payment .sections .payment-box01 dl dd .agree-area{background:#f4f4f4;margin-left:20px;padding-left:20px;margin-top:10px;}
+.payment .sections .payment-box01 dl dd .agree-area .chk_area{background:#ddd;top:3px;}
+.payment .sections .payment-box01 dl dd .agree-area .is-focused label{color:#2faa47;border-bottom: 1px solid #a5d1ac;}
+.payment .sections .payment-box01 dl dd .agree-area label{display:inline-block;margin-right:40px;border-bottom: 1px solid #b6b6b6;font-size:12px;}
+.payment .sections .payment-box01 dl dd .x-sel{background-image: url("/static/images/ximg/ico_dawn.png");display:inline-block;height:40px;background-position:right center;background-repeat: no-repeat;background-color:#f4f4f4;margin:0;padding:0;}
+.payment .sections .payment-box01 dl dd .x-sel select{appearance:button;border-radius: 2px;box-shadow: none;-webkit-appearance:button;-webkit-border-radius: 2px;-webkit-padding-end: 20px;-webkit-padding-start: 2px;-webkit-user-select: none;background:transparent;border:0;color: #666;font-size: inherit;overflow: hidden;padding: 10px 25px 10px 10px;text-overflow: ellipsis;white-space: nowrap;font-size:14px;height:40px;min-width:160px;}
+.payment .sections .payment-box01 dl dt:nth-child(5),.payment .sections dl dd:nth-child(6){height:120px;}
+.payment .sections .payment-box01 dl dd:nth-child(6) > div{display:block;}
+.payment .sections .payment-box01 dl dd .point{font-size:12px;color:#666;font-weight:700;margin-left:20px;}
+.payment .sections .payment-box01 dl dd .point:before{content:'*';display:inline-block;color:#f44821;position:relative;top:3px;left:-3px;}
+.payment .sections table{width:100%;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+.payment .sections table th{height:45px;line-height:45px;background:#f4f4f4;padding-left:20px;box-sizing:border-box;color:#666;}
+.payment .sections table td{height:45px;line-height:45px;padding-left:20px;box-sizing:border-box;color:#666;}
+.payment section .btn-area{text-align:center;margin-top:40px;}
+.payment section .btn-area input[type=button]{width:165px;height:48px;font-size:16px;}
+.payment section .btn-area input[type=button]:last-child{margin-left:10px;}
+.payment section .btn-area input[type=button]:last-child{background-color:#6c7071;}
+.payment section .btn-area input[type=button]:last-child:hover{background-color:#535657;}
+
+
 /*20150514 minsuk add*/
 .fa-remove:before, .fa-close:before, .fa-times:before{  content: url("/static/themes/default/images/ico_popclose.png");}
 .chapter h3:before{
@@ -821,6 +865,9 @@ text-align: right;
 
 .course-index div#accordion h3.ui-accordion-header span.ui-icon{background-image: none !important}
 
+
+/* certificate */
+.certificate_list li.venturesquire{background: url("/static/themes/default/images/venturesquire.jpg") no-repeat 0px 0px;}
 </style>
 <script>
 $('button.close-modal').click(function() {
