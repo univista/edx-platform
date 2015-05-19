@@ -714,6 +714,448 @@ def dashboard(request):
     return render_to_response('dashboard.html', context)
 
 
+@login_required
+@ensure_csrf_cookie
+def certificate(request):
+    user = request.user
+
+    platform_name = microsite.get_value("platform_name", settings.PLATFORM_NAME)
+
+    # for microsites, we want to filter and only show enrollments for courses within
+    # the microsites 'ORG'
+    course_org_filter = microsite.get_value('course_org_filter')
+
+    # Let's filter out any courses in an "org" that has been declared to be
+    # in a Microsite
+    org_filter_out_set = microsite.get_all_orgs()
+
+    # remove our current Microsite from the "filter out" list, if applicable
+    if course_org_filter:
+        org_filter_out_set.remove(course_org_filter)
+
+    # Build our (course, enrollment) list for the user, but ignore any courses that no
+    # longer exist (because the course IDs have changed). Still, we don't delete those
+    # enrollments, because it could have been a data push snafu.
+    course_enrollment_pairs = list(get_course_enrollment_pairs(user, course_org_filter, org_filter_out_set))
+
+    # sort the enrollment pairs by the enrollment date
+    course_enrollment_pairs.sort(key=lambda x: x[1].created, reverse=True)
+
+    # Retrieve the course modes for each course
+    enrolled_course_ids = [course.id for course, __ in course_enrollment_pairs]
+    all_course_modes, unexpired_course_modes = CourseMode.all_and_unexpired_modes_for_courses(enrolled_course_ids)
+    course_modes_by_course = {
+        course_id: {
+            mode.slug: mode
+            for mode in modes
+        }
+        for course_id, modes in unexpired_course_modes.iteritems()
+    }
+
+    # Check to see if the student has recently enrolled in a course.
+    # If so, display a notification message confirming the enrollment.
+    enrollment_message = _create_recent_enrollment_message(
+        course_enrollment_pairs, course_modes_by_course
+    )
+
+    course_optouts = Optout.objects.filter(user=user).values_list('course_id', flat=True)
+
+    message = ""
+    if not user.is_active:
+        message = render_to_string(
+            'registration/activate_account_notice.html',
+            {'email': user.email, 'platform_name': platform_name}
+        )
+
+    # Global staff can see what courses errored on their dashboard
+    staff_access = False
+    errored_courses = {}
+    if has_access(user, 'staff', 'global'):
+        # Show any courses that errored on load
+        staff_access = True
+        errored_courses = modulestore().get_errored_courses()
+
+    show_courseware_links_for = frozenset(
+        course.id for course, _enrollment in course_enrollment_pairs
+        if has_access(request.user, 'load', course)
+        and has_access(request.user, 'view_courseware_with_prerequisites', course)
+    )
+
+    # Construct a dictionary of course mode information
+    # used to render the course list.  We re-use the course modes dict
+    # we loaded earlier to avoid hitting the database.
+    course_mode_info = {
+        course.id: complete_course_mode_info(
+            course.id, enrollment,
+            modes=course_modes_by_course[course.id]
+        )
+        for course, enrollment in course_enrollment_pairs
+    }
+
+    # Determine the per-course verification status
+    # This is a dictionary in which the keys are course locators
+    # and the values are one of:
+    #
+    # VERIFY_STATUS_NEED_TO_VERIFY
+    # VERIFY_STATUS_SUBMITTED
+    # VERIFY_STATUS_APPROVED
+    # VERIFY_STATUS_MISSED_DEADLINE
+    #
+    # Each of which correspond to a particular message to display
+    # next to the course on the dashboard.
+    #
+    # If a course is not included in this dictionary,
+    # there is no verification messaging to display.
+    verify_status_by_course = check_verify_status_by_course(
+        user,
+        course_enrollment_pairs,
+        all_course_modes
+    )
+    cert_statuses = {
+        course.id: cert_info(request.user, course, _enrollment.mode)
+        for course, _enrollment in course_enrollment_pairs
+    }
+
+    # only show email settings for Mongo course and when bulk email is turned on
+    show_email_settings_for = frozenset(
+        course.id for course, _enrollment in course_enrollment_pairs if (
+            settings.FEATURES['ENABLE_INSTRUCTOR_EMAIL'] and
+            modulestore().get_modulestore_type(course.id) != ModuleStoreEnum.Type.xml and
+            CourseAuthorization.instructor_email_enabled(course.id)
+        )
+    )
+
+    # Verification Attempts
+    # Used to generate the "you must reverify for course x" banner
+    verification_status, verification_msg = SoftwareSecurePhotoVerification.user_status(user)
+
+    # Gets data for midcourse reverifications, if any are necessary or have failed
+    statuses = ["approved", "denied", "pending", "must_reverify"]
+    reverifications = reverification_info(course_enrollment_pairs, user, statuses)
+
+    show_refund_option_for = frozenset(course.id for course, _enrollment in course_enrollment_pairs
+                                       if _enrollment.refundable())
+
+    block_courses = frozenset(course.id for course, enrollment in course_enrollment_pairs
+                              if is_course_blocked(request, CourseRegistrationCode.objects.filter(course_id=course.id, registrationcoderedemption__redeemed_by=request.user), course.id))
+
+    enrolled_courses_either_paid = frozenset(course.id for course, _enrollment in course_enrollment_pairs
+                                             if _enrollment.is_paid_course())
+    # get info w.r.t ExternalAuthMap
+    external_auth_map = None
+    try:
+        external_auth_map = ExternalAuthMap.objects.get(user=user)
+    except ExternalAuthMap.DoesNotExist:
+        pass
+
+    # If there are *any* denied reverifications that have not been toggled off,
+    # we'll display the banner
+    denied_banner = any(item.display for item in reverifications["denied"])
+
+    language_options = DarkLangConfig.current().released_languages_list
+
+    # add in the default language if it's not in the list of released languages
+    if settings.LANGUAGE_CODE not in language_options:
+        language_options.append(settings.LANGUAGE_CODE)
+        # Re-alphabetize language options
+        language_options.sort()
+
+    # try to get the preferred language for the user
+    preferred_language_code = preferences_api.get_user_preference(request.user, LANGUAGE_KEY)
+    # try and get the current language of the user
+    current_language_code = get_language()
+    if preferred_language_code and preferred_language_code in settings.LANGUAGE_DICT:
+        # if the user has a preference, get the name from the code
+        current_language = settings.LANGUAGE_DICT[preferred_language_code]
+    elif current_language_code in settings.LANGUAGE_DICT:
+        # if the user's browser is showing a particular language,
+        # use that as the current language
+        current_language = settings.LANGUAGE_DICT[current_language_code]
+    else:
+        # otherwise, use the default language
+        current_language = settings.LANGUAGE_DICT[settings.LANGUAGE_CODE]
+
+    # Populate the Order History for the side-bar.
+    order_history_list = order_history(user, course_org_filter=course_org_filter, org_filter_out_set=org_filter_out_set)
+
+    # get list of courses having pre-requisites yet to be completed
+    courses_having_prerequisites = frozenset(course.id for course, _enrollment in course_enrollment_pairs
+                                             if course.pre_requisite_courses)
+    courses_requirements_not_met = get_pre_requisite_courses_not_completed(user, courses_having_prerequisites)
+
+    ccx_membership_triplets = []
+    if settings.FEATURES.get('CUSTOM_COURSES_EDX', False):
+        from ccx import ACTIVE_CCX_KEY
+        from ccx.utils import get_ccx_membership_triplets
+        ccx_membership_triplets = get_ccx_membership_triplets(
+            user, course_org_filter, org_filter_out_set
+        )
+        # should we deselect any active CCX at this time so that we don't have
+        # to change the URL for viewing a course?  I think so.
+        request.session[ACTIVE_CCX_KEY] = None
+
+    context = {
+        'enrollment_message': enrollment_message,
+        'course_enrollment_pairs': course_enrollment_pairs,
+        'course_optouts': course_optouts,
+        'message': message,
+        'external_auth_map': external_auth_map,
+        'staff_access': staff_access,
+        'errored_courses': errored_courses,
+        'show_courseware_links_for': show_courseware_links_for,
+        'all_course_modes': course_mode_info,
+        'cert_statuses': cert_statuses,
+        'show_email_settings_for': show_email_settings_for,
+        'reverifications': reverifications,
+        'verification_status': verification_status,
+        'verification_status_by_course': verify_status_by_course,
+        'verification_msg': verification_msg,
+        'show_refund_option_for': show_refund_option_for,
+        'block_courses': block_courses,
+        'denied_banner': denied_banner,
+        'billing_email': settings.PAYMENT_SUPPORT_EMAIL,
+        'language_options': language_options,
+        'current_language': current_language,
+        'current_language_code': current_language_code,
+        'user': user,
+        'duplicate_provider': None,
+        'logout_url': reverse(logout_user),
+        'platform_name': platform_name,
+        'enrolled_courses_either_paid': enrolled_courses_either_paid,
+        'provider_states': [],
+        'order_history_list': order_history_list,
+        'courses_requirements_not_met': courses_requirements_not_met,
+        'ccx_membership_triplets': ccx_membership_triplets,
+    }
+
+    if third_party_auth.is_enabled():
+        context['duplicate_provider'] = pipeline.get_duplicate_provider(messages.get_messages(request))
+        context['provider_user_states'] = pipeline.get_provider_user_states(user)
+
+    return render_to_response('certificate.html', context)
+
+
+@login_required
+@ensure_csrf_cookie
+def friends(request):
+    user = request.user
+
+    platform_name = microsite.get_value("platform_name", settings.PLATFORM_NAME)
+
+    # for microsites, we want to filter and only show enrollments for courses within
+    # the microsites 'ORG'
+    course_org_filter = microsite.get_value('course_org_filter')
+
+    # Let's filter out any courses in an "org" that has been declared to be
+    # in a Microsite
+    org_filter_out_set = microsite.get_all_orgs()
+
+    # remove our current Microsite from the "filter out" list, if applicable
+    if course_org_filter:
+        org_filter_out_set.remove(course_org_filter)
+
+    # Build our (course, enrollment) list for the user, but ignore any courses that no
+    # longer exist (because the course IDs have changed). Still, we don't delete those
+    # enrollments, because it could have been a data push snafu.
+    course_enrollment_pairs = list(get_course_enrollment_pairs(user, course_org_filter, org_filter_out_set))
+
+    # sort the enrollment pairs by the enrollment date
+    course_enrollment_pairs.sort(key=lambda x: x[1].created, reverse=True)
+
+    # Retrieve the course modes for each course
+    enrolled_course_ids = [course.id for course, __ in course_enrollment_pairs]
+    all_course_modes, unexpired_course_modes = CourseMode.all_and_unexpired_modes_for_courses(enrolled_course_ids)
+    course_modes_by_course = {
+        course_id: {
+            mode.slug: mode
+            for mode in modes
+        }
+        for course_id, modes in unexpired_course_modes.iteritems()
+    }
+
+    # Check to see if the student has recently enrolled in a course.
+    # If so, display a notification message confirming the enrollment.
+    enrollment_message = _create_recent_enrollment_message(
+        course_enrollment_pairs, course_modes_by_course
+    )
+
+    course_optouts = Optout.objects.filter(user=user).values_list('course_id', flat=True)
+
+    message = ""
+    if not user.is_active:
+        message = render_to_string(
+            'registration/activate_account_notice.html',
+            {'email': user.email, 'platform_name': platform_name}
+        )
+
+    # Global staff can see what courses errored on their dashboard
+    staff_access = False
+    errored_courses = {}
+    if has_access(user, 'staff', 'global'):
+        # Show any courses that errored on load
+        staff_access = True
+        errored_courses = modulestore().get_errored_courses()
+
+    show_courseware_links_for = frozenset(
+        course.id for course, _enrollment in course_enrollment_pairs
+        if has_access(request.user, 'load', course)
+        and has_access(request.user, 'view_courseware_with_prerequisites', course)
+    )
+
+    # Construct a dictionary of course mode information
+    # used to render the course list.  We re-use the course modes dict
+    # we loaded earlier to avoid hitting the database.
+    course_mode_info = {
+        course.id: complete_course_mode_info(
+            course.id, enrollment,
+            modes=course_modes_by_course[course.id]
+        )
+        for course, enrollment in course_enrollment_pairs
+    }
+
+    # Determine the per-course verification status
+    # This is a dictionary in which the keys are course locators
+    # and the values are one of:
+    #
+    # VERIFY_STATUS_NEED_TO_VERIFY
+    # VERIFY_STATUS_SUBMITTED
+    # VERIFY_STATUS_APPROVED
+    # VERIFY_STATUS_MISSED_DEADLINE
+    #
+    # Each of which correspond to a particular message to display
+    # next to the course on the dashboard.
+    #
+    # If a course is not included in this dictionary,
+    # there is no verification messaging to display.
+    verify_status_by_course = check_verify_status_by_course(
+        user,
+        course_enrollment_pairs,
+        all_course_modes
+    )
+    cert_statuses = {
+        course.id: cert_info(request.user, course, _enrollment.mode)
+        for course, _enrollment in course_enrollment_pairs
+    }
+
+    # only show email settings for Mongo course and when bulk email is turned on
+    show_email_settings_for = frozenset(
+        course.id for course, _enrollment in course_enrollment_pairs if (
+            settings.FEATURES['ENABLE_INSTRUCTOR_EMAIL'] and
+            modulestore().get_modulestore_type(course.id) != ModuleStoreEnum.Type.xml and
+            CourseAuthorization.instructor_email_enabled(course.id)
+        )
+    )
+
+    # Verification Attempts
+    # Used to generate the "you must reverify for course x" banner
+    verification_status, verification_msg = SoftwareSecurePhotoVerification.user_status(user)
+
+    # Gets data for midcourse reverifications, if any are necessary or have failed
+    statuses = ["approved", "denied", "pending", "must_reverify"]
+    reverifications = reverification_info(course_enrollment_pairs, user, statuses)
+
+    show_refund_option_for = frozenset(course.id for course, _enrollment in course_enrollment_pairs
+                                       if _enrollment.refundable())
+
+    block_courses = frozenset(course.id for course, enrollment in course_enrollment_pairs
+                              if is_course_blocked(request, CourseRegistrationCode.objects.filter(course_id=course.id, registrationcoderedemption__redeemed_by=request.user), course.id))
+
+    enrolled_courses_either_paid = frozenset(course.id for course, _enrollment in course_enrollment_pairs
+                                             if _enrollment.is_paid_course())
+    # get info w.r.t ExternalAuthMap
+    external_auth_map = None
+    try:
+        external_auth_map = ExternalAuthMap.objects.get(user=user)
+    except ExternalAuthMap.DoesNotExist:
+        pass
+
+    # If there are *any* denied reverifications that have not been toggled off,
+    # we'll display the banner
+    denied_banner = any(item.display for item in reverifications["denied"])
+
+    language_options = DarkLangConfig.current().released_languages_list
+
+    # add in the default language if it's not in the list of released languages
+    if settings.LANGUAGE_CODE not in language_options:
+        language_options.append(settings.LANGUAGE_CODE)
+        # Re-alphabetize language options
+        language_options.sort()
+
+    # try to get the preferred language for the user
+    preferred_language_code = preferences_api.get_user_preference(request.user, LANGUAGE_KEY)
+    # try and get the current language of the user
+    current_language_code = get_language()
+    if preferred_language_code and preferred_language_code in settings.LANGUAGE_DICT:
+        # if the user has a preference, get the name from the code
+        current_language = settings.LANGUAGE_DICT[preferred_language_code]
+    elif current_language_code in settings.LANGUAGE_DICT:
+        # if the user's browser is showing a particular language,
+        # use that as the current language
+        current_language = settings.LANGUAGE_DICT[current_language_code]
+    else:
+        # otherwise, use the default language
+        current_language = settings.LANGUAGE_DICT[settings.LANGUAGE_CODE]
+
+    # Populate the Order History for the side-bar.
+    order_history_list = order_history(user, course_org_filter=course_org_filter, org_filter_out_set=org_filter_out_set)
+
+    # get list of courses having pre-requisites yet to be completed
+    courses_having_prerequisites = frozenset(course.id for course, _enrollment in course_enrollment_pairs
+                                             if course.pre_requisite_courses)
+    courses_requirements_not_met = get_pre_requisite_courses_not_completed(user, courses_having_prerequisites)
+
+    ccx_membership_triplets = []
+    if settings.FEATURES.get('CUSTOM_COURSES_EDX', False):
+        from ccx import ACTIVE_CCX_KEY
+        from ccx.utils import get_ccx_membership_triplets
+        ccx_membership_triplets = get_ccx_membership_triplets(
+            user, course_org_filter, org_filter_out_set
+        )
+        # should we deselect any active CCX at this time so that we don't have
+        # to change the URL for viewing a course?  I think so.
+        request.session[ACTIVE_CCX_KEY] = None
+
+    context = {
+        'enrollment_message': enrollment_message,
+        'course_enrollment_pairs': course_enrollment_pairs,
+        'course_optouts': course_optouts,
+        'message': message,
+        'external_auth_map': external_auth_map,
+        'staff_access': staff_access,
+        'errored_courses': errored_courses,
+        'show_courseware_links_for': show_courseware_links_for,
+        'all_course_modes': course_mode_info,
+        'cert_statuses': cert_statuses,
+        'show_email_settings_for': show_email_settings_for,
+        'reverifications': reverifications,
+        'verification_status': verification_status,
+        'verification_status_by_course': verify_status_by_course,
+        'verification_msg': verification_msg,
+        'show_refund_option_for': show_refund_option_for,
+        'block_courses': block_courses,
+        'denied_banner': denied_banner,
+        'billing_email': settings.PAYMENT_SUPPORT_EMAIL,
+        'language_options': language_options,
+        'current_language': current_language,
+        'current_language_code': current_language_code,
+        'user': user,
+        'duplicate_provider': None,
+        'logout_url': reverse(logout_user),
+        'platform_name': platform_name,
+        'enrolled_courses_either_paid': enrolled_courses_either_paid,
+        'provider_states': [],
+        'order_history_list': order_history_list,
+        'courses_requirements_not_met': courses_requirements_not_met,
+        'ccx_membership_triplets': ccx_membership_triplets,
+    }
+
+    if third_party_auth.is_enabled():
+        context['duplicate_provider'] = pipeline.get_duplicate_provider(messages.get_messages(request))
+        context['provider_user_states'] = pipeline.get_provider_user_states(user)
+
+    return render_to_response('friends.html', context)
+
+
 def _create_recent_enrollment_message(course_enrollment_pairs, course_modes):
     """Builds a recent course enrollment message
 
