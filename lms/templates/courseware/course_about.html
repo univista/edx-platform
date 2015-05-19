@@ -189,7 +189,7 @@ from edxmako.shortcuts import marketing_link
                                                         <div class="course-detail-register">
         %if user.is_authenticated() and registered:
           %if show_courseware_link:
-            <a class="action access-courseware" href="${course_target}">
+            <a class="action access-courseware btn_block" href="${course_target}">
           %endif
           %if show_courseware_link:
             <strong>수강 듣기</strong>
