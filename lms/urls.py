@@ -288,6 +288,7 @@ if settings.COURSEWARE_ENABLED:
         url(r'^partner_explain/?$', 'branding.views.partner_explain', name="courses"),
         url(r'^professor_sub/?$', 'branding.views.professor_sub', name="courses"),
         url(r'^reviews/?$', 'branding.views.reviews', name="courses"),
+        url(r'^payment/?$', 'branding.views.payment', name="courses"),
 
         url(r'^change_enrollment$',
             'student.views.change_enrollment', name="change_enrollment"),

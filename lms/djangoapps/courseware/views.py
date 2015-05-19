@@ -145,9 +145,6 @@ def partner(request):
 def adx_terms_service(request):
     return render_to_response("academyx/adx_terms_service.html")
 
-
-
-
 @ensure_csrf_cookie
 @cache_if_anonymous()
 def certificate(request):
@@ -177,13 +174,10 @@ def professor_sub(request):
 def reviews(request):
     return render_to_response("academyx/reviews.html")
 
-
-
-
-
-
-
-
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def payment(request):
+    return render_to_response("academyx/payment.html")
 
 
 def render_accordion(request, course, chapter, section, field_data_cache):

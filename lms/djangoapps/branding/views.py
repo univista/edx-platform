@@ -119,10 +119,6 @@ def partner(request):
 def adx_terms_service(request):
     return courseware.views.adx_terms_service(request)
 
-
-
-
-
 @ensure_csrf_cookie
 @cache_if_anonymous()
 def certificate(request):
@@ -147,4 +143,9 @@ def professor_sub(request):
 @cache_if_anonymous()
 def reviews(request):
     return courseware.views.reviews(request)
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def payment(request):
+    return courseware.views.payment(request)
 
