@@ -166,7 +166,7 @@ label.after-none:after{content:'' !important;}
 .chk_area input:checked+span {background:#2faa47 url("/static/themes/default/images/ico_checked.png") no-repeat 100% 100%; background-size: 13px auto; -webkit-border-radius: 2px; border-radius: 2px;}
 
 /*교육과정*/
-.content-wrapper .region-container.container{max-width:1280px !important;width:1280px !important;padding:0 50px;}
+.content-wrapper .region-container.container{max-width:1280px !important;width:1280px !important;padding:0;}
 #page-title {border: 0 none;clip: rect(0px,0px,0px,0px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}
 .search-header {padding: 0 55px 0;overflow:hidden;background:#f5f5f5}
 .search-header h2{font-size: 36px;font-weight:200;line-height: 72px;width: 500px;color: #333333;display: inline;float: left;margin-bottom: 16px;padding-top:13px;padding-bottom: 16px;}
@@ -867,12 +867,18 @@ text-align: right;
 
 
 /* certificate */
-.certificate_list li.venturesquire{  background: url("/static/themes/default/images/certificate/venturesquire.jpg") no-repeat 0px 0px;
+.certificate_list li{
   background-size: 100%;
   padding: 29px 34px;
   position: relative;
 }
-
+.certificate_list li.venturesquire{  background: url("/static/themes/default/images/certificate/venturesquire.jpg") no-repeat 0px 0px;}
+.certificate_list li.venturesquire_type2{  background: url("/static/themes/default/images/certificate/venturesquire2.jpg") no-repeat 0px 0px;}
+.certificate_list li.venturesquire_type3{  background: url("/static/themes/default/images/certificate/venturesquire3.jpg") no-repeat 0px 0px;}
+.certificate_list li.academyx{  background: url("/static/themes/default/images/certificate/academyx.jpg") no-repeat 0px 0px;}
+.certificate_list li.roaconsulting{  background: url("/static/themes/default/images/certificate/roaconsulting.jpg") no-repeat 0px 0px;}
+.certificate_list li.meetadvisor{  background: url("/static/themes/default/images/certificate/meetadvisor.jpg") no-repeat 0px 0px;}
+.certificate_list li.pagpartners{  background: url("/static/themes/default/images/certificate/pagpartners.jpg") no-repeat 0px 0px;}
 </style>
 <script>
 $('button.close-modal').click(function() {
