@@ -131,6 +131,11 @@ def adx_privacy_policy(request):
 
 @ensure_csrf_cookie
 @cache_if_anonymous()
+def adx_refund(request):
+    return courseware.views.adx_refund(request)
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
 def certificate(request):
     return courseware.views.certificate(request)
 

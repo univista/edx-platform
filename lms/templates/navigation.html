@@ -867,8 +867,8 @@ text-align: right;
 
 
 /* certificate */
-.certificate_list li{
-  padding: 29px 34px;
+.certificate_list > li{
+  padding: 26px 34px;
   position: relative;
 }
 .certificate_list li.venturesquire{background: url("/static/themes/default/images/certificate/venturesquire.jpg") no-repeat 0px 0px;background-size: 100%;}
@@ -878,6 +878,75 @@ text-align: right;
 .certificate_list li.roaconsulting{background: url("/static/themes/default/images/certificate/roaconsulting.jpg") no-repeat 0px 0px;background-size: 100%;}
 .certificate_list li.meetadvisor{background: url("/static/themes/default/images/certificate/meetadvisor.jpg") no-repeat 0px 0px;background-size: 100%;}
 .certificate_list li.pagpartners{background: url("/static/themes/default/images/certificate/pagpartners.jpg") no-repeat 0px 0px;background-size: 100%;}
+
+.certificate_list > li .box_wrapper::before {
+    background: none repeat scroll 0 0 #2faa47;
+    content: "";
+    height: 282px;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: all 0.2s ease-out 0s;
+    width: 100%;
+    z-index: 10;
+}
+
+.certificate_list > li:hover .box_wrapper::before {
+    opacity:0.9;transition:all 0.2s ease-out 0.3s;
+}
+
+
+.certificate_list > li .box_wrapper::after {
+    
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: white;
+    content:"스타트업이 꼭 알아야 할 HR스킬";
+    font-family: "NanumBarunGothic";
+    font-size: 22px;
+    font-weight: 400;
+    height: 50px;
+    left: calc(50% - 250px);
+    line-height: 44px;
+    opacity: 0;
+    padding: 0 20px;
+    position: absolute;
+    text-align: center;
+    transition: all 0.2s ease-out 0s;
+    width: 500px;
+    z-index: 20;
+	top:40%
+}
+
+.certificate_list > li:hover .box_wrapper::after {
+    opacity:0.9;transition:all 0.2s ease-out 0.3s;
+}
+
+.fa-email:before {display: inline-block;
+background: url("/static/themes/default/images/certificate/over_icon.png") no-repeat scroll 0px 0px rgba(255, 255, 255, 1);
+content:"";
+font-size: 22px;
+  line-height: 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  text-align: center;	
+  background-position: -22px 6px;  
+  
+}
+.fa-print:before { display: inline-block;
+background: url("/static/themes/default/images/certificate/over_icon.png") no-repeat scroll 0px 0px rgba(255, 255, 255, 1);
+content:"";
+font-size: 22px;
+  line-height: 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  text-align: center;
+  background-position: 0 55px; 
+}
+
 </style>
 <script>
 $('button.close-modal').click(function() {

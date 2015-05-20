@@ -286,6 +286,7 @@ if settings.COURSEWARE_ENABLED:
         url(r'^adx_terms_service/?$', 'branding.views.adx_terms_service', name="courses"),
         url(r'^adx_notify/?$', 'branding.views.adx_notify', name="courses"),
         url(r'^adx_privacy_policy/?$', 'branding.views.adx_privacy_policy', name="courses"),
+        url(r'^adx_refund/?$', 'branding.views.adx_refund', name="adx_refund"),
         url(r'^course_readings/?$', 'branding.views.course_readings', name="courses"),
         url(r'^partner_explain/?$', 'branding.views.partner_explain', name="courses"),
         url(r'^partner_meetadvisor/?$', 'branding.views.partner_meetadvisor', name="courses"),

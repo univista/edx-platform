@@ -157,6 +157,11 @@ def adx_privacy_policy(request):
 
 @ensure_csrf_cookie
 @cache_if_anonymous()
+def adx_refund(request):
+    return render_to_response("academyx/adx_refund.html")
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
 def certificate(request):
     return render_to_response("academyx/certificate.html")
 
