@@ -147,6 +147,16 @@ def adx_terms_service(request):
 
 @ensure_csrf_cookie
 @cache_if_anonymous()
+def adx_notify(request):
+    return render_to_response("academyx/adx_notify.html")
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def adx_privacy_policy(request):
+    return render_to_response("academyx/adx_privacy_policy.html")
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
 def certificate(request):
     return render_to_response("academyx/certificate.html")
 
@@ -162,6 +172,15 @@ def course_readings(request):
 def partner_explain(request):
     return render_to_response("academyx/partner_explain.html")
 
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def partner_meetadvisor(request):
+    return render_to_response("academyx/partner_meetadvisor.html")
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def partner_roa(request):
+    return render_to_response("academyx/partner_roa.html")
 
 @ensure_csrf_cookie
 @cache_if_anonymous()

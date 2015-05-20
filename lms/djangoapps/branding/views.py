@@ -121,6 +121,16 @@ def adx_terms_service(request):
 
 @ensure_csrf_cookie
 @cache_if_anonymous()
+def adx_notify(request):
+    return courseware.views.adx_notify(request)
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def adx_privacy_policy(request):
+    return courseware.views.adx_privacy_policy(request)
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
 def certificate(request):
     return courseware.views.certificate(request)
 
@@ -133,6 +143,16 @@ def course_readings(request):
 @cache_if_anonymous()
 def partner_explain(request):
     return courseware.views.partner_explain(request)
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def partner_meetadvisor(request):
+    return courseware.views.partner_meetadvisor(request)
+
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def partner_roa(request):
+    return courseware.views.partner_roa(request)
 
 @ensure_csrf_cookie
 @cache_if_anonymous()
