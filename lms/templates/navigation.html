@@ -788,10 +788,7 @@ text-align: right;
 
 
 /* certificate */
-.certificate_list > li{
-  padding: 26px 34px;
-  position: relative;
-}
+.certificate_list > li{padding: 26px 34px;position: relative;height: 530px;}
 .certificate_list li.venturesquire{background: url("/static/themes/default/images/certificate/venturesquire.jpg") no-repeat 0px 0px;background-size: 100%;}
 .certificate_list li.venturesquire_type2{background: url("/static/themes/default/images/certificate/venturesquire2.jpg") no-repeat 0px 0px;background-size: 100%;}
 .certificate_list li.venturesquire_type3{background: url("/static/themes/default/images/certificate/venturesquire3.jpg") no-repeat 0px 0px;background-size: 100%;}
@@ -812,11 +809,11 @@ text-align: right;
     width: 100%;
     z-index: 10;
 }
-
+/*
 .certificate_list > li:hover .box_wrapper::before {
     opacity:0.9;transition:all 0.2s ease-out 0.3s;
 }
-
+*/
 
 .certificate_list > li .box_wrapper::after {
     
@@ -844,6 +841,19 @@ text-align: right;
     opacity:0.9;transition:all 0.2s ease-out 0.3s;
 }
 
+.fa-twitter:before {display: inline-block;
+background: url("/static/themes/default/images/certificate/over_icon.png") no-repeat scroll 0px 0px rgba(255, 255, 255, 1);
+content:"";
+font-size: 22px;
+  line-height: 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  text-align: center;	
+  background-position: 0 6px;  
+  
+}
+
 .fa-email:before {display: inline-block;
 background: url("/static/themes/default/images/certificate/over_icon.png") no-repeat scroll 0px 0px rgba(255, 255, 255, 1);
 content:"";
@@ -853,7 +863,7 @@ font-size: 22px;
   height: 32px;
   border-radius: 16px;
   text-align: center;	
-  background-position: -22px 6px;  
+  background-position: -32px 6px;  
   
 }
 .fa-print:before { display: inline-block;
@@ -865,7 +875,7 @@ font-size: 22px;
   height: 32px;
   border-radius: 16px;
   text-align: center;
-  background-position: 0 55px; 
+  background-position: -63px 6px; 
 }
 
 
