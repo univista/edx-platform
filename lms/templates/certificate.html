@@ -236,7 +236,7 @@
 		  <section class="my-courses" id="my-courses" role="main" aria-label="Content">
 			<header class="wrapper-header-courses">
 			  <!--<h2 class="header-courses">${_("Current Courses")}</h2>-->
-			  <h2 class="element-invisible">내가 신청한 과정</h1>
+			  <h2 class="element-invisible">내가 신청한 과정</h2>
 				<nav>
 					<ul>
 					<li><a href="/dashboard">내가 신청한 과정</a></li>
@@ -244,6 +244,13 @@
 					<li class="on"><a href="/certificate">수료증 보기</a></li>
 					</ul>
 				</nav>
+				<div class="x-sel">
+					<select>
+						<option>전체</option>
+						<option>공식수료증</option>
+						<option>수강확인증</option>
+					</select>
+				</div>
 			</header>
 
 			<ul class="certificate_list">
@@ -274,11 +281,14 @@
 							<li class="date"><p>2015년 3월 7일</p></li>
 							<li><p>공식수료증 진위 확인</p></li>
 						</ul>
-						<ul class="right">
-							<li class="issuing"><p>발행기관 : 벤처스퀘어</p></li>
-							<li class="agencies"><p>수행기관 : 아카데미X</p></li>
+						<ul class="organic">
+							<li class="issuing"><p>발행기관 : <span>벤처스퀘어</sapn></p></li>
+							<li class="agencies"><p>수행기관 : <span>아카데미X</sapn></p></li>
 						</ul>
-						<p class="signWrite"><img src="/static/themes/default/images/certificate/sign.png" alt="sign" title="sign" /></p>
+						<ul class="right">
+							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign.png" alt="sign" title="sign" /></p></li>
+							<li class="professor">벤처스퀘어 명승은 대표</li>
+						</ul>
 						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
 									
 					</div>
