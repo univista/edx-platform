@@ -88,6 +88,10 @@
 				  <span class="title">이름</span>
 				  <span class="data">${ user.profile.name | h }<a href="#apply_name_change" rel="leanModal" class="edit-name">수정하기</a></span>
 				</li>
+				<li class="info-nickname">
+				  <span class="title">이름</span>
+				  <span class="data">appleapple<a href="#apply_nickname_change" rel="leanModal" class="edit-nickname">수정하기</a></span>
+				</li>
 				<li class="controls--account">
 							<span class="title">연결 된 계정정보</span>
 							<span class="data">
@@ -430,6 +434,34 @@
           </div>
           <div class="submit">
             <input type="submit" id="submit" value="${_("Change My Name")}">
+          </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section id="apply_nickname_change" class="modal" aria-hidden="true">
+  <div class="inner-wrapper" role="dialog" aria-labelledby="change-name-title">
+    <button class="close-modal">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr">
+        Close
+      </span>
+    </button>
+
+    <div id="change_nicname_body">
+      <form id="change_nicname_form">
+        <div id="change_nicname_error" class="modal-form-error"> </div>
+        <p>변경하실 별명을 입력해 주세요</p>
+		<p>현재 별명 : appleapple</p>
+
+          <div class="input-group">
+            <label>
+              <input id="new_name_field" value="" type="text" placeholder="새로운 별명"/>
+            </label>
+          </div>
+          <div class="submit">
+            <input class="check btn_block" type="button" value="확인">
+			<input class="check btn_block" type="button" value="취소">
           </div>
       </form>
     </div>
