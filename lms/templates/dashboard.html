@@ -86,10 +86,10 @@
 				</li>
 				<li class="info--username">
 				  <span class="title">이름</span>
-				  <span class="data">${ user.profile.name | h }<a href="#apply_name_change" rel="leanModal" class="edit-name">수정하기</a></span>
+				  <span class="data">${ user.profile.name | h }</span>
 				</li>
 				<li class="info-nickname">
-				  <span class="title">이름</span>
+				  <span class="title">별명</span>
 				  <span class="data">appleapple<a href="#apply_nickname_change" rel="leanModal" class="edit-nickname">수정하기</a></span>
 				</li>
 				<li class="controls--account">
@@ -215,7 +215,7 @@
 					<input id="id_email" type="hidden" name="email" maxlength="75" value="${user.email}" />
 					<!-- <input type="submit" id="pwd_reset_button" value="${_("Reset Password")}" /> ->
 					</form>-->
-					<span class="title"><a href="#password_reset_complete" rel="leanModal" id="pwd_reset_button">비밀번호 수정</a><!-- a href="#" rel="leanModal" id="">회원탈퇴</a></span-->
+					<span class="title"><a href="#password_reset_complete2" rel="leanModal" id="pwd_reset_button">비밀번호 수정</a><!-- a href="#" rel="leanModal" id="">회원탈퇴</a></span-->
 					<form id="password_reset_form" method="post" data-remote="true" action="/password_reset/">
 						<input id="id_email" type="hidden" name="email" maxlength="75" value="tena5@nate.com">
 						<!-- <input type="submit" id="pwd_reset_button" value="Reset Password" /> -->
@@ -353,6 +353,8 @@
   </div>
 </section>
 
+
+
 <section id="change_email" class="modal" aria-hidden="true">
   <div class="inner-wrapper" role="dialog" aria-labelledby="change_email_title">
     <button class="close-modal">
@@ -439,7 +441,7 @@
     </div>
   </div>
 </section>
-<section id="apply_nickname_change" class="modal" aria-hidden="true">
+<section id="apply_nickname_change" class="modal academy" aria-hidden="true">
   <div class="inner-wrapper" role="dialog" aria-labelledby="change-name-title">
     <button class="close-modal">
       <i class="icon fa fa-remove"></i>
@@ -448,23 +450,59 @@
       </span>
     </button>
 
-    <div id="change_nicname_body">
+    <div id="change_nicname_body" class="modal_body">
       <form id="change_nicname_form">
         <div id="change_nicname_error" class="modal-form-error"> </div>
         <p>변경하실 별명을 입력해 주세요</p>
-		<p>현재 별명 : appleapple</p>
+		<p class="status">현재 별명 : appleapple</p>
 
-          <div class="input-group">
+          <div class="inputBox">
             <label>
               <input id="new_name_field" value="" type="text" placeholder="새로운 별명"/>
             </label>
           </div>
           <div class="submit">
-            <input class="check btn_block" type="button" value="확인">
-			<input class="check btn_block" type="button" value="취소">
+            <input class="btn_block" type="button" value="확인">
+			<input class="cancel btn_block" type="button" value="취소">
           </div>
       </form>
     </div>
+  </div>
+</section>
+
+<section id="password_reset_complete2" class="modal academy" aria-hidden="true">
+  <div class="inner-wrapper" role="dialog" aria-labelledby="password-reset-email">
+    <button class="close-modal">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr">
+        ## Translators: this is a control to allow users to exit out of this modal interface (a menu or piece of UI that takes the full focus of the screen)
+        ${_("Close")}
+      </span>
+    </button>
+
+    <div id="change_password_body" class="modal_body">
+      <form id="change_nicname_form">
+        <div id="change_nicname_error" class="modal-form-error"> </div>
+        <p>변경하실 비밀번호를 입력해 주세요</p>
+
+          <div class="inputBox">
+			<label>
+              <input id="old_password_field" value="" type="text" placeholder="현재 비밀번호"/>
+            </label>
+            <label>
+              <input id="new_password_field" value="" type="text" placeholder="새로운 비밀번호"/>
+            </label>
+			 <label>
+              <input id="new_password_field_confirm"  class="password_confirm" value="" type="text" placeholder="새로운 비밀번호확인"/>
+            </label>
+          </div>
+          <div class="submit">
+            <input class="btn_block" type="button" value="확인">
+			<input class="cancel btn_block" type="button" value="취소">
+          </div>
+      </form>
+    </div>
+
   </div>
 </section>
 
