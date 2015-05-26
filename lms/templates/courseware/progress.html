@@ -8,6 +8,68 @@
 <%static:css group='style-course'/>
 </%block>
 
+<style>
+	.profile-wrapper .course-info header.progress-certificates {
+		  border-bottom: 3px solid #2faa47;
+		  text-align: left;
+		  font-size: 32px;
+		  line-height: 38px;
+		  font-weight: 300;
+		  padding-bottom: 26px;
+		  margin-bottom: 60px;
+	}
+
+	.profile-wrapper .course-info header.progress-certificates .progress-certificates-title,
+	h1 {
+		  float: left;
+		  font-size: 1em;
+		  font-weight: 100;
+		  margin: 0;
+		  color: #3c3c3c;
+		  font-family:"NanumBarunGothic",Verdana,Geneva,sans-serif,sans-serif;
+		  letter-spacing: 1px;
+		  margin-bottom: 0;
+		  text-align: center;
+	}
+
+	.profile-wrapper .course-info>.chapters>section .sections>div h3 a {
+		position: relative;
+	}
+
+	.profile-wrapper .course-info>.chapters>section .sections>div h3 a:hover {
+		color:#32b04a;
+	}
+
+	.profile-wrapper .course-info>.chapters>section .sections>div h3 a:after {
+		position: absolute;
+		right: -28px;
+		top: -1px;
+		content: url("/static/themes/default/images/ico_progress.png");
+	}
+
+	.profile-wrapper .course-info>.chapters>section .sections>div em  {
+		  color: #999;
+		  font-size: 43px;
+		  font-weight: 200;
+		  position: absolute;
+		  right: 0;
+		  top: 50%;
+		  margin-top: -11px;
+	}
+
+	.wrap-instructor-info .instructor-info-action:hover {
+		background-color: #2faa47 !important;
+	}
+
+	.profile-wrapper .course-info>.chapters>section {padding:0;padding-top:10px}
+
+	.profile-wrapper .course-info>.chapters>section .sections>div {
+	  padding: 34px 0 25px 34px;
+	  border-bottom: 1px solid #f4f4f4;
+	}
+	.profile-wrapper .course-info>.chapters>section .sections>div:first-child {padding-bottom:34px;padding-top:34px}
+	.profile-wrapper .course-info>.chapters>section .sections>div:last-child {padding-bottom:34px}
+</style>
 
 <%namespace name="progress_graph" file="/courseware/progress_graph.js"/>
 
@@ -103,7 +165,7 @@ from django.utils.http import urlquote_plus
 
           <div class="sections">
             %for section in chapter['sections']:
-            <div>
+            <div style="position:relative">
               <%
               earned = section['section_total'].earned
               total = section['section_total'].possible
@@ -120,12 +182,14 @@ from django.utils.http import urlquote_plus
                 %endif
 				-->
                 </a>
+				 
 				<!--
                 %if total > 0 or earned > 0:
                   <span> ${"({0:.3n}/{1:.3n}) {2}".format( float(earned), float(total), percentageString )}</span>
                 %endif
 				-->
               </h3>
+			  <em>17%</em>
               <p>
                 ${section['format']}
 
