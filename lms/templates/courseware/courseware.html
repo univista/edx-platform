@@ -40,6 +40,84 @@ ${page_title_breadcrumbs(course_name())}
 <%static:css group='style-student-notes'/>
 % endif
 
+<style>
+	.xmodule_display.xmodule_CapaModule div.problem div.action .check,
+	.openassessment .step--response .response__submission__actions .action--save
+	{
+		  height: 37px !important;
+		  vertical-align: middle !important;
+		  font-weight: 400 !important;
+		  margin-right: 5px !important;
+		  border-radius: 3px !important;
+		  box-shadow: none !important;
+		  color: #fff !important;
+		  display: inline-block !important;
+		  font-size: inherit !important;
+		  font-weight: 400 !important;
+		  background-color: #2faa47 !important;
+		  background-image: none !important;
+		  padding: 6px 20px !important;
+		  text-decoration: none !important;
+		  text-shadow: none !important;
+		  background-clip: padding-box !important;
+		  border: none !important;
+		  border-radius: 2px !important;
+		  text-decoration: none !important;
+		  font-size: 14px !important;
+	}
+
+	.xmodule_display.xmodule_CapaModule div.problem div.action .check span,
+	.xmodule_display.xmodule_CapaModule div.problem div.action .show span { color: #fff;display: inline-block;font-size: inherit;font-weight: 400;}
+
+	.xmodule_display.xmodule_CapaModule div.problem div.action .show {
+		height: 37px;
+		  vertical-align: middle;
+		  font-weight: 400;
+		  margin-right: 5px;
+		  border-radius: 3px;
+		  box-shadow: none;
+		  color: #fff;
+		  display: inline-block;
+		  font-size: inherit;
+		  font-weight: 400;
+		  background-color: #6c7071;
+		  background-image: none;
+		  padding: 6px 20px;
+		  text-decoration: none;
+		  text-shadow: none;
+		  background-clip: padding-box;
+		  border: none;
+		  border-radius: 2px;
+		  text-decoration: none;
+		  font-size: 14px;
+	}
+
+	.discussion-module .new-post-btn, .discussion-user-threads .new-post-btn,
+	.discussion-module .new-post-btn:hover, .discussion-user-threads .new-post-btn:hover, .discussion-module .new-post-btn:focus, .discussion-user-threads .new-post-btn:focus,
+	.openassessment .openassessment__steps__step .step__actions .action--submit
+	{
+		  background-color: #2faa47 !important;
+		  background-image: none !important;
+		  display: block !important;
+		  border: 0 !important;
+		  border-radius: 2px !important;
+		  padding: 0 20px !important;
+		  height: 38px !important;
+		  color: #fff !important;
+		  text-shadow: none !important;
+		  font-size: 14px !important;
+		  line-height: 38px !important;
+		  box-shadow: none !important;
+		  display: inline-block !important;
+		  margin-right: 4px !important;
+	}
+
+	.discussion-module .new-post-btn span.icon.fa.fa-edit.new-post-icon, 
+	.discussion-user-threads .new-post-btn span.icon.fa.fa-edit.new-post-icon {margin-top:12px}
+
+	.wrap-instructor-info .instructor-info-action:hover {background-color: #2faa47 !important;}
+</style>
+
 <%block name="nav_skip">${"#seq_content" if section_title else "#course-content"}</%block>
 
 <%include file="../discussion/_js_head_dependencies.html" />
