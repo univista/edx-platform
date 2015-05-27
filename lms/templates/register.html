@@ -166,6 +166,15 @@
         ${_('Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.')}
       </p>
 -->
+	<div class="login-providers" style="margin-bottom:18px">
+
+          <button type="submit" class="button button-primary button-Facebook register-Facebook" onclick="thirdPartySignin(event, '/auth/login/facebook/?auth_entry=register');"><span class="icon fa fa-facebook"></span> 페이스북 계정으로 가입</button>
+          <button type="submit" class="button button-primary button-Google register-Google" onclick="thirdPartySignin(event, '/auth/login/google-oauth2/?auth_entry=register');"><span class="icon fa fa-google-plus"></span> 구글 계정으로 가입</button>
+
+        </div>
+		<span class="deco-divider">
+          <span class="copy">혹은</span>
+        </span>
 	  <p class="instructions">
 		아카데미X 회원가입 양식<br /><strong class="indicator">필수항목은 굵은 글자나 별표(*)로 표시되어 있습니다.</strong>
 		</p>
@@ -222,11 +231,13 @@
 			<input id="name" type="text" name="name" value="" placeholder="예: 홍길동" required aria-required="true" aria-describedby="name-tip" />
 			<span class="tip tip-input" id="username-tip"><strong>수료증 발급 시, 필수 항목</strong></span>
 		</li>
+		<!--
 		<li class="field required text" id="field-username">
 			<label for="username">별명</label>
 			<input id="username" type="text" name="username" value="" placeholder="예: JaneDoe" required aria-required="true" aria-describedby="username-tip"/>
 			
 		</li>
+		-->
 
 
 		<li class="field required password" id="field-password">
