@@ -88,10 +88,12 @@
 				  <span class="title">이름</span>
 				  <span class="data">${ user.profile.name | h }</span>
 				</li>
+				<!--
 				<li class="info-nickname">
 				  <span class="title">별명</span>
 				  <span class="data">appleapple<a href="#apply_nickname_change" rel="leanModal" class="edit-nickname">수정하기</a></span>
 				</li>
+				-->
 				<li class="controls--account">
 							<span class="title">연결 된 계정정보</span>
 							<span class="data">
@@ -215,7 +217,7 @@
 					<input id="id_email" type="hidden" name="email" maxlength="75" value="${user.email}" />
 					<!-- <input type="submit" id="pwd_reset_button" value="${_("Reset Password")}" /> ->
 					</form>-->
-					<span class="title"><a href="#password_reset_complete2" rel="leanModal" id="pwd_reset_button">비밀번호 수정</a><!-- a href="#" rel="leanModal" id="">회원탈퇴</a></span-->
+					<span class="title"><a href="#password_reset_complete2" rel="leanModal" id="pwd_reset_button">비밀번호 수정</a><a href="#" rel="leanModal" id="">회원탈퇴</a></span>
 					<form id="password_reset_form" method="post" data-remote="true" action="/password_reset/">
 						<input id="id_email" type="hidden" name="email" maxlength="75" value="tena5@nate.com">
 						<!-- <input type="submit" id="pwd_reset_button" value="Reset Password" /> -->
@@ -237,7 +239,7 @@
 				<nav>
 					<ul>
 					<li class="on"><a href="/dashboard">내가 신청한 과정</a></li>
-					<li><a href="/friend">친구가 신청한 과정</a></li>
+					<!--<li><a href="/friend">친구가 신청한 과정</a></li>-->
 					<li><a href="/certificate">수료증 보기</a></li>
 					</ul>
 				</nav>
