@@ -174,3 +174,7 @@ def reviews(request):
 def payment(request):
     return courseware.views.payment(request)
 
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def application(request):
+    return courseware.views.application(request)
