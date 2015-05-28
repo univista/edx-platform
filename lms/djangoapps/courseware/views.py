@@ -203,6 +203,11 @@ def reviews(request):
 def payment(request):
     return render_to_response("academyx/payment.html")
 
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def application(request):
+    return render_to_response("academyx/application.html")
+
 
 def render_accordion(request, course, chapter, section, field_data_cache):
     """
