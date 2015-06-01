@@ -22,6 +22,7 @@
 
 <%block name="js_extra">
   <script type="text/javascript">
+    
     $(function() {
 
       // adding js class for styling with accessibility in mind
@@ -55,7 +56,7 @@
       });
 
       $('#register-form').on('ajax:success', function(event, json, xhr) {
-        var url = json.redirect_url || "${reverse('dashboard')}";
+        var url = json.redirect_url || "/dashboard";
         location.href = url;
       });
 
@@ -82,16 +83,17 @@
           removeClass('is-disabled').
           attr('aria-disabled', false).
           removeProp('disabled').
-          //html("${_('Create My {platform_name} Account').format(platform_name=platform_name)}");
+          //html("Create My academyx.co Account");
 		  html("회원가입 완료");
       }
       else {
         $submitButton.
           addClass('is-disabled').
           prop('disabled', true).
-          text("${_('Processing your account information')}");
+          text("Processing your account information");
       }
     }
+  
   </script>
 </%block>
 
@@ -229,7 +231,7 @@
 		<li class="field required text" id="field-name">
 			<label for="name">이름</label>
 			<input id="name" type="text" name="name" value="" placeholder="예: 홍길동" required aria-required="true" aria-describedby="name-tip" />
-			<span class="tip tip-input" id="username-tip"><strong>수료증 발급 시, 필수 항목</strong></span>
+			<span class="tip tip-input" id="username-tip"><strong>수료증 발급 시, 필수 항목입니다. 본인의 실명을 정확히 기재해주세요</strong></span>
 		</li>
 		<!--
 		<li class="field required text" id="field-username">

@@ -33,6 +33,30 @@ from student.helpers import (
 
 <% course_target = reverse('info', args=[unicode(course.id)]) %>
 
+<style type="text/css">
+ article.course .icon1 {
+		display:block;
+		width:56px;
+		height:73px;
+		background:url('/static/themes/default/images/application/icon_certificate.png') no-repeat 0 0;
+		background-size:100% 100%;
+		position:absolute;
+		top: 26px;
+		right: -3px;
+	}
+ article.course .icon2 {
+		display:block;
+		width:56px;
+		height:73px;
+		background:url('/static/themes/default/images/application/icon_confirmation.png') no-repeat 0 0;
+		background-size:100% 100%;
+		position:absolute;
+		top: 26px;
+		right: -3px;
+	}
+article.course h3 {max-width:477px}
+</style>
+
 <li class="course-item">
         <article class="course">
                 <div class="cover">
@@ -59,6 +83,12 @@ from student.helpers import (
                         </hgroup>
                         <a href="${course_target}" class="enter-course">강의듣기</a>
                 </section>
+
+				<!--공식 수료증 아이콘-->
+				<!--<span class="icon1"></span>-->
+
+				<!--수강 확인증 아이콘-->
+				<span class="icon2"></span>
         </article>
 </li>
 
