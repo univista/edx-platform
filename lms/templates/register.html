@@ -200,7 +200,7 @@
           <li class="field required text" id="field-username">
             <label for="username">별명</label>
             <input id="username" type="text" name="username" value="${username}" placeholder="예: HongGilDong" required aria-required="true" aria-describedby="username-tip"/>
-            <span class="tip tip-input" id="username-tip">강의게시판에서 사용됩니다. <strong>수정불가, 영문자(A-Z), 숫자(0-9)만 허용</strong></span>
+            <span class="tip tip-input" id="username-tip">강의게시판에서 사용됩니다. <strong>영문자(A-Z), 숫자(0-9)만 허용, 한번 작성후 수정불가</strong></span>
           </li>
           % if third_party_auth.is_enabled() and running_pipeline:
 
