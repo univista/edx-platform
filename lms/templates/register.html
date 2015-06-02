@@ -186,7 +186,6 @@
         <h2 class="sr">${_('Required Information')}</h2>
 
         % if has_extauth_info is UNDEFINED:
-<!--
         <ol class="list-input">
           <li class="field required text" id="field-email">
             <label for="email">${_('E-mail')}</label>
@@ -220,7 +219,8 @@
 
           % endif
         </ol>
--->
+
+        <!--
 		<ol class="list-input">
 		<li class="field required text" id="field-email">
 			<label for="email">이메일</label>
@@ -232,20 +232,12 @@
 			<input id="name" type="text" name="name" value="" placeholder="예: 홍길동" required aria-required="true" aria-describedby="name-tip" />
 			<span class="tip tip-input" id="username-tip"><strong>수료증 발급 시, 필수 항목입니다. 본인의 실명을 정확히 기재해주세요</strong></span>
 		</li>
-		<!--
-		<li class="field required text" id="field-username">
-			<label for="username">별명</label>
-			<input id="username" type="text" name="username" value="" placeholder="예: JaneDoe" required aria-required="true" aria-describedby="username-tip"/>
-			
-		</li>
-		-->
-
-
 		<li class="field required password" id="field-password">
 			<label for="password">비밀번호</label>
 			<input id="password" type="password" name="password" value="" required aria-required="true" />
 		</li>
 		</ol>
+        -->
         % else:
 
         <div class="message">
