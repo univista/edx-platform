@@ -197,13 +197,11 @@
             <input id="name" type="text" name="name" value="${name}" placeholder="예: 홍길동" required aria-required="true" aria-describedby="name-tip" />
             <span class="tip tip-input" id="name-tip"><strong>수료증 발급 시, 필수 항목입니다. 본인의 실명을 정확히 기재해주세요</strong></span>
           </li>
-          <!--
           <li class="field required text" id="field-username">
             <label for="username">${_('Public Username')}</label>
             <input id="username" type="text" name="username" value="${username}" placeholder="${_('example: JaneDoe')}" required aria-required="true" aria-describedby="username-tip"/>
             <span class="tip tip-input" id="username-tip">${_('Will be shown in any discussions or forums you participate in')} <strong>(${_('cannot be changed later')})</strong></span>
           </li>
-          -->
           % if third_party_auth.is_enabled() and running_pipeline:
 
           <li class="is-disabled field optional password" id="field-password" hidden>
