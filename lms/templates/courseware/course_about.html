@@ -286,7 +286,7 @@ from edxmako.shortcuts import marketing_link
                 ).replace(u" ", u"+")
                 tweet_action = u"http://twitter.com/intent/tweet?text={tweet_text}".format(tweet_text=tweet_text)
 
-                facebook_link = _("I just registered for {number} {title} through {account}: {url}").format(
+                facebook_link = _("{url}").format(
                     number=course.number,
                     title=get_course_about_section(course, 'title'),
                     account=microsite.get_value('course_about_twitter_account', settings.PLATFORM_TWITTER_ACCOUNT),
@@ -295,7 +295,7 @@ from edxmako.shortcuts import marketing_link
                         path=reverse('about_course', args=[course.id.to_deprecated_string()])
                     )
                 ).replace(u" ", u"+")
-                        
+
                 email_subject = u"mailto:?subject={subject}&body={body}".format(
                     subject=_("Take a course with {platform} online").format(platform=platform_name),
                     body=_("I just registered for {number} {title} through {platform} {url}").format(
