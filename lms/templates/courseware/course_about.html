@@ -304,6 +304,20 @@ from edxmako.shortcuts import marketing_link
                 ).replace(u" ", u"%20")
               %>
 
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+              <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="icon"></div>
+
+
               <a class="addthis_button_facebook at300b" title="Facebook" href="${facebook_link}"><span class="at4-icon aticon-facebook" style="background-color: rgb(48, 88, 145);"><span class="at_a11y">${_("Post a Facebook message to say you've registered for this course")}</span></span></a>
 
 
