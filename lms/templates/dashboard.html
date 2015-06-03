@@ -152,13 +152,11 @@
 						  <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}">
 
 						  <a href="#" onclick="document.${state.get_unlink_form_name()}.submit()">
-						  ## Translators: clicking on this removes the link between a user's edX account and their account with an external authentication provider (like Google or LinkedIn).
-						  ${_("Unlink")}
+						  연결끊기
 						  </a>
 						</form>
 					  % else:
 						  <a href="${pipeline.get_login_url(state.provider.NAME, pipeline.AUTH_ENTRY_DASHBOARD, redirect_url='/')}">
-						  ## Translators: clicking on this creates a link between a user's edX account and their account with an external authentication provider (like Google or LinkedIn).
 						  연결하기
 						  </a>
 					  % endif
