@@ -88,34 +88,6 @@
 				  <span class="title">이름</span>
 				  <span class="data">${ user.profile.name | h }</span>
 				</li>
-				<li class="controls--account">
-							<span class="title">연결 된 계정정보</span>
-							<span class="data">
-								<span class="third-party-auth">
-									<div class="auth-provider">
-										<div class="status">
-											<i class="icon fa fa-unlink"></i><span class="copy">Not Linked</span>
-										</div>
-										<span class="provider">Facebook</span>
-										<span class="control">
-											<a href="/auth/login/facebook/?auth_entry=dashboard&next=%2F">연결하기</a>
-										</span>
-									</div>
-									<div class="auth-provider">
-										<div class="status">
-											<i class="icon fa fa-link"></i> <span class="copy">Linked</span>
-										</div>
-										<span class="provider">Google</span>
-										<span class="control">
-											<form action="/auth/disconnect/google-oauth2/?" method="post" name="Google_unlink_form">
-												<input type="hidden" name="csrfmiddlewaretoken" value="s2cy7pSY5j9EiU8sAW4CDpgmGAGHBPJr">
-												<a href="#" onclick="document.Google_unlink_form.submit()">연결끊기</a>
-											</form>
-										</span>
-									</div>
-								</span>
-							</span>
-						</li>
 
 				%if len(language_options) > 1:
 				<%include file='dashboard/_dashboard_info_language.html' />
