@@ -218,7 +218,7 @@
 
 		<div class="login-providers">
 		% for enabled in provider.Registry.enabled():
-		  <button type="submit" class="button button-primary button-${enabled.NAME} register-${enabled.NAME}" onclick="thirdPartySignin(event, '${pipeline_url[enabled.NAME]}');"><span class="icon fa ${enabled.ICON_CLASS}"></span> ${_('Sign in with {provider_name}').format(provider_name=enabled.NAME)}</button>
+		  <button type="submit" class="button button-primary button-${enabled.NAME} login-${enabled.NAME}" onclick="thirdPartySignin(event, '${pipeline_url[enabled.NAME]}');"><span class="icon fa ${enabled.ICON_CLASS}"></span> ${_('{provider_name}').format(provider_name=enabled.NAME)}으로 로그인</button>
 		% endfor
 
 		</div>
