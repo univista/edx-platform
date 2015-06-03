@@ -1,5 +1,5 @@
-delete from auth_registration where user_id=45;
-delete from social_auth_usersocialauth where user_id=45;
-delete from auth_userprofile where user_id=45;
-delete from user_api_userpreference where user_id=45;
-delete from auth_user where id=45;
+delete from auth_registration where user_id=46;
+delete from social_auth_usersocialauth where user_id=46;
+delete from auth_userprofile where user_id=46;
+delete from user_api_userpreference where user_id=46;
+delete from auth_user where id=46;

@@ -136,9 +136,9 @@
 
 					  <div class="status">
 						% if state.has_account:
-						<i class="icon fa fa-link"></i> <span class="copy">${_("Linked")}</span>
+						<i class="icon fa fa-link"></i> <span class="copy">${_("연결 되었음")}</span>
 						% else:
-						<i class="icon fa fa-unlink"></i><span class="copy">${_("Not Linked")}</span>
+						<i class="icon fa fa-unlink"></i><span class="copy">${_("연결 되지 았음")}</span>
 						% endif
 					  </div>
 
@@ -153,13 +153,13 @@
 
 						  <a href="#" onclick="document.${state.get_unlink_form_name()}.submit()">
 						  ## Translators: clicking on this removes the link between a user's edX account and their account with an external authentication provider (like Google or LinkedIn).
-						  ${_("Unlink")}
+						  ${_("연결해제")}
 						  </a>
 						</form>
 					  % else:
 						  <a href="${pipeline.get_login_url(state.provider.NAME, pipeline.AUTH_ENTRY_DASHBOARD, redirect_url='/')}">
 						  ## Translators: clicking on this creates a link between a user's edX account and their account with an external authentication provider (like Google or LinkedIn).
-						  ${_("Link")}
+						  ${_("연결하기")}
 						  </a>
 					  % endif
 					  </span>
