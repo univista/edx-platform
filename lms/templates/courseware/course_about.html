@@ -288,23 +288,11 @@ from edxmako.shortcuts import marketing_link
 
                 facebook_link = _("{url}").format(
                     url=u"http://{domain}{path}".format(
-                        domain=site_domain,
+                        domain=academyx.co,
                         path=reverse('about_course', args=[course.id.to_deprecated_string()])
                     )
                 ).replace(u" ", u"+")
 
-                email_subject = u"mailto:?subject={subject}&body={body}".format(
-                    subject=_("Take a course with {platform} online").format(platform=platform_name),
-                    body=_("I just registered for {number} {title} through {platform} {url}").format(
-                        number=course.number,
-                        title=get_course_about_section(course, 'title'),
-                        platform=platform_name,
-                        url=u"http://{domain}{path}".format(
-                            domain=site_domain,
-                            path=reverse('about_course', args=[course.id.to_deprecated_string()]),
-                        )
-                    )
-                ).replace(u" ", u"%20")
               %>
 
 <div id="fb-root"></div>
