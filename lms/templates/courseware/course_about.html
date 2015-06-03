@@ -288,7 +288,7 @@ from edxmako.shortcuts import marketing_link
 
                 facebook_link = _("{url}").format(
                     url=u"http://{domain}{path}".format(
-                        domain=academyx.co,
+                        domain=site_domain,
                         path=reverse('about_course', args=[course.id.to_deprecated_string()])
                     )
                 ).replace(u" ", u"+")
