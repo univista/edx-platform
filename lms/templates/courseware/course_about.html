@@ -130,9 +130,6 @@ from edxmako.shortcuts import marketing_link
 
       <div class="inner-wrapper">
           ${get_course_about_section(course, "overview")}
-          <a href="" class="btn_block">수강 신청</a>
-
-
 
         %if user.is_authenticated() and registered:
           %if show_courseware_link:
@@ -142,22 +139,18 @@ from edxmako.shortcuts import marketing_link
             <strong>수강 듣기</strong>
             </a>
           %endif
-
         %elif in_cart:
           <span class="add-to-cart">
             ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
           </span>
         % elif is_course_full:
           <span class="register disabled">
-            ${_("Course is full")}
+            강의 정원초과
           </span>
         % elif invitation_only and not can_enroll:
           <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
-        ## Shib courses need the enrollment button to be displayed even when can_enroll is False,
-        ## because AnonymousUsers cause can_enroll for shib courses to be False, but we need them to be able to click
-        ## so that they can register and become a real user that can enroll.
         % elif not is_shib_course and not can_enroll:
-          <a class="action access-courseware"><strong>${_("Enrollment is Closed")}</strong></a>
+          <a class="action access-courseware"><strong>수강신청 종료</strong></a>
         %elif can_add_course_to_cart:
           <%
           if user.is_authenticated():
@@ -178,13 +171,6 @@ from edxmako.shortcuts import marketing_link
           </a>
           <div id="register_error"></div>
         %endif
-
-
-
-
-
-
-
 
       </div>
     </section>
@@ -275,22 +261,18 @@ from edxmako.shortcuts import marketing_link
             <strong>수강 듣기</strong>
             </a>
           %endif
-
         %elif in_cart:
           <span class="add-to-cart">
             ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
           </span>
         % elif is_course_full:
           <span class="register disabled">
-            ${_("Course is full")}
+            강의 정원초과
           </span>
         % elif invitation_only and not can_enroll:
           <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
-        ## Shib courses need the enrollment button to be displayed even when can_enroll is False,
-        ## because AnonymousUsers cause can_enroll for shib courses to be False, but we need them to be able to click
-        ## so that they can register and become a real user that can enroll.
         % elif not is_shib_course and not can_enroll:
-          <a class="action access-courseware"><strong>${_("Enrollment is Closed")}</strong></a>
+          <a class="action access-courseware"><strong>수강신청 종료</strong></a>
         %elif can_add_course_to_cart:
           <%
           if user.is_authenticated():
