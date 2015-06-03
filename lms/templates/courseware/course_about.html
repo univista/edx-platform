@@ -153,7 +153,7 @@ from edxmako.shortcuts import marketing_link
       % endif
 
 
-
+<!--
 		<div class="course-detail-overview views-fieldset" data-module="views_fieldsets">
 			<div class="copy-detail course-detail-info views-fieldset" data-module="views_fieldsets">
                                 <div class="course-detail-school item">
@@ -177,8 +177,32 @@ from edxmako.shortcuts import marketing_link
 			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
 				<p>${get_course_about_section(course, 'short_description')}</p>
 			</div>
+-->
 
 
+		<div class="course-detail-overview views-fieldset" data-module="views_fieldsets">
+			<div class="copy-detail course-detail-info views-fieldset" data-module="views_fieldsets">
+                                <div class="course-detail-school item">
+                                        <span class="label">소속기관 </span>${get_course_about_section(course, "university")}
+                                </div>
+                                <div class="course-detail-number item">
+                                        <span class="label">강의교수 </span>${course.display_number_with_default | h}
+                                </div>
+                                <div class="course-detail-number item">
+                                        <span class="label">개강일 </span>${get_course_about_section(course, "university")}
+                                </div>
+                                <div class="course-detail-start item">
+                                        <span class="label">수강신청 </span>${course.start_datetime_text()}
+                                </div>
+                                % if get_course_about_section(course, "end_date"):
+                                <div class="course-detail-length item">
+                                        <span class="label">학습기간 </span>i${get_course_about_section(course, "end_date")}
+                                </div>
+                                % endif
+			</div>
+			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
+				<p>${get_course_about_section(course, 'short_description')}</p>
+			</div>
 
 
 
