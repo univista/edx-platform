@@ -88,41 +88,13 @@
 				  <span class="title">이름</span>
 				  <span class="data">${ user.profile.name | h }</span>
 				</li>
-				<li class="controls--account">
-							<span class="title">연결 된 계정정보</span>
-							<span class="data">
-								<span class="third-party-auth">
-									<div class="auth-provider">
-										<div class="status">
-											<i class="icon fa fa-unlink"></i><span class="copy">Not Linked</span>
-										</div>
-										<span class="provider">Facebook</span>
-										<span class="control">
-											<a href="/auth/login/facebook/?auth_entry=dashboard&next=%2F">연결하기</a>
-										</span>
-									</div>
-									<div class="auth-provider">
-										<div class="status">
-											<i class="icon fa fa-link"></i> <span class="copy">Linked</span>
-										</div>
-										<span class="provider">Google</span>
-										<span class="control">
-											<form action="/auth/disconnect/google-oauth2/?" method="post" name="Google_unlink_form">
-												<input type="hidden" name="csrfmiddlewaretoken" value="s2cy7pSY5j9EiU8sAW4CDpgmGAGHBPJr">
-												<a href="#" onclick="document.Google_unlink_form.submit()">연결끊기</a>
-											</form>
-										</span>
-									</div>
-								</span>
-							</span>
-						</li>
 
 				%if len(language_options) > 1:
 				<%include file='dashboard/_dashboard_info_language.html' />
 				%endif
 
 				% if third_party_auth.is_enabled():
-				<!--<li class="controls--account">
+				<li class="controls--account">
 				  <span class="title">
 					## Translators: this section lists all the third-party authentication providers (for example, Google and LinkedIn) the user can link with or unlink from their edX account.
 					${_("Connected Accounts")}
@@ -136,9 +108,9 @@
 
 					  <div class="status">
 						% if state.has_account:
-						<i class="icon fa fa-link"></i> <span class="copy">${_("Linked")}</span>
+						<i class="icon fa fa-link"></i> <span class="copy">${_("연결")}</span>
 						% else:
-						<i class="icon fa fa-unlink"></i><span class="copy">${_("Not Linked")}</span>
+						<i class="icon fa fa-unlink"></i><span class="copy">${_("연결 끊기")}</span>
 						% endif
 					  </div>
 
@@ -153,13 +125,13 @@
 
 						  <a href="#" onclick="document.${state.get_unlink_form_name()}.submit()">
 						  ## Translators: clicking on this removes the link between a user's edX account and their account with an external authentication provider (like Google or LinkedIn).
-						  ${_("Unlink")}
+						  ${_("연결 끊기")}
 						  </a>
 						</form>
 					  % else:
 						  <a href="${pipeline.get_login_url(state.provider.NAME, pipeline.AUTH_ENTRY_DASHBOARD, redirect_url='/')}">
 						  ## Translators: clicking on this creates a link between a user's edX account and their account with an external authentication provider (like Google or LinkedIn).
-						  ${_("Link")}
+						  ${_("연결")}
 						  </a>
 					  % endif
 					  </span>
@@ -168,30 +140,6 @@
 
 					</span>
 				  </span>
-				</li>-->
-				<li class="controls--account">
-					<span class="title">연결 된 계정정보</span>
-					<span class="data">
-					<span class="third-party-auth">
-						<div class="auth-provider">
-							<div class="status">
-								<i class="icon fa fa-unlink"></i><span class="copy">연결끊김</span>
-							</div>
-							<span class="provider">Facebook</span>
-							<span class="control">
-							  <a href="/auth/login/facebook/?auth_entry=dashboard&amp;next=%2F">연결하기</a>
-							</span>
-						</div>
-						<div class="auth-provider">
-							<div class="status">
-								<i class="icon fa fa-link"></i> <span class="copy">연결중</span>
-							</div>
-							<span class="provider">Google</span>
-							<span class="control">
-								<a href="/auth/login/google-oauth2/?auth_entry=dashboard&amp;next=%2F">연결끊기</a>
-							</span>
-						</div>
-					</span>
 				</li>
 				% endif
 
@@ -348,8 +296,6 @@
     </div>
   </div>
 </section>
-
-
 
 <section id="change_email" class="modal" aria-hidden="true">
   <div class="inner-wrapper" role="dialog" aria-labelledby="change_email_title">
