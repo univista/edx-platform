@@ -183,7 +183,11 @@ from django.utils.http import urlquote_plus
                 </a>
 
               </h3>
-			  <em>${percentageString}</em>
+			  <em>
+                  %if len(section['scores']) > 0:
+                    ${percentageString}
+                  %endif
+              </em>
               <p>
                 ${section['format']}
 
