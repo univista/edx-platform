@@ -200,7 +200,7 @@ from django.utils.http import urlquote_plus
 
               <div class="scores">
                 %if len(section['scores']) > 0:
-				  <h3>연습문제 : ${total}문제중 ${float(earned)}개 정답</h3>
+				  <h3>연습문제 : ${int(total)}문제중 ${int(earned)}개 정답</h3>
                 %else:
 				  <h3 class="no-scores">현재 점수 기록이 없습니다.</h3>
                 %endif
