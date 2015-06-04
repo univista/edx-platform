@@ -180,16 +180,10 @@ from django.utils.http import urlquote_plus
                     ${_("{earned:.3n} of {total:.3n} possible points").format( earned = float(earned), total = float(total) )}
                   </span>
                 %endif
-
                 </a>
-				 
-
-                %if total > 0 or earned > 0:
-                  <span> ${"({0:.3n}/{1:.3n}) {2}".format( float(earned), float(total), percentageString )}</span>
-                %endif
 
               </h3>
-			  <em>${3/1}%</em>
+			  <em>${"({0:.3n}/{1:.3n}) {2}".format( float(earned), float(total), percentageString )}${"({0:.3n}/{1:.3n}) {2}".format( float(earned), float(total), percentageString )}</em>
               <p>
                 ${section['format']}
 
