@@ -174,20 +174,20 @@ from django.utils.http import urlquote_plus
 
               <h3><a href="${reverse('courseware_section', kwargs=dict(course_id=course.id.to_deprecated_string(), chapter=chapter['url_name'], section=section['url_name']))}">
                 ${ section['display_name'] }
-                <!--
+
 				%if total > 0 or earned > 0:
                   <span class="sr">
                     ${_("{earned:.3n} of {total:.3n} possible points").format( earned = float(earned), total = float(total) )}
                   </span>
                 %endif
-				-->
+
                 </a>
 				 
-				<!--
+
                 %if total > 0 or earned > 0:
                   <span> ${"({0:.3n}/{1:.3n}) {2}".format( float(earned), float(total), percentageString )}</span>
                 %endif
-				-->
+				
               </h3>
 			  <em>17%</em>
               <p>
