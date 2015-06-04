@@ -238,23 +238,18 @@ from edxmako.shortcuts import marketing_link
                                         <span class="label">강의교수 </span>${course.display_number_with_default | h}
                                 </div>
                                 <div class="course-detail-number item">
-                                        <span class="label">개강일 </span>${get_course_about_section(course, "university")}
+                                        <span class="label">개강일 </span>${course.start_datetime_text()}
                                 </div>
                                 <div class="course-detail-start item">
-                                        <span class="label">수강신청 </span>${course.start_datetime_text()}
+                                        <span class="label">수강신청 </span>${course.start_datetime_text()} ~ ${course.end_datetime_text()}
                                 </div>
-                                % if get_course_about_section(course, "end_date"):
                                 <div class="course-detail-length item">
-                                        <span class="label">학습기간 </span>i${get_course_about_section(course, "end_date")}
+                                        <span class="label">학습기간 </span>
                                 </div>
-                                % endif
 			</div>
 			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
 				<p>${get_course_about_section(course, 'short_description')}</p>
 			</div>
-
-
-
 
                                 <div class="view view-course-detail view-id-course_detail view-display-id-footer view-dom-id-c8a6a879378dfc581a3c7d38e1bfc109">
                                         <div class="view-content">
@@ -308,11 +303,6 @@ from edxmako.shortcuts import marketing_link
                                         </div>
                                 </div>
                         </div>
-
-
-
-
-
 
 			
 			<div class="course-detail-social views-fieldset" data-module="views_fieldsets">
