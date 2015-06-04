@@ -7,10 +7,8 @@ from courseware.courses import course_image_url, get_course_about_section
 from django.conf import settings
 from edxmako.shortcuts import marketing_link
 %>
-
 <%inherit file="../main.html" />
 <%block name="headextra">
-
   <%
     if self.theme_enabled():
       google_analytics_file = u'../{ga}'.format(
@@ -19,17 +17,13 @@ from edxmako.shortcuts import marketing_link
     else:
       google_analytics_file = '../google_analytics.html'
   %>
-
   <%include file="${google_analytics_file}" />
-
   ## OG (Open Graph) title and description added below to give social media info to display
   ## (https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags)
   <meta property="og:title" content="${get_course_about_section(course, 'title')}" />
   <meta property="og:description" content="${get_course_about_section(course, 'short_description')}" />
 </%block>
-
 <%block name="js_extra">
-
   <script type="text/javascript">
   (function() {
     $(".register").click(function(event) {
@@ -109,16 +103,11 @@ from edxmako.shortcuts import marketing_link
 
   })(this)
   </script>
-
   <script src="${static.url('js/course_info.js')}"></script>
   <link rel="stylesheet" href="/static/css/m2ly6jxt.css">
-
 </%block>
-
 <%block name="pagetitle">${get_course_about_section(course, "title")}</%block>
-
 <section class="course-info">
-
   <section class="container">
   <section id="main-content">
     <section class="details">
@@ -178,14 +167,10 @@ from edxmako.shortcuts import marketing_link
           </a>
           <div id="register_error"></div>
         %endif
-
       </div>
     </section>
-
     <section class="course-sidebar">
 	  <section class="course-summary">
-
-
      % if get_course_about_section(course, "video"):
       <a href="#video-modal" class="media" rel="leanModal">
         <div class="hero">
@@ -201,34 +186,6 @@ from edxmako.shortcuts import marketing_link
       </div>
       % endif
 
-
-<!--
-		<div class="course-detail-overview views-fieldset" data-module="views_fieldsets">
-			<div class="copy-detail course-detail-info views-fieldset" data-module="views_fieldsets">
-                                <div class="course-detail-school item">
-                                        <span class="label">강의명 </span>${get_course_about_section(course, "title")}
-                                </div>
-                                <div class="course-detail-number item">
-                                        <span class="label">Course Number </span>${course.display_number_with_default | h}
-                                </div>
-                                <div class="course-detail-number item">
-                                        <span class="label">소속기관 </span>${get_course_about_section(course, "university")}
-                                </div>
-                                <div class="course-detail-start item">
-                                        <span class="label">개강일 </span>${course.start_datetime_text()}
-                                </div>
-                                % if get_course_about_section(course, "end_date"):
-                                <div class="course-detail-length item">
-                                        <span class="label">종료일 </span>i${get_course_about_section(course, "end_date")}
-                                </div>
-                                % endif
-			</div>
-			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
-				<p>${get_course_about_section(course, 'short_description')}</p>
-			</div>
--->
-
-
 		<div class="course-detail-overview views-fieldset" data-module="views_fieldsets">
 			<div class="copy-detail course-detail-info views-fieldset" data-module="views_fieldsets">
                                 <div class="course-detail-school item">
@@ -238,13 +195,13 @@ from edxmako.shortcuts import marketing_link
                                         <span class="label">강의교수 </span>${course.display_number_with_default | h}
                                 </div>
                                 <div class="course-detail-number item">
-                                        <span class="label">개강일 </span>${course.start_datetime_text()}
+                                        <span class="label">개강일 </span>${get_course_about_section(course, "start_date")}
                                 </div>
                                 <div class="course-detail-start item">
                                         <span class="label">수강신청 </span>${course.start_datetime_text()} ~ ${course.end_datetime_text()}
                                 </div>
                                 <div class="course-detail-length item">
-                                        <span class="label">학습기간 </span>
+                                        <span class="label">학습기간 </span>주
                                 </div>
 			</div>
 			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
@@ -332,7 +289,6 @@ from edxmako.shortcuts import marketing_link
                 ).replace(u" ", u"+")
 
               %>
-
             <div id="fb-root"></div>
             <script>(function(d, s, id) {
               var js, fjs = d.getElementsByTagName(s)[0];
@@ -341,13 +297,9 @@ from edxmako.shortcuts import marketing_link
               js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.3";
               fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));</script>
-
             <script src="https://apis.google.com/js/platform.js" async defer>
               {lang: 'ko'}
             </script>
-
-
-
               <div class="fb-share-button" data-href="${facebook_link}" data-layout="icon"></div>
               <!--
               <a class="addthis_button_facebook at300b" title="Facebook" href="${facebook_link}">
@@ -373,16 +325,13 @@ from edxmako.shortcuts import marketing_link
 			</div>
 
 		</div>
-
       </section>
-
       ## For now, ocw links are the only thing that goes in additional resources
       % if get_course_about_section(course, "ocw_links"):
       <section class="additional-resources">
         <header>
           <h1>${_("Additional Resources")}</h1>
         </header>
-
         <section>
           ## "MITOpenCourseware" should *not* be translated
           <h2 class="opencourseware">MITOpenCourseware</h2>
@@ -391,12 +340,9 @@ from edxmako.shortcuts import marketing_link
       </section>
       %endif
     </section>
-
   </section>
   </section>
- 
 </section>
-
 <script type="text/javascript">
 var certification_html = "<h3 class=\"course-how-take-title\">수강 신청 방법</h3>" +
 	"<div class=\"course-how-take-block course-how-take-verified\">" +
@@ -420,13 +366,10 @@ var certification_html = "<h3 class=\"course-how-take-title\">수강 신청 방�
     "<p class=\"course-take-audit-cost\">수강료 : 무료</p>" +
     "</div>" +
     "</div>";
-
 if ($(".certification").length) {
     $(".certification").html(certification_html);
 }
-
 </script>
-
 ## Need to put this hidden form on the page so that the registration button works.
 ## Since it's no harm to display a hidden form, we display it with the most permissive conditional
 ## which is when the student is not registered.
