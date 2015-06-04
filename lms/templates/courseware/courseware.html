@@ -276,6 +276,17 @@ ${fragment.foot_html()}
       ${fragment.body_html()}
 
 
+<%
+    site_domain = microsite.get_value('site_domain', settings.SITE_NAME)
+    platform_name = microsite.get_value('platform_name', settings.PLATFORM_NAME)
+
+    facebook_link = _("{url}").format(
+        url=u"http://{domain}{path}".format(
+            domain=site_domain,
+            path=reverse('about_course', args=[course.id.to_deprecated_string()])
+        )
+    ).replace(u" ", u"+")
+%>
         <!-- facebook comment -->
         <div id="fb-root"></div>
         <script>(function(d, s, id) {
@@ -285,6 +296,7 @@ ${fragment.foot_html()}
           js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.3&appId=584504851686203";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
+        ${facebook_link}
         <div class="fb-comments" data-href="http://192.168.0.25/courses/edX/DemoX/Demo_Course/courseware/interactive_demonstrations/" data-numposts="5" data-colorscheme="light"></div>
         <!-- facebook comment -->
 
