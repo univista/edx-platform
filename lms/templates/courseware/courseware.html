@@ -275,7 +275,6 @@ ${fragment.foot_html()}
 
       ${fragment.body_html()}
 
-
         <!-- facebook comment -->
         <div id="fb-root"></div>
         <script>
@@ -287,10 +286,20 @@ ${fragment.foot_html()}
           js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.3&appId=584504851686203";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+		
+		$(document).ready(function(){
+			width_percent = 820;
+			fbxml = '<fb:comments href="http://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.3&appId=584504851686203" num_posts="5" width="' + width_percent  + 'px"></fb:comments>';
+			$('#fbcomment').append(fbxml);
+		});
         </script>
-
-        <div class="fb-comments" data-href="" data-width="100%" data-numposts="5" data-colorscheme="light"></div>
+		
+        <div class="fb-comments" data-href="" data-width="100%" data-numposts="5" data-colorscheme="light" style="width:100%;display:none"></div>
+		<div id="fbcomment"></div>
         <!-- facebook comment -->
+
+		
+
 
     </section>
     % if settings.FEATURES.get('ENABLE_COURSEWARE_SEARCH'):
@@ -298,7 +307,10 @@ ${fragment.foot_html()}
       </section>
     % endif
   </div>
+
 </div>
+
+
 
 <nav class="nav-utilities ${"has-utility-calculator" if course.show_calculator else ""}" aria-label="${_('Course Utilities')}">
   ## Utility: Chat
