@@ -69,6 +69,31 @@
 	}
 	.profile-wrapper .course-info>.chapters>section .sections>div:first-child {padding-bottom:34px;padding-top:34px}
 	.profile-wrapper .course-info>.chapters>section .sections>div:last-child {padding-bottom:34px}
+
+	.enter-course, .enter-course:link, .enter-course:visited {
+		  border: 0;
+		  border-radius: 2px;
+		  box-shadow: none;
+		  color: #fff;
+		  display: inline-block;
+		  font-weight: 400;
+		  background-color: #2faa47;
+		  background-image: none;
+		  padding: 12px 20px;
+		  text-decoration: none;
+		  text-shadow: none;
+		  background-clip: padding-box;
+		  -webkit-box-sizing: border-box;
+		  -moz-box-sizing: border-box;
+		  box-sizing: border-box;
+		  display: block;
+		  float: left;
+		  font: 16px "NanumBarunGothic",Verdana,Geneva,sans-serif;
+		  line-height: 16px;
+		  letter-spacing: 0;
+		  text-align: center;
+		  margin-left: 20px;
+		}
 </style>
 
 <%namespace name="progress_graph" file="/courseware/progress_graph.js"/>
@@ -112,7 +137,8 @@ from django.utils.http import urlquote_plus
 
       <header class="progress-certificates">
         <!--<h1 class="progress-certificates-title">${_("Course Progress for Student '{username}' ({email})").format(username=student.username, email=student.email)}</h1>-->
-		<h1 class="progress-certificates-title">교육과정 전체 진도율 확인<!--여기 글자수가 줄어드니까 그래프에 %나와있는 왼쪽 글씨가 그래프를 침범하네요;;--></h1>
+		<h1 class="progress-certificates-title">교육과정 전체 진도율 확인 <!--여기 글자수가 줄어드니까 그래프에 %나와있는 왼쪽 글씨가 그래프를 침범하네요;;--></h1>
+		<a href="/certificate" class="enter-course">수료증 보기</a>
       </header>
 
         %if show_generate_cert_btn:
