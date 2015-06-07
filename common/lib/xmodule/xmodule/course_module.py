@@ -1384,13 +1384,6 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             # Translators: TBD stands for 'To Be Determined' and is used when a course
             # does not yet have an announced start date.
             return _('TBD')
-        else:
-            when = self.advertised_start or self.start
-
-            if format_string == "DATE_TIME":
-                return self._add_timezone_string(strftime(when, format_string))
-
-            return strftime(when, format_string)
 
 
 
