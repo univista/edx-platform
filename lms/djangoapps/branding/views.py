@@ -13,6 +13,7 @@ from microsite_configuration import microsite
 from edxmako.shortcuts import marketing_link
 from util.cache import cache_if_anonymous
 
+from django.template.context_processors import csrf
 
 def get_course_enrollments(user):
     """
@@ -101,7 +102,7 @@ def courses(request):
 
     #  we do not expect this case to be reached in cases where
     #  marketing is enabled or the courses are not browsable
-    return courseware.views.courses(request)
+    return courseware.views.courses(csrf(request))
 
 
 @ensure_csrf_cookie
