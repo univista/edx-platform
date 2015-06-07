@@ -1280,7 +1280,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         """Return the course_id for this course"""
         return self.location.course_key
 
-    def start_datetime_text(self, format_string="SHORT_DATE"):
+    def enrollment_start_datetime_text(self, format_string="SHORT_DATE"):
         return self.enrollment_start
 
 
