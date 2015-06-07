@@ -83,7 +83,7 @@ from eventtracking import tracker
 import analytics
 from courseware.url_helpers import get_redirect_url
 
-from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
 
 log = logging.getLogger("edx.courseware")
 
