@@ -115,7 +115,6 @@ def user_groups(user):
     return group_names
 
 
-@ensure_csrf_cookie
 @cache_if_anonymous()
 @csrf_exempt
 def courses(request):
