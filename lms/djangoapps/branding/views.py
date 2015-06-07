@@ -13,7 +13,6 @@ from microsite_configuration import microsite
 from edxmako.shortcuts import marketing_link
 from util.cache import cache_if_anonymous
 
-from django.template.context_processors import csrf
 
 def get_course_enrollments(user):
     """
