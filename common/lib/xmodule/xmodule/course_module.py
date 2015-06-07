@@ -21,6 +21,8 @@ from xblock.fields import Scope, List, String, Dict, Boolean, Integer, Float
 from .fields import Date
 from django.utils.timezone import UTC
 
+
+
 log = logging.getLogger(__name__)
 
 # Make '_' a no-op so we can scrape strings
@@ -1356,7 +1358,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
 
     def study_weeks_text(self):
-        return self.start
+        return self.end - self.start
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
