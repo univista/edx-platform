@@ -83,7 +83,8 @@ from eventtracking import tracker
 import analytics
 from courseware.url_helpers import get_redirect_url
 
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect
+from django.template import RequestContext
 
 log = logging.getLogger("edx.courseware")
 
@@ -131,7 +132,7 @@ def courses(request):
 
     return render_to_response("courseware/courses.html", {'courses': courses})
 
-
+@csrf_protect
 def courses_search(request):
     """
     Render "find courses" page.  The course selection work is done in courseware.courses.
