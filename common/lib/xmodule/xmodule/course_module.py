@@ -1280,9 +1280,6 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         """Return the course_id for this course"""
         return self.location.course_key
 
-    def enrollment_start_datetime_text(self, format_string="SHORT_DATE"):
-        return self.enrollment_start
-
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
         """
@@ -1314,7 +1311,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             # does not yet have an announced start date.
             return _('TBD')
         else:
-            when = self.advertised_start or self.start
+            when = self.enrollment_start
 
             if format_string == "DATE_TIME":
                 return self._add_timezone_string(strftime(when, format_string))
