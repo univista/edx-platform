@@ -1354,16 +1354,44 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
             return strftime(when, format_string)
 
-    def week_rang(date):
-        year, week, dow = date.isocalendar()
-        if dow == 7:
-            start_date = date
+
+    def study_weeks_text(self, format_string="SHORT_DATE"):
+        """
+        Returns the desired text corresponding the course's start date and time in UTC.  Prefers .advertised_start,
+        then falls back to .start
+        """
+        i18n = self.runtime.service(self, "i18n")
+        _ = i18n.ugettext
+        strftime = i18n.strftime
+
+        def try_parse_iso_8601(text):
+            try:
+                result = Date().from_json(text)
+                if result is None:
+                    result = text.title()
+                else:
+                    result = strftime(result, format_string)
+                    if format_string == "DATE_TIME":
+                        result = self._add_timezone_string(result)
+            except ValueError:
+                result = text.title()
+
+            return result
+
+        if isinstance(self.advertised_start, basestring):
+            return try_parse_iso_8601(self.advertised_start)
+        elif self.start_date_is_still_default:
+            # Translators: TBD stands for 'To Be Determined' and is used when a course
+            # does not yet have an announced start date.
+            return _('TBD')
         else:
-            start_date = date - timedelta(dow)
+            when = self.advertised_start or self.start
 
-        end_date = start_date + timedelta(6)
+            if format_string == "DATE_TIME":
+                return self._add_timezone_string(strftime(when, format_string))
 
-        return (start_date, end_date)
+            return strftime(when, format_string)
+
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
