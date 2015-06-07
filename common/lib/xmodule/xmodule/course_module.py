@@ -1281,6 +1281,10 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         return self.location.course_key
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
+        return self.enrollment_start
+
+
+    def start_datetime_text(self, format_string="SHORT_DATE"):
         """
         Returns the desired text corresponding the course's start date and time in UTC.  Prefers .advertised_start,
         then falls back to .start
