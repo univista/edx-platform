@@ -83,6 +83,8 @@ from eventtracking import tracker
 import analytics
 from courseware.url_helpers import get_redirect_url
 
+from django.views.decorators.csrf import csrf_exempt
+
 log = logging.getLogger("edx.courseware")
 
 template_imports = {'urllib': urllib}
@@ -115,6 +117,7 @@ def user_groups(user):
 
 @ensure_csrf_cookie
 @cache_if_anonymous()
+@csrf_exempt
 def courses(request):
     """
     Render "find courses" page.  The course selection work is done in courseware.courses.
