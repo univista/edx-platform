@@ -1376,7 +1376,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             except ValueError:
                 result = text.title()
 
-            return "2222"
+            return result
 
         if isinstance(self.advertised_start, basestring):
             return try_parse_iso_8601(self.advertised_start)
