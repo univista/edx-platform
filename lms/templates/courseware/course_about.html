@@ -216,7 +216,7 @@ from edxmako.shortcuts import marketing_link
                         <span class="label">수강신청 </span>
                 </div>
                 <div class="course-detail-length item">
-                        <span class="label">학습기간 </span>${course.start_datetime_text()} ~ ${course.end_datetime_text()}
+                        <span class="label">학습기간 </span>${course.start_datetime_text()}  ${course.end_datetime_text()}
                 </div>
                 % endif
 			</div>
