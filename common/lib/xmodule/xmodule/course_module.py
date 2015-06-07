@@ -1362,10 +1362,10 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         _ = i18n.ugettext
         strftime = i18n.strftime
 
-        end_week = self._add_timezone_string(strftime(self.end, '%W'))
+        end_week = strftime(self.end, '%W')
         start_week = self._add_timezone_string(strftime(self.start, '%W'))
 
-        return self._add_timezone_string(end_week)
+        return end_week
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
