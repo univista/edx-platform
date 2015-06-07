@@ -1362,8 +1362,8 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         _ = i18n.ugettext
         strftime = i18n.strftime
 
-        when = self.start
-        return self._add_timezone_string(strftime(when, '%W'))
+        
+        return self._add_timezone_string(strftime(self.end, '%W')) - self._add_timezone_string(strftime(self.start, '%W'))
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
