@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from courseware.courses import course_image_url, get_course_about_section
 from django.conf import settings
 from edxmako.shortcuts import marketing_link
+from datetime import datetime, timedelta
 %>
 
 <%inherit file="../main.html" />
@@ -111,52 +112,53 @@ from edxmako.shortcuts import marketing_link
   </script>
 
   <script src="${static.url('js/course_info.js')}"></script>
+  <link rel="stylesheet" href="/static/css/m2ly6jxt.css">
+
 </%block>
 
 <%block name="pagetitle">${get_course_about_section(course, "title")}</%block>
 
 <section class="course-info">
-  <header class="course-profile">
-    <div class="intro-inner-wrapper">
-      <div class="table">
-      <section class="intro">
-        <hgroup>
-          <h1>
-            ${get_course_about_section(course, "title")}
-            % if not self.theme_enabled():
-              <a href="#">${get_course_about_section(course, "university")}</a>
-            % endif
-          </h1>
-        </hgroup>
 
-        <div class="main-cta">
+  <section class="container">
+  <section id="main-content">
+    <section class="details">
+      % if staff_access and studio_url is not None:
+        <div class="wrap-instructor-info studio-view">
+          <a class="instructor-info-action" href="${studio_url}">${_("View About Page in studio")}</a>
+        </div>
+      % endif
+
+      <div class="inner-wrapper">
+        <section class="top_banner">
+          <img src='${course_image_url(course)}' width='820' height='285'>
+        </section>
+
+          ${get_course_about_section(course, "overview")}
+
         %if user.is_authenticated() and registered:
           %if show_courseware_link:
-            <a href="${course_target}">
+            <!--
+            <a class="action access-courseware btn_block" href="${course_target}">
+            -->
+            <a class="action access-courseware btn_block" href="/application">
           %endif
-
-          <span class="register disabled">${_("You are registered for this course")}</span>
-
           %if show_courseware_link:
-            <strong>${_("View Courseware")}</strong>
+            <strong>수강 신청</strong>
             </a>
           %endif
-
         %elif in_cart:
           <span class="add-to-cart">
             ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
           </span>
         % elif is_course_full:
           <span class="register disabled">
-            ${_("Course is full")}
+            강의 정원초과
           </span>
         % elif invitation_only and not can_enroll:
           <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
-        ## Shib courses need the enrollment button to be displayed even when can_enroll is False,
-        ## because AnonymousUsers cause can_enroll for shib courses to be False, but we need them to be able to click
-        ## so that they can register and become a real user that can enroll.
         % elif not is_shib_course and not can_enroll:
-          <span class="register disabled">${_("Enrollment is Closed")}</span>
+          <a class="action access-courseware"><strong>수강신청 종료</strong></a>
         %elif can_add_course_to_cart:
           <%
           if user.is_authenticated():
@@ -166,83 +168,130 @@ from edxmako.shortcuts import marketing_link
             reg_href = reg_then_add_to_cart_link
             reg_element_id = "reg_then_add_to_cart"
           %>
-          <a href="${reg_href}" class="add-to-cart" id="${reg_element_id}">
+          <a href="${reg_href}" class="add-to-cart action access-courseware" id="${reg_element_id}">
             ${_("Add {course_name} to Cart ({price})")\
               .format(course_name=course.display_number_with_default, price=course_price)}
           </a>
           <div id="register_error"></div>
         %else:
-          <a href="#" class="register">
-            ${_("Register for {course_name}").format(course_name=course.display_number_with_default) | h}
+          <a href="#" class="register action access-courseware btn_block">
+            수강신청
           </a>
           <div id="register_error"></div>
         %endif
-        </div>
 
-      </section>
-      % if get_course_about_section(course, "video"):
+      </div>
+    </section>
+
+    <section class="course-sidebar">
+	  <section class="course-summary">
+
+
+     % if get_course_about_section(course, "video"):
       <a href="#video-modal" class="media" rel="leanModal">
         <div class="hero">
-          <img src="${course_image_url(course)}" alt="" />
+          <img typeof="foaf:Image" class="image-style-none" src="${course_image_url(course)}" width="320" height="211" alt="" />
           <div class="play-intro"></div>
         </div>
       </a>
       %else:
       <div class="media">
         <div class="hero">
-          <img src="${course_image_url(course)}" alt="" />
+          <img typeof="foaf:Image" class="image-style-none" src="${course_image_url(course)}" width="320" height="211" alt="" />
         </div>
       </div>
       % endif
-    </div>
-      </div>
-  </header>
 
-  <section class="container">
-    <section class="details">
-      % if staff_access and studio_url is not None:
-        <div class="wrap-instructor-info studio-view">
-          <a class="instructor-info-action" href="${studio_url}">${_("View About Page in studio")}</a>
-        </div>
-      % endif
+		<div class="course-detail-overview views-fieldset" data-module="views_fieldsets">
+			<div class="copy-detail course-detail-info views-fieldset" data-module="views_fieldsets">
+                <div class="course-detail-school item">
+                        <span class="label">소속기관 </span>${get_course_about_section(course, "university")}
+                </div>
+                <div class="course-detail-number item">
+                        <span class="label">강의교수 </span>강의교수
+                </div>
+                <div class="course-detail-number item">
+                        <span class="label">개강일 </span>${course.start_datetime_text()}
+                </div>
+                <div class="course-detail-start item">
+                        <span class="label">수강신청 </span>${course.start_datetime_text()}
+                </div>
+                <div class="course-detail-start item">
+                        <span class="label">학습기간 </span>4주
+               </div>
 
-      <nav aria-label="${_('Course About')}">
-        <a href="#" class="active">${_("Overview")}</a>
-      ##  <a href="#">${_("FAQ")}</a>
-      ##  <a href="#">${_("Requirements")}</a>
-      ##  <a href="#">${_("Text-book")}</a>
-      ##  <a href="#">${_("Syllabus")}</a>
-      ##  <a href="#">${_("Reviews")}</a>
-      </nav>
+			</div>
+			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
+				<p>${get_course_about_section(course, 'short_description')}</p>
+			</div>
 
-      <div class="inner-wrapper">
-        ${get_course_about_section(course, "overview")}
-      </div>
-    </section>
+                                <div class="view view-course-detail view-id-course_detail view-display-id-footer view-dom-id-c8a6a879378dfc581a3c7d38e1bfc109">
+                                        <div class="view-content">
+                                                <div>
+                                                        <div class="course-detail-register">
+        %if user.is_authenticated() and registered:
+          %if show_courseware_link:
+            <!--
+            <a class="action access-courseware btn_block" href="${course_target}">
+            -->
+            <a class="action access-courseware btn_block" href="/application">
+          %endif
+          %if show_courseware_link:
+            <strong>수강 신청</strong>
+            </a>
+          %endif
+        %elif in_cart:
+          <span class="add-to-cart">
+            ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
+          </span>
+        % elif is_course_full:
+          <span class="register disabled">
+            강의 정원초과
+          </span>
+        % elif invitation_only and not can_enroll:
+          <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
+        % elif not is_shib_course and not can_enroll:
+          <a class="action access-courseware"><strong>수강신청 종료</strong></a>
+        %elif can_add_course_to_cart:
+          <%
+          if user.is_authenticated():
+            reg_href = "#"
+            reg_element_id = "add_to_cart_post"
+          else:
+            reg_href = reg_then_add_to_cart_link
+            reg_element_id = "reg_then_add_to_cart"
+          %>
+          <a href="${reg_href}" class="add-to-cart action access-courseware" id="${reg_element_id}">
+            ${_("Add {course_name} to Cart ({price})")\
+              .format(course_name=course.display_number_with_default, price=course_price)}
+          </a>
+          <div id="register_error"></div>
+        %else:
+          <a href="#" class="register action access-courseware btn_block">
+            수강신청
+          </a>
+          <div id="register_error"></div>
+        %endif
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
 
-    <section class="course-sidebar">
-      <section class="course-summary">
-        <header>
-          % if microsite.get_value('course_about_show_social_links', True):
-          <div class="social-sharing">
-            <div class="sharing-message">${_("Share with friends and family!")}</div>
-            ## TODO: this should probably be an overrideable block,
-            ##       or something allowing themes to do whatever they
-            ##       want here (and on this whole page, really).
-            % if self.stanford_theme_enabled():
-              <a href="http://twitter.com/intent/tweet?text=I+just+registered+for+${course.number}+${get_course_about_section(course, 'title')}!+(http://class.stanford.edu)" class="share">
-                <i class="icon fa fa-twitter"></i><span class="sr">${_("Tweet that you've registered for this course")}</span>
-              </a>
-              <a href="mailto:?subject=Take%20a%20course%20at%20Stanford%20online!&body=I%20just%20registered%20for%20${course.number}%20${get_course_about_section(course, 'title')}+(http://class.stanford.edu)" class="share">
-                <i class="icon fa fa-envelope"></i><span class="sr">${_("Email someone to say you've registered for this course")}</span>
-              </a>
-            % else:
+
+
+
+
+
+
+			<div class="course-detail-social views-fieldset" data-module="views_fieldsets">
+				<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+					<div>
+
               <%
                 site_domain = microsite.get_value('site_domain', settings.SITE_NAME)
                 platform_name = microsite.get_value('platform_name', settings.PLATFORM_NAME)
 
-                # Translators: This text will be automatically posted to the student's
-                # Twitter account. {url} should appear at the end of the text.
                 tweet_text = _("I just registered for {number} {title} through {account}: {url}").format(
                     number=course.number,
                     title=get_course_about_section(course, 'title'),
@@ -254,92 +303,128 @@ from edxmako.shortcuts import marketing_link
                 ).replace(u" ", u"+")
                 tweet_action = u"http://twitter.com/intent/tweet?text={tweet_text}".format(tweet_text=tweet_text)
 
-                facebook_link = microsite.get_value('course_about_facebook_link', settings.PLATFORM_FACEBOOK_ACCOUNT)
-
-                email_subject = u"mailto:?subject={subject}&body={body}".format(
-                    subject=_("Take a course with {platform} online").format(platform=platform_name),
-                    body=_("I just registered for {number} {title} through {platform} {url}").format(
-                        number=course.number,
-                        title=get_course_about_section(course, 'title'),
-                        platform=platform_name,
-                        url=u"http://{domain}{path}".format(
-                            domain=site_domain,
-                            path=reverse('about_course', args=[course.id.to_deprecated_string()]),
-                        )
+                facebook_link = _("{url}").format(
+                    url=u"http://{domain}{path}".format(
+                        domain=site_domain,
+                        path=reverse('about_course', args=[course.id.to_deprecated_string()])
                     )
-                ).replace(u" ", u"%20")
+                ).replace(u" ", u"+")
+
               %>
-              <a href="${tweet_action}" class="share">
-                <i class="icon fa fa-twitter"></i><span class="sr">${_("Tweet that you've registered for this course")}</span>
+			<!--
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.3";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+
+				<script src="https://apis.google.com/js/platform.js" async defer>
+					{lang: 'ko'}
+				</script>
+
+              <div class="fb-share-button" data-href="${facebook_link}" data-layout="icon" style=""></div>
+            -->
+			  <script type="text/javascript">
+				function sendSns(sns)
+				{
+					var url = $(location).attr('href');
+					var o;
+					var _url = encodeURIComponent(url);
+					var _txt = '';
+					var _br  = encodeURIComponent('\r\n');
+
+					switch(sns)
+					{
+						case 'facebook':
+							o = {
+								method:'popup',
+								url:'http://www.facebook.com/sharer/sharer.php?u=' + _url
+							};
+							break;
+
+						case 'twitter':
+							o = {
+								method:'popup',
+								url:'http://twitter.com/intent/tweet?text=' + _txt + '&url=' + _url
+							};
+							break;
+
+						case 'google':
+							o = {
+								method:'popup',
+								url:'https://plus.google.com/share?url=' + _url
+							};
+							break;
+
+						default:
+							alert('지원하지 않는 SNS입니다.');
+							return false;
+					}
+
+					switch(o.method)
+					{
+						case 'popup':
+							console.log('open');
+
+							var _height = '600';
+							if(sns == 'twitter'){
+								_height = '255'
+							}
+							if(sns == 'google'){
+								_width = '500'
+							}
+							window.open(o.url,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height='+_height+',width=600'); return false;
+							break;
+
+						case 'web2app':
+							if(navigator.userAgent.match(/android/i))
+							{
+								// Android
+								setTimeout(function(){ location.href = 'intent://' + o.param + '#Intent;' + o.g_proto + ';end'}, 100);
+							}
+							else if(navigator.userAgent.match(/(iphone)|(ipod)|(ipad)/i))
+							{
+								// Apple
+								setTimeout(function(){ location.href = o.a_store; }, 200);
+								setTimeout(function(){ location.href = o.a_proto + o.param }, 100);
+							}
+							else
+							{
+								alert('이 기능은 모바일에서만 사용할 수 있습니다.');
+							}
+							break;
+					}
+				}
+			  </script>
+              <a id="facebookSNS" onclick="javascript:sendSns('facebook'); return false;" class="addthis_button_facebook at300b" title="Facebook" href="#">
+                  <span class="at4-icon aticon-facebook" style="background-color: rgb(48, 88, 145);"><span class="at_a11y">${_("Post a Facebook message to say you've registered for this course")}</span></span>
               </a>
-              <a href="${facebook_link}" class="share">
-                <i class="icon fa fa-thumbs-up"></i><span class="sr">${_("Post a Facebook message to say you've registered for this course")}</span>
+
+              <a id="TweetSNS" onClick="javascript:sendSns('twitter'); return false;" class="addthis_button_twitter at300b" title="Tweet" href="https://twitter.com/intent/tweet?text=TEXT&url=http://14.63.226.59/courses/edX/DemoX/Demo_Course/about">
+                  <span class="at4-icon aticon-twitter" style="background-color: rgb(44, 168, 210);">
+                      <span class="at_a11y">${_("Tweet that you've registered for this course")}</span>
+                  </span>
               </a>
-              <a href="${email_subject}" class="share">
-                <i class="icon fa fa-envelope"></i><span class="sr">${_("Email someone to say you've registered for this course")}</span>
+
+              <!--<div class="g-plus" data-action="share" data-annotation="none" data-height="24" data-href="http://naver.com/"></div>-->
+
+			  <a  class="addthis_button_google_plusone_share at300b" href="#" onclick="javascript:sendSns('google'); return false;" title="Google+">
+             <!-- <a class="addthis_button_google_plusone_share at300b" href="#" onClick="javascript:sendSns('google'); return false;" title="Google+">-->
+                  <span class="at4-icon aticon-google_plusone_share" style="background-color: rgb(206, 77, 57);">
+                      <span class="at_a11y">Share on google_plusone_share</span>
+                  </span>
               </a>
-            % endif
-          </div>
-          % endif
-        </header>
 
-        <ol class="important-dates">
-          <li class="important-dates-item"><i class="icon fa fa-info-sign"></i><p class="important-dates-item-title">${_("Course Number")}</p><span class="important-dates-item-text course-number">${course.display_number_with_default | h}</span></li>
-          % if not course.start_date_is_still_default:
-            <li class="important-dates-item"><i class="icon fa fa-calendar"></i><p class="important-dates-item-title">${_("Classes Start")}</p><span class="important-dates-item-text start-date">${course.start_datetime_text()}</span></li>
-          % endif
-            ## We plan to ditch end_date (which is not stored in course metadata),
-            ## but for backwards compatibility, show about/end_date blob if it exists.
-            % if get_course_about_section(course, "end_date") or course.end:
-            <li class="important-dates-item">
-                <i class="icon fa fa-calendar"></i>
-                <p class="important-dates-item-title">${_("Classes End")}</p>
-                <span class="important-dates-item-text final-date">
-            ${_("You must successfully complete {link_start}{prc_display}{link_end} before you begin this course.").format(
-              link_start='<a href="{}">'.format(prc_target),
-              link_end='</a>',
-              prc_display=pre_requisite_courses[0]['display'],
-            )}
-                </span>
-            </li>
-            % endif
+					</div>
+				</div>
+			</div>
 
-          % if get_course_about_section(course, "effort"):
-            <li class="important-dates-item"><i class="icon fa fa-pencil"></i><p class="important-dates-item-title">${_("Estimated Effort")}</p><span class="important-dates-item-text effort">${get_course_about_section(course, "effort")}</span></li>
-          % endif
+		</div>
 
-          ##<li class="important-dates-item"><i class="icon fa fa-clock-o"></i><p class="important-dates-item-title">${_('Course Length')}</p><span class="important-dates-item-text course-length">${_('{number} weeks').format(number=15)}</span></li>
-
-          %if course_price and (can_add_course_to_cart or is_cosmetic_price_enabled):
-            <li class="important-dates-item">
-              <i class="icon fa fa-money"></i>
-              <p class="important-dates-item-title">${_("Price")}</p>
-              <span class="important-dates-item-text">${course_price}</span>
-            </li>
-          %endif
-
-          % if pre_requisite_courses:
-          <% prc_target = reverse('about_course', args=[unicode(pre_requisite_courses[0]['key'])]) %>
-          <li class="prerequisite-course important-dates-item">
-            <i class="icon fa fa-list-ul"></i>
-            <p class="important-dates-item-title">${_("Prerequisites")}</p>
-            ## Multiple pre-requisite courses are not supported on frontend that's why we are pulling first element
-            <span class="important-dates-item-text pre-requisite"><a href="${prc_target}">${pre_requisite_courses[0]['display']}</a></span>
-            <p class="tip">
-            ${_("You must successfully complete {link_start}{prc_display}{link_end} before you begin this course.").format(
-              link_start='<a href="{}">'.format(prc_target),
-              link_end='</a>',
-              prc_display=pre_requisite_courses[0]['display'],
-            )}
-            </p>
-          </li>
-          % endif
-          % if get_course_about_section(course, "prerequisites"):
-            <li class="important-dates-item"><i class="icon fa fa-book"></i><p class="important-dates-item-title">${_("Requirements")}</p><span class="important-dates-item-text prerequisites">${get_course_about_section(course, "prerequisites")}</span></li>
-          % endif
-        </ol>
       </section>
-
 
       ## For now, ocw links are the only thing that goes in additional resources
       % if get_course_about_section(course, "ocw_links"):
@@ -358,7 +443,39 @@ from edxmako.shortcuts import marketing_link
     </section>
 
   </section>
+  </section>
+
 </section>
+
+<script type="text/javascript">
+var certification_html = "<h3 class=\"course-how-take-title\">수강 신청 방법</h3>" +
+	"<div class=\"course-how-take-block course-how-take-verified\">" +
+    "<h3 class=\"copy-lead\">공식 수료증</h3>" +
+    "<div class=\"course-how-take-block-content\">" +
+    "<p>스타트업을 위한 플랫폼 비즈니스 모델 기획 교육과정에 대해 동영상 강의 및 강의자료, 테스트, 오프라인 강의 및 워크샵에 참가하실 수 있습니다.</p>" +
+    "<p class=\"info\">* 위 교육과정을 성공적으로 이수하면, AcademyX 계정 생성 시, 등록한 이메일 주소로  공식수료증을 보내드립니다.</p>" +
+    "</div>" +
+    "<div class=\"course-how-take-block-footer copy-meta\">" +
+    "<p class=\"course-take-audit-cost\">수강료 : 100,000원</p>" +
+    "</div>" +
+    "</div>" +
+    "<div class=\"course-how-take-or\"><span>or</span></div>" +
+    "<div class=\"course-how-take-block course-how-take-honor\">" +
+    "<h3 class=\"copy-lead\">수강 확인증</h3>" +
+    "<div class=\"course-how-take-block-content\">" +
+    "<p>스타트업을 위한 플랫폼 비즈니스 모델 기획 교육과정에 대해 동영상 강의 및 강의자료, 테스트를 받을 수 있습니다. </p>" +
+    "<p class=\"info\">* 위 교육과정을 성공적으로 마친다면, AcademyX 계정 생성 시, 등록한 이메일 주소로 수강확인증을 보내드립니다.</p>" +
+    "</div>" +
+    "<div class=\"course-how-take-block-footer copy-meta\">" +
+    "<p class=\"course-take-audit-cost\">수강료 : 무료</p>" +
+    "</div>" +
+    "</div>";
+
+if ($(".certification").length) {
+    $(".certification").html(certification_html);
+}
+
+</script>
 
 ## Need to put this hidden form on the page so that the registration button works.
 ## Since it's no harm to display a hidden form, we display it with the most permissive conditional
