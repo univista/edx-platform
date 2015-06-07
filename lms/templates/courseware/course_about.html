@@ -214,11 +214,8 @@ from datetime import datetime, timedelta
                         <span class="label">개강일 </span>${course.start_datetime_text()}
                 </div>
                 <div class="course-detail-start item">
-                        <span class="label">수강신청 </span>수강신청
+                        <span class="label">수강신청 </span>{{ course.start_datetime_text()|date:"SHORT_DATE_FORMAT"  }}
                 </div>
-                <%
-                dt = course.end_datetime - course.start_datetime
-                %>
                 <div class="course-detail-start item">
                         <span class="label">학습기간 </span>4주
                </div>
