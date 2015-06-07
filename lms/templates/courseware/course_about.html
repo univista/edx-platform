@@ -207,7 +207,7 @@ from edxmako.shortcuts import marketing_link
                         <span class="label">소속기관 </span>${get_course_about_section(course, "university")}
                 </div>
                 <div class="course-detail-number item">
-                        <span class="label">강의교수 </span>${course.display_number_with_default | h}
+                        <span class="label">강의교수 </span>
                 </div>
                 <div class="course-detail-number item">
                         <span class="label">개강일 </span>${course.start_datetime_text()}
@@ -216,7 +216,7 @@ from edxmako.shortcuts import marketing_link
                         <span class="label">수강신청 </span>
                 </div>
                 <div class="course-detail-length item">
-                        <span class="label">학습기간 </span>${course.start_datetime_text()}  ${course.end_datetime_text()}
+                        <span class="label">학습기간 </span>
                 </div>
                 % endif
 			</div>
