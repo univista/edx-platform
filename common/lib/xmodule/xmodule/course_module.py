@@ -1358,7 +1358,12 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
 
     def study_weeks_text(self):
-        return (self.end - self.start).strftime('%W')
+        i18n = self.runtime.service(self, "i18n")
+        _ = i18n.ugettext
+        strftime = i18n.strftime
+
+        when = self.end - self.start
+        return self._add_timezone_string(strftime(when, '%W'))
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
