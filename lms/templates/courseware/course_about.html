@@ -241,7 +241,7 @@ from edxmako.shortcuts import marketing_link
                                         <span class="label">개강일 </span>${get_course_about_section(course, "university")}
                                 </div>
                                 <div class="course-detail-start item">
-                                        <span class="label">수강신청 </span>${course.start_datetime_text()}
+                                        <span class="label">수강신청 </span>${get_course_about_section(course, "start_date")} ${course.start_datetime_text()}
                                 </div>
                                 % if get_course_about_section(course, "end_date"):
                                 <div class="course-detail-length item">
