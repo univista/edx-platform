@@ -201,60 +201,29 @@ from edxmako.shortcuts import marketing_link
       </div>
       % endif
 
-
-<!--
 		<div class="course-detail-overview views-fieldset" data-module="views_fieldsets">
 			<div class="copy-detail course-detail-info views-fieldset" data-module="views_fieldsets">
-                                <div class="course-detail-school item">
-                                        <span class="label">강의명 </span>${get_course_about_section(course, "title")}
-                                </div>
-                                <div class="course-detail-number item">
-                                        <span class="label">Course Number </span>${course.display_number_with_default | h}
-                                </div>
-                                <div class="course-detail-number item">
-                                        <span class="label">소속기관 </span>${get_course_about_section(course, "university")}
-                                </div>
-                                <div class="course-detail-start item">
-                                        <span class="label">개강일 </span>${course.start_datetime_text()}
-                                </div>
-                                % if get_course_about_section(course, "end_date"):
-                                <div class="course-detail-length item">
-                                        <span class="label">종료일 </span>i${get_course_about_section(course, "end_date")}
-                                </div>
-                                % endif
+                <div class="course-detail-school item">
+                        <span class="label">소속기관 </span>${get_course_about_section(course, "university")}
+                </div>
+                <div class="course-detail-number item">
+                        <span class="label">강의교수 </span>${course.display_number_with_default | h}
+                </div>
+                <div class="course-detail-number item">
+                        <span class="label">개강일 </span>${get_course_about_section(course, "university")}
+                </div>
+                <div class="course-detail-start item">
+                        <span class="label">수강신청 </span>${get_course_about_section(course, "end_date")}
+                </div>
+                % if get_course_about_section(course, "end_date"):
+                <div class="course-detail-length item">
+                        <span class="label">학습기간 </span>${course.end_datetime_text()}
+                </div>
+                % endif
 			</div>
 			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
 				<p>${get_course_about_section(course, 'short_description')}</p>
 			</div>
--->
-
-
-		<div class="course-detail-overview views-fieldset" data-module="views_fieldsets">
-			<div class="copy-detail course-detail-info views-fieldset" data-module="views_fieldsets">
-                                <div class="course-detail-school item">
-                                        <span class="label">소속기관 </span>${get_course_about_section(course, "university")}
-                                </div>
-                                <div class="course-detail-number item">
-                                        <span class="label">강의교수 </span>${course.display_number_with_default | h}
-                                </div>
-                                <div class="course-detail-number item">
-                                        <span class="label">개강일 </span>${get_course_about_section(course, "university")}
-                                </div>
-                                <div class="course-detail-start item">
-                                        <span class="label">수강신청 </span>${get_course_about_section(course, "end_date")}
-                                </div>
-                                % if get_course_about_section(course, "end_date"):
-                                <div class="course-detail-length item">
-                                        <span class="label">학습기간 </span>i${get_course_about_section(course, "end_date")}
-                                </div>
-                                % endif
-			</div>
-			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
-				<p>${get_course_about_section(course, 'short_description')}</p>
-			</div>
-
-
-
 
                                 <div class="view view-course-detail view-id-course_detail view-display-id-footer view-dom-id-c8a6a879378dfc581a3c7d38e1bfc109">
                                         <div class="view-content">
