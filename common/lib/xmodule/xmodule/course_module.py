@@ -7,7 +7,7 @@ from math import exp
 from lxml import etree
 from path import path  # NOTE (THK): Only used for detecting presence of syllabus
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 import dateutil.parser
 from lazy import lazy
 
@@ -1354,8 +1354,16 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
             return strftime(when, format_string)
 
-    def study_weeks_text(self):
-        return "5"
+    def week_rang(date):
+        year, week, dow = date.isocalendar()
+        if dow == 7:
+            start_date = date
+        else:
+            start_date = date - timedelta(dow)
+
+        end_date = start_date + timedelta(6)
+
+        return (start_date, end_date)
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
