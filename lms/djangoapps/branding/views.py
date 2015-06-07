@@ -102,7 +102,7 @@ def courses(request):
 
     #  we do not expect this case to be reached in cases where
     #  marketing is enabled or the courses are not browsable
-    return courseware.views.courses(csrf(request))
+    return courseware.views.courses(request)
 
 
 @ensure_csrf_cookie
