@@ -1355,7 +1355,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             return strftime(when, format_string)
 
     def study_weeks_text(self):
-        return "4"
+        return "5"
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
