@@ -254,23 +254,119 @@
 					</select>
 				</div>
 			</header>
+			<script type="text/javascript">
+				function sendSns(sns)
+				{
+					var url = $(location).attr('href');
+					var o;
+					var _url = encodeURIComponent(url);
+					var _txt = '';
+					var _br  = encodeURIComponent('\r\n');
+				 
+					switch(sns)
+					{
+						case 'facebook':
+							o = {
+								method:'popup',
+								url:'http://www.facebook.com/sharer/sharer.php?u=' + _url
+							};
+							break;
+				 
+						case 'twitter':
+							o = {
+								method:'popup',
+								url:'http://twitter.com/intent/tweet?text=' + _txt + '&url=' + _url
+							};
+							break;
+						
+						case 'google':
+							o = {
+								method:'popup',
+								url:'https://plus.google.com/share?url=' + _url
+							};
+							break;
+				 
+						default:
+							alert('지원하지 않는 SNS입니다.');
+							return false;
+					}
+				 
+					switch(o.method)
+					{
+						case 'popup':
+							console.log('open');
 
+							var _height = '600';
+							if(sns == 'twitter'){
+								_height = '255'
+							}
+							if(sns == 'google'){
+								_width = '500'
+							}
+							window.open(o.url,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height='+_height+',width=600'); return false;
+							break;
+				 
+						case 'web2app':
+							if(navigator.userAgent.match(/android/i))
+							{
+								// Android
+								setTimeout(function(){ location.href = 'intent://' + o.param + '#Intent;' + o.g_proto + ';end'}, 100);
+							}
+							else if(navigator.userAgent.match(/(iphone)|(ipod)|(ipad)/i))
+							{
+								// Apple
+								setTimeout(function(){ location.href = o.a_store; }, 200);          
+								setTimeout(function(){ location.href = o.a_proto + o.param }, 100);
+							}
+							else
+							{
+								alert('이 기능은 모바일에서만 사용할 수 있습니다.');
+							}
+							break;
+					}
+				}
+
+				//프린트 스크립트
+				var fnPrint = function(priName, typeClass) {					
+					var strFeature = "";
+					var _priName = priName
+					strFeature += "width=800, height=850, all=no";
+
+					var objWin = window.open('', 'print', strFeature);
+					objWin.document.write('<style>@media print{* {-webkit-print-color-adjust:exact;}}* {padding:0;margin:0;list-style:none;border:none}div, ul, li, p, span, dl, dt, dd, a, em, address {font-family: "NanumBarunGothic";color: #333;}img, embed, object, video {max-width: 100%;vertical-align:middle}.certificate_list{font-family: "NanumBarunGothic";margin-left:14px;}.certificate_list_print li h3.logo{width: 24%;display: inline-block;padding-left: 26%;margin-top: 43px;}.certificate_list_print .certificate_info{padding: 40px 32px 15px;font-size: 0.75em;}.certificate_list_print .certificate_info span{display:block;}.certificate_list_print > li{padding: 26px 34px;padding-bottom:0;position: relative;height: 530px;}.certificate_list_print li.venturesquire{background: url("/static/themes/default/images/certificate/venturesquire.jpg") no-repeat 0px 0px;background-size: 100%;}.certificate_list_print li.venturesquire_type2{background: url("/static/themes/default/images/certificate/venturesquire2.jpg") no-repeat 0px 0px;background-size: 100%;}.certificate_list_print li.venturesquire_type3{background: url("/static/themes/default/images/certificate/venturesquire3.jpg") no-repeat 0px 0px;background-size: 100%;}.certificate_list_print li.academyx{background: url("/static/themes/default/images/certificate/academyx.jpg") no-repeat 0px 0px;background-size: 100%;}.certificate_list_print li.roaconsulting{background: url("/static/themes/default/images/certificate/roaconsulting.jpg") no-repeat 0px 0px;background-size: 100%;}.certificate_list_print li.meetadvisor{background: url("/static/themes/default/images/certificate/meetadvisor.jpg") no-repeat 0px 0px;background-size: 100%;}.certificate_list_print li.pagpartners{background: url("/static/themes/default/images/certificate/pagpartners.jpg") no-repeat 0px 0px;background-size: 100%;}.certificate_list_print > li .box_wrapper::after {border-radius: 2px;box-sizing: border-box;color: white;content:"";font-family: "NanumBarunGothic";font-size: 22px;font-weight: 400;height: 50px;left: calc(50% - 250px);line-height: 44px;opacity: 0;padding: 0 20px;position: absolute;text-align: center;transition: all 0.2s ease-out 0s;width: 500px;z-index: 20;top:40%}.certificate_list_print .certificate_course {font-size: 2.4em;font-weight: 200;color: #2faa47;margin-top: 0px;padding-left: 32px;}.certificate_list_print .certificate_text {font-size: 1em;font-weight: 300;line-height: 1.5;margin-top: 10px;padding-left: 32px;width: 56%;height: 155px;overflow: hidden;}.certificate_list p, .certificate_list p span {color: #666;font-weight: 300;}.certificate_list_print .list_footer {position: relative;font-size: 0.85em;margin-top: 23px;overflow: hidden;padding-left: 32px;}.certificate_list_print .list_footer img.left {width: 7%;margin-right: 15px;margin-top: 18px;float:left}.certificate_list_print .list_footer .center {width: 20%;padding: 20px 3px 10px 3px;float:left;}.certificate_list_print .list_footer .organic {width: 30%;padding: 20px 3px 10px 3px;float:left;}.certificate_list_print .list_footer .right {width: 18%;margin-top: 23px;float:left;}.certificate_list_print .list_footer .professor {font-size: 0.5em;padding-top: 5px;color: #868686;text-align: center;}.certificate_list_print .list_footer .address {font-size: 0.5em;clear: both;margin-top: 43px;}.certificate_list_print p, .certificate_list p span {color: #666;font-weight: 300;}.certificate_list_print .roaconsulting .list_footer img.left {float: none;display: block;}.certificate_list_print .roaconsulting .certificate_info {padding: 100px 32px 40px;}.certificate_list_print .roaconsulting .list_footer .right {margin-left: 55px;margin-top: 0;}.certificate_list_print .roaconsulting .list_footer {position: relative;font-size: 0.85em;margin-top: -44px;overflow: hidden;padding-left: 32px;}.certificate_list_print li.venturesquire_type3 h3.logo {padding-left: 52%;}.certificate_list_print .venturesquire_type3 .certificate_info {text-align: center;margin-top: 0px;}.certificate_list_print .venturesquire_type3 .certificate_course {text-align: center;padding-left: 0;}.certificate_list_print .venturesquire_type3 .certificate_text {width: 80%;text-align: center;margin: 0 auto;padding-left: 0;}.certificate_list_print .meetadvisor .certificate_info{text-align: center;margin-top: 0px;padding-top:105px;}.certificate_list_print .meetadvisor .certificate_course{text-align: center;padding-left:0;}.certificate_list_print .meetadvisor .certificate_text{width: 80%;text-align: center;margin: 0 auto;padding-left:0;height: 83px;}.certificate_list_print .meetadvisor .list_footer img.left{margin-top: 34px;}.certificate_list_print .meetadvisor .list_footer .center,.certificate_list .meetadvisor .list_footer .organic{padding-top:38px;}.certificate_list_print .meetadvisor .list_footer .address {margin-top: 99px;}.certificate_list_print .meetadvisor .list_footer .signWrite img{width: 83%;}.certificate_list_print .academyx .certificate_info{text-align: center;margin-top: 0px;padding-top:54px;}.certificate_list_print .academyx .certificate_course{text-align: center;padding-left:0;}.certificate_list_print .academyx .certificate_text{width: 80%;text-align: center;margin: 0 auto;padding-left:0;height: 249px;}.certificate_list_print .academyx .list_footer .address {margin-top: 87px;text-align: center;}.certificate_list_print li.pagpartners h3.logo{margin-top:37px;}.certificate_list_print .pagpartners .list_footer .right { margin-top: 22px; margin-right: 193px;}.certificate_list_print .pagpartners .list_footer .organic{width:21%;}.certificate_list_print .pagpartners .list_footer .address {text-align: right;  margin-right: 27px;}.meetadvisor  li h3.logo {margin-top:36px}.meetadvisor .list_footer .organic {padding-top: 38px;}.venturesquire_type3 .list_footer{margin-top:25px}.certificate_list_print .venturesquire_type3 .list_footer img.left {margin-top: 37px;}.certificate_list_print .venturesquire_type3 .list_footer .organic {width: 22%;}.certificate_list_print .venturesquire_type3 .list_footer .right {margin-left: 0;margin-top: 28px;}.venturesquire_type3 .list_footer .center {padding-top: 46px;}.venturesquire_type3 .list_footer .organic  {padding-top: 46px;}.meetadvisor .list_footer{margin-top:41px}</style>');
+
+					var _html = '<ul class="certificate_list_print"><li class="'+typeClass+' certificate_list_print"><div class="box_wrapper">'+$('#'+_priName).html()+'</div></li></ul>';
+					objWin.document.write("<table width='800' border='1'>");
+					objWin.document.write("<tr>");
+					objWin.document.write("<td>");
+					objWin.document.write(_html);
+					objWin.document.write("</td>");
+					objWin.document.write("</tr>");
+					objWin.document.write("</table>");
+					objWin.document.close();
+
+					setTimeout(function(){ objWin.print();objWin.close(); }, 1000);
+				};
+			  </script>
 			<ul class="certificate_list">
 				<li class="venturesquire_type2">
 				    <div class="box_wrapper">
 						<!-- 마우스 오버할때 링크들 -->
 						<div class="footer-follow-links certificate_over_links">
-							<a href="/auth/login/facebook/?auth_entry=dashboard&amp;next=%2F">
+							<a href="#" onclick="javascript:sendSns('facebook'); return false;">
 								<i class="fa fa-twitter" aria-hidden="true">Twitter</i>
 							</a>
 							<a href="mailto:zudain@naver.com">
 								<i class="fa fa-email">E-maiil</i>
 							</a>
-							<a href="">
+							<a href="#" onclick="javascript:fnPrint('printArea1','venturesquire_type2'); return false;">
 								<i class="fa fa-print">Print</i>
 							</a>
 						</div>
 						<!-- //마우스 오버할때 링크들 -->
+					
+					<div id="printArea1" class="certificate_list_print">
+
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
 					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
@@ -294,23 +390,29 @@
 						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
 					</div>
 
+					</div>
+
 					</div><!-- //box_wrapper -->
 				</li>
 				<li class="roaconsulting">
 				<div class="box_wrapper">
 					<!-- 마우스 오버할때 링크들 -->
 					<div class="footer-follow-links certificate_over_links">
-						<a href="/auth/login/facebook/?auth_entry=dashboard&amp;next=%2F">
+						<a href="#" onclick="javascript:sendSns('facebook'); return false;">
 							<i class="fa fa-twitter" aria-hidden="true">Twitter</i>
 						</a>
 						<a href="mailto:zudain@naver.com">
 							<i class="fa fa-email">E-maiil</i>
 						</a>
-						<a href="">
+						<a href="#" onclick="javascript:fnPrint('printArea2','roaconsulting'); return false;">
 							<i class="fa fa-print">Print</i>
 						</a>
 					</div>
 					<!-- //마우스 오버할때 링크들 -->
+
+
+					<div id="printArea2" class="certificate_list_print">
+
 					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
@@ -333,23 +435,28 @@
 						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
 					</div>
 
+					</div>
+
 					</div><!-- //box_wrapper -->
 				</li>
 				<li class="venturesquire">
 					<div class="box_wrapper">
 					<!-- 마우스 오버할때 링크들 -->
 					<div class="footer-follow-links certificate_over_links">
-						<a href="/auth/login/facebook/?auth_entry=dashboard&amp;next=%2F">
+						<a href="#" onclick="javascript:sendSns('facebook'); return false;">
 							<i class="fa fa-twitter" aria-hidden="true">Twitter</i>
 						</a>
 						<a href="mailto:zudain@naver.com">
 							<i class="fa fa-email">E-maiil</i>
 						</a>
-						<a href="">
+						<a href="#" onclick="javascript:fnPrint('printArea3','venturesquire'); return false;">
 							<i class="fa fa-print">Print</i>
 						</a>
 					</div>
 					<!-- //마우스 오버할때 링크들 -->
+
+					<div id="printArea3" class="certificate_list_print">
+					
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
 					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
@@ -373,6 +480,8 @@
 						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
 					</div>
 
+					</div>
+
 					</div><!-- //box_wrapper -->
 				</li>
 				
@@ -380,17 +489,20 @@
 				<div class="box_wrapper">										
 					<!-- 마우스 오버할때 링크들 -->
 					<div class="footer-follow-links certificate_over_links">
-						<a href="/auth/login/facebook/?auth_entry=dashboard&amp;next=%2F">
+						<a href="#" onclick="javascript:sendSns('facebook'); return false;">
 							<i class="fa fa-twitter" aria-hidden="true">Twitter</i>
 						</a>
 						<a href="mailto:zudain@naver.com">
 							<i class="fa fa-email">E-maiil</i>
 						</a>
-						<a href="">
+						<a href="#" onclick="javascript:fnPrint('printArea4','venturesquire_type3'); return false;">
 							<i class="fa fa-print">Print</i>
 						</a>
 					</div>
 					<!-- //마우스 오버할때 링크들 -->
+					
+					<div id="printArea4" class="certificate_list_print">
+
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
 					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
@@ -414,24 +526,29 @@
 						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
 					</div>
 
+					</div>
+
 					</div><!-- //box_wrapper -->
 				</li>
 				<li class="meetadvisor">
 				<div class="box_wrapper">
 					<!-- 마우스 오버할때 링크들 -->
 					<div class="footer-follow-links certificate_over_links">
-						<a href="/auth/login/facebook/?auth_entry=dashboard&amp;next=%2F">
+						<a href="#" onclick="javascript:sendSns('facebook'); return false;">
 							<i class="fa fa-twitter" aria-hidden="true">Twitter</i>
 						</a>
 						<a href="mailto:zudain@naver.com">
 							<i class="fa fa-email">E-maiil</i>
 						</a>
-						<a href="">
+						<a href="#" onclick="javascript:fnPrint('printArea5','meetadvisor'); return false;">
 							<i class="fa fa-print">Print</i>
 						</a>
 					</div>
 					<!-- //마우스 오버할때 링크들 -->
-					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/meetadvisor_logo.png" alt="logo" title="MEET ADVISOR LOGO" /></h3>
+					
+					<div id="printArea5" class="certificate_list_print">
+
+					<h3 class="logo" style="margin-top:35px"><img class="image-style-none" src="/static/themes/default/images/certificate/meetadvisor_logo.png" alt="logo" title="MEET ADVISOR LOGO" /></h3>
 					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
@@ -454,23 +571,28 @@
 						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
 					</div>
 
+					</div>
+
 					</div><!-- //box_wrapper -->
 				</li>
 				<li class="academyx">
 					<div class="box_wrapper">
 					<!-- 마우스 오버할때 링크들 -->
 					<div class="footer-follow-links certificate_over_links">
-						<a href="/auth/login/facebook/?auth_entry=dashboard&amp;next=%2F">
+						<a href="#" onclick="javascript:sendSns('facebook'); return false;">
 							<i class="fa fa-twitter" aria-hidden="true">Twitter</i>
 						</a>
 						<a href="mailto:zudain@naver.com">
 							<i class="fa fa-email">E-maiil</i>
 						</a>
-						<a href="">
+						<a href="#" onclick="javascript:fnPrint('printArea6','academyx'); return false;">
 							<i class="fa fa-print">Print</i>
 						</a>
 					</div>
 					<!-- //마우스 오버할때 링크들 -->
+					
+					<div id="printArea6" class="certificate_list_print">
+
 					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
@@ -490,6 +612,8 @@
 						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
 					</div>
 
+					</div>
+
 					</div><!-- //box_wrapper -->
 				</li>
 				
@@ -498,17 +622,20 @@
 				<div class="box_wrapper">
 					<!-- 마우스 오버할때 링크들 -->
 					<div class="footer-follow-links certificate_over_links">
-						<a href="/auth/login/facebook/?auth_entry=dashboard&amp;next=%2F">
+						<a href="#" onclick="javascript:sendSns('facebook'); return false;">
 							<i class="fa fa-twitter" aria-hidden="true">Twitter</i>
 						</a>
 						<a href="mailto:zudain@naver.com">
 							<i class="fa fa-email">E-maiil</i>
 						</a>
-						<a href="">
+						<a href="#" onclick="javascript:fnPrint('printArea7','pagpartners'); return false;">
 							<i class="fa fa-print">Print</i>
 						</a>
 					</div>
 					<!-- //마우스 오버할때 링크들 -->
+					
+					<div id="printArea7" class="certificate_list_print">
+
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/pagpartners_logo.png" alt="logo" title="PAG & 파트너스 LOGO" /></h3>
 					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
@@ -531,6 +658,8 @@
 						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
 						
 						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
+					</div>
+
 					</div>
 
 					</div><!-- //box_wrapper -->

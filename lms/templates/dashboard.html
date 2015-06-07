@@ -86,7 +86,14 @@
 				</li>
 				<li class="info--username">
 				  <span class="title">이름</span>
-				  <span class="data">${ user.profile.name | h }</span>
+				  <span class="data" style="display:inline-block;width: 158px;">${ user.profile.name | h }</span>
+				  <span class="control" style="display:inline-block;font-size: 12px;line-height: 17.76px;position: relative;top: -10px;right: -20px;"> 
+					<a href="#" onclick="">수정하기</a>
+				  </span>
+				</li>
+				<li class="info--username">
+				  <span class="title">별명</span>
+				  <span class="data" style="display:inline-block;width: 158px;">별명</span>				 
 				</li>
 
 				%if len(language_options) > 1:
@@ -115,6 +122,7 @@
 					  </div>
 
 					  <span class="provider">${state.provider.NAME}</span>
+					  
 					  <span class="control">
 					  % if state.has_account:
 						<form
@@ -140,6 +148,31 @@
 				  </span>
 				</li>
 				% endif
+				
+				<li class="controls--account">
+					<span class="title">연결 된 계정정보</span>
+					<span class="data">
+					<span class="third-party-auth">
+						<div class="auth-provider">
+							<div class="status">
+								<i class="icon fa fa-unlink"></i><span class="copy">연결끊김</span>
+							</div>
+							<span class="provider">Facebook</span>
+							<span class="control">
+							  <a href="/auth/login/facebook/?auth_entry=dashboard&amp;next=%2F">연결하기</a>
+							</span>
+						</div>
+						<div class="auth-provider">
+							<div class="status">
+								<i class="icon fa fa-link"></i> <span class="copy">연결중</span>
+							</div>
+							<span class="provider">Google</span>
+							<span class="control">
+								<a href="/auth/login/google-oauth2/?auth_entry=dashboard&amp;next=%2F">연결끊기</a>
+							</span>
+						</div>
+					</span>
+				</li>
 
 				% if len(order_history_list):
 				<li class="order-history">
