@@ -214,7 +214,7 @@ from edxmako.shortcuts import marketing_link
                         <span class="label">개강일 </span>${course.start_datetime_text()}
                 </div>
                 <div class="course-detail-start item">
-                        <span class="label">수강신청 </span>${course.enrollment_start_datetime_text()}
+                        <span class="label">수강신청 </span>${course.enrollment_start_datetime_text()} ~ ${course.enrollment_end_datetime_text()}
                 </div>
                 <div class="course-detail-start item">
                         <span class="label">학습기간 </span>4주
