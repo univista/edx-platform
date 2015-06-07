@@ -11,7 +11,7 @@ def get_visible_courses():
     Return the set of CourseDescriptors that should be visible in this branded instance
     """
 
-    filtered_by_org = microsite.get_value('course_org_filter')
+    filtered_by_org = "edX"
 
     _courses = modulestore().get_courses(org=filtered_by_org)
 
