@@ -1362,7 +1362,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         _ = i18n.ugettext
         strftime = i18n.strftime
 
-        when = self.end
+        when = self.start
         return self._add_timezone_string(strftime(when, '%W'))
 
 
