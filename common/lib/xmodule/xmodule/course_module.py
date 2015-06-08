@@ -1321,7 +1321,8 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         end_week = strftime(self.end, '%W')
         start_week = strftime(self.start, '%W')
 
-        return int(end_week) - int(start_week)
+        #return int(end_week) - int(start_week)
+        return self.end
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
