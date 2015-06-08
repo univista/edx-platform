@@ -1305,8 +1305,13 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
             return result
 
-        if isinstance(self.enrollment_start, basestring):
-            return try_parse_iso_8601(self.enrollment_start)
+            when = self.advertised_start or self.start
+
+            if format_string == "DATE_TIME":
+                return self._add_timezone_string(strftime(when, format_string))
+
+            return strftime(when, format_string)
+
 
     @property
     def enrollment_start_date_is_still_default(self):
