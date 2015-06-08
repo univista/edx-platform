@@ -216,6 +216,9 @@ from edxmako.shortcuts import marketing_link
                 %if course.enrollment_start_datetime_text():
                 <div class="course-detail-start item">
                         <span class="label">수강신청 </span>${course.enrollment_start_datetime_text()} ~
+                        %if course.enrollment_end_datetime_text():
+                            ${course.enrollment_end_datetime_text()}
+                        %endif
                 </div>
                 %endif
 
