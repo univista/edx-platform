@@ -136,7 +136,7 @@ def courses_search(request):
     """
     Render "find courses" page.  The course selection work is done in courseware.courses.
     """
-    courses = get_search_courses(request)
+    courses = get_courses_search(request)
 
     if microsite.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
                            settings.FEATURES["ENABLE_COURSE_SORTING_BY_START_DATE"]):
