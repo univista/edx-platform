@@ -1283,33 +1283,12 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         return self.location.course_key
 
     def enrollment_start_datetime_text(self, format_string="SHORT_DATE"):
-        i18n = self.runtime.service(self, "i18n")
-        _ = i18n.ugettext
-        strftime = i18n.strftime
-
-        def try_parse_iso_8601(text):
-            try:
-                result = Date().from_json(text)
-                if result is None:
-                    result = text.title()
-                else:
-                    result = strftime(result, format_string)
-                    if format_string == "DATE_TIME":
-                        result = self._add_timezone_string(result)
-            except ValueError:
-                result = text.title()
-
-            return result
-
-        if isinstance(self.enrollment_start, basestring):
-            return try_parse_iso_8601(self.enrollment_start)
+        if self.enrollment_start is None:
+            return ''
         else:
-            when = self.enrollment_start
-
-            if format_string == "DATE_TIME":
-                return self._add_timezone_string(strftime(when, format_string))
-
-            return strftime(when, format_string)
+            strftime = self.runtime.service(self, "i18n").strftime
+            date_time = strftime(self.enrollment_start, format_string)
+            return date_time if format_string == "SHORT_DATE" else self._add_timezone_string(date_time)
 
     @property
     def enrollment_start_date_is_still_default(self):
@@ -1398,18 +1377,9 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
     @property
     def start_date_is_still_default(self):
-        """
-        Checks if the start date set for the course is still default, i.e. .start has not been modified,
-        and .advertised_start has not been set.
-        """
         return self.advertised_start is None and self.start == CourseFields.start.default
 
     def end_datetime_text(self, format_string="SHORT_DATE"):
-        """
-        Returns the end date or date_time for the course formatted as a string.
-
-        If the course does not have an end date set (course.end is None), an empty string will be returned.
-        """
         if self.end is None:
             return ''
         else:
@@ -1418,9 +1388,6 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             return date_time if format_string == "SHORT_DATE" else self._add_timezone_string(date_time)
 
     def _add_timezone_string(self, date_time):
-        """
-        Adds 'UTC' string to the end of start/end date and time texts.
-        """
         return date_time + u" UTC"
 
     @property
