@@ -1303,8 +1303,6 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
         if isinstance(self.enrollment_start, basestring):
             return try_parse_iso_8601(self.enrollment_start)
-        elif self.enrollment_start_date_is_still_default:
-            return _('TBD')
         else:
             when = self.enrollment_start
 
@@ -1319,10 +1317,6 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
 
     def enrollment_end_datetime_text(self, format_string="SHORT_DATE"):
-        """
-        Returns the desired text corresponding the course's start date and time in UTC.  Prefers .advertised_start,
-        then falls back to .start
-        """
         i18n = self.runtime.service(self, "i18n")
         _ = i18n.ugettext
         strftime = i18n.strftime
@@ -1344,8 +1338,6 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         if isinstance(self.advertised_start, basestring):
             return try_parse_iso_8601(self.advertised_start)
         elif self.start_date_is_still_default:
-            # Translators: TBD stands for 'To Be Determined' and is used when a course
-            # does not yet have an announced start date.
             return _('TBD')
         else:
             when = self.enrollment_end
