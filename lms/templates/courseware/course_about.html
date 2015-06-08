@@ -221,11 +221,11 @@ from edxmako.shortcuts import marketing_link
                         %endif
                 </div>
                 %endif
-
+                %if course.study_weeks_text():
                 <div class="course-detail-start item">
                         <span class="label">학습기간 </span>${course.study_weeks_text()} 2주
                </div>
-
+                %endif
 			</div>
 			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
 				<p>${get_course_about_section(course, 'short_description')}</p>
