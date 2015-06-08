@@ -38,7 +38,7 @@ def get_visible_courses():
         org_filter_out_set = microsite.get_all_orgs()
         return [course for course in courses if course.location.org not in org_filter_out_set]
 
-def get_search_courses(request):
+def get_visible_courses_search(request):
     if request.method == 'POST':
         filtered_by_org = request.POST['search_query']
     else:
