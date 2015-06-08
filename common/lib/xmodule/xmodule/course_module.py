@@ -1342,24 +1342,19 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
             return result
 
-        if isinstance(self.enrollment_start, basestring):
-            return try_parse_iso_8601(self.enrollment_start)
-        elif self.enrollment_start_date_is_still_default:
+        if isinstance(self.advertised_start, basestring):
+            return try_parse_iso_8601(self.advertised_start)
+        elif self.start_date_is_still_default:
             # Translators: TBD stands for 'To Be Determined' and is used when a course
             # does not yet have an announced start date.
             return _('TBD')
         else:
-            when = self.enrollment_start
+            when = self.enrollment_end
 
             if format_string == "DATE_TIME":
                 return self._add_timezone_string(strftime(when, format_string))
 
             return strftime(when, format_string)
-
-    @property
-    def enrollment_start_date_is_still_default(self):
-        return self.enrollment_start is None and self.start == CourseFields.enrollment_start.default
-
 
 
     def study_weeks_text(self):
@@ -1370,7 +1365,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         end_week = strftime(self.end, '%W')
         start_week = strftime(self.start, '%W')
 
-        return strftime(self.end - self.start, '%W')
+        return int(end_week) - int(start_week)
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
