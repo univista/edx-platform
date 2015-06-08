@@ -350,7 +350,7 @@ def get_courses(user, domain=None):
     return courses
 
 
-def get_courses(request):
+def get_courses_search(request):
     '''
     Returns a list of courses available, sorted by course.number
     '''
