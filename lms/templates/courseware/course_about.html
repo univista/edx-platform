@@ -129,12 +129,10 @@ from edxmako.shortcuts import marketing_link
         </div>
       % endif
 
-      <div class="inner-wrapper" style="margin-top:17px">
-		<!-- 
+      <div class="inner-wrapper">
         <section class="top_banner">
-         <img src='${course_image_url(course)}' width='820' height='285'>
+          <img src='${course_image_url(course)}' width='820' height='285'>
         </section>
-		-->
 
           ${get_course_about_section(course, "overview")}
 
@@ -216,12 +214,12 @@ from edxmako.shortcuts import marketing_link
                         <span class="label">개강일 </span>${course.start_datetime_text()}
                 </div>
                 <div class="course-detail-start item">
-                        <span class="label">수강신청 </span>${course.enrollment_end_datetime_text}  ~
+                        <span class="label">수강신청 </span>${course.enrollment_start_datetime_text()} ~
                 </div>
-
                 <div class="course-detail-start item">
                         <span class="label">학습기간 </span>주
-                </div>
+               </div>
+
 			</div>
 			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
 				<p>${get_course_about_section(course, 'short_description')}</p>
@@ -333,7 +331,6 @@ from edxmako.shortcuts import marketing_link
 				function sendSns(sns)
 				{
 					var url = $(location).attr('href');
-					console.log(url);
 					var o;
 					var _url = encodeURIComponent(url);
 					var _txt = '';
