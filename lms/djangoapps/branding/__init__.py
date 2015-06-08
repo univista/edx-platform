@@ -11,7 +11,8 @@ def get_visible_courses(request):
     Return the set of CourseDescriptors that should be visible in this branded instance
     """
     if request.method == 'POST':
-        filtered_by_org = "edX"
+        filtered_by_org = request.POST['search_query']
+        print request.POST['search_query']
     else:
         filtered_by_org = microsite.get_value('course_org_filter')
 
