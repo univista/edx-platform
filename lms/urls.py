@@ -281,7 +281,8 @@ if settings.COURSEWARE_ENABLED:
         # url(r'^save_circuit/(?P<circuit>[^/]*)$', 'circuit.views.save_circuit'),
 
         url(r'^courses/?$', 'branding.views.courses', name="courses"),
-        url(r'^courses_search/?$', 'branding.views.courses', name="courses"),
+        url(r'^courses_search/?$', 'courseware.views.courses_search', name="courses_search"),
+
         url(r'^professor/?$', 'branding.views.professor', name="courses"),
         url(r'^partner/?$', 'branding.views.partner', name="courses"),
         url(r'^adx_terms_service/?$', 'branding.views.adx_terms_service', name="courses"),
