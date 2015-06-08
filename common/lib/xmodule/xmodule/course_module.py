@@ -7,7 +7,7 @@ from math import exp
 from lxml import etree
 from path import path  # NOTE (THK): Only used for detecting presence of syllabus
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 import dateutil.parser
 from lazy import lazy
 
@@ -20,6 +20,8 @@ import json
 from xblock.fields import Scope, List, String, Dict, Boolean, Integer, Float
 from .fields import Date
 from django.utils.timezone import UTC
+
+
 
 log = logging.getLogger(__name__)
 
@@ -1279,6 +1281,83 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
     def id(self):
         """Return the course_id for this course"""
         return self.location.course_key
+
+    def enrollment_start_datetime_text(self, format_string="SHORT_DATE"):
+        i18n = self.runtime.service(self, "i18n")
+        _ = i18n.ugettext
+        strftime = i18n.strftime
+
+        def try_parse_iso_8601(text):
+            try:
+                result = Date().from_json(text)
+                if result is None:
+                    result = text.title()
+                else:
+                    result = strftime(result, format_string)
+                    if format_string == "DATE_TIME":
+                        result = self._add_timezone_string(result)
+            except ValueError:
+                result = text.title()
+
+            return result
+
+        if isinstance(self.enrollment_start, basestring):
+            return try_parse_iso_8601(self.enrollment_start)
+        else:
+            when = self.enrollment_start
+
+            if format_string == "DATE_TIME":
+                return self._add_timezone_string(strftime(when, format_string))
+
+            return strftime(when, format_string)
+
+    @property
+    def enrollment_start_date_is_still_default(self):
+        return self.enrollment_start is None and self.enrollment_start == CourseFields.enrollment_start.default
+
+
+    def enrollment_end_datetime_text(self, format_string="SHORT_DATE"):
+        i18n = self.runtime.service(self, "i18n")
+        _ = i18n.ugettext
+        strftime = i18n.strftime
+
+        def try_parse_iso_8601(text):
+            try:
+                result = Date().from_json(text)
+                if result is None:
+                    result = text.title()
+                else:
+                    result = strftime(result, format_string)
+                    if format_string == "DATE_TIME":
+                        result = self._add_timezone_string(result)
+            except ValueError:
+                result = text.title()
+
+            return result
+
+        if isinstance(self.advertised_start, basestring):
+            return try_parse_iso_8601(self.advertised_start)
+        elif self.start_date_is_still_default:
+            return _('TBD')
+        else:
+            when = self.enrollment_end
+
+            if format_string == "DATE_TIME":
+                return self._add_timezone_string(strftime(when, format_string))
+
+            return strftime(when, format_string)
+
+
+    def study_weeks_text(self):
+        i18n = self.runtime.service(self, "i18n")
+        _ = i18n.ugettext
+        strftime = i18n.strftime
+
+        end_week = strftime(self.end, '%W')
+        start_week = strftime(self.start, '%W')
+
+        return int(end_week) - int(start_week)
+
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
         """
