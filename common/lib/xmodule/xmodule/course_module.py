@@ -1283,12 +1283,30 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         return self.location.course_key
 
     def enrollment_start_datetime_text(self, format_string="SHORT_DATE"):
-        if self.enrollment_start is None:
-            return ''
-        else:
-            strftime = self.runtime.service(self, "i18n").strftime
-            date_time = strftime(self.enrollment_start, format_string)
-            return date_time if format_string == "SHORT_DATE" else self._add_timezone_string(date_time)
+        """
+        Returns the desired text corresponding the course's start date and time in UTC.  Prefers .advertised_start,
+        then falls back to .start
+        """
+        i18n = self.runtime.service(self, "i18n")
+        _ = i18n.ugettext
+        strftime = i18n.strftime
+
+        def try_parse_iso_8601(text):
+            try:
+                result = Date().from_json(text)
+                if result is None:
+                    result = text.title()
+                else:
+                    result = strftime(result, format_string)
+                    if format_string == "DATE_TIME":
+                        result = self._add_timezone_string(result)
+            except ValueError:
+                result = text.title()
+
+            return result
+
+        if isinstance(self.enrollment_start, basestring):
+            return try_parse_iso_8601(self.enrollment_start)
 
     @property
     def enrollment_start_date_is_still_default(self):
