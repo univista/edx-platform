@@ -1305,12 +1305,12 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
             return result
 
-            when = self.advertised_start or self.start
+        when = self.enrollment_start
 
-            if format_string == "DATE_TIME":
-                return self._add_timezone_string(strftime(when, format_string))
+        if format_string == "DATE_TIME":
+            return self._add_timezone_string(strftime(when, format_string))
 
-            return strftime(when, format_string)
+        return strftime(when, format_string)
 
 
     @property
