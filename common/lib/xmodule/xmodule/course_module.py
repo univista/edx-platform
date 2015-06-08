@@ -1283,6 +1283,10 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         return self.location.course_key
 
     def enrollment_start_datetime_text(self, format_string="SHORT_DATE"):
+        """
+        Returns the desired text corresponding the course's start date and time in UTC.  Prefers .advertised_start,
+        then falls back to .start
+        """
         i18n = self.runtime.service(self, "i18n")
         _ = i18n.ugettext
         strftime = i18n.strftime
@@ -1303,8 +1307,10 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
         if isinstance(self.enrollment_start, basestring):
             return try_parse_iso_8601(self.enrollment_start)
-        elif self.enrollment_start is None:
-            return 'None'
+        elif self.start_date_is_still_default:
+            # Translators: TBD stands for 'To Be Determined' and is used when a course
+            # does not yet have an announced start date.
+            return _('TBD')
         else:
             when = self.enrollment_start
 
@@ -1313,12 +1319,11 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
             return strftime(when, format_string)
 
-    @property
-    def enrollment_start_date_is_still_default(self):
-        return self.enrollment_start is None and self.enrollment_start == CourseFields.enrollment_start.default
-
-
     def enrollment_end_datetime_text(self, format_string="SHORT_DATE"):
+        """
+        Returns the desired text corresponding the course's start date and time in UTC.  Prefers .advertised_start,
+        then falls back to .start
+        """
         i18n = self.runtime.service(self, "i18n")
         _ = i18n.ugettext
         strftime = i18n.strftime
@@ -1337,17 +1342,24 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
             return result
 
-        if isinstance(self.advertised_start, basestring):
-            return try_parse_iso_8601(self.advertised_start)
-        elif self.start_date_is_still_default:
+        if isinstance(self.enrollment_start, basestring):
+            return try_parse_iso_8601(self.enrollment_start)
+        elif self.enrollment_start_date_is_still_default:
+            # Translators: TBD stands for 'To Be Determined' and is used when a course
+            # does not yet have an announced start date.
             return _('TBD')
         else:
-            when = self.enrollment_end
+            when = self.enrollment_start
 
             if format_string == "DATE_TIME":
                 return self._add_timezone_string(strftime(when, format_string))
 
             return strftime(when, format_string)
+
+    @property
+    def enrollment_start_date_is_still_default(self):
+        return self.enrollment_start is None and self.start == CourseFields.enrollment_start.default
+
 
 
     def study_weeks_text(self):
@@ -1358,7 +1370,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         end_week = strftime(self.end, '%W')
         start_week = strftime(self.start, '%W')
 
-        return int(end_week) - int(start_week)
+        return strftime(self.end - self.start, '%W')
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
@@ -1400,9 +1412,18 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
     @property
     def start_date_is_still_default(self):
+        """
+        Checks if the start date set for the course is still default, i.e. .start has not been modified,
+        and .advertised_start has not been set.
+        """
         return self.advertised_start is None and self.start == CourseFields.start.default
 
     def end_datetime_text(self, format_string="SHORT_DATE"):
+        """
+        Returns the end date or date_time for the course formatted as a string.
+
+        If the course does not have an end date set (course.end is None), an empty string will be returned.
+        """
         if self.end is None:
             return ''
         else:
@@ -1411,6 +1432,9 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             return date_time if format_string == "SHORT_DATE" else self._add_timezone_string(date_time)
 
     def _add_timezone_string(self, date_time):
+        """
+        Adds 'UTC' string to the end of start/end date and time texts.
+        """
         return date_time + u" UTC"
 
     @property
