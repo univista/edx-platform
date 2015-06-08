@@ -1290,7 +1290,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         if self.enrollment_start is None:
             return ''
         else:
-            when = self.advertised_start or self.start
+            when = self.enrollment_start
 
             if format_string == "DATE_TIME":
                 return self._add_timezone_string(strftime(when, format_string))
