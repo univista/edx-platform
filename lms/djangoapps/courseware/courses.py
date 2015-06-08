@@ -349,22 +349,20 @@ def get_courses_by_university(request):
     return universities
 
 
-def get_courses(request):
+def get_courses_by_university(user, domain=None):
     '''
-    Returns a list of courses available, sorted by course.number
+    Returns dict of lists of courses available, keyed by course.org (ie university).
+    Courses are sorted by course.number.
     '''
-    courses = branding.get_visible_courses(request)
+    # TODO: Clean up how 'error' is done.
+    # filter out any courses that errored.
+    visible_courses = get_courses(user, domain)
 
-    permission_name = microsite.get_value(
-        'COURSE_CATALOG_VISIBILITY_PERMISSION',
-        settings.COURSE_CATALOG_VISIBILITY_PERMISSION
-    )
+    universities = defaultdict(list)
+    for course in visible_courses:
+        universities[course.org].append(course)
 
-    courses = [c for c in courses if has_access(request.user, permission_name, c)]
-
-    courses = sorted(courses, key=lambda course: course.number)
-
-    return courses
+    return universities
 
 
 def sort_by_announcement(courses):
