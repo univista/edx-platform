@@ -1283,10 +1283,6 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         return self.location.course_key
 
     def enrollment_start_datetime_text(self, format_string="SHORT_DATE"):
-        """
-        Returns the desired text corresponding the course's start date and time in UTC.  Prefers .advertised_start,
-        then falls back to .start
-        """
         i18n = self.runtime.service(self, "i18n")
         _ = i18n.ugettext
         strftime = i18n.strftime
@@ -1319,10 +1315,6 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
 
     @property
     def enrollment_start_date_is_still_default(self):
-        """
-        Checks if the start date set for the course is still default, i.e. .start has not been modified,
-        and .advertised_start has not been set.
-        """
         return self.enrollment_start is None and self.enrollment_start == CourseFields.enrollment_start.default
 
 
