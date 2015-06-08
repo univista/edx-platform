@@ -14,7 +14,15 @@
 		  bottom: 0;
 		  z-index: 10;
 		}
+		.view-header {width:1178px}
+		.view-content .member-list > li.views-row-odd {cursor:pointer}
+		.view-display-members-full .member-list.professor li .course-list li {margin-bottom:10px}
 	</style>
+	<script>
+		function go_page(url){
+			location.href = url;
+		}
+	</script>
 	<div class="region-column-wrapper">
 		<div class="region-columns region-container container">
 			<div class="region-container-inner">
@@ -36,7 +44,7 @@
 												</div>
 												<div class="view-content">
 													<ul class="member-list professor">
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													
 													<em>황병선 대표 교수</em>
 														<div class="member-images">
@@ -45,8 +53,8 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">플랫폼 비즈니스 모델 기획</a></li>
-																<li><a href="/professor_sub">초기 투자 유치를 위한 제안서 작성</a></li>
+																<li>플랫폼 비즈니스 모델 기획</li>
+																<li>초기 투자 유치를 위한 제안서 작성</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -60,7 +68,7 @@
 															</div>
 														</div>
 													</li>
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor"  onclick="go_page('/professor_sub')">
 													<em>김진영 대표 교수</em>
 														<div class="member-images">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/02.png" alt="김진영 대표 교수" title="김진영 대표 교수" />
@@ -68,7 +76,7 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">비즈니스 모델과 고객가치명제 디자인</a></li>
+																<li>비즈니스 모델과 고객가치명제 디자인</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -82,7 +90,7 @@
 															</div>
 														</div>
 													</li>
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>명승은 대표 교수</em>
 														<div class="member-images" style="right:10px">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/11.png" alt="명승은 대표 교수" title="명승은 대표 교수" />
@@ -90,7 +98,7 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">스타트업의 언론 홍보</a></li>
+																<li>스타트업의 언론 홍보</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -104,7 +112,7 @@
 															</div>
 														</div>
 													</li>
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>박민우 대표 교수</em>
 														<div class="member-images">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/04.png" alt="박민우 대표 교수" title="박민우 대표 교수" />
@@ -112,7 +120,7 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">O2O 트렌드로 배우는 서비스 전략</a></li>
+																<li>O2O 트렌드로 배우는 서비스 전략</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -127,7 +135,7 @@
 															</div>
 														</div>
 													</li>
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>백상훈 대표 교수</em>
 														<div class="member-images">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/05.png" alt="백상훈 대표 교수" title="백상훈 대표 교수" />
@@ -135,7 +143,7 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">스토리텔링기반 창업 사업계획서 작성</a></li>
+																<li>스토리텔링기반 창업 사업계획서 작성</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -149,7 +157,7 @@
 															</div>
 														</div>
 													</li>
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>선성광 대표 교수</em>
 														<div class="member-images" style="right:10px">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/06.png" alt="선성광 대표 교수" title="선성광 대표 교수" />
@@ -157,7 +165,7 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">스타트업을 위한 세무/법무/회계 기초</a></li>
+																<li>스타트업을 위한 세무/법무/회계 기초</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -171,7 +179,7 @@
 															</div>
 														</div>
 													</li>
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>김성원 대표 교수</em>
 														<div class="member-images">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/07.png" alt="김성원 대표 교수" title="김성원 대표 교수" />
@@ -179,7 +187,7 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">스마트 미디어 분야의 서비스 모델 개발</a></li>
+																<li>스마트 미디어 분야의 서비스 모델 개발</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -193,7 +201,7 @@
 															</div>
 														</div>
 													</li>
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>고영혁 대표 교수</em>
 														<div class="member-images" style="right:10px">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/08.png" alt="고영혁 대표 교수" title="고영혁 대표 교수" />
@@ -201,8 +209,8 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">스타트업이 꼭 알아야 할 HR 스킬 3가지</a></li>
-																<li><a href="/professor_sub">데이터 분석 기반 Growth Hacking</a></li>
+																<li>스타트업이 꼭 알아야 할 HR 스킬 3가지</li>
+																<li>데이터 분석 기반 Growth Hacking</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -216,7 +224,7 @@
 															</div>
 														</div>
 													</li>
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>김태현 대표 교수</em>
 														<div class="member-images" style="right:10px">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/09.png" alt="김태현 대표 교수" title="김태현 대표 교수" />
@@ -224,7 +232,7 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">소셜미디어 중심의 스타트업 마케팅</a></li>
+																<li>소셜미디어 중심의 스타트업 마케팅</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -238,7 +246,7 @@
 															</div>
 														</div>
 													</li>
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>김석기 대표 교수</em>
 														<div class="member-images">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/10.png" alt="김석기 대표 교수" title="김석기 대표 교수" />
@@ -246,7 +254,7 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">콘텐츠 사업에서의 수익 모델 기획</a></li>
+																<li>콘텐츠 사업에서의 수익 모델 기획</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -275,7 +283,7 @@
 												<div class="view-content">
 													<ul class="member-list professor">
 													
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>강재민 강의 교수</em>
 														<div class="member-images" style="right:10px">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/03.png" alt="강재민 강의 교수" title="강재민 강의 교수" />
@@ -283,8 +291,8 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">아이디어 창출과 제품 기획</a></li>
-																<li><a href="/professor_sub">크라우드펀딩 성공하기</a></li>
+																<li>아이디어 창출과 제품 기획</li>
+																<li>크라우드펀딩 성공하기</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -297,7 +305,7 @@
 															</div>
 														</div>
 													</li>
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>심규병 강의 교수</em>
 														<div class="member-images">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/12.png" alt="심규병 강의 교수" title="심규병 강의 교수" />
@@ -305,7 +313,7 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">스타트업을 위한 세일즈 A To Z</a></li>
+																<li>스타트업을 위한 세일즈 A To Z</li>
 																</ul>
 															</div>
 															<div class="member-history">
@@ -327,12 +335,12 @@
 											<div class="view view-members view-display-members-full">
 												<div class="view-header">
 													<a name="charter-members"></a>
-													<h2 style="margin-bottom:0px;" class="members-header"><span>자문 교수진</span></h2>
+													<h2 style="margin-bottom:0px;" class="members-header"><span>자문단</span></h2>
 													<p>아카데미X는 온라인 미디어 인터넷 기술과 디지털 지식에 뿌리를 두고있습니다.</p>
 												</div>
 												<div class="view-content">
 													<ul class="member-list professor">
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>정지훈 자문 교수</em>
 														<div class="member-images">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/13.png" alt="정지훈 자문 교수" title="정지훈 자문 교수" />
@@ -355,7 +363,7 @@
 															</div>
 														</div>
 													</li>
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>허정윤 자문 교수</em>
 														<div class="member-images" style="right:16px">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/pro_new/type2/15.png" alt="허정윤 자문 교수" title="허정윤 자문 교수" />
@@ -379,7 +387,7 @@
 														</div>
 													</li>
 													<!--
-													<li class="views-row-odd views-row-first member member-tile member-professor">
+													<li class="views-row-odd views-row-first member member-tile member-professor" onclick="go_page('/professor_sub')">
 													<em>최형욱 자문 교수</em>
 														<div class="member-images">
 															<img typeof="foaf:Image" class="image-style-none" src="/static/themes/default/images/professor/img_professor14.png" alt="허정윤 자문 교수" title="허정윤 자문 교수" />
@@ -387,8 +395,8 @@
 														<div class="professor">
 															<div class="course-list">
 																<ul>
-																<li><a href="/professor_sub">과목명1</a></li>
-																<li><a href="/professor_sub">과목명2</a></li>
+																<li>과목명1</li>
+																<li>과목명2</li>
 																</ul>
 															</div>
 															<div class="member-history">
