@@ -1288,7 +1288,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         strftime = i18n.strftime
 
         if self.enrollment_start is None:
-            return ''
+            return self.enrollment_start
         else:
             when = self.enrollment_start
 
