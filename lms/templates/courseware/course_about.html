@@ -213,9 +213,12 @@ from edxmako.shortcuts import marketing_link
                 <div class="course-detail-number item">
                         <span class="label">개강일 </span>${course.start_datetime_text()}
                 </div>
+                % if course.enrollment_start_datetime_text() == '':
                 <div class="course-detail-start item">
                         <span class="label">수강신청 </span>${course.enrollment_start_datetime_text()} ~
                 </div>
+
+                % end if
                 <div class="course-detail-start item">
                         <span class="label">학습기간 </span>주
                </div>
