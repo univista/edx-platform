@@ -1321,12 +1321,8 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         if self.end is not None:
             when = self.end
             return strftime(self.end, '%W')
-        else
+        else:
             return None
-
-        #end_week = strftime(self.end, '%W')
-        #start_week = strftime(self.start, '%W')
-        #return self.advertised_start
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
         """
