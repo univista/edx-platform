@@ -6,10 +6,11 @@ from opaque_keys.edx.locations import SlashSeparatedCourseKey
 from microsite_configuration import microsite
 
 
-def get_visible_courses(request):
+def get_visible_courses():
     """
     Return the set of CourseDescriptors that should be visible in this branded instance
     """
+
     filtered_by_org = microsite.get_value('course_org_filter')
 
     _courses = modulestore().get_courses(org=filtered_by_org)
@@ -36,6 +37,7 @@ def get_visible_courses(request):
         # in a Microsite
         org_filter_out_set = microsite.get_all_orgs()
         return [course for course in courses if course.location.org not in org_filter_out_set]
+
 
 
 def get_university_for_request():
