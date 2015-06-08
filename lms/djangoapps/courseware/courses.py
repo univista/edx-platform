@@ -354,7 +354,7 @@ def get_courses_search(request):
     '''
     Returns a list of courses available, sorted by course.number
     '''
-    courses = branding.get_visible_courses(request)
+    courses = branding.get_visible_courses_search(request)
 
     permission_name = microsite.get_value(
         'COURSE_CATALOG_VISIBILITY_PERMISSION',
