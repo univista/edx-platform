@@ -12,7 +12,6 @@ def get_visible_courses(request):
     """
     if request.method == 'POST':
         filtered_by_org = request.POST['search_query']
-        print request.POST['search_query']
     else:
         filtered_by_org = microsite.get_value('course_org_filter')
 
