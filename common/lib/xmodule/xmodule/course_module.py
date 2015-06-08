@@ -1318,9 +1318,15 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         _ = i18n.ugettext
         strftime = i18n.strftime
 
-        when = self.enrollment_end
+        if self.enrollment_end is None:
+            return self.enrollment_end
+        else:
+            when = self.enrollment_end
 
-        return strftime(when, '%W')
+            if format_string == "DATE_TIME":
+                return self._add_timezone_string(strftime(when, format_string))
+
+            return strftime(when, format_string)
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
