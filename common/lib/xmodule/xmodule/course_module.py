@@ -1283,7 +1283,19 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         return self.location.course_key
 
     def enrollment_start_datetime_text(self, format_string="SHORT_DATE"):
-        return self.enrollment_start
+        i18n = self.runtime.service(self, "i18n")
+        _ = i18n.ugettext
+        strftime = i18n.strftime
+
+        if self.enrollment_start is None:
+            return ''
+        else:
+            when = self.advertised_start or self.start
+
+            if format_string == "DATE_TIME":
+                return self._add_timezone_string(strftime(when, format_string))
+
+            return strftime(when, format_string)
 
     def enrollment_end_datetime_text(self, format_string="SHORT_DATE"):
         """
