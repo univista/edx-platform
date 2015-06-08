@@ -1318,11 +1318,13 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         _ = i18n.ugettext
         strftime = i18n.strftime
 
-        end_week = strftime(self.end, '%W')
-        start_week = strftime(self.start, '%W')
+        if self.end is not None:
+            when = self.end
+            return strftime(self.end, '%W')
 
-
-        return self.advertised_start
+        #end_week = strftime(self.end, '%W')
+        #start_week = strftime(self.start, '%W')
+        #return self.advertised_start
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
         """
