@@ -219,11 +219,9 @@ from edxmako.shortcuts import marketing_link
                                 ${course.enrollment_start_datetime_text()}
                             % end if
                 </div>
-                % if ${course.study_weeks_text()}:
                 <div class="course-detail-start item">
-                        <span class="label">학습기간 </span>${course.study_weeks_text()}주
+                        <span class="label">학습기간 </span>주
                 </div>
-                % end if
 			</div>
 			<div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
 				<p>${get_course_about_section(course, 'short_description')}</p>
