@@ -1304,7 +1304,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         if isinstance(self.enrollment_start, basestring):
             return try_parse_iso_8601(self.enrollment_start)
         elif self.enrollment_start_date_is_still_default:
-            return ""
+            return _('TBD')
         else:
             when = self.enrollment_start
 
