@@ -115,13 +115,13 @@ def user_groups(user):
     return group_names
 
 
-@csrf_exempt
+@ensure_csrf_cookie
+@cache_if_anonymous()
 def courses(request):
     """
     Render "find courses" page.  The course selection work is done in courseware.courses.
     """
-    #courses = get_courses(request.user, request.META.get('HTTP_HOST'))
-    courses = get_courses(request)
+    courses = get_courses(request.user, request.META.get('HTTP_HOST'))
 
     if microsite.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
                            settings.FEATURES["ENABLE_COURSE_SORTING_BY_START_DATE"]):
@@ -130,6 +130,7 @@ def courses(request):
         courses = sort_by_announcement(courses)
 
     return render_to_response("courseware/courses.html", {'courses': courses})
+
 
 
 @ensure_csrf_cookie

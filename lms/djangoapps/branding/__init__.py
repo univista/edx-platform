@@ -6,6 +6,14 @@ from opaque_keys.edx.locations import SlashSeparatedCourseKey
 from microsite_configuration import microsite
 
 
+from xmodule.modulestore.django import modulestore
+from xmodule.course_module import CourseDescriptor
+from django.conf import settings
+
+from opaque_keys.edx.locations import SlashSeparatedCourseKey
+from microsite_configuration import microsite
+
+
 def get_visible_courses(request):
     """
     Return the set of CourseDescriptors that should be visible in this branded instance
@@ -40,6 +48,46 @@ def get_visible_courses(request):
         # in a Microsite
         org_filter_out_set = microsite.get_all_orgs()
         return [course for course in courses if course.location.org not in org_filter_out_set]
+
+
+def get_university_for_request():
+    """
+    Return the university name specified for the domain, or None
+    if no university was specified
+    """
+    return microsite.get_value('university')
+
+
+def get_logo_url():
+    """
+    Return the url for the branded logo image to be used
+    """
+
+    # if the MicrositeConfiguration has a value for the logo_image_url
+    # let's use that
+    image_url = microsite.get_value('logo_image_url')
+    if image_url:
+        return '{static_url}{image_url}'.format(
+            static_url=settings.STATIC_URL,
+            image_url=image_url
+        )
+
+    # otherwise, use the legacy means to configure this
+    university = microsite.get_value('university')
+
+    if university is None and settings.FEATURES.get('IS_EDX_DOMAIN', False):
+        return '{static_url}images/edx-theme/edx-logo-77x36.png'.format(
+            static_url=settings.STATIC_URL
+        )
+    elif university:
+        return '{static_url}images/{uni}-on-edx-logo.png'.format(
+            static_url=settings.STATIC_URL, uni=university
+        )
+    else:
+        return '{static_url}images/default-theme/logo.png'.format(
+            static_url=settings.STATIC_URL
+        )
+
 
 
 def get_university_for_request():

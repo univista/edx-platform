@@ -79,7 +79,8 @@ def index(request):
     #  marketing and edge are enabled
     return student.views.index(request, user=request.user)
 
-@csrf_exempt
+@ensure_csrf_cookie
+@cache_if_anonymous()
 def courses(request):
     """
     Render the "find courses" page. If the marketing site is enabled, redirect
