@@ -366,6 +366,24 @@ def get_courses(user, domain=None):
     return courses
 
 
+def get_search_courses(request):
+    '''
+    Returns a list of courses available, sorted by course.number
+    '''
+    courses = branding.get_visible_courses(request)
+
+    permission_name = microsite.get_value(
+        'COURSE_CATALOG_VISIBILITY_PERMISSION',
+        settings.COURSE_CATALOG_VISIBILITY_PERMISSION
+    )
+
+    courses = [c for c in courses if has_access(request.user, permission_name, c)]
+
+    courses = sorted(courses, key=lambda course: course.number)
+
+    return courses
+
+
 def sort_by_announcement(courses):
     """
     Sorts a list of courses by their announcement date. If the date is

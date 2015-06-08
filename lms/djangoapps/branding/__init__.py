@@ -38,6 +38,38 @@ def get_visible_courses():
         org_filter_out_set = microsite.get_all_orgs()
         return [course for course in courses if course.location.org not in org_filter_out_set]
 
+def get_search_courses(request):
+    if request.method == 'POST':
+        filtered_by_org = request.POST['search_query']
+    else:
+        filtered_by_org = microsite.get_value('course_org_filter')
+
+    _courses = modulestore().get_courses(org=filtered_by_org)
+
+    courses = [c for c in _courses
+               if isinstance(c, CourseDescriptor)]
+    courses = sorted(courses, key=lambda course: course.number)
+
+    subdomain = microsite.get_value('subdomain', 'default')
+
+    # See if we have filtered course listings in this domain
+    filtered_visible_ids = None
+
+    # this is legacy format which is outside of the microsite feature -- also handle dev case, which should not filter
+    if hasattr(settings, 'COURSE_LISTINGS') and subdomain in settings.COURSE_LISTINGS and not settings.DEBUG:
+        filtered_visible_ids = frozenset([SlashSeparatedCourseKey.from_deprecated_string(c) for c in settings.COURSE_LISTINGS[subdomain]])
+
+    if filtered_by_org:
+        return [course for course in courses if course.location.org == filtered_by_org]
+    if filtered_visible_ids:
+        return [course for course in courses if course.id in filtered_visible_ids]
+    else:
+        # Let's filter out any courses in an "org" that has been declared to be
+        # in a Microsite
+        org_filter_out_set = microsite.get_all_orgs()
+        return [course for course in courses if course.location.org not in org_filter_out_set]
+
+
 
 def get_university_for_request():
     """

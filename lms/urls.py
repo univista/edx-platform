@@ -281,7 +281,9 @@ if settings.COURSEWARE_ENABLED:
         # url(r'^save_circuit/(?P<circuit>[^/]*)$', 'circuit.views.save_circuit'),
 
         url(r'^courses/?$', 'branding.views.courses', name="courses"),
-        url(r'^courses_search/?$', 'courseware.views.courses', name="courses"),
+        url(r'^courses_search/?$', 'courseware.views.courses_search', name="courses_search"),
+
+
         url(r'^professor/?$', 'branding.views.professor', name="courses"),
         url(r'^partner/?$', 'branding.views.partner', name="courses"),
         url(r'^adx_terms_service/?$', 'branding.views.adx_terms_service', name="courses"),
@@ -314,6 +316,7 @@ if settings.COURSEWARE_ENABLED:
         #Inside the course
         url(r'^courses/{}/$'.format(settings.COURSE_ID_PATTERN),
             'courseware.views.course_info', name="course_root"),
+
         url(r'^courses/{}/info$'.format(settings.COURSE_ID_PATTERN),
             'courseware.views.course_info', name="info"),
         url(r'^courses/{}/syllabus$'.format(settings.COURSE_ID_PATTERN),
