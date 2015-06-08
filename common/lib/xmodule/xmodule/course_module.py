@@ -1318,11 +1318,10 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
         _ = i18n.ugettext
         strftime = i18n.strftime
 
-        if self.end is not None:
-            when = self.end
-            return strftime(self.end, '%W')
-        else:
-            return None
+        when = self.enrollment_end
+
+        return strftime(when, '%W')
+
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
         """
