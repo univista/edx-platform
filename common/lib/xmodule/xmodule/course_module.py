@@ -1313,7 +1313,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             return strftime(when, format_string)
 
 
-    def study_weeks_text(self):
+    def study_weeks_text(self, format_string="SHORT_DATE"):
         i18n = self.runtime.service(self, "i18n")
         _ = i18n.ugettext
         strftime = i18n.strftime
