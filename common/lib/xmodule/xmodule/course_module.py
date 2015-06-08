@@ -1326,7 +1326,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             if format_string == "DATE_TIME":
                 return self._add_timezone_string(strftime(when, format_string))
 
-            return strftime(when, format_string)
+            return strftime(self.start, '%W')
 
 
     def start_datetime_text(self, format_string="SHORT_DATE"):
