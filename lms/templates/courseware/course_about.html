@@ -7,7 +7,7 @@ from courseware.courses import course_image_url, get_course_about_section
 from django.conf import settings
 from edxmako.shortcuts import marketing_link
 %>
-<%page args="course" />
+
 <%inherit file="../main.html" />
 <%block name="headextra">
 
@@ -241,7 +241,7 @@ from edxmako.shortcuts import marketing_link
           </a>
           <div id="register_error"></div>
         %else:
-          <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" class="register action access-courseware btn_block">
+          <a href="${course.id}" class="register action access-courseware btn_block">
             수강신청 33
           </a>
           <div id="register_error"></div>
