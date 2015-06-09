@@ -375,6 +375,9 @@ ${fragment.foot_html()}
 			fbxml = '<fb:comments href="http://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.3&appId=584504851686203" num_posts="5" width="' + width_percent  + 'px"></fb:comments>';
 			$('#fbcomment').append(fbxml);
 			*/
+			var url = $(location).attr('href');
+			var _url = encodeURIComponent(url);
+			//$('.fb-comments').attr('data-href',_url);
 		});
         </script>
 		
