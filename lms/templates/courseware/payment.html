@@ -215,6 +215,8 @@ from edxmako.shortcuts import marketing_link
 		});
 
 		function pg(){
+		alert( $('input[name=payradio]:checked').val() );
+		return;
 			window.open("http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp");
 		}
 	</script>
