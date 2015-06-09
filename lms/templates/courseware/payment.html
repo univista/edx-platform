@@ -224,92 +224,209 @@ from edxmako.shortcuts import marketing_link
   <link rel="stylesheet" href="/static/css/m2ly6jxt.css">
 
 </%block>
+		<div class="container">
+			<div class="profile-wrapper">
+				<div class="course-info" id="course-info-progress" aria-label="Course Progress">
+					<h1 class="element-invisible">교육과정 결제</h1>
+					<div class="payment">
+						<form>
+						<section>
+							<h2>공식수료증 신청을 위해 결제 수단을 선택해주세요.</h2>
+							<div class="sections">
+								<dl>
+								<dt>휴대폰 실명인증</dt>
+								<dd>
+									<div>수료증 발급을 위한 실명 인증 단계를 진행하고 있습니다.<input type="button" class="btn_block" value="휴대폰 실명인증" /></div>
+								</dd>
+								</dl>
+								<dl>
+								<dt>결제수단</dt>
+								<dd>
+									<div>
+										<span class="radio-area">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay01" value="question">
+											<span></span>
+										</span>
+										<label for="pay01" class="post-type-label">
+											신용카드
+										</label>
+										<span class="radio-area">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay02" value="discussion" checked="">
+											<span></span>
+										</span>
+										<label for="pay02" class="post-type-label">
+											휴대폰
+										</label>
+										<span class="radio-area">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay03" value="discussion" checked="">
+											<span></span>
+										</span>
+										<label for="pay03" class="post-type-label">
+											쿠폰
+										</label>
+									</div>
+								</dd>
+								</dl>
 
-<div class="container">
-	<div class="application_wrapper">
-		<section>
-			<p class="tit_sub">스타트업을 위한 플랫폼 비즈니스 모델 기획 교육과정을 등록하였습니다.</p>
-			<h1>스타트업을 위한 플랫폼 비즈니스 모델 기획 교육과정에 대한 공식수료증 또는 수강확인증을 선택해주세요.</h1>
+								<div class="payment-box01">
+									<dl>
+									<dt>카드종류</dt>
+									<dd>
+										<div>
+											<span class="x-sel">
+												<select>
+												<option>선택</option>
+												<option></option>
+												<option></option>
+												</select>
+											</span>
+										</div>
+									</dd>
+									<dt>할부기간</dt>
+									<dd>
+										<div>
+											<span class="x-sel">
+												<select>
+												<option>일시불</option>
+												<option></option>
+												<option></option>
+												</select>
+											</span>
+										</div>
+										<span class="point">할부는 5만원 이상만 가능합니다.</span>
+									</dd>
+									<dt>약관동의</dt>
+									<dd>
+										<div>
+											<div class="all-agree">
+												<span class="chk_area"><input id="all-agree" type="checkbox" name="honor_code" value="true"><span></span></span>
+												<label for="all-agree">전체동의 (결제서비스 이용약관에 동의 및 구매 진행에 동의합니다.)</label>
+											</div>
+											<div class="agree-area">
+												<span>
+													<span class="chk_area"><input id="agree-check01" type="checkbox" name="agreecheck01" value="true"><span></span></span>
+													<label for="agree-check01">서비스 약관동의</label>
+												</span>
+												<span>
+													<span class="chk_area"><input id="agree-check02" type="checkbox" name="agreecheck02" value="true"><span></span></span>
+													<label for="agree-check02">개인정보 수집/이용 동의</label>
+												</span>
+												<span>
+													<span class="chk_area"><input id="agree-check03" type="checkbox" name="agreecheck03" value="true"><span></span></span>
+													<label for="agree-check03">개인정보 제공/위탁 동의</label>
+												</span>
+												<span>
+													<span class="chk_area"><input id="agree-check04" type="checkbox" name="agreecheck04" value="true"><span></span></span>
+													<label for="agree-check04">상품 판매조건 확인/구매 동의</label>
+												</span>
+											</div>
+										</div>
+									</dd>
+									</dl>
+									<span>- 상기 [결제수단 선택] 영역 내의 약관 동의는 고객님께서 결제를 위해 선택하신 결제수단에 따라 해당하는 PG사업자의 필수 약관에 동의하는 절차입니다.</span>
+								</div>
+								<div class="payment-box02">
+									<span>- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
+									<span>- 한도 문의는 이용중인 통신사에 해주시기 바랍니다.</span>
+								</div>
+								<div class="payment-box03">
+									<dl>
+									<dt>쿠폰 번호</dt>
+									<dd>
+										<div><input type="text" name="text" value="" placeholder="쿠폰번호를 입력해주세요."></div>
+									</dd>
+									</dl>
+								</div>
+							</div> <!--End section-->
+						</section> <!--End chapter-->
+						<section>
+							<h2>개인정보 제3자 제공</h2>
+							<span>서비스 제공을 위해 아래 정보가 제공됩니다. 수강생은 정보제공에 동의하지 않을 수 있으며, 동의하지 않는 경우 서비스 이용이 제한될 수 있습니다.</span>
+							<div class="sections">
+								<div>
+									<table>
+										<colgroup>
+										<col width="235" />
+										<col width="235" />
+										<col width="235" />
+										<col />
+										</colgroup>
+										<thead>
+										<tr>
+										<th>개인정보를 제공 받는자</th>
+										<th>제공목적</th>
+										<th>제공정보</th>
+										<th>개인정보를 제공 받는 자의 개인정보 보유 및 이용기관</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+										<td>아카데미X</td>
+										<td>공식수료증 수료</td>
+										<td>성명,휴대폰번호,이메일주소</td>
+										<td>회원탈퇴시</td>
+										</tr>
+										</tbody>
+									</table>
+								</div> <!--End section-->
+							</div> <!--End sections-->
+							<div class="all-agree">
+								<span class="chk_area"><input id="info-agree" type="checkbox" name="honor_code" value="true"><span></span></span>
+								<label for="info-agree">개인정보 제3자 제공에 동의</label>
+							</div>
+							<div class="btn-area">
+								<input class="check btn_block" type="button" value="결제하기">
+								<input class="reset btn_block" type="button" value="취소">
+							</div>
+							</section> <!--End chapter-->
+						</form>
+					</div> <!--End chapters-->
 
-			<div class="box_wrappers">
-				<div class="box on">
-					<span class="icon"></span>
-					<h2>공식 수료증</h2>
-					<p class="info1">스타트업을 위한 플랫폼 비즈니스 모델 기획 교육과정에 대해 동영상 강의 및 강의자료, 테스트, 오프라인 강의 및 워크샵에 참가하실수 있습니다.</p>
-					<p class="info2">* 위 교육과정을 성공적으로 이수하면, AcademyX 계정 생성시, 등록한 이메일 주소로 공식수료증을 보내드립니다.</p>
-					<p class="payment">수강료 : 100,000원</p>
-					<a href="payment">공식수료증 신청</a>
-				</div>
-
-				<div class="box">
-					<span class="icon"></span>
-					<h2>수강 확인증</h2>
-					<p class="info1">스타트업을 위한 플랫폼 비즈니스 모델 기획 교육과정에 대해 동영상 강의 및 강의자료, 테스트, 오프라인 강의 및 워크샵에 참가하실수 있습니다.</p>
-					<p class="info2">* 위 교육과정을 성공적으로 이수하면, AcademyX 계정 생성시, 등록한 이메일 주소로 공식수료증을 보내드립니다.</p>
-					<p class="payment">수강료 : 무료</p>
-					<a href="#" class="register">수강확인증 신청</a>
 				</div>
 			</div>
+		</div>
 
-		</section>
-	</div>
-</div>
-
-
-<section id="apply_request_complete" class="modal academy" aria-hidden="true">
-  <div class="inner-wrapper" role="dialog" aria-labelledby="change-name-title">
-    <button class="close-modal">
-      <i class="icon fa fa-remove"></i>
-      <span class="sr">
-        Close
-      </span>
-    </button>
-
-    <div id="" class="modal_body">
-      <form id="">
-        <p>수강신청이 완료 되었습니다.</p>
-          <div class="submit" style="padding-top:26px">
-            <input class="btn_block" type="button" value="확인" style="width:100%">
-          </div>
-      </form>
     </div>
-  </div>
-</section>
 
-<section id="apply_mobile_au" class="modal academy" aria-hidden="true">
-  <div class="inner-wrapper" role="dialog" aria-labelledby="change-name-title">
-    <button class="close-modal">
-      <i class="icon fa fa-remove"></i>
-      <span class="sr">
-        Close
-      </span>
-    </button>
+	<script type="text/javascript">
+		$(function() {
 
-    <div id="" class="modal_body">
-      <form id="">
-		  <p>수료증 발급을 위한<br>실명 인증 단계를 진행하고 있습니다.</p>
-          <div class="submit" style="padding-top:26px">
-            <input class="btn_block" type="button" value="휴대폰 실명인증" style="width:100%">
-          </div>
-      </form>
-    </div>
-  </div>
-</section>
+			// adding js class for styling with accessibility in mind
+			$('body').addClass('js');
 
-## Need to put this hidden form on the page so that the registration button works.
-## Since it's no harm to display a hidden form, we display it with the most permissive conditional
-## which is when the student is not registered.
-%if active_reg_button or is_shib_course:
-  <div style="display: none;">
-    <form id="class_enroll_form" method="post" data-remote="true" action="${reverse('change_enrollment')}">
-      <fieldset class="enroll_fieldset">
-        <legend class="sr">${_("Enroll")}</legend>
-        <input name="course_id" type="hidden" value="${course.id | h}">
-        <input name="enrollment_action" type="hidden" value="enroll">
-      </fieldset>
-      <div class="submit">
-        <input name="submit" type="submit" value="${_('enroll')}">
-      </div>
-    </form>
-  </div>
-%endif
+			// form field label styling on focus
+			$(".agree-area :input").click(function() {
+				$("label[for='" + this.id + "']").parent().toggleClass("is-focused");
+			});
+
+			$('#pay01').prop('checked',true); //휴대폰을 기본으로 설정
+			$('.payment-box01').show();
+			$('.payment-box02').hide();
+			$('.payment-box03').hide();
+			$('#pay01').click(function(){ //아니오를 클릭하면
+				$('#pay01').prop('checked',true);
+				$('#pay02').prop('checked',false);
+				$('#pay03').prop('checked',false);
+				$('.payment-box01').show();
+				$('.payment-box02').hide();
+				$('.payment-box03').hide();
+			});
+			$('#pay02').click(function(){ //예를 클릭하면
+				$('#pay02').prop('checked',true);
+				$('#pay01').prop('checked',false);
+				$('#pay03').prop('checked',false);
+				$('.payment-box01').hide();
+				$('.payment-box02').show();
+				$('.payment-box03').hide();
+			});
+			$('#pay03').click(function(){ //예를 클릭하면
+				$('#pay03').prop('checked',true);
+				$('#pay01').prop('checked',false);
+				$('#pay02').prop('checked',false);
+				$('.payment-box01').hide();
+				$('.payment-box02').hide();
+				$('.payment-box03').show();
+			});
+		});
+
+	</script>
