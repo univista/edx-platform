@@ -123,26 +123,6 @@ from edxmako.shortcuts import marketing_link
           </a>
 
 
-      ## For now, ocw links are the only thing that goes in additional resources
-      % if get_course_about_section(course, "ocw_links"):
-      <section class="additional-resources">
-        <header>
-          <h1>${_("Additional Resources")}</h1>
-        </header>
-
-        <section>
-          ## "MITOpenCourseware" should *not* be translated
-          <h2 class="opencourseware">MITOpenCourseware</h2>
-             ${get_course_about_section(course, "ocw_links")}
-        </section>
-      </section>
-      %endif
-    </section>
-
-  </section>
-  </section>
-
-</section>
 
 
 
