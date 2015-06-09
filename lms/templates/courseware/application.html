@@ -117,7 +117,88 @@ alert("실명인증");
 // 결제창 이동
 alert("결제창 이동");
 }
+</script>
 
+<script type="text/javascript">
+(function() {
+$(".register").click(function(event) {
+  alert("register click"); return;
+
+  $("#class_enroll_form").submit();
+  event.preventDefault();
+});
+
+% if can_add_course_to_cart:
+  add_course_complete_handler = function(jqXHR, textStatus) {
+	if (jqXHR.status == 200) {
+	  location.href = "${cart_link}";
+	}
+	if (jqXHR.status == 400) {
+	  $("#register_error")
+		.html(jqXHR.responseText ? jqXHR.responseText : "${_("An error occurred. Please try again later.")}")
+		.css("display", "block");
+	}
+	else if (jqXHR.status == 403) {
+		location.href = "${reg_then_add_to_cart_link}";
+	}
+  };
+  $("#add_to_cart_post").click(function(event){
+	$.ajax({
+	  url: "${reverse('add_course_to_cart', args=[course.id.to_deprecated_string()])}",
+	  type: "POST",
+	  /* Rant: HAD TO USE COMPLETE B/C PROMISE.DONE FOR SOME REASON DOES NOT WORK ON THIS PAGE. */
+	  complete: add_course_complete_handler
+	})
+	event.preventDefault();
+  });
+% endif
+
+## making the conditional around this entire JS block for sanity
+%if settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
+  <%
+	perms_error = _('The currently logged-in user account does not have permission to enroll in this course. '
+					'You may need to {start_logout_tag}log out{end_tag} then try the register button again. '
+					'Please visit the {start_help_tag}help page{end_tag} for a possible solution.').format(
+					  start_help_tag="<a href='{url}'>".format(url=marketing_link('FAQ')), end_tag='</a>',
+					  start_logout_tag="<a href='{url}'>".format(url=reverse('logout'))
+					  )
+  %>
+$('#class_enroll_form').on('ajax:complete', function(event, xhr) {
+  if(xhr.status == 200) {
+	location.href = "${reverse('dashboard')}";
+  } else if (xhr.status == 403) {
+	location.href = "${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}?course_id=${course.id | u}&enrollment_action=enroll";
+  } else if (xhr.status == 400) { //This means the user did not have permission
+	$('#register_error').html("${perms_error}").css("display", "block");
+  } else {
+	$('#register_error').html(
+		(xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.")}")
+	).css("display", "block");
+  }
+});
+
+%else:
+
+$('#class_enroll_form').on('ajax:complete', function(event, xhr) {
+  if(xhr.status == 200) {
+	if (xhr.responseText == "") {
+	  location.href = "${reverse('dashboard')}";
+	}
+	else {
+	  location.href = xhr.responseText;
+	}
+  } else if (xhr.status == 403) {
+	  location.href = "${reverse('register_user')}?course_id=${course.id | u}&enrollment_action=enroll";
+  } else {
+	$('#register_error').html(
+		(xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.")}")
+	).css("display", "block");
+  }
+});
+
+%endif
+
+})(this)
 </script>
 
 <div class="container">
@@ -142,7 +223,7 @@ alert("결제창 이동");
 					<p class="info1">스타트업을 위한 플랫폼 비즈니스 모델 기획 교육과정에 대해 동영상 강의 및 강의자료, 테스트, 오프라인 강의 및 워크샵에 참가하실수 있습니다.</p>
 					<p class="info2">* 위 교육과정을 성공적으로 이수하면, AcademyX 계정 생성시, 등록한 이메일 주소로 공식수료증을 보내드립니다.</p>
 					<p class="payment">수강료 : 무료</p>
-					<a>수강확인증 신청</a>
+					<a href="#">수강확인증 신청</a>
 				</div>
 			</div>
 
