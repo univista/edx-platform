@@ -309,6 +309,8 @@ if settings.COURSEWARE_ENABLED:
         url(r'^courses/{}/application$'.format(settings.COURSE_ID_PATTERN),
             'courseware.views.course_application', name="application_course"),
 
+        url(r'^courses/{}/payment$'.format(settings.COURSE_ID_PATTERN),
+            'courseware.views.course_payment', name="payment_course"),
 
         #View for mktg site (kept for backwards compatibility TODO - remove before merge to master)
         url(r'^courses/{}/mktg-about$'.format(settings.COURSE_ID_PATTERN),

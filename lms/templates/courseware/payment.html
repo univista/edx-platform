@@ -1,0 +1,226 @@
+<%namespace name='static' file='../static_content.html'/>
+<%!
+from microsite_configuration import microsite
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from courseware.courses import course_image_url, get_course_about_section
+from django.conf import settings
+from edxmako.shortcuts import marketing_link
+%>
+
+<%inherit file="../main.html" />
+<%block name="headextra">
+
+  ## OG (Open Graph) title and description added below to give social media info to display
+  ## (https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags)
+  <meta property="og:title" content="${get_course_about_section(course, 'title')}" />
+  <meta property="og:description" content="${get_course_about_section(course, 'short_description')}" />
+</%block>
+
+<%block name="js_extra">
+		<div class="container">
+			<div class="profile-wrapper">
+				<div class="course-info" id="course-info-progress" aria-label="Course Progress">
+					<h1 class="element-invisible">교육과정 결제</h1>
+					<div class="payment">
+						<form>
+						<section>
+							<h2>공식수료증 신청을 위해 결제 수단을 선택해주세요.</h2>
+							<div class="sections">
+								<dl>
+								<dt>휴대폰 실명인증</dt>
+								<dd>
+									<div>수료증 발급을 위한 실명 인증 단계를 진행하고 있습니다.<input type="button" class="btn_block" value="휴대폰 실명인증" /></div>
+								</dd>
+								</dl>
+								<dl>
+								<dt>결제수단</dt>
+								<dd>
+									<div>
+										<span class="radio-area">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay01" value="question">
+											<span></span>
+										</span>
+										<label for="pay01" class="post-type-label">
+											신용카드
+										</label>
+										<span class="radio-area">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay02" value="discussion" checked="">
+											<span></span>
+										</span>
+										<label for="pay02" class="post-type-label">
+											휴대폰
+										</label>
+										<span class="radio-area">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay03" value="discussion" checked="">
+											<span></span>
+										</span>
+										<label for="pay03" class="post-type-label">
+											쿠폰
+										</label>
+									</div>
+								</dd>
+								</dl>
+
+								<div class="payment-box01">
+									<dl>
+									<dt>카드종류</dt>
+									<dd>
+										<div>
+											<span class="x-sel">
+												<select>
+												<option>선택</option>
+												<option></option>
+												<option></option>
+												</select>
+											</span>
+										</div>
+									</dd>
+									<dt>할부기간</dt>
+									<dd>
+										<div>
+											<span class="x-sel">
+												<select>
+												<option>일시불</option>
+												<option></option>
+												<option></option>
+												</select>
+											</span>
+										</div>
+										<span class="point">할부는 5만원 이상만 가능합니다.</span>
+									</dd>
+									<dt>약관동의</dt>
+									<dd>
+										<div>
+											<div class="all-agree">
+												<span class="chk_area"><input id="all-agree" type="checkbox" name="honor_code" value="true"><span></span></span>
+												<label for="all-agree">전체동의 (결제서비스 이용약관에 동의 및 구매 진행에 동의합니다.)</label>
+											</div>
+											<div class="agree-area">
+												<span>
+													<span class="chk_area"><input id="agree-check01" type="checkbox" name="agreecheck01" value="true"><span></span></span>
+													<label for="agree-check01">서비스 약관동의</label>
+												</span>
+												<span>
+													<span class="chk_area"><input id="agree-check02" type="checkbox" name="agreecheck02" value="true"><span></span></span>
+													<label for="agree-check02">개인정보 수집/이용 동의</label>
+												</span>
+												<span>
+													<span class="chk_area"><input id="agree-check03" type="checkbox" name="agreecheck03" value="true"><span></span></span>
+													<label for="agree-check03">개인정보 제공/위탁 동의</label>
+												</span>
+												<span>
+													<span class="chk_area"><input id="agree-check04" type="checkbox" name="agreecheck04" value="true"><span></span></span>
+													<label for="agree-check04">상품 판매조건 확인/구매 동의</label>
+												</span>
+											</div>
+										</div>
+									</dd>
+									</dl>
+									<span>- 상기 [결제수단 선택] 영역 내의 약관 동의는 고객님께서 결제를 위해 선택하신 결제수단에 따라 해당하는 PG사업자의 필수 약관에 동의하는 절차입니다.</span>
+								</div>
+								<div class="payment-box02">
+									<span>- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
+									<span>- 한도 문의는 이용중인 통신사에 해주시기 바랍니다.</span>
+								</div>
+								<div class="payment-box03">
+									<dl>
+									<dt>쿠폰 번호</dt>
+									<dd>
+										<div><input type="text" name="text" value="" placeholder="쿠폰번호를 입력해주세요."></div>
+									</dd>
+									</dl>
+								</div>
+							</div> <!--End section-->
+						</section> <!--End chapter-->
+						<section>
+							<h2>개인정보 제3자 제공</h2>
+							<span>서비스 제공을 위해 아래 정보가 제공됩니다. 수강생은 정보제공에 동의하지 않을 수 있으며, 동의하지 않는 경우 서비스 이용이 제한될 수 있습니다.</span>
+							<div class="sections">
+								<div>
+									<table>
+										<colgroup>
+										<col width="235" />
+										<col width="235" />
+										<col width="235" />
+										<col />
+										</colgroup>
+										<thead>
+										<tr>
+										<th>개인정보를 제공 받는자</th>
+										<th>제공목적</th>
+										<th>제공정보</th>
+										<th>개인정보를 제공 받는 자의 개인정보 보유 및 이용기관</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+										<td>아카데미X</td>
+										<td>공식수료증 수료</td>
+										<td>성명,휴대폰번호,이메일주소</td>
+										<td>회원탈퇴시</td>
+										</tr>
+										</tbody>
+									</table>
+								</div> <!--End section-->
+							</div> <!--End sections-->
+							<div class="all-agree">
+								<span class="chk_area"><input id="info-agree" type="checkbox" name="honor_code" value="true"><span></span></span>
+								<label for="info-agree">개인정보 제3자 제공에 동의</label>
+							</div>
+							<div class="btn-area">
+								<input class="check btn_block" type="button" value="결제하기">
+								<input class="reset btn_block" type="button" value="취소">
+							</div>
+							</section> <!--End chapter-->
+						</form>
+					</div> <!--End chapters-->
+
+				</div>
+			</div>
+		</div>
+
+    </div>
+
+	<script type="text/javascript">
+		$(function() {
+
+			// adding js class for styling with accessibility in mind
+			$('body').addClass('js');
+
+			// form field label styling on focus
+			$(".agree-area :input").click(function() {
+				$("label[for='" + this.id + "']").parent().toggleClass("is-focused");
+			});
+
+			$('#pay01').prop('checked',true); //휴대폰을 기본으로 설정
+			$('.payment-box01').show();
+			$('.payment-box02').hide();
+			$('.payment-box03').hide();
+			$('#pay01').click(function(){ //아니오를 클릭하면
+				$('#pay01').prop('checked',true);
+				$('#pay02').prop('checked',false);
+				$('#pay03').prop('checked',false);
+				$('.payment-box01').show();
+				$('.payment-box02').hide();
+				$('.payment-box03').hide();
+			});
+			$('#pay02').click(function(){ //예를 클릭하면
+				$('#pay02').prop('checked',true);
+				$('#pay01').prop('checked',false);
+				$('#pay03').prop('checked',false);
+				$('.payment-box01').hide();
+				$('.payment-box02').show();
+				$('.payment-box03').hide();
+			});
+			$('#pay03').click(function(){ //예를 클릭하면
+				$('#pay03').prop('checked',true);
+				$('#pay01').prop('checked',false);
+				$('#pay02').prop('checked',false);
+				$('.payment-box01').hide();
+				$('.payment-box02').hide();
+				$('.payment-box03').show();
+			});
+		});
+
+	</script>

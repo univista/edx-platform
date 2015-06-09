@@ -1083,6 +1083,99 @@ def course_application(request, course_id):
             'pre_requisite_courses': pre_requisite_courses
         })
 
+@ensure_csrf_cookie
+@cache_if_anonymous()
+def course_payment(request, course_id):
+    course_key = SlashSeparatedCourseKey.from_deprecated_string(course_id)
+
+    with modulestore().bulk_operations(course_key):
+        permission_name = microsite.get_value(
+            'COURSE_ABOUT_VISIBILITY_PERMISSION',
+            settings.COURSE_ABOUT_VISIBILITY_PERMISSION
+        )
+        course = get_course_with_access(request.user, permission_name, course_key)
+
+        if microsite.get_value('ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)):
+            return redirect(reverse('info', args=[course.id.to_deprecated_string()]))
+
+        registered = registered_for_course(course, request.user)
+
+        staff_access = has_access(request.user, 'staff', course)
+        studio_url = get_studio_url(course, 'settings/details')
+
+        if has_access(request.user, 'load', course):
+            course_target = reverse('info', args=[course.id.to_deprecated_string()])
+        else:
+            course_target = reverse('about_course', args=[course.id.to_deprecated_string()])
+
+        show_courseware_link = (
+            (
+                has_access(request.user, 'load', course)
+                and has_access(request.user, 'view_courseware_with_prerequisites', course)
+            )
+            or settings.FEATURES.get('ENABLE_LMS_MIGRATION')
+        )
+
+        # Note: this is a flow for payment for course registration, not the Verified Certificate flow.
+        registration_price = 0
+        in_cart = False
+        reg_then_add_to_cart_link = ""
+
+        _is_shopping_cart_enabled = is_shopping_cart_enabled()
+        if _is_shopping_cart_enabled:
+            registration_price = CourseMode.min_course_price_for_currency(course_key,
+                                                                          settings.PAID_COURSE_REGISTRATION_CURRENCY[0])
+            if request.user.is_authenticated():
+                cart = shoppingcart.models.Order.get_cart_for_user(request.user)
+                in_cart = shoppingcart.models.PaidCourseRegistration.contained_in_order(cart, course_key) or \
+                    shoppingcart.models.CourseRegCodeItem.contained_in_order(cart, course_key)
+
+            reg_then_add_to_cart_link = "{reg_url}?course_id={course_id}&enrollment_action=add_to_cart".format(
+                reg_url=reverse('register_user'), course_id=course.id.to_deprecated_string())
+
+        course_price = get_cosmetic_display_price(course, registration_price)
+        can_add_course_to_cart = _is_shopping_cart_enabled and registration_price
+
+        # Used to provide context to message to student if enrollment not allowed
+        can_enroll = has_access(request.user, 'enroll', course)
+        invitation_only = course.invitation_only
+        is_course_full = CourseEnrollment.is_course_full(course)
+
+        # Register button should be disabled if one of the following is true:
+        # - Student is already registered for course
+        # - Course is already full
+        # - Student cannot enroll in course
+        active_reg_button = not(registered or is_course_full or not can_enroll)
+
+        is_shib_course = uses_shib(course)
+
+        # get prerequisite courses display names
+        pre_requisite_courses = get_prerequisite_courses_display(course)
+
+        return render_to_response('courseware/payment.html', {
+            'course': course,
+            'staff_access': staff_access,
+            'studio_url': studio_url,
+            'registered': registered,
+            'course_target': course_target,
+            'is_cosmetic_price_enabled': settings.FEATURES.get('ENABLE_COSMETIC_DISPLAY_PRICE'),
+            'course_price': course_price,
+            'in_cart': in_cart,
+            'reg_then_add_to_cart_link': reg_then_add_to_cart_link,
+            'show_courseware_link': show_courseware_link,
+            'is_course_full': is_course_full,
+            'can_enroll': can_enroll,
+            'invitation_only': invitation_only,
+            'active_reg_button': active_reg_button,
+            'is_shib_course': is_shib_course,
+            # We do not want to display the internal courseware header, which is used when the course is found in the
+            # context. This value is therefor explicitly set to render the appropriate header.
+            'disable_courseware_header': True,
+            'can_add_course_to_cart': can_add_course_to_cart,
+            'cart_link': reverse('shoppingcart.views.show_cart'),
+            'pre_requisite_courses': pre_requisite_courses
+        })
+
 
 @ensure_csrf_cookie
 @cache_if_anonymous('org')
