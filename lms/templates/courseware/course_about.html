@@ -134,13 +134,10 @@ from edxmako.shortcuts import marketing_link
 
         %if user.is_authenticated() and registered:
           %if show_courseware_link:
-            <!--
             <a class="action access-courseware btn_block" href="${course_target}">
-            -->
-            <a class="action access-courseware btn_block" href="/application">
           %endif
           %if show_courseware_link:
-            <strong>수강 신청2</strong>
+            <strong>수강 듣기</strong>
             </a>
           %endif
         %elif in_cart:
