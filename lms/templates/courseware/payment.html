@@ -215,18 +215,17 @@ from edxmako.shortcuts import marketing_link
 		});
 
 		function pg(){
-		alert( $('input[name=payradio]:checked').val() );
-		return;
+		//alert( $('input[name=payradio]:checked').val() );
 			var url = "http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp";
-			var f = document.ini;
-			window.open("", "ini", "toolbar=no, width=400, height=500, directories=no, status=no, scrollbars=no, resizable=no");
+			var f = $('form[name="frmPg"]');
+			window.open("", "pInicis", "toolbar=no, width=400, height=500, directories=no, status=no, scrollbars=no, resizable=no");
 			f.action = url;
 			f.method = post;
-			f.target = form;
-			f.testVal = "test";
+			f.target = pInicis;
+			f.paymethod.value = $('input[name=payradio]:checked').val();
 			f.submit();
-
-
-
 		}
 	</script>
+<form id="frmPg">
+	<input type="text" id="paymethod" name="paymethod" />
+</form>
