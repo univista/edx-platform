@@ -33,7 +33,7 @@ from markupsafe import escape
 from courseware import grades
 from courseware.access import has_access, _adjust_start_date_for_beta_testers
 from courseware.courses import (
-    get_courses, get_course,
+    get_courses, get_courses_search, get_course,
     get_studio_url, get_course_with_access,
     sort_by_announcement,
     sort_by_start_date,
@@ -83,6 +83,8 @@ from eventtracking import tracker
 import analytics
 from courseware.url_helpers import get_redirect_url
 
+from django.views.decorators.csrf import csrf_exempt
+
 log = logging.getLogger("edx.courseware")
 
 template_imports = {'urllib': urllib}
@@ -112,7 +114,6 @@ def user_groups(user):
 
     return group_names
 
-
 @ensure_csrf_cookie
 @cache_if_anonymous()
 def courses(request):
@@ -129,6 +130,21 @@ def courses(request):
 
     return render_to_response("courseware/courses.html", {'courses': courses})
 
+
+@csrf_exempt
+def courses_search(request):
+    """
+    Render "find courses" page.  The course selection work is done in courseware.courses.
+    """
+    courses = get_courses_search(request)
+
+    if microsite.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
+                           settings.FEATURES["ENABLE_COURSE_SORTING_BY_START_DATE"]):
+        courses = sort_by_start_date(courses)
+    else:
+        courses = sort_by_announcement(courses)
+
+    return render_to_response("courseware/courses.html", {'courses': courses})
 
 @ensure_csrf_cookie
 @cache_if_anonymous()

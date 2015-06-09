@@ -332,22 +332,6 @@ def get_course_syllabus_section(course, section_key):
     raise KeyError("Invalid about key " + str(section_key))
 
 
-def get_courses_by_university(user, domain=None):
-    '''
-    Returns dict of lists of courses available, keyed by course.org (ie university).
-    Courses are sorted by course.number.
-    '''
-    # TODO: Clean up how 'error' is done.
-    # filter out any courses that errored.
-    visible_courses = get_courses(user, domain)
-
-    universities = defaultdict(list)
-    for course in visible_courses:
-        universities[course.org].append(course)
-
-    return universities
-
-
 def get_courses(user, domain=None):
     '''
     Returns a list of courses available, sorted by course.number
@@ -360,6 +344,24 @@ def get_courses(user, domain=None):
     )
 
     courses = [c for c in courses if has_access(user, permission_name, c)]
+
+    courses = sorted(courses, key=lambda course: course.number)
+
+    return courses
+
+
+def get_courses_search(request):
+    '''
+    Returns a list of courses available, sorted by course.number
+    '''
+    courses = branding.get_visible_courses_search(request)
+
+    permission_name = microsite.get_value(
+        'COURSE_CATALOG_VISIBILITY_PERMISSION',
+        settings.COURSE_CATALOG_VISIBILITY_PERMISSION
+    )
+
+    courses = [c for c in courses if has_access(request.user, permission_name, c)]
 
     courses = sorted(courses, key=lambda course: course.number)
 

@@ -12,7 +12,7 @@ import courseware.views
 from microsite_configuration import microsite
 from edxmako.shortcuts import marketing_link
 from util.cache import cache_if_anonymous
-
+from django.views.decorators.csrf import csrf_exempt
 
 def get_course_enrollments(user):
     """
@@ -79,9 +79,7 @@ def index(request):
     #  marketing and edge are enabled
     return student.views.index(request, user=request.user)
 
-
-@ensure_csrf_cookie
-@cache_if_anonymous()
+@csrf_exempt
 def courses(request):
     """
     Render the "find courses" page. If the marketing site is enabled, redirect

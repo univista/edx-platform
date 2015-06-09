@@ -75,9 +75,6 @@
 <div class="container">
 	<section class="dashboard" id="dashboard-main">
 		<section class="profile-sidebar" role="region" aria-label="User info">
-			<header class="profile">
-			  <h2 class="username-header"><span class="sr">${_("Username")}: </span><span class="username-label">${ user.username }</span></h2>
-			</header>
 			<section class="user-info">
 			  <ul>
 				<li class="info--email">
@@ -93,7 +90,7 @@
 				</li>
 				<li class="info--username">
 				  <span class="title">별명</span>
-				  <span class="data" style="display:inline-block;width: 158px;">별명</span>				 
+				  <span class="data" style="display:inline-block;width: 158px;">${ user.username }</span>
 				</li>
 
 				%if len(language_options) > 1:
