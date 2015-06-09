@@ -135,13 +135,13 @@ from edxmako.shortcuts import marketing_link
                 ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
               </span>
             % elif is_course_full:
-              <span class="register disabled">
+              <span class="register disabled btn_block">
                 강의 정원초과
               </span>
             % elif invitation_only and not can_enroll:
               <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
             % elif not is_shib_course and not can_enroll:
-              <a class="action access-courseware"><strong>수강신청 종료</strong></a>
+              <a class="action access-courseware btn_block"><strong>수강신청 종료</strong></a>
             %elif can_add_course_to_cart:
               <%
               if user.is_authenticated():
@@ -221,11 +221,11 @@ from edxmako.shortcuts import marketing_link
             ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
           </span>
         % elif is_course_full:
-          <span class="register disabled">강의 정원초과</span>
+          <span class="register disabled btn_block">강의 정원초과</span>
         % elif invitation_only and not can_enroll:
           <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
         % elif not is_shib_course and not can_enroll:
-          <a class="action access-courseware"><strong>수강신청 종료</strong></a>
+          <a class="action access-courseware btn_block"><strong>수강신청 종료</strong></a>
         %elif can_add_course_to_cart:
           <%
           if user.is_authenticated():
@@ -242,7 +242,7 @@ from edxmako.shortcuts import marketing_link
           <div id="register_error"></div>
         %else:
           <a href="application" class="btn_block">
-            수강신청 33
+            수강신청 44
           </a>
           <div id="register_error"></div>
         %endif
