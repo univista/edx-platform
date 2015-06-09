@@ -117,135 +117,24 @@ from edxmako.shortcuts import marketing_link
 
 </%block>
 
-<%block name="pagetitle">${get_course_about_section(course, "title")}</%block>
 
 <section class="course-info">
 
   <section class="container">
   <section id="main-content">
-    <section class="details">
-      <div class="inner-wrapper">
-          ${get_course_about_section(course, "overview")}
-            %if user.is_authenticated() and registered:
-              %if show_courseware_link:
-                <a class="action access-courseware btn_block" href="${course_target}"><strong>수강 듣기</strong></a>
-              %endif
-            %elif in_cart:
-              <span class="add-to-cart">
-                ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
-              </span>
-            % elif is_course_full:
-              <span class="register disabled btn_block">
-                강의 정원초과
-              </span>
-            % elif invitation_only and not can_enroll:
-              <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
-            % elif not is_shib_course and not can_enroll:
-              <a class="action access-courseware btn_block"><strong>수강신청 종료</strong></a>
-            %elif can_add_course_to_cart:
-              <%
-              if user.is_authenticated():
-                reg_href = "#"
-                reg_element_id = "add_to_cart_post"
-              else:
-                reg_href = reg_then_add_to_cart_link
-                reg_element_id = "reg_then_add_to_cart"
-              %>
-              <a href="${reg_href}" class="add-to-cart action access-courseware" id="${reg_element_id}">
-                ${_("Add {course_name} to Cart ({price})")\
-                  .format(course_name=course.display_number_with_default, price=course_price)}
-              </a>
-              <div id="register_error"></div>
-            %else:
-              <a href="#" class="register action access-courseware btn_block">수강신청</a>
-              <div id="register_error"></div>
-            %endif
-      </div>
-    </section>
 
     <section class="course-sidebar">
 	  <section class="course-summary">
-        % if get_course_about_section(course, "video"):
-        <a href="#video-modal" class="media" rel="leanModal">
-        <div class="hero">
-          <img typeof="foaf:Image" class="image-style-none" src="${course_image_url(course)}" width="320" height="211" alt="" />
-          <div class="play-intro"></div>
-        </div>
-        </a>
-        %else:
-        <div class="media">
-        <div class="hero">
-          <img typeof="foaf:Image" class="image-style-none" src="${course_image_url(course)}" width="320" height="211" alt="" />
-        </div>
-        </div>
-        % endif
         <div class="course-detail-overview views-fieldset" data-module="views_fieldsets">
-            <div class="copy-detail course-detail-info views-fieldset" data-module="views_fieldsets">
-                <div class="course-detail-school item">
-                        <span class="label">소속기관 </span>${get_course_about_section(course, "university")}
-                </div>
-                <div class="course-detail-number item">
-                        <span class="label">강의교수 </span>강의교수
-                </div>
-                <div class="course-detail-number item">
-                        <span class="label">개강일 </span>${course.start_datetime_text()}
-                </div>
-                %if course.enrollment_start_datetime_text():
-                <div class="course-detail-start item">
-                        <span class="label">수강신청 </span>${course.enrollment_start_datetime_text()} ~
-                        %if course.enrollment_end_datetime_text():
-                            ${course.enrollment_end_datetime_text()}
-                        %endif
-                </div>
-                %endif
-                %if course.study_weeks_text():
-                <div class="course-detail-start item">
-                        <span class="label">학습기간 </span>${course.study_weeks_text()}주
-               </div>
-                %endif
-            </div>
-            <div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
-                <p>${get_course_about_section(course, 'short_description')}</p>
-            </div>
 
                                 <div class="view view-course-detail view-id-course_detail view-display-id-footer view-dom-id-c8a6a879378dfc581a3c7d38e1bfc109">
                                         <div class="view-content">
                                                 <div>
                                                         <div class="course-detail-register">
-        %if user.is_authenticated() and registered:
-          %if show_courseware_link:
-            <a class="action access-courseware btn_block" href="${course_target}"><strong>수강 듣기</strong></a>
-          %endif
-        %elif in_cart:
-          <span class="add-to-cart">
-            ${_('This course is in your <a href="{cart_link}">cart</a>.').format(cart_link=cart_link)}
-          </span>
-        % elif is_course_full:
-          <span class="register disabled btn_block">강의 정원초과</span>
-        % elif invitation_only and not can_enroll:
-          <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
-        % elif not is_shib_course and not can_enroll:
-          <a class="action access-courseware btn_block"><strong>수강신청 종료</strong></a>
-        %elif can_add_course_to_cart:
-          <%
-          if user.is_authenticated():
-            reg_href = "#"
-            reg_element_id = "add_to_cart_post"
-          else:
-            reg_href = reg_then_add_to_cart_link
-            reg_element_id = "reg_then_add_to_cart"
-          %>
-          <a href="${reg_href}" class="add-to-cart action access-courseware" id="${reg_element_id}">
-            ${_("Add {course_name} to Cart ({price})")\
-              .format(course_name=course.display_number_with_default, price=course_price)}
-          </a>
-          <div id="register_error"></div>
-        %else:
           <a href="application" class="btn_block">
             수강신청 44
           </a>
           <div id="register_error"></div>
-        %endif
                                                         </div>
                                                 </div>
                                         </div>
@@ -258,143 +147,6 @@ from edxmako.shortcuts import marketing_link
 
 
 
-			<div class="course-detail-social views-fieldset" data-module="views_fieldsets">
-				<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-					<div>
-
-              <%
-                site_domain = microsite.get_value('site_domain', settings.SITE_NAME)
-                platform_name = microsite.get_value('platform_name', settings.PLATFORM_NAME)
-
-                tweet_text = _("I just registered for {number} {title} through {account}: {url}").format(
-                    number=course.number,
-                    title=get_course_about_section(course, 'title'),
-                    account=microsite.get_value('course_about_twitter_account', settings.PLATFORM_TWITTER_ACCOUNT),
-                    url=u"http://{domain}{path}".format(
-                        domain=site_domain,
-                        path=reverse('about_course', args=[course.id.to_deprecated_string()])
-                    )
-                ).replace(u" ", u"+")
-                tweet_action = u"http://twitter.com/intent/tweet?text={tweet_text}".format(tweet_text=tweet_text)
-
-                facebook_link = _("{url}").format(
-                    url=u"http://{domain}{path}".format(
-                        domain=site_domain,
-                        path=reverse('about_course', args=[course.id.to_deprecated_string()])
-                    )
-                ).replace(u" ", u"+")
-
-              %>
-			<!--
-            <div id="fb-root"></div>
-            <script>(function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0];
-              if (d.getElementById(id)) return;
-              js = d.createElement(s); js.id = id;
-              js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.3";
-              fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
-
-				<script src="https://apis.google.com/js/platform.js" async defer>
-					{lang: 'ko'}
-				</script>
-
-              <div class="fb-share-button" data-href="${facebook_link}" data-layout="icon" style=""></div>
-            -->
-			  <script type="text/javascript">
-				function sendSns(sns)
-				{
-					var url = $(location).attr('href');
-					var o;
-					var _url = encodeURIComponent(url);
-					var _txt = '';
-					var _br  = encodeURIComponent('\r\n');
-
-					switch(sns)
-					{
-						case 'facebook':
-							o = {
-								method:'popup',
-								url:'http://www.facebook.com/sharer/sharer.php?u=' + _url
-							};
-							break;
-
-						case 'twitter':
-							o = {
-								method:'popup',
-								url:'http://twitter.com/intent/tweet?text=' + _txt + '&url=' + _url
-							};
-							break;
-
-						case 'google':
-							o = {
-								method:'popup',
-								url:'https://plus.google.com/share?url=' + _url
-							};
-							break;
-
-						default:
-							alert('지원하지 않는 SNS입니다.');
-							return false;
-					}
-
-					switch(o.method)
-					{
-						case 'popup':
-							console.log('open');
-
-							var _height = '600';
-							if(sns == 'twitter'){
-								_height = '255'
-							}
-							if(sns == 'google'){
-								_width = '500'
-							}
-							window.open(o.url,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height='+_height+',width=600'); return false;
-							break;
-
-						case 'web2app':
-							if(navigator.userAgent.match(/android/i))
-							{
-								// Android
-								setTimeout(function(){ location.href = 'intent://' + o.param + '#Intent;' + o.g_proto + ';end'}, 100);
-							}
-							else if(navigator.userAgent.match(/(iphone)|(ipod)|(ipad)/i))
-							{
-								// Apple
-								setTimeout(function(){ location.href = o.a_store; }, 200);
-								setTimeout(function(){ location.href = o.a_proto + o.param }, 100);
-							}
-							else
-							{
-								alert('이 기능은 모바일에서만 사용할 수 있습니다.');
-							}
-							break;
-					}
-				}
-			  </script>
-              <a id="facebookSNS" onclick="javascript:sendSns('facebook'); return false;" class="addthis_button_facebook at300b" title="Facebook" href="#">
-                  <span class="at4-icon aticon-facebook" style="background-color: rgb(48, 88, 145);"><span class="at_a11y">${_("Post a Facebook message to say you've registered for this course")}</span></span>
-              </a>
-
-              <a id="TweetSNS" onClick="javascript:sendSns('twitter'); return false;" class="addthis_button_twitter at300b" title="Tweet" href="https://twitter.com/intent/tweet?text=TEXT&url=http://14.63.226.59/courses/edX/DemoX/Demo_Course/about">
-                  <span class="at4-icon aticon-twitter" style="background-color: rgb(44, 168, 210);">
-                      <span class="at_a11y">${_("Tweet that you've registered for this course")}</span>
-                  </span>
-              </a>
-
-              <!--<div class="g-plus" data-action="share" data-annotation="none" data-height="24" data-href="http://naver.com/"></div>-->
-
-			  <a  class="addthis_button_google_plusone_share at300b" href="#" onclick="javascript:sendSns('google'); return false;" title="Google+">
-             <!-- <a class="addthis_button_google_plusone_share at300b" href="#" onClick="javascript:sendSns('google'); return false;" title="Google+">-->
-                  <span class="at4-icon aticon-google_plusone_share" style="background-color: rgb(206, 77, 57);">
-                      <span class="at_a11y">Share on google_plusone_share</span>
-                  </span>
-              </a>
-
-					</div>
-				</div>
-			</div>
 
 		</div>
 
