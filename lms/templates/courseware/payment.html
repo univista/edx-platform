@@ -219,13 +219,10 @@ from edxmako.shortcuts import marketing_link
 			var url = "http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp";
 			var f = $('form[name="frmPg"]');
 			window.open("", "pInicis", "toolbar=no, width=400, height=500, directories=no, status=no, scrollbars=no, resizable=no");
-			f.action = url;
-			f.method = post;
-			f.target = pInicis;
 			f.paymethod.value = $('input[name=payradio]:checked').val();
 			f.submit();
 		}
 	</script>
-<form name="frmPg">
+<form name="frmPg" method="post" action="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" target="pInicis">
 	<input type="text" id="paymethod" name="paymethod" />
 </form>
