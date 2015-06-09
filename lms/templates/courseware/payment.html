@@ -160,7 +160,7 @@ from edxmako.shortcuts import marketing_link
 								<label for="info-agree">개인정보 제3자 제공에 동의</label>
 							</div>
 							<div class="btn-area">
-								<input class="check btn_block" type="button" value="결제하기">
+								<input class="check btn_block" type="button" value="결제하기" onclick="pg();">
 								<input class="reset btn_block" type="button" value="취소">
 							</div>
 							</section> <!--End chapter-->
@@ -214,9 +214,7 @@ from edxmako.shortcuts import marketing_link
 			});
 		});
 
-
+		function pg(){
+			window.open("http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp");
+		}
 	</script>
-<div id="divInicis" style="width:400px; height:500px; background-color:black; z-index:1001; top: 200px; left:300px; position: absolute; display:block;"></div>
-<script>
-	$('#divInicis').load("http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp");
-</script>
