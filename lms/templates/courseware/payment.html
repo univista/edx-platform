@@ -28,6 +28,10 @@ from edxmako.shortcuts import marketing_link
   <meta property="og:description" content="${get_course_about_section(course, 'short_description')}" />
 </%block>
 
+<%block name="js_extra">
+
+  <script src="${static.url('js/course_info.js')}"></script>
+  <link rel="stylesheet" href="/static/css/m2ly6jxt.css">
 
 </%block>
 		<div class="container">
