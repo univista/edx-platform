@@ -225,4 +225,5 @@ from edxmako.shortcuts import marketing_link
 	<input type="hidden" id="paymethod" name="paymethod" />
 </form>
 
-${course.id}
+
+${ user.email | h }
