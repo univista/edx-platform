@@ -54,21 +54,21 @@ from edxmako.shortcuts import marketing_link
 								<dd>
 									<div>
 										<span class="radio-area">
-											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay01" value="question">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay01" value="Card">
 											<span></span>
 										</span>
 										<label for="pay01" class="post-type-label">
 											신용카드
 										</label>
 										<span class="radio-area">
-											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay02" value="discussion" checked="">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay02" value="HPP" checked="">
 											<span></span>
 										</span>
 										<label for="pay02" class="post-type-label">
 											휴대폰
 										</label>
 										<span class="radio-area">
-											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay03" value="discussion" checked="">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay03" value="coupon" checked="">
 											<span></span>
 										</span>
 										<label for="pay03" class="post-type-label">
@@ -217,6 +217,16 @@ from edxmako.shortcuts import marketing_link
 		function pg(){
 		alert( $('input[name=payradio]:checked').val() );
 		return;
-			window.open("http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp");
+			var url = "http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp";
+			var f = document.ini;
+			window.open("", "ini", "toolbar=no, width=400, height=500, directories=no, status=no, scrollbars=no, resizable=no");
+			f.action = url;
+			f.method = post;
+			f.target = form;
+			f.testVal = "test";
+			f.submit();
+
+
+
 		}
 	</script>
