@@ -217,9 +217,11 @@ from edxmako.shortcuts import marketing_link
 		function pg(){
 		var f = $('form[name="frmPg"]');
 		alert($("#paymethod").val());
+		$('input[name=payradio]:checked').val($("#paymethod").val());
+		alert($("#paymethod").val());
 
-		f.paymethod.value = $('input[name=payradio]:checked').val();
-		alert(f.paymethod.value);
+
+		
 		return;
 
 			var url = "http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp";
