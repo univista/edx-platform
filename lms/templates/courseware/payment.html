@@ -215,20 +215,9 @@ from edxmako.shortcuts import marketing_link
 		});
 
 		function pg(){
-		var f = $('form[name="frmPg"]');
-		alert($("#paymethod").val());
-		alert();
-		$("#paymethod").val($('input[name=payradio]:checked').val());
-		alert($("#paymethod").val());
-
-
-
-		return;
-
-			var url = "http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp";
-
+			var f = $('form[name="frmPg"]');
+			$("#paymethod").val($('input[name=payradio]:checked').val());
 			window.open("", "pInicis", "toolbar=no, width=400, height=500, directories=no, status=no, scrollbars=no, resizable=no");
-
 			f.submit();
 		}
 	</script>
