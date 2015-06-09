@@ -216,6 +216,8 @@ from edxmako.shortcuts import marketing_link
 
 		function pg(){
 		var f = $('form[name="frmPg"]');
+		alert(f.paymethod.value);
+
 		f.paymethod.value = $('input[name=payradio]:checked').val();
 		alert(f.paymethod.value);
 		return;
