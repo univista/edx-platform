@@ -294,15 +294,7 @@ ${fragment.foot_html()}
 				{
 					case 'popup':
 						console.log('open');
-
-						var _height = '600';
-						if(sns == 'twitter'){
-							_height = '255'
-						}
-						if(sns == 'google'){
-							_width = '500'
-						}
-						window.open(o.url,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height='+_height+',width=600'); return false;
+						window.open(o.url,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'); return false;
 						break;
 			 
 					case 'web2app':
