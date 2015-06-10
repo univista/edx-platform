@@ -218,7 +218,7 @@ from edxmako.shortcuts import marketing_link
 			var f = $('form[name="frmPg"]');
 			$("#paymethod").val($('input[name=payradio]:checked').val());
 
-			$("#paymethod").val("010-3727-1025");
+			$("#buyerhp").val("010-3727-1025");
 
 			window.open("", "pInicis", "toolbar=no, width=400, height=500, directories=no, status=no, scrollbars=no, resizable=no");
 			f.submit();
@@ -229,4 +229,5 @@ from edxmako.shortcuts import marketing_link
 	<input type="text" id="goodname" name="goodname" value="${ user.id }_${course.id}" />
 	<input type="hidden" id="buyername" name="buyername" value="${ user.profile.name }" />
 	<input type="hidden" id="buyeremail" name="buyeremail" value="${ user.email }" />
+	<input type="hidden" id="buyerhp" name="buyerhp" value="" />
 </form>
