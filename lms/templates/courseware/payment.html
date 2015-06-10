@@ -345,14 +345,10 @@ from edxmako.shortcuts import marketing_link
 		});
 
 		function pg(){
-			alert(34);
-			//alert(window.parent.$("#ifrmInicis")[0].contentWindow);
 
-			if (window.parent.$("#ifrmInicis")[0].contentWindow.clickBtnImage()) {
-				alert(1);
-			} else {
-				alert(2);
-			}
+			var obj = document.getElementById("ifrmInicis");
+			var objDoc = obj.contentWindow || obj.contentDocument;
+			objDoc.clickBtnImage();
 
 		return;
 			var f = $('form[name="frmPg"]');
