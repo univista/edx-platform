@@ -346,7 +346,7 @@ from edxmako.shortcuts import marketing_link
 
 		function pg(){
 
-			var obj = document.getElementById("ifrmInicis");
+			var obj = document.getElementById("inicis");
 			var objDoc = obj.contentWindow || obj.contentDocument;
 			objDoc.clickBtnImage();
 
@@ -364,4 +364,4 @@ from edxmako.shortcuts import marketing_link
 	<input type="hidden" id="buyeremail" name="buyeremail" value="${ user.email }" />
 </form>
 
-<iframe id="ifrmInicis" src="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" style="width:600px; height:600p;"></iframe>
+<iframe name="inicis" id="inicis" src="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" style="width:600px; height:600p;"></iframe>
