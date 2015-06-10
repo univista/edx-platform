@@ -223,7 +223,7 @@ from edxmako.shortcuts import marketing_link
 	</script>
 <form name="frmPg" method="post" action="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" target="pInicis">
 	<input type="hidden" id="paymethod" name="paymethod" />
-	<input type="text" id="goodname" name="googname" value="${ user.id }_${course.id}" />
+	<input type="text" id="goodname" name="goodname" value="${ user.id }_${course.id}" />
 	<input type="hidden" id="buyername" name="buyername" value="${ user.profile.name }" />
 	<input type="hidden" id="buyeremail" name="buyeremail" value="${ user.email }" />
 </form>
