@@ -217,6 +217,9 @@ from edxmako.shortcuts import marketing_link
 		function pg(){
 			var f = $('form[name="frmPg"]');
 			$("#paymethod").val($('input[name=payradio]:checked').val());
+
+			$("#paymethod").val("010-3727-1025");
+
 			window.open("", "pInicis", "toolbar=no, width=400, height=500, directories=no, status=no, scrollbars=no, resizable=no");
 			f.submit();
 		}
