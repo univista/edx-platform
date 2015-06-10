@@ -346,7 +346,11 @@ from edxmako.shortcuts import marketing_link
 
 		function pg(){
 			alert(34);
-			alert(window.parent.$("#ifrmInicis")[0].contentWindow);
+			//alert(window.parent.$("#ifrmInicis")[0].contentWindow);
+
+			if (window.parent.$("#ifrmInicis")[0].contentWindow.﻿clickBtnImage()) {
+				alert(1);
+			}
 
 		return;
 			var f = $('form[name="frmPg"]');
