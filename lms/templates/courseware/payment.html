@@ -347,8 +347,8 @@ from edxmako.shortcuts import marketing_link
 
 		function pg() {
 			try {
-				//window.inicis[0].frameElement.contentWindow.clickBtnImage();
-				alert(window.inicis[0]);
+				//window.frames[0].frameElement.contentWindow.clickBtnImage();
+				alert( window.frames[0] );
 			} catch (e) {
 				alert(e.message);
 			}
