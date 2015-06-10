@@ -34,6 +34,9 @@ from edxmako.shortcuts import marketing_link
   <link rel="stylesheet" href="/static/css/m2ly6jxt.css">
 
 </%block>
+<style>
+	* {font-style:normal !important}
+</style>
 		<div class="container">
 			<div class="profile-wrapper">
 				<div class="course-info" id="course-info-progress" aria-label="Course Progress">
@@ -42,6 +45,133 @@ from edxmako.shortcuts import marketing_link
 						<form>
 						<section>
 							<h2>공식수료증 신청을 위해 결제 수단을 선택해주세요.</h2>
+							
+							<div class="sections">
+								<dl>
+								<dt>휴대폰 실명인증</dt>
+								<dd>
+									<div>수료증 발급을 위한 실명 인증 단계를 진행하고 있습니다.<input type="button" class="btn_block" value="휴대폰 실명인증"></div>
+								</dd>
+								</dl>
+								<dl>
+								<dt>결제수단</dt>
+								<dd>
+									<div>
+										<span class="radio-area">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay01" value="question">
+											<span></span>
+										</span>
+										<label for="pay01" class="post-type-label">
+											신용카드
+										</label>
+										<span class="radio-area">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay02" value="discussion" checked="">
+											<span></span>
+										</span>
+										<label for="pay02" class="post-type-label">
+											휴대폰
+										</label>
+										<span class="radio-area">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay03" value="discussion" checked="">
+											<span></span>
+										</span>
+										<label for="pay03" class="post-type-label">
+											쿠폰
+										</label>
+									</div>
+								</dd>
+								</dl>
+
+								<div class="payment-box01" style="display: block;">
+									<dl>
+									<dt>카드종류</dt>
+									<dd>
+										<div>
+											<span class="x-sel">
+												<select>
+												<option>선택</option>
+												<option></option>
+												<option></option>
+												</select>
+											</span>
+										</div>
+									</dd>
+									<dt>할부기간</dt>
+									<dd>
+										<div>
+											<span class="x-sel">
+												<select>
+												<option>일시불</option>
+												<option></option>
+												<option></option>
+												</select>
+											</span>
+										</div>
+										<span class="point">할부는 5만원 이상만 가능합니다.</span>
+									</dd>
+									<dt style="height:62px">전화번호</dt>
+									<dd style="height:62px">
+										<div><input type="text" name="text" value="" placeholder=""></div>
+									</dd>
+									<dt style="height:150px">약관동의</dt>
+									<dd style="height:150px">
+										<div>
+											<script>
+												function allAgree(){
+													var chk = $("#all-agree").is(":checked");//.attr('checked');
+													if(chk) $(".agree-area input").attr('checked', true);
+													else  $(".agree-area input").attr('checked', false);
+												}
+											</script>
+											<div class="all-agree">
+												<span class="chk_area"><input id="all-agree" type="checkbox" name="honor_code" value="true" onclick="allAgree()"><span></span></span>
+												<label for="all-agree" onclick="allAgree()">전체동의 (결제서비스 이용약관에 동의 및 구매 진행에 동의합니다.)</label>
+											</div>
+											<div class="agree-area">
+												<span>
+													<span class="chk_area"><input id="agree-check01" type="checkbox" name="agreecheck01" value="true"><span></span></span>
+													<label for="agree-check01">서비스 약관동의</label>
+												</span>
+												<span>
+													<span class="chk_area"><input id="agree-check02" type="checkbox" name="agreecheck02" value="true"><span></span></span>
+													<label for="agree-check02">개인정보 수집/이용 동의</label>
+												</span>
+												<span>
+													<span class="chk_area"><input id="agree-check03" type="checkbox" name="agreecheck03" value="true"><span></span></span>
+													<label for="agree-check03">개인정보 제공/위탁 동의</label>
+												</span>
+												<span>
+													<span class="chk_area"><input id="agree-check04" type="checkbox" name="agreecheck04" value="true"><span></span></span>
+													<label for="agree-check04">상품 판매조건 확인/구매 동의</label>
+												</span>
+											</div>
+										</div>
+									</dd>
+									</dl>
+									<span>- 상기 [결제수단 선택] 영역 내의 약관 동의는 고객님께서 결제를 위해 선택하신 결제수단에 따라 해당하는 PG사업자의 필수 약관에 동의하는 절차입니다.</span>
+								</div>
+								<div class="payment-box02" style="display: none;">
+									<dl style="margin-top:0;border-top:0">
+									<dt>전화번호</dt>
+									<dd>
+										<div><input type="text" name="text" value="" placeholder=""></div>
+									</dd>
+									</dl>
+									<span>- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
+									<span>- 한도 문의는 이용중인 통신사에 해주시기 바랍니다.</span>
+								</div>
+								<div class="payment-box03" style="display: none;">
+									<dl>
+									<dt>쿠폰 번호</dt>
+									<dd>
+										<div><input type="text" name="text" value="" placeholder=""></div>
+									</dd>
+									</dl>
+								</div>
+							</div>
+
+
+							<!---
 							<div class="sections">
 								<dl>
 								<dt>휴대폰 실명인증</dt>
@@ -122,7 +252,7 @@ from edxmako.shortcuts import marketing_link
 									</dd>
 									</dl>
 								</div>
-							</div> <!--End section-->
+							</div>--> <!--End section-->
 						</section> <!--End chapter-->
 						<section>
 							<h2>개인정보 제3자 제공</h2>
@@ -217,19 +347,15 @@ from edxmako.shortcuts import marketing_link
 		function pg(){
 			var f = $('form[name="frmPg"]');
 			$("#paymethod").val($('input[name=payradio]:checked').val());
-
-			$("#buyerhp").val("010-3727-1025");
-
-			window.open("", "pInicis", "toolbar=no, width=600, height=600, directories=no, status=no, scrollbars=no, resizable=no");
+			window.open("", "pInicis", "toolbar=no, width=400, height=500, directories=no, status=no, scrollbars=no, resizable=no");
 			f.submit();
 		}
 	</script>
 <form name="frmPg" method="post" action="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" target="pInicis">
 	<input type="hidden" id="paymethod" name="paymethod" />
-	<input type="hidden" id="goodname" name="goodname" value="${ user.id }_${course.id}" />
+	<input type="text" id="goodname" name="goodname" value="${ user.id }_${course.id}" />
 	<input type="hidden" id="buyername" name="buyername" value="${ user.profile.name }" />
 	<input type="hidden" id="buyeremail" name="buyeremail" value="${ user.email }" />
-	<input type="hidden" id="buyerhp" name="buyerhp" value="" />
 </form>
 
 <iframe src="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" style="width:600px; height:600p;"></iframe>
