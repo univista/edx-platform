@@ -262,13 +262,21 @@ from edxmako.shortcuts import marketing_link
 		});
 
 
+$('iframe').load(function(){
+     $('iframe').contents().find('input#mytitle').bind('change',function(e) {
+        title_name = $(this).val();
+        $('input#edit-title').val(title_name);
+     });
+});
+
+
 		function pg() {
 			try {
-				$("#paymethod").val($('input[name=payradio]:checked').val());
-				var f = $('form[name="frmPg"]');
-				f.submit();
-
-				//window.frames[0].frameElement.contentWindow.clickBtnImage();
+				//$("#paymethod").val($('input[name=payradio]:checked').val());
+				//var f = $('form[name="frmPg"]');
+				//f.submit();
+				//alert($("iframe").contents().find("input#"));
+				window.frames[0].frameElement.contentWindow.clickBtnImage();
 			} catch (e) {
 				alert(e.message);
 			}
