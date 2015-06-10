@@ -345,16 +345,11 @@ from edxmako.shortcuts import marketing_link
 		});
 
 		function pg(){
-
-			var obj = document.getElementById("inicis");
-			var objDoc = obj.contentWindow || obj.contentDocument;
-			objDoc.clickBtnImage();
-
-		return;
-			var f = $('form[name="frmPg"]');
-			$("#paymethod").val($('input[name=payradio]:checked').val());
-			window.open("", "pInicis", "toolbar=no, width=400, height=500, directories=no, status=no, scrollbars=no, resizable=no");
-			f.submit();
+			try {
+				$("$inicis").get(0).contentWindow.﻿clickBtnImage();
+			} catch(e) {
+				alert(e.Message);
+			}
 		}
 	</script>
 <form name="frmPg" method="post" action="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" target="pInicis">
