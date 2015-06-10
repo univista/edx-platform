@@ -344,13 +344,16 @@ from edxmako.shortcuts import marketing_link
 			});
 		});
 
-		function pg(){
+
+		function pg() {
 			try {
-				alert($("#inicis")[0].contentWindow.document);
-			} catch(e) {
-				alert(e.Message);
+				//window.inicis[0].frameElement.contentWindow.clickBtnImage();
+				alert(window.inicis[0]);
+			} catch (e) {
+				alert(e.message);
 			}
 		}
+
 	</script>
 <form name="frmPg" method="post" action="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" target="pInicis">
 	<input type="hidden" id="paymethod" name="paymethod" />
