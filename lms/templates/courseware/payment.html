@@ -347,7 +347,11 @@ from edxmako.shortcuts import marketing_link
 		function pg(){
 
 		alert(33);
-		document.getElementById("ifrmInicis").contentWindow.clickBtnImage();
+		var $f = $("#ifrmInicis");
+		$f[0].contentWindow.clickBtnImage();
+
+
+		//document.getElementById("ifrmInicis").contentWindow.clickBtnImage();
 		alert(12);
 		return;
 			var f = $('form[name="frmPg"]');
