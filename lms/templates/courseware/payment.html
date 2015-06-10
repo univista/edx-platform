@@ -346,7 +346,7 @@ from edxmako.shortcuts import marketing_link
 
 		function pg(){
 			try {
-				alert($("#inicis")[0].document);
+				alert($("#inicis")[0].contentWindow.document);
 			} catch(e) {
 				alert(e.Message);
 			}
