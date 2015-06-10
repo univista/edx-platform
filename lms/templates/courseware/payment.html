@@ -345,18 +345,9 @@ from edxmako.shortcuts import marketing_link
 		});
 
 		function pg(){
+			alert(34);
+			alert(window.parent.$("#ifrmInicis")[0].contentWindow);
 
-		alert(34);
-
-
-		window.parent.$("#ifrmInicis")[0].contentWindow.clickBtnImage();
-		return;
-		var $f = $("#ifrmInicis");
-		$f[0].contentWindow.clickBtnImage();
-
-
-		//document.getElementById("ifrmInicis").contentWindow.clickBtnImage();
-		alert(12);
 		return;
 			var f = $('form[name="frmPg"]');
 			$("#paymethod").val($('input[name=payradio]:checked').val());
