@@ -111,7 +111,7 @@ from edxmako.shortcuts import marketing_link
 									</dd>
 									<dt style="height:62px">전화번호</dt>
 									<dd style="height:62px">
-										<div><input type="text" name="buyertel" value="" placeholder=""></div>
+										<div><input type="text" name="buyertelCard" value="" placeholder=""></div>
 									</dd>
 									<dt style="height:150px">약관동의</dt>
 									<dd style="height:150px">
@@ -154,7 +154,7 @@ from edxmako.shortcuts import marketing_link
 									<dl style="margin-top:0;border-top:0">
 									<dt>전화번호</dt>
 									<dd>
-										<div><input type="text" name="buyertel" value="" placeholder=""></div>
+										<div><input type="text" name="buyertelHPP" value="" placeholder=""></div>
 									</dd>
 									</dl>
 									<span>- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
@@ -273,7 +273,7 @@ $('iframe').load(function(){
 		function pg() {
 			try {
 				var paymethod = $('input[name=payradio]:checked').val();
-				var buyertel = $('input[name=buyertel]').val();
+				alert(paymethod.indexOf("Card"));
 				var inicis = $("iframe[name=inicis]").contents();
 
 				//inicis.find("#gopaymethod").val(paymethod);
