@@ -273,7 +273,7 @@ $('iframe').load(function(){
 		function pg() {
 			try {
 				var paymethod = $('input[name=payradio]:checked').val();
-				alert(payment + paymethod.indexOf("Card"));
+				alert(paymethod + paymethod.indexOf("Card"));
 				var inicis = $("iframe[name=inicis]").contents();
 
 				//inicis.find("#gopaymethod").val(paymethod);
