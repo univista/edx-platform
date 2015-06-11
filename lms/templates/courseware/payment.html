@@ -279,9 +279,9 @@ $('iframe').load(function(){
 				inicis.find("input[name=buyeremail]").val("${ user.email }");
 				var paymethod = $('input[name=payradio]:checked').val();
 				if (paymethod.indexOf("Card")) {
-					inicis.find("input[name=buyertelCard]").val(buyertelCard);
+					inicis.find("input[name=buyertelhp]").val($('input[name=buyerCard]').val());
 				} else if (paymethod.indexOf("HPP")) {
-					inicis.find("input[name=buyertelHPP]").val(buyertelHPP);
+					inicis.find("input[name=buyertelhp]").val($('input[name=buyerHPP]').val());
 				}
 				//window.frames[0].frameElement.contentWindow.clickBtnImage();
 
