@@ -84,31 +84,6 @@ from edxmako.shortcuts import marketing_link
 
 								<div class="payment-box01" style="display: block;">
 									<dl>
-									<dt>카드종류</dt>
-									<dd>
-										<div>
-											<span class="x-sel">
-												<select>
-												<option>선택</option>
-												<option></option>
-												<option></option>
-												</select>
-											</span>
-										</div>
-									</dd>
-									<dt>할부기간</dt>
-									<dd>
-										<div>
-											<span class="x-sel">
-												<select>
-												<option>일시불</option>
-												<option></option>
-												<option></option>
-												</select>
-											</span>
-										</div>
-										<span class="point">할부는 5만원 이상만 가능합니다.</span>
-									</dd>
 									<dt style="height:62px">전화번호</dt>
 									<dd style="height:62px">
 										<div><input type="text" name="buyertelCard" value="" placeholder=""></div>
@@ -272,24 +247,34 @@ $('iframe').load(function(){
 
 		function pg() {
 			try {
+
+				alert( $(".agree-area input:checked").length );
+				return;
+				
+				validationCheck();
+
 				var inicis = $("iframe[name=inicis]").contents();
 				var paymethod = $('input[name=payradio]:checked').val();
 				inicis.find("input[name=gopaymethod]").val(paymethod);
 				inicis.find("input[name=goodname]").val("${ user.id }_${course.id}");
 				inicis.find("input[name=buyername]").val("${ user.profile.name }");
 				inicis.find("input[name=buyeremail]").val("${ user.email }");
-
-
 				if (paymethod.indexOf("Card")>=0) {
 					inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
+					$('input[name=buyertelHPP]').val("");
 				} else if (paymethod.indexOf("HPP")>=0) {
 					inicis.find("input[name=buyertel]").val($('input[name=buyertelHPP]').val());
+					$('input[name=buyertelCard]').val("");
 
 				}
 				$("#inicis")[0].contentWindow.clickBtnImage();
 			} catch (e) {
 				alert(e.message);
 			}
+		}
+
+		function validationCheck() {
+
 		}
 
 	</script>
