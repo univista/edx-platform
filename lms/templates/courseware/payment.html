@@ -247,8 +247,7 @@ $('iframe').load(function(){
 		function pg() {
 			try {
 				if ( validationCheck() ) {
-					alert("true");
-					//callInicis();
+					callInicis();
 				}
 			} catch (e) {
 				alert(e.message);
@@ -274,10 +273,12 @@ $('iframe').load(function(){
 				return false;
 			}
 		}
+		*/
 
 		function callInicis(){
 		alert("callInicis()");
-
+		return;
+		
 			var inicis = $("iframe[name=inicis]").contents();
 			var paymethod = $('input[name=payradio]:checked').val();
 			inicis.find("input[name=gopaymethod]").val(paymethod);
