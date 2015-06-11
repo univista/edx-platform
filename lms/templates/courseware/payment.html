@@ -280,8 +280,9 @@ $('iframe').load(function(){
 				inicis.find("input[name=buyeremail]").val("${ user.email }");
 				if (paymethod.indexOf("Card")>=0) {
 					inicis.find("input[name=buyerhp]").val($('input[name=buyertelCard]').val());
-				} else if (paymethod.indexOf("HPP")) {
+				} else if (paymethod.indexOf("HPP")>=0) {
 					inicis.find("input[name=buyerhp]").val($('input[name=buyertelHPP]').val());
+
 				}
 				//window.frames[0].frameElement.contentWindow.clickBtnImage();
 
