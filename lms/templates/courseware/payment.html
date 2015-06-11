@@ -273,12 +273,11 @@ $('iframe').load(function(){
 		function pg() {
 			try {
 				var inicis = $("iframe[name=inicis]").contents();
+				var paymethod = $('input[name=payradio]:checked').val();
 				inicis.find("input[name=gopaymethod]").val(paymethod);
 				inicis.find("input[name=goodname]").val("${ user.id }_${course.id}");
 				inicis.find("input[name=buyername]").val("${ user.profile.name }");
 				inicis.find("input[name=buyeremail]").val("${ user.email }");
-				var paymethod = $('input[name=payradio]:checked').val();
-				alert(paymethod);
 				if (paymethod.indexOf("Card")) {
 					inicis.find("input[name=buyertelhp]").val($('input[name=buyerCard]').val());
 				} else if (paymethod.indexOf("HPP")) {
