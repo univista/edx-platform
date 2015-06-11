@@ -278,6 +278,10 @@ $('iframe').load(function(){
 				//inicis.find("#gopaymethod").val(paymethod);
 				inicis.find("input[name=gopaymethod]").val(paymethod);
 
+				inicis.find("input[name=goodname]").val("${ user.id }_${course.id}");
+				inicis.find("input[name=buyername]").val("${ user.profile.name }");
+				inicis.find("input[name=buyeremail]").val("${ user.email }");
+
 
 
 
