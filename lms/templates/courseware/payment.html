@@ -58,14 +58,14 @@ from edxmako.shortcuts import marketing_link
 								<dd>
 									<div>
 										<span class="radio-area">
-											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay01" value="question">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay01" value="Card:VCard">
 											<span></span>
 										</span>
 										<label for="pay01" class="post-type-label">
 											신용카드
 										</label>
 										<span class="radio-area">
-											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay02" value="discussion" checked="">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay02" value="HPP" checked="">
 											<span></span>
 										</span>
 										<label for="pay02" class="post-type-label">
@@ -84,34 +84,9 @@ from edxmako.shortcuts import marketing_link
 
 								<div class="payment-box01" style="display: block;">
 									<dl>
-									<dt>카드종류</dt>
-									<dd>
-										<div>
-											<span class="x-sel">
-												<select>
-												<option>선택</option>
-												<option></option>
-												<option></option>
-												</select>
-											</span>
-										</div>
-									</dd>
-									<dt>할부기간</dt>
-									<dd>
-										<div>
-											<span class="x-sel">
-												<select>
-												<option>일시불</option>
-												<option></option>
-												<option></option>
-												</select>
-											</span>
-										</div>
-										<span class="point">할부는 5만원 이상만 가능합니다.</span>
-									</dd>
 									<dt style="height:62px">전화번호</dt>
 									<dd style="height:62px">
-										<div><input type="text" name="text" value="" placeholder=""></div>
+										<div><input type="text" name="buyertelCard" value="" placeholder=""></div>
 									</dd>
 									<dt style="height:150px">약관동의</dt>
 									<dd style="height:150px">
@@ -154,7 +129,7 @@ from edxmako.shortcuts import marketing_link
 									<dl style="margin-top:0;border-top:0">
 									<dt>전화번호</dt>
 									<dd>
-										<div><input type="text" name="text" value="" placeholder=""></div>
+										<div><input type="text" name="buyertelHPP" value="" placeholder=""></div>
 									</dd>
 									</dl>
 									<span>- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
@@ -269,21 +244,41 @@ $('iframe').load(function(){
      });
 });
 
-
 		function pg() {
 			try {
-				$("#paymethod").val($('input[name=payradio]:checked').val());
-
-				alert( $("#paymethod").contents().find('input#gopaymethod').val() );
-				//var f = $('form[name="frmPg"]');
-				//f.submit();
-				//alert($("iframe").contents().find("input#"));
-				//window.frames[0].frameElement.contentWindow.clickBtnImage();
-
-				//$("#inicis")[0].contentWindow.clickBtnImage();
+				if ( validationCheck() ) {
+					callInicis();
+				}
 			} catch (e) {
 				alert(e.message);
 			}
+		}
+
+		function validationCheck() {
+			if ($(".agree-area input:checked").length != 4) {
+				alert("약관 전체동의 하셔야 합니다.");
+				return false;
+			} else if ($(".agree-area input:checked").length == 4) {
+				return true;
+			}
+		}
+
+		function callInicis(){
+			var inicis = $("iframe[name=inicis]").contents();
+			var paymethod = $('input[name=payradio]:checked').val();
+			inicis.find("input[name=gopaymethod]").val(paymethod);
+			inicis.find("input[name=goodname]").val("${ user.id }_${course.id}");
+			inicis.find("input[name=buyername]").val("${ user.profile.name }");
+			inicis.find("input[name=buyeremail]").val("${ user.email }");
+			if (paymethod.indexOf("Card")>=0) {
+				inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
+				$('input[name=buyertelHPP]').val("");
+			} else if (paymethod.indexOf("HPP")>=0) {
+				inicis.find("input[name=buyertel]").val($('input[name=buyertelHPP]').val());
+				$('input[name=buyertelCard]').val("");
+
+			}
+			$("#inicis")[0].contentWindow.clickBtnImage();
 		}
 
 	</script>
@@ -293,8 +288,7 @@ $('iframe').load(function(){
 	<input type="hidden" id="buyername" name="buyername" value="${ user.profile.name }" />
 	<input type="hidden" id="buyeremail" name="buyeremail" value="${ user.email }" />
 </form>
-
-<iframe name="inicis" id="inicis" src="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp"></iframe>
 <!--
-<iframe name="inicis" id="inicis" src="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" style="width:0px; height:0px; border: 0px"></iframe>
+<iframe name="inicis" id="inicis" src="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp"></iframe>
 -->
+<iframe name="inicis" id="inicis" src="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" style="width:0px; height:0px; border: 0px"></iframe>
