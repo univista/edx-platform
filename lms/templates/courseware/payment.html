@@ -272,7 +272,11 @@ $('iframe').load(function(){
 
 		function pg() {
 			try {
-				$("#paymethod").val($('input[name=payradio]:checked').val());
+				var paymethod = $("#paymethod").val($('input[name=payradio]:checked').val());
+
+
+				$("#paymethod").contents().find('input#gopaymethod').val(paymethod);
+
 
 				alert( $("#paymethod").contents().find('input#gopaymethod').val() );
 				//var f = $('form[name="frmPg"]');
