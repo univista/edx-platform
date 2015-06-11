@@ -263,39 +263,23 @@ $('iframe').load(function(){
 			}
 		}
 
-		/*
-		function validationTelCheck(pn){
-			var filter = /^[0-9-+]+$/;
-			if (filter.test(pn)) {
-				return true;
-			} else {
-				alert("연락처를 입력해주세요.");
-				return false;
-			}
-		}
-		*/
-
 		function callInicis(){
-		alert("callInicis()");
-		return;
-		
 			var inicis = $("iframe[name=inicis]").contents();
 			var paymethod = $('input[name=payradio]:checked').val();
 			inicis.find("input[name=gopaymethod]").val(paymethod);
 			inicis.find("input[name=goodname]").val("${ user.id }_${course.id}");
 			inicis.find("input[name=buyername]").val("${ user.profile.name }");
 			inicis.find("input[name=buyeremail]").val("${ user.email }");
-			if (paymethod.indexOf("Card")>=0 && validationTelCheck($('input[name=buyertelCard]').val())) {
+			if (paymethod.indexOf("Card")>=0) {
 				inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
 				$('input[name=buyertelHPP]').val("");
-			} else if (paymethod.indexOf("HPP")>=0 && validationTelCheck($('input[name=buyertelHPP]').val()) {
+			} else if (paymethod.indexOf("HPP")>=0) {
 				inicis.find("input[name=buyertel]").val($('input[name=buyertelHPP]').val());
 				$('input[name=buyertelCard]').val("");
 
 			}
 			$("#inicis")[0].contentWindow.clickBtnImage();
 		}
-		*/
 
 	</script>
 <form name="frmPg" method="post" target="inicis">
