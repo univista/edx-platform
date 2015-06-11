@@ -264,6 +264,11 @@ $('iframe').load(function(){
 			} else if ($(".agree-area input:checked").length == 4) {
 				return true;
 			}
+
+			if (!$("input[name=input]:checked")) {
+				alert("개인정보 제3자 제공에 동의하셔야 합니다.");
+				return false;
+			}
 		}
 
 		function callInicis(){
