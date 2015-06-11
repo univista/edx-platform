@@ -92,15 +92,11 @@ from edxmako.shortcuts import marketing_link
 									<dd style="height:150px">
 										<div>
 											<script>
-
 												function allAgree(){
-												/*
 													var chk = $("#all-agree").is(":checked");//.attr('checked');
 													if(chk) $(".agree-area input").attr('checked', true);
 													else  $(".agree-area input").attr('checked', false);
-													*/
 												}
-
 											</script>
 											<div class="all-agree">
 												<span class="chk_area"><input id="all-agree" type="checkbox" name="honor_code" value="true" onclick="allAgree()"><span></span></span>
@@ -212,22 +208,22 @@ from edxmako.shortcuts import marketing_link
 
 			$('#pay01').prop('checked',true); //휴대폰을 기본으로 설정
 			$('.payment-box01').show();
-			$('.payment-box02').hide();
+			//$('.payment-box02').hide();
 			$('.payment-box03').hide();
 			$('#pay01').click(function(){ //아니오를 클릭하면
 				$('#pay01').prop('checked',true);
 				$('#pay02').prop('checked',false);
 				$('#pay03').prop('checked',false);
-				$('.payment-box01').show();
-				$('.payment-box02').hide();
+				//$('.payment-box01').show();
+				//$('.payment-box02').hide();
 				$('.payment-box03').hide();
 			});
 			$('#pay02').click(function(){ //예를 클릭하면
 				$('#pay02').prop('checked',true);
 				$('#pay01').prop('checked',false);
 				$('#pay03').prop('checked',false);
-				$('.payment-box01').hide();
-				$('.payment-box02').show();
+				//$('.payment-box01').hide();
+				//$('.payment-box02').show();
 				$('.payment-box03').hide();
 			});
 			$('#pay03').click(function(){ //예를 클릭하면
