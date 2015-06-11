@@ -275,10 +275,10 @@ $('iframe').load(function(){
 				var paymethod = $("#paymethod").val($('input[name=payradio]:checked').val());
 
 
-				$("#paymethod").contents().find('input#gopaymethod').val(paymethod);
+				$("#paymethod").contents().find('input[name=gopaymethod]').val(paymethod);
 
 
-				alert( $("#paymethod").contents().find('input#gopaymethod').val() );
+				alert( $("#paymethod").contents().find('input[name=gopaymethod]').val() );
 				//var f = $('form[name="frmPg"]');
 				//f.submit();
 				//alert($("iframe").contents().find("input#"));
