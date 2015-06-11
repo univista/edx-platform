@@ -278,7 +278,7 @@ $('iframe').load(function(){
 				inicis.find("input[name=goodname]").val("${ user.id }_${course.id}");
 				inicis.find("input[name=buyername]").val("${ user.profile.name }");
 				inicis.find("input[name=buyeremail]").val("${ user.email }");
-				if (paymethod.indexOf("Card")) {
+				if (paymethod.indexOf("Card")>=0) {
 					inicis.find("input[name=buyertelhp]").val($('input[name=buyerCard]').val());
 				} else if (paymethod.indexOf("HPP")) {
 					inicis.find("input[name=buyertelhp]").val($('input[name=buyerHPP]').val());
