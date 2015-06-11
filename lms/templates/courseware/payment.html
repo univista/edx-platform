@@ -261,6 +261,16 @@ $('iframe').load(function(){
 			}
 		}
 
+		function validationTelCheck(pn){
+			var filter = /^[0-9-+]+$/;
+			if (filter.test(pn)) {
+				return true;
+			} else {
+				alert("연락처를 입력해주세요.");
+				return false;
+			}
+		}
+
 		function callInicis(){
 			var inicis = $("iframe[name=inicis]").contents();
 			var paymethod = $('input[name=payradio]:checked').val();
@@ -268,10 +278,10 @@ $('iframe').load(function(){
 			inicis.find("input[name=goodname]").val("${ user.id }_${course.id}");
 			inicis.find("input[name=buyername]").val("${ user.profile.name }");
 			inicis.find("input[name=buyeremail]").val("${ user.email }");
-			if (paymethod.indexOf("Card")>=0) {
+			if (paymethod.indexOf("Card")>=0 && validationTelCheck($('input[name=buyertelCard]').val())) {
 				inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
 				$('input[name=buyertelHPP]').val("");
-			} else if (paymethod.indexOf("HPP")>=0) {
+			} else if (paymethod.indexOf("HPP")>=0 && validationTelCheck($('input[name=buyertelHPP]').val()) {
 				inicis.find("input[name=buyertel]").val($('input[name=buyertelHPP]').val());
 				$('input[name=buyertelCard]').val("");
 
