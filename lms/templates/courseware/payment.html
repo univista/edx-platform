@@ -258,6 +258,8 @@ $('iframe').load(function(){
 			if ($(".agree-area input:checked").length != 4) {
 				alert("약관 전체동의 하셔야 합니다.");
 				return false;
+			} else if ($(".agree-area input:checked").length == 4) {
+				return true;
 			}
 		}
 
@@ -272,6 +274,8 @@ $('iframe').load(function(){
 		}
 
 		function callInicis(){
+		alert("callInicis()");
+		
 			var inicis = $("iframe[name=inicis]").contents();
 			var paymethod = $('input[name=payradio]:checked').val();
 			inicis.find("input[name=gopaymethod]").val(paymethod);
