@@ -273,13 +273,12 @@ $('iframe').load(function(){
 		function pg() {
 			try {
 				$("#paymethod").val($('input[name=payradio]:checked').val());
+
+				alert( $("#paymethod").contents().find('input#gopaymethod') );
 				//var f = $('form[name="frmPg"]');
 				//f.submit();
 				//alert($("iframe").contents().find("input#"));
 				//window.frames[0].frameElement.contentWindow.clickBtnImage();
-
-
-
 
 				//$("#inicis")[0].contentWindow.clickBtnImage();
 			} catch (e) {
@@ -289,7 +288,7 @@ $('iframe').load(function(){
 
 	</script>
 <form name="frmPg" method="post" target="inicis">
-	<input type="text" id="paymethod" name="paymethod" />
+	<input type="hidden" id="paymethod" name="paymethod" />
 	<input type="hidden" id="goodname" name="goodname" value="${ user.id }_${course.id}" />
 	<input type="hidden" id="buyername" name="buyername" value="${ user.profile.name }" />
 	<input type="hidden" id="buyeremail" name="buyeremail" value="${ user.email }" />
