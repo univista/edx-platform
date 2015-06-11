@@ -278,7 +278,10 @@ $('iframe').load(function(){
 				//alert($("iframe").contents().find("input#"));
 				//window.frames[0].frameElement.contentWindow.clickBtnImage();
 
-				$("#inicis")[0].contentWindow.clickBtnImage();
+				//$("#inicis")[0].contentWindow.clickBtnImage();
+
+				
+				alert($("#inicis").contents());
 			} catch (e) {
 				alert(e.message);
 			}
