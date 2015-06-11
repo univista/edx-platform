@@ -286,10 +286,7 @@ $('iframe').load(function(){
 					inicis.find("input[name=buyertel]").val($('input[name=buyertelHPP]').val());
 
 				}
-
-				inicis.clickBtnImage();
-
-				//$("#inicis")[0].contentWindow.clickBtnImage();
+				$("#inicis")[0].contentWindow.clickBtnImage();
 			} catch (e) {
 				alert(e.message);
 			}
