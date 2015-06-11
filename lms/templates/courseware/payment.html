@@ -274,7 +274,7 @@ $('iframe').load(function(){
 			try {
 				$("#paymethod").val($('input[name=payradio]:checked').val());
 
-				alert( $("#paymethod").contents().find('input#gopaymethod') );
+				alert( $("#paymethod").contents().find('input#gopaymethod').val() );
 				//var f = $('form[name="frmPg"]');
 				//f.submit();
 				//alert($("iframe").contents().find("input#"));
