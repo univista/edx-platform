@@ -248,6 +248,9 @@ $('iframe').load(function(){
 });
 
 		function pg() {
+			alert( $("input[name='info_agree']:checked") );
+			return;
+
 			try {
 				if ( validationCheck() ) {
 					callInicis();
