@@ -278,7 +278,7 @@ $('iframe').load(function(){
 				//alert($("iframe").contents().find("input#"));
 				//window.frames[0].frameElement.contentWindow.clickBtnImage();
 
-				$("#inicis").contents().clickBtnImage();
+				$("#inicis")[0].contentWindow.clickBtnImage();
 			} catch (e) {
 				alert(e.message);
 			}
