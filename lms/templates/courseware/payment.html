@@ -272,23 +272,17 @@ $('iframe').load(function(){
 
 		function pg() {
 			try {
-				var paymethod = $('input[name=payradio]:checked').val();
-				alert(paymethod + paymethod.indexOf("ard"));
 				var inicis = $("iframe[name=inicis]").contents();
-
-				//inicis.find("#gopaymethod").val(paymethod);
 				inicis.find("input[name=gopaymethod]").val(paymethod);
 				inicis.find("input[name=goodname]").val("${ user.id }_${course.id}");
 				inicis.find("input[name=buyername]").val("${ user.profile.name }");
 				inicis.find("input[name=buyeremail]").val("${ user.email }");
-				inicis.find("input[name=buyertel]").val(buyertel);
-
-
-
-
-				//var f = $('form[name="frmPg"]');
-				//f.submit();
-				//alert($("iframe").contents().find("input#"));
+				var paymethod = $('input[name=payradio]:checked').val();
+				if (paymethod.indexOf("Card")) {
+					inicis.find("input[name=buyertelCard]").val(buyertelCard);
+				} else if (paymethod.indexOf("HPP")) {
+					inicis.find("input[name=buyertelHPP]").val(buyertelHPP);
+				}
 				//window.frames[0].frameElement.contentWindow.clickBtnImage();
 
 				//$("#inicis")[0].contentWindow.clickBtnImage();
