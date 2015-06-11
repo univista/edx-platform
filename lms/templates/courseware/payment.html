@@ -181,7 +181,7 @@ from edxmako.shortcuts import marketing_link
 								</div> <!--End section-->
 							</div> <!--End sections-->
 							<div class="all-agree">
-								<span class="chk_area"><input id="info-agree" type="checkbox" name="honor_code" value="true"><span></span></span>
+								<span class="chk_area"><input id="info-agree" type="checkbox" name="info_agree" value="true"><span></span></span>
 								<label for="info-agree">개인정보 제3자 제공에 동의</label>
 							</div>
 							<div class="btn-area">
@@ -262,7 +262,7 @@ $('iframe').load(function(){
 				alert("약관 전체동의 하셔야 합니다.");
 				return false;
 			}
-			if ($("input[name='honor_code']:checked")) {
+			if ($("input[name='info_agree']:checked")) {
 				alert("개인정보 제3자 제공에 동의하셔야 합니다.");
 				return false;
 			}
