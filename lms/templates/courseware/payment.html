@@ -72,7 +72,7 @@ from edxmako.shortcuts import marketing_link
 											휴대폰
 										</label>
 										<span class="radio-area">
-											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay03" value="discussion" checked="">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay03" value="coupon" checked="">
 											<span></span>
 										</span>
 										<label for="pay03" class="post-type-label">
@@ -258,7 +258,7 @@ $('iframe').load(function(){
 		}
 
 		function validationCheck() {
-			if ($(".agree-area input:checked").length != 4) {
+			if ($('input[name=payradio]:checked').val() != "coupon" && $(".agree-area input:checked").length != 4) {
 				alert("약관 전체동의 하셔야 합니다.");
 				return false;
 			}
