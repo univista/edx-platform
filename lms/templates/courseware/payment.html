@@ -276,7 +276,9 @@ $('iframe').load(function(){
 				//var f = $('form[name="frmPg"]');
 				//f.submit();
 				//alert($("iframe").contents().find("input#"));
-				window.frames[0].frameElement.contentWindow.clickBtnImage();
+				//window.frames[0].frameElement.contentWindow.clickBtnImage();
+
+				$("#inicis").contents().clickBtnImage();
 			} catch (e) {
 				alert(e.message);
 			}
