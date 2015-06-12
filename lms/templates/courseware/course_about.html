@@ -206,7 +206,7 @@ from edxmako.shortcuts import marketing_link
             </div>
             <script type="text/javascript">
 $(function() {
-   var teacher = $(".teacher h3").text();
+   var teacher = $(".staff-title").text();
    var teacher_name = teacher.slice(0, teacher.indexOf("교수")+2);
    var teacher_html = "<span class=\"label\">강의교수 </span>"+teacher_name;
    $(".course-detail-number").html(teacher_html);
