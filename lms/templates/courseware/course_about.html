@@ -187,7 +187,7 @@ from edxmako.shortcuts import marketing_link
                 <div class="course-detail-number item">
                         <span class="label">강의교수 </span>강의교수
                 </div>
-                <div class="course-detail-number item">
+                <div class="course-detail-start item">
                         <span class="label">개강일 </span>${course.start_datetime_text()}
                 </div>
                 %if course.enrollment_start_datetime_text():
@@ -205,8 +205,12 @@ from edxmako.shortcuts import marketing_link
                 %endif
             </div>
             <script type="text/javascript">
-                //
-                alert( $("staff-title") );
+$(function() {
+   var teacher = $(".teacher h3").text();
+   var teacher_name = teacher.slice(0, teacher.indexOf("교수")+2);
+   var teacher_html = "<span class=\"label\">강의교수 </span>"+teacher_name;
+   $(".course-detail-number").html(teacher_html);
+});
             </script>
             <div class="copy-detail course-detail-prerequisites views-fieldset" data-module="views_fieldsets">
                 <p>${get_course_about_section(course, 'short_description')}</p>
