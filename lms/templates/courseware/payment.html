@@ -263,7 +263,7 @@ $('iframe').load(function(){
 <div id="lean_overlay" style="display: block; opacity: 1;"></div>
 ﻿<section id="forgot-password-modal" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="display:block;position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
   <div class="inner-wrapper">
-    <button class="close-modal">
+    <button class="close-modal" oncick="$('#lean_overlay').hide();">
       <i class="icon fa fa-remove"></i>
       <span class="sr">
         Close
@@ -272,7 +272,6 @@ $('iframe').load(function(){
 
     <div id="password-reset">
       <header>
-        <!--<h2>Password Reset</h2>-->
 		<h2 class="element-invisible">비밀번호 찾기</h2>
       </header>
 
