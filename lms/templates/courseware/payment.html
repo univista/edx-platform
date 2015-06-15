@@ -212,6 +212,9 @@ $('iframe').load(function(){
      });
 });
 
+
+		var gCert = false;
+
 		function pcertOnclick() {
 			$("#pcert").contents().find('#btnCert').trigger("click");
 		}
@@ -279,10 +282,6 @@ $('iframe').load(function(){
     </button>
 
     <div id="password-reset">
-      <header>
-		<h2 class="element-invisible">비밀번호 찾기</h2>
-      </header>
-
       <div class="instructions">
 		<p>실명 인증 되었습니다.</p>
       </div>
