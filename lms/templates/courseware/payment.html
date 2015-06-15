@@ -212,10 +212,10 @@ $('iframe').load(function(){
      });
 });
 
-
 		function pcertOnclick() {
 			alert("pcert()");
-			$("#pcert").contents().find('form').submit();
+			$("#pcert").contents().find('#reqDRMOKForm').submit();
+			alert("pcert()2");
 		}
 
 		function pg() {
