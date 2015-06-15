@@ -239,6 +239,10 @@ $('iframe').load(function(){
 				alert("개인정보 제3자 제공에 동의하셔야 합니다.");
 				return false;
 			}
+			if (!gCert) {
+				alert("실명 인증하셔야 합니다");
+				return false;
+			}
 			return true;
 		}
 
