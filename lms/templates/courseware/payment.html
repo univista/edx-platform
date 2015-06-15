@@ -214,7 +214,8 @@ $('iframe').load(function(){
 
 		function pcertOnclick() {
 			alert("pcert()");
-			$("#pcert").contents().find('#reqDRMOKForm').submit();
+			//$("#pcert").contents().find('#reqDRMOKForm').submit();
+			$("#pcert")[0].contentWindow.openDRMOKWindow();
 			alert("pcert()2");
 		}
 
