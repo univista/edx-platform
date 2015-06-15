@@ -217,7 +217,8 @@ $('iframe').load(function(){
 		}
 
 		function pcertResult() {
-			alert("본인인증 되었습니다.");
+			$("#lean_overlay").show();
+			$("#forgot-password-modal").show();
 		}
 
 		function pg() {
@@ -262,14 +263,13 @@ $('iframe').load(function(){
 
 <script type="text/javascript">
 	function divHide(){
-		alert("22");
-		$('#lean_overlay').hide();
+		$("#lean_overlay").hide();
 		$("#forgot-password-modal").hide();
 	}
 </script>
 
-<div id="lean_overlay" style="display: block; opacity: 1;"></div>
-﻿<section id="forgot-password-modal" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="display:block;position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
+<div id="lean_overlay" style="opacity: 1;"></div>
+﻿<section id="forgot-password-modal" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
   <div class="inner-wrapper">
     <button class="close-modal" onclick="divHide();">
       <i class="icon fa fa-remove"></i>
