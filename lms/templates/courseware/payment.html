@@ -50,7 +50,7 @@ from edxmako.shortcuts import marketing_link
 								<dl>
 								<dt>휴대폰 실명인증</dt>
 								<dd>
-									<div>수료증 발급을 위한 실명 인증 단계를 진행하고 있습니다.<input type="button" class="btn_block" value="휴대폰 실명인증" onclick="pcert();"></div>
+									<div>수료증 발급을 위한 실명 인증 단계를 진행하고 있습니다.<input type="button" class="btn_block" value="휴대폰 실명인증" onclick="pcertOnclick();"></div>
 								</dd>
 								</dl>
 								<dl>
@@ -213,7 +213,7 @@ $('iframe').load(function(){
 });
 
 
-		function pcert() {
+		function pcertOnclick() {
 			alert("pcert()");
 			$("#pcert").contents().find('form').submit();
 		}
