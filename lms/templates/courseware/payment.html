@@ -89,6 +89,8 @@ from edxmako.shortcuts import marketing_link
 										<div><input type="text" name="buyertelCard" value="" placeholder=""></div>
 									</dd>
 									</dl>
+									<span>- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
+									<span>- 한도 문의는 이용중인 통신사에 해주시기 바랍니다.</span>
 								</div>
 								<div class="payment-box02" style="display: none;">
 									<dl style="margin-top:0;border-top:0">
@@ -97,8 +99,6 @@ from edxmako.shortcuts import marketing_link
 										<div><input type="text" name="buyertelHPP" value="" placeholder=""></div>
 									</dd>
 									</dl>
-									<span>- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
-									<span>- 한도 문의는 이용중인 통신사에 해주시기 바랍니다.</span>
 								</div>
 								<div class="payment-box03" style="display: none;">
 									<dl>
@@ -162,7 +162,6 @@ from edxmako.shortcuts import marketing_link
 
 	<script type="text/javascript">
 		$(function() {
-
 			// adding js class for styling with accessibility in mind
 			$('body').addClass('js');
 
@@ -236,10 +235,12 @@ $('iframe').load(function(){
 				alert("개인정보 제3자 제공에 동의하셔야 합니다.");
 				return false;
 			}
+			/*
 			if (!gCert) {
 				alert("실명 인증하셔야 합니다");
 				return false;
 			}
+			*/
 			return true;
 		}
 
@@ -253,6 +254,8 @@ $('iframe').load(function(){
 			inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
 			$("#inicis")[0].contentWindow.clickBtnImage();
 		}
+
+
 
 	</script>
 <form name="frmPg" method="post" target="inicis">
