@@ -145,9 +145,15 @@ def course_image_url(course):
 def course_professor_url(course):
     if course.static_asset_path or modulestore().get_modulestore_type(course.id) == ModuleStoreEnum.Type.xml:
         url = '/static/' + (course.static_asset_path or getattr(course, 'data_dir', ''))
-        url += '/images/professor.jpg'
-    else:
+        if hasattr(course, 'course_image') and course.course_image != course.fields['course_image'].default:
+            url += '/' + course.course_image
+        else:
+            url += '/images/professor.jpg'
+    elif course.course_image == '':
         url = ''
+    else:
+        loc = StaticContent.compute_location(course.id, course.course_image)
+        url = StaticContent.serialize_asset_key_with_slash(loc)
     return url
 
 
