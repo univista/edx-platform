@@ -7,9 +7,9 @@ from courseware.courses import course_image_url, course_professor_url, get_cours
 <%page args="course" />
 <li>
 	<a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}">
-		<em>${get_course_about_section(course, 'title')} 2222</em>
+		<em>${get_course_about_section(course, 'title')}</em>
 		<span>${course.display_number_with_default}</span>
 		<span>${get_course_about_section(course, 'university')}</span>
 	</a>
-	<img src="${course_professor_url(course)}" alt="${get_course_about_section(course, 'title')} ${course.display_number_with_default}" />
+	<img src="${course_professor_url(course).replace('image_course_image', 'professor')}" alt="${get_course_about_section(course, 'title')} ${course.display_number_with_default}" />
 </li>

@@ -142,17 +142,6 @@ def course_image_url(course):
     return url
 
 
-def course_professor_url(course):
-    if course.static_asset_path or modulestore().get_modulestore_type(course.id) == ModuleStoreEnum.Type.xml:
-        url = '/static/' + (course.static_asset_path or getattr(course, 'data_dir', ''))
-    elif course.course_image == '':
-        url = ''
-    else:
-        loc = StaticContent.compute_location(course.id, course.course_image)
-        url = StaticContent.serialize_asset_key_with_slash(loc)
-    return url
-
-
 def find_file(filesystem, dirs, filename):
     """
     Looks for a filename in a list of dirs on a filesystem, in the specified order.
