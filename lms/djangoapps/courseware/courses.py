@@ -143,7 +143,9 @@ def course_image_url(course):
 
 
 def course_professor_url(course):
-    return course
+    url = '/static/' + (course.static_asset_path or getattr(course, 'data_dir', ''))
+    url += '/images/professor.jpg'
+    return url
 
 
 def find_file(filesystem, dirs, filename):
