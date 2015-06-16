@@ -142,13 +142,9 @@ def course_image_url(course):
     return url
 
 def course_professor_url(course):
-    if course.static_asset_path or modulestore().get_modulestore_type(course.id) == ModuleStoreEnum.Type.xml:
-        url = ''
-    elif course.course_image == '':
-        url = ''
-    else:
-        url = StaticContent.compute_location(course.id, course.course_image)
-    return url
+    loc = StaticContent.compute_location(course.id, course.course_image)
+    url = StaticContent.serialize_asset_key_with_slash(loc)
+    return url.replace('image_course_image.jpg', 'professor.png')
 
 
 def find_file(filesystem, dirs, filename):
