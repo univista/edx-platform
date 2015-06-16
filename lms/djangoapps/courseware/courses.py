@@ -130,8 +130,6 @@ def course_image_url(course):
         url = '/static/' + (course.static_asset_path or getattr(course, 'data_dir', ''))
         if hasattr(course, 'course_image') and course.course_image != course.fields['course_image'].default:
             url += '/professor.png'
-        else:
-            url += '/images/course_image.jpg'
     return url
 
 def course_professor_url(course):
