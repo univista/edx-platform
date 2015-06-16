@@ -50,7 +50,7 @@ from edxmako.shortcuts import marketing_link
 								<dl>
 								<dt>휴대폰 실명인증</dt>
 								<dd>
-									<div>수료증 발급을 위한 실명 인증 단계를 진행하고 있습니다.<input type="button" class="btn_block" value="휴대폰 실명인증" onclick="pcert();"></div>
+									<div>수료증 발급을 위한 실명 인증 단계를 진행하고 있습니다.<input type="button" class="btn_block" value="휴대폰 실명인증" onclick="pcertOnclick();"></div>
 								</dd>
 								</dl>
 								<dl>
@@ -213,8 +213,15 @@ $('iframe').load(function(){
 });
 
 
-		function pcert() {
-			$("#pcert").contents().find('form').submit();
+		var gCert = false;
+
+		function pcertOnclick() {
+			$("#pcert").contents().find('#btnCert').trigger("click");
+		}
+
+		function pcertResult() {
+			$("#lean_overlay").show();
+			$("#forgot-password-modal").show();
 		}
 
 		function pg() {
@@ -230,6 +237,10 @@ $('iframe').load(function(){
 		function validationCheck() {
 			if (!$("input:checkbox[name='info_agree']").is(":checked")) {
 				alert("개인정보 제3자 제공에 동의하셔야 합니다.");
+				return false;
+			}
+			if (!gCert) {
+				alert("실명 인증하셔야 합니다");
 				return false;
 			}
 			return true;
@@ -254,5 +265,31 @@ $('iframe').load(function(){
 	<input type="hidden" id="buyeremail" name="buyeremail" value="${ user.email }" />
 </form>
 
-<iframe name="pcert" id="pcert" src="http://academyx.co:8080/cert/dream_test01.jsp" style="width:600px; height:600px; border: 0px"></iframe>
+<iframe name="pcert" id="pcert" src="http://academyx.co:8080/cert/cert_action.jsp" style="width:0px; height:0px; border: 0px"></iframe>
 <iframe name="inicis" id="inicis" src="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" style="width:0px; height:0px; border: 0px"></iframe>
+
+<script type="text/javascript">
+	function divHide(){
+		$("#lean_overlay").hide();
+		$("#forgot-password-modal").hide();
+	}
+</script>
+
+<div id="lean_overlay" style="opacity: 1;"></div>
+﻿<section id="forgot-password-modal" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
+  <div class="inner-wrapper">
+    <button class="close-modal" onclick="divHide();">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr" >
+        Close
+      </span>
+    </button>
+
+    <div id="password-reset">
+      <div class="instructions">
+		<p>실명 인증 되었습니다.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
