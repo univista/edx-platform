@@ -251,19 +251,15 @@ $(function() {
           </a>
           <div id="register_error"></div>
         %else:
-              <%
-              if user.is_authenticated():
-              %>
+              %if user.is_authenticated():
               <a href="/login" class="btn_block">
                 수강신청3
               </a>
-              <div id="register_error"></div>
-              <%
-              else:
-              %>
+              %else:
               <a href="/login" class="btn_block">
                 수강신청3
               </a>
+              %endif
               <div id="register_error"></div>
         %endif
                                                         </div>
