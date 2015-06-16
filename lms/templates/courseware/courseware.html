@@ -256,7 +256,7 @@ ${fragment.foot_html()}
 		 <script type="text/javascript">
 			function sendSns(sns)
 			{
-				var url = $(location).attr('host');
+				var url = "http://"+$(location).attr('host')+"/courses/${course.id}/about"+;
 				alert( url );
 				return;
 
