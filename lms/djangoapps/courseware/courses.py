@@ -142,9 +142,9 @@ def course_image_url(course):
     return url
 
 def course_professor_url(course):
-    loc = StaticContent.compute_location(course.id, course.course_image)
+    loc = StaticContent.compute_location(course.id, 'professor.png')
     url = StaticContent.serialize_asset_key_with_slash(loc)
-    url = url.replace('images_course_image.jpg', 'professor.png')
+    
     return url
 
 
