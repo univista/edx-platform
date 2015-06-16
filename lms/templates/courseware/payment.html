@@ -89,8 +89,8 @@ from edxmako.shortcuts import marketing_link
 										<div><input type="text" name="buyertelCard" value="" placeholder=""></div>
 									</dd>
 									</dl>
-									<span>- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
-									<span>- 한도 문의는 이용중인 통신사에 해주시기 바랍니다.</span>
+									<span id="hpInfo1" style="display:none">- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
+									<span id="hpInfo2" style="display:none">- 한도 문의는 이용중인 통신사에 해주시기 바랍니다.</span>
 								</div>
 								<div class="payment-box02" style="display: none;">
 									<dl style="margin-top:0;border-top:0">
@@ -181,6 +181,8 @@ from edxmako.shortcuts import marketing_link
 				$('.payment-box01').show();
 				//$('.payment-box02').hide();
 				$('.payment-box03').hide();
+				$("#hpInfo1").hide();
+				$("#hpInfo2").hide();
 			});
 			$('#pay02').click(function(){ //예를 클릭하면
 				$('#pay02').prop('checked',true);
@@ -189,6 +191,8 @@ from edxmako.shortcuts import marketing_link
 				$('.payment-box01').show();
 				//$('.payment-box02').show();
 				$('.payment-box03').hide();
+				$("#hpInfo1").show();
+				$("#hpInfo2").show();
 			});
 			$('#pay03').click(function(){ //예를 클릭하면
 				$('#pay03').prop('checked',true);
@@ -197,6 +201,8 @@ from edxmako.shortcuts import marketing_link
 				$('.payment-box01').hide();
 				$('.payment-box02').hide();
 				$('.payment-box03').show();
+				$("#hpInfo1").hide();
+				$("#hpInfo2").hide();
 			});
 		});
 
