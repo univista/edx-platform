@@ -358,6 +358,17 @@ ${fragment.foot_html()}
 
       ${fragment.body_html()}
 
+
+
+    </section>
+    % if settings.FEATURES.get('ENABLE_COURSEWARE_SEARCH'):
+      <section class="courseware-search-results" id="courseware-search-results" data-course-id="${course.id}" data-course-name="${course.display_name_with_default}">
+      </section>
+    % endif
+  </div>
+
+</div>
+
         <!-- facebook comment -->
         <div id="fb-root"></div>
         <script>
@@ -373,16 +384,6 @@ ${fragment.foot_html()}
 
         <div class="fb-comments" data-href="" data-numposts="5" data-colorscheme="light"></div>
         <!-- facebook comment -->
-
-
-    </section>
-    % if settings.FEATURES.get('ENABLE_COURSEWARE_SEARCH'):
-      <section class="courseware-search-results" id="courseware-search-results" data-course-id="${course.id}" data-course-name="${course.display_name_with_default}">
-      </section>
-    % endif
-  </div>
-
-</div>
 
 
 
