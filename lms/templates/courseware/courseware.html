@@ -256,7 +256,10 @@ ${fragment.foot_html()}
 		 <script type="text/javascript">
 			function sendSns(sns)
 			{
-				var url = $(location).attr('href');
+				var url = $(location).attr('host');
+				alert( url );
+				return;
+				
 				var o;
 				var _url = encodeURIComponent(url);
 				var _txt = '';
