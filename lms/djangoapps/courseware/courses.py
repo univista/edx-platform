@@ -147,7 +147,7 @@ def course_professor_url(course):
     elif course.course_image == '':
         url = ''
     else:
-        url = ''
+        url = StaticContent.compute_location(course.id, course.course_image)
     return url
 
 
