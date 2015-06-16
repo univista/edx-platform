@@ -146,7 +146,7 @@ def course_professor_url(course):
     if course.static_asset_path or modulestore().get_modulestore_type(course.id) == ModuleStoreEnum.Type.xml:
         url = '/static/' + (course.static_asset_path or getattr(course, 'data_dir', ''))
         if hasattr(course, 'course_image') and course.course_image != course.fields['course_image'].default:
-            url += '/' + course.course_image
+            url += '/images/professor.jpg'
         else:
             url += '/images/professor.jpg'
     elif course.course_image == '':
