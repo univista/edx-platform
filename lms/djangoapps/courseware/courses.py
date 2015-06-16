@@ -150,10 +150,17 @@ def course_professor_url(course):
         # courses can use custom course image paths, otherwise just
         # return the default static path.
         url = '/static/' + (course.static_asset_path or getattr(course, 'data_dir', ''))
+        if hasattr(course, 'course_image') and course.course_image != course.fields['course_image'].default:
+            url += '/' + course.course_image
+        else:
+            url += '/images/course_image.jpg'
     elif course.course_image == '':
         # if course_image is empty the url will be blank as location
         # of the course_image does not exist
         url = ''
+    else:
+        loc = StaticContent.compute_location(course.id, course.course_image)
+        url = StaticContent.serialize_asset_key_with_slash(loc)
     return url
 
 
