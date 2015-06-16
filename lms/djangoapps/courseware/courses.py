@@ -144,7 +144,7 @@ def course_image_url(course):
 def course_professor_url(course):
     loc = StaticContent.compute_location(course.id, course.course_image)
     url = StaticContent.serialize_asset_key_with_slash(loc)
-    return url.replace('image_course_image.jpg', 'professor.png')
+    return url.replace('images_course_image.jpg', 'professor.png')
 
 
 def find_file(filesystem, dirs, filename):
