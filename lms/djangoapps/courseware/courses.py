@@ -132,13 +132,6 @@ def course_image_url(course):
             url += '/professor.png'
         else:
             url += '/images/course_image.jpg'
-    elif course.course_image == '':
-        # if course_image is empty the url will be blank as location
-        # of the course_image does not exist
-        url = ''
-    else:
-        loc = StaticContent.compute_location(course.id, course.course_image)
-        url = StaticContent.serialize_asset_key_with_slash(loc)
     return url
 
 def course_professor_url(course):
