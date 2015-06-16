@@ -2,7 +2,7 @@
 <%!
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
-from courseware.courses import course_image_url, get_course_about_section
+from courseware.courses import course_image_url, course_professor_url, get_course_about_section
 %>
 <%page args="course" />
 <li>
@@ -11,5 +11,5 @@ from courseware.courses import course_image_url, get_course_about_section
 		<span>${course.display_number_with_default}</span>
 		<span>${get_course_about_section(course, 'university')}</span>
 	</a>
-	<img src="${course_image_url(course)}" alt="${get_course_about_section(course, 'title')} ${course.display_number_with_default}" />
+	<img src="${course_professor_url(course)}" alt="${get_course_about_section(course, 'title')} ${course.display_number_with_default}" />
 </li>

@@ -256,7 +256,7 @@ ${fragment.foot_html()}
 		 <script type="text/javascript">
 			function sendSns(sns)
 			{
-				var url = $(location).attr('href');
+				var url = "http://"+$(location).attr('host')+"/courses/${course.id}/about";
 				var o;
 				var _url = encodeURIComponent(url);
 				var _txt = '';
@@ -368,7 +368,7 @@ ${fragment.foot_html()}
 		  js.src = "//connect.facebook.net/ko_KR/all.js#xfbml=1&appId=584504851686203";
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
-		
+
 		$(document).ready(function(){
 			/*
 			width_percent = 820;
@@ -380,10 +380,10 @@ ${fragment.foot_html()}
 			//$('.fb-comments').attr('data-href',_url);
 		});
         </script>
-		
+
         <div class="fb-comments" data-href="http://academyx.co/" data-width="810" data-numposts="5" data-colorscheme="light" style="margin-top:20px"></div>
 		<div id="fbcomment"></div>
-        <!-- facebook comment -->		
+        <!-- facebook comment -->
 
     </section>
     % if settings.FEATURES.get('ENABLE_COURSEWARE_SEARCH'):
