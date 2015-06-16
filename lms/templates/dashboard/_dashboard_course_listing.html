@@ -87,7 +87,7 @@ article.course h3 {max-width:477px}
                         % if show_courseware_link:
                         <a href="${course_target}" class="enter-course">강의듣기</a>
                         % else:
-                        <a href="javascript:divShow();" class="enter-course">강의듣기</a>
+                        <a href="javascript:divShow();" class="enter-course">${_course.start_datetime_text("SHORT_DATE")} ${_start_date} 강의듣기</a>
                         % endif
 						<a href="#" class="enter-course" style="margin-left:10px;background:#ccc">수료증보기</a>
                 </section>
