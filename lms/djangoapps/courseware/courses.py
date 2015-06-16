@@ -130,24 +130,21 @@ def course_image_url(course):
         url = '/static/' + (course.static_asset_path or getattr(course, 'data_dir', ''))
         if hasattr(course, 'course_image') and course.course_image != course.fields['course_image'].default:
             url += '/professor.png'
-    return url
-
-def course_professor_url(course):
-    """Try to look up the image url for the course.  If it's not found,
-    log an error and return the dead link"""
-    if course.static_asset_path or modulestore().get_modulestore_type(course.id) == ModuleStoreEnum.Type.xml:
-        # If we are a static course with the course_image attribute
-        # set different than the default, return that path so that
-        # courses can use custom course image paths, otherwise just
-        # return the default static path.
-        url = '/static/' + (course.static_asset_path or getattr(course, 'data_dir', ''))
-        if hasattr(course, 'course_image') and course.course_image != course.fields['course_image'].default:
-            url += '/' + course.course_image
         else:
             url += '/images/course_image.jpg'
     elif course.course_image == '':
         # if course_image is empty the url will be blank as location
         # of the course_image does not exist
+        url = ''
+    else:
+        loc = StaticContent.compute_location(course.id, course.course_image)
+        url = StaticContent.serialize_asset_key_with_slash(loc)
+    return url
+
+def course_professor_url(course):
+    if course.static_asset_path or modulestore().get_modulestore_type(course.id) == ModuleStoreEnum.Type.xml:
+        url = ''
+    elif course.course_image == '':
         url = ''
     else:
         loc = StaticContent.compute_location(course.id, course.course_image)
