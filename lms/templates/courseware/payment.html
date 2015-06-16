@@ -7,10 +7,8 @@ from courseware.courses import course_image_url, get_course_about_section
 from django.conf import settings
 from edxmako.shortcuts import marketing_link
 %>
-
 <%inherit file="../main.html" />
 <%block name="headextra">
-
   <%
     if self.theme_enabled():
       google_analytics_file = u'../{ga}'.format(
@@ -19,9 +17,7 @@ from edxmako.shortcuts import marketing_link
     else:
       google_analytics_file = '../google_analytics.html'
   %>
-
   <%include file="${google_analytics_file}" />
-
   ## OG (Open Graph) title and description added below to give social media info to display
   ## (https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags)
   <meta property="og:title" content="${get_course_about_section(course, 'title')}" />
@@ -29,7 +25,85 @@ from edxmako.shortcuts import marketing_link
 </%block>
 
 <%block name="js_extra">
+  <script type="text/javascript">
+  (function() {
+    $(".register").click(function(event) {
+      $("#class_enroll_form").submit();
+      event.preventDefault();
+    });
 
+    % if can_add_course_to_cart:
+      add_course_complete_handler = function(jqXHR, textStatus) {
+        if (jqXHR.status == 200) {
+          location.href = "${cart_link}";
+        }
+        if (jqXHR.status == 400) {
+          $("#register_error")
+            .html(jqXHR.responseText ? jqXHR.responseText : "${_("An error occurred. Please try again later.")}")
+            .css("display", "block");
+        }
+        else if (jqXHR.status == 403) {
+            location.href = "${reg_then_add_to_cart_link}";
+        }
+      };
+      $("#add_to_cart_post").click(function(event){
+        $.ajax({
+          url: "${reverse('add_course_to_cart', args=[course.id.to_deprecated_string()])}",
+          type: "POST",
+          /* Rant: HAD TO USE COMPLETE B/C PROMISE.DONE FOR SOME REASON DOES NOT WORK ON THIS PAGE. */
+          complete: add_course_complete_handler
+        })
+        event.preventDefault();
+      });
+    % endif
+
+    ## making the conditional around this entire JS block for sanity
+    %if settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
+      <%
+        perms_error = _('The currently logged-in user account does not have permission to enroll in this course. '
+                        'You may need to {start_logout_tag}log out{end_tag} then try the register button again. '
+                        'Please visit the {start_help_tag}help page{end_tag} for a possible solution.').format(
+                          start_help_tag="<a href='{url}'>".format(url=marketing_link('FAQ')), end_tag='</a>',
+                          start_logout_tag="<a href='{url}'>".format(url=reverse('logout'))
+                          )
+      %>
+    $('#class_enroll_form').on('ajax:complete', function(event, xhr) {
+      if(xhr.status == 200) {
+        location.href = "${reverse('dashboard')}";
+      } else if (xhr.status == 403) {
+        location.href = "${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}?course_id=${course.id | u}&enrollment_action=enroll";
+      } else if (xhr.status == 400) { //This means the user did not have permission
+        $('#register_error').html("${perms_error}").css("display", "block");
+      } else {
+        $('#register_error').html(
+            (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.")}")
+        ).css("display", "block");
+      }
+    });
+
+    %else:
+
+    $('#class_enroll_form').on('ajax:complete', function(event, xhr) {
+      if(xhr.status == 200) {
+        if (xhr.responseText == "") {
+          location.href = "${reverse('dashboard')}";
+        }
+        else {
+          location.href = xhr.responseText;
+        }
+      } else if (xhr.status == 403) {
+          location.href = "${reverse('register_user')}?course_id=${course.id | u}&enrollment_action=enroll";
+      } else {
+        $('#register_error').html(
+            (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.")}")
+        ).css("display", "block");
+      }
+    });
+
+    %endif
+
+  })(this)
+  </script>
   <script src="${static.url('js/course_info.js')}"></script>
   <link rel="stylesheet" href="/static/css/m2ly6jxt.css">
 
@@ -89,9 +163,8 @@ from edxmako.shortcuts import marketing_link
 										<div><input type="text" name="buyertelCard" value="" placeholder=""></div>
 									</dd>
 									</dl>
-									<span>- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
-									<span>- 한도 문의는 이용중인 통신사에 해주시기 바랍니다.</span>
-
+									<span id="hpInfo1" style="display:none">- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
+									<span id="hpInfo2" style="display:none">- 한도 문의는 이용중인 통신사에 해주시기 바랍니다.</span>
 								</div>
 								<div class="payment-box02" style="display: none;">
 									<dl style="margin-top:0;border-top:0">
@@ -100,8 +173,6 @@ from edxmako.shortcuts import marketing_link
 										<div><input type="text" name="buyertelHPP" value="" placeholder=""></div>
 									</dd>
 									</dl>
-									<span>- 휴대폰 결제는 월 30만원까지 가능합니다. (단, 통신사 및 개인에 따라 차이가 있을 수 있습니다.) </span>
-									<span>- 한도 문의는 이용중인 통신사에 해주시기 바랍니다.</span>
 								</div>
 								<div class="payment-box03" style="display: none;">
 									<dl>
@@ -165,7 +236,6 @@ from edxmako.shortcuts import marketing_link
 
 	<script type="text/javascript">
 		$(function() {
-
 			// adding js class for styling with accessibility in mind
 			$('body').addClass('js');
 
@@ -185,6 +255,8 @@ from edxmako.shortcuts import marketing_link
 				$('.payment-box01').show();
 				//$('.payment-box02').hide();
 				$('.payment-box03').hide();
+				$("#hpInfo1").hide();
+				$("#hpInfo2").hide();
 			});
 			$('#pay02').click(function(){ //예를 클릭하면
 				$('#pay02').prop('checked',true);
@@ -193,6 +265,8 @@ from edxmako.shortcuts import marketing_link
 				$('.payment-box01').show();
 				//$('.payment-box02').show();
 				$('.payment-box03').hide();
+				$("#hpInfo1").show();
+				$("#hpInfo2").show();
 			});
 			$('#pay03').click(function(){ //예를 클릭하면
 				$('#pay03').prop('checked',true);
@@ -201,6 +275,8 @@ from edxmako.shortcuts import marketing_link
 				$('.payment-box01').hide();
 				$('.payment-box02').hide();
 				$('.payment-box03').show();
+				$("#hpInfo1").hide();
+				$("#hpInfo2").hide();
 			});
 		});
 
@@ -211,7 +287,6 @@ $('iframe').load(function(){
         $('input#edit-title').val(title_name);
      });
 });
-
 
 		var gCert = false;
 
@@ -226,9 +301,14 @@ $('iframe').load(function(){
 
 		function pg() {
 			try {
+			  $("#class_enroll_form").submit();
+			  event.preventDefault();
+
+				/*
 				if ( validationCheck() ) {
 					callInicis();
 				}
+				*/
 			} catch (e) {
 				alert(e.message);
 			}
@@ -239,10 +319,12 @@ $('iframe').load(function(){
 				alert("개인정보 제3자 제공에 동의하셔야 합니다.");
 				return false;
 			}
+			/*
 			if (!gCert) {
 				alert("실명 인증하셔야 합니다");
 				return false;
 			}
+			*/
 			return true;
 		}
 
@@ -256,6 +338,8 @@ $('iframe').load(function(){
 			inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
 			$("#inicis")[0].contentWindow.clickBtnImage();
 		}
+
+
 
 	</script>
 <form name="frmPg" method="post" target="inicis">
@@ -284,7 +368,6 @@ $('iframe').load(function(){
         Close
       </span>
     </button>
-
     <div id="password-reset">
       <div class="instructions">
 		<p>실명 인증 되었습니다.</p>
@@ -293,3 +376,16 @@ $('iframe').load(function(){
     </div>
   </div>
 </section>
+
+  <div style="display: none;">
+    <form id="class_enroll_form" method="post" data-remote="true" action="${reverse('change_enrollment')}">
+      <fieldset class="enroll_fieldset">
+        <legend class="sr">${_("Enroll")}</legend>
+        <input name="course_id" type="hidden" value="${course.id | h}">
+        <input name="enrollment_action" type="hidden" value="enroll">
+      </fieldset>
+      <div class="submit">
+        <input name="submit" type="submit" value="${_('enroll')}">
+      </div>
+    </form>
+  </div>

@@ -84,9 +84,24 @@ article.course h3 {max-width:477px}
                                         <span>${course.display_name_with_default}</span>
                                 </h3>
                         </hgroup>
-                        <a href="${course_target}" class="enter-course">강의듣기</a> 
+                        % if show_courseware_link:
+                        <a href="${course_target}" class="enter-course">강의듣기</a>
+                        % else:
+                        <a href="javascript:divShow();" class="enter-course">
+          % if course.has_ended():
+            ${_("Ended - {end_date}").format(end_date=course.end_datetime_text("SHORT_DATE"))}
+          % elif course.has_started():
+            ${_("Started - {start_date}").format(start_date=course.start_datetime_text("SHORT_DATE"))}
+          % elif course.start_date_is_still_default: # Course start date TBD
+            ${_("Coming Soon")}
+          % else:   # hasn't started yet
+            ${_("Starts - {start_date}").format(start_date=course.start_datetime_text("SHORT_DATE"))}
+          % endif
+                            강의듣기</a>
+                        % endif
 						<a href="#" class="enter-course" style="margin-left:10px;background:#ccc">수료증보기</a>
                 </section>
+
 
 				<!--공식 수료증 아이콘-->
 				<!--<span class="icon1"></span>-->
@@ -95,6 +110,37 @@ article.course h3 {max-width:477px}
 				<span class="icon2"></span>
         </article>
 </li>
+
+
+<script type="text/javascript">
+    function divShow() {
+		$("#lean_overlay").show();
+		$("#forgot-password-modal").show();
+    }
+
+	function divHide(){
+		$("#lean_overlay").hide();
+		$("#forgot-password-modal").hide();
+	}
+</script>
+
+<div id="lean_overlay" style="opacity: 1;"></div>
+﻿<section id="forgot-password-modal" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
+  <div class="inner-wrapper">
+    <button class="close-modal" onclick="divHide();">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr" >
+        Close
+      </span>
+    </button>
+    <div id="password-reset">
+      <div class="instructions">
+		<p>실명 인증 되었습니다.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <script>
            $( document ).ready(function() {
