@@ -262,34 +262,7 @@ $(function() {
                                 </div>
                         </div>
 
-<script type="text/javascript">
-    function divShow(startDt) {
-        $(".instructions").html("<p>개강일은 "+startDt+"입니다.</p>");
-		$("#lean_overlay").show();
-		$("#forgot-password-modal").show();
-    }
 
-	function divHide(){
-		$("#lean_overlay").hide();
-		$("#forgot-password-modal").hide();
-	}
-</script>
-
-<div id="lean_overlay" style="opacity: 1;"></div>
-<section id="forgot-password-modal" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
-  <div class="inner-wrapper">
-    <button class="close-modal" onclick="divHide();">
-      <i class="icon fa fa-remove"></i>
-      <span class="sr" >
-        Close
-      </span>
-    </button>
-    <div id="password-reset">
-      <div class="instructions">
-      </div>
-    </div>
-  </div>
-</section>
 
 			<div class="course-detail-social views-fieldset" data-module="views_fieldsets">
 				<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -501,5 +474,36 @@ if ($(".certification").length) {
     </form>
   </div>
 %endif
+
+
+<script type="text/javascript">
+    function divShow(startDt) {
+        $(".instructions").html("<p>개강일은 "+startDt+"입니다.</p>");
+		$("#lean_overlay").show();
+		$("#forgot-password-modal").show();
+    }
+
+	function divHide(){
+		$("#lean_overlay").hide();
+		$("#forgot-password-modal").hide();
+	}
+</script>
+
+<div id="lean_overlay" style="opacity: 1;"></div>
+<section id="forgot-password-modal" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
+  <div class="inner-wrapper">
+    <button class="close-modal" onclick="divHide();">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr" >
+        Close
+      </span>
+    </button>
+    <div id="password-reset">
+      <div class="instructions">
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <%include file="../video_modal.html" />
