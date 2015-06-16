@@ -8,7 +8,7 @@ from courseware.courses import course_image_url, get_course_about_section
 
 <div class="course-card">
         <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" class="course-link">
-                <div class="img-wrapper"><img src="${course_image_url(course)}" alt="${get_course_about_section(course, 'title')} ${course.display_number_with_default}"/></div>
+          <div class="img-wrapper"><img src="${course_image_url(course)}" alt="${get_course_about_section(course, 'title')} ${course.display_number_with_default}"/></div>
         </a>
         <div class="label">${get_course_about_section(course, 'university')}</div>
         <div class="course-code">${course.display_number_with_default}</div>
