@@ -96,6 +96,7 @@
     }
   
   </script>
+
 </%block>
 
 <section class="introduction">
@@ -108,7 +109,7 @@
 	-->
 	<h1 class="title">
 		<span class="title-super">회원가입을 환영합니다!</span>
-		<span class="title-sub">아카데미X 회원가입을 하기 위해 아래의 양식에 맞춰 입력해주세요.</span>
+		<span class="title-sub"><span style="line-height: 1.55733em;text-transform:none">아카데미<span>X</span></span> 회원가입을 하기 위해 아래의 양식에 맞춰 입력해주세요.</span>
 	</h1>
   </header>
 </section>
@@ -351,7 +352,7 @@
             % if has_extauth_info is UNDEFINED or ask_for_tos :
 
             <div class="field required checkbox" id="field-tos">
-              <span class="chk_area"><input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" /><span></span></span>
+              <span class="chk_area" style="border: 1px solid #28913c;"><input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" /><span></span></span>
               <!--<label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
                 link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
                 link_end='</a>')}</label>-->
@@ -380,7 +381,7 @@
             % endif
             % endif
 			<div class="field required checkbox" id="field-honorcode">
-				<span class="chk_area"><input id="honorcode-yes" type="checkbox" name="honor_code" value="true" /><span></span></span>
+				<span class="chk_area" style="border: 1px solid #28913c;"><input id="honorcode-yes" type="checkbox" name="honor_code" value="true" /><span></span></span>
 				<label for="honorcode-yes" class="after-none">메일링 서비스 신청</label>
 			</div>
           </li>

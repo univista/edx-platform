@@ -884,7 +884,7 @@ font-size: 22px;
 
 /*교육과정 탑메뉴*/
 .wrapper-course-material{-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;border-bottom: none;margin: 0 auto 0;padding: 0;width: 100%;background:#2faa47;}
-.wrapper-course-material .course-material{margin: 0 auto;max-width: 1280px;width: 1280px;overflow:hidden}
+.wrapper-course-material .course-material{/*margin: 0 auto;max-width: 1280px;width: 1280px;overflow:hidden*/}
 .wrapper-course-material ol.course-tabs{margin-left: 10px;padding: 13px 0 11px;float:right;padding-right:35px;}
 .wrapper-course-material ol.course-tabs li a {color: #fff;display: block;text-align: center;padding: 10px 20px 12px;font-size: 14px;font-weight: 700;text-decoration: none;opacity:0.5;}
 .wrapper-course-material ol.course-tabs li a.active,.wrapper-course-material ol.course-tabs li a:hover{opacity:1;color:#fff;background:none;box-shadow:none;text-shadow:none;position:relative;}
@@ -939,8 +939,13 @@ ul.v2 li.off:before {background:none}
  }
  #lean_overlay {z-index:600}
  .wrapper-course-material .course-tabs {position:relative}
- .wrapper-course-material .course-material {overflow:visible}
- .wrapper-course-material ol.course-tabs {position: relative;left: -434px;}
+ .wrapper-course-material ol.course-tabs {/*position: relative;left: -738px;*/float:left !important}
+ .wrapper-course-material .course-tabs {/*width:648px*/}
+ .wrapper-course-material .course-tabs li {float:left !important;}
+ .wrapper-course-material .course-material {margin: 0 auto !important;max-width: 1180px !important;width: 100% !important;}
+ .wrapper-course-material .course-tabs li.right {float:right !important}
+
+ .container-x .register .group-form.group-form-requiredinformation {padding-bottom:10px}
 </style>
 
 

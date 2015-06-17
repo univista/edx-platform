@@ -75,66 +75,34 @@
 <div class="container">
 	<section class="dashboard" id="dashboard-main">
 		<section class="profile-sidebar" role="region" aria-label="User info">
-			<header class="profile">
-			  <h2 class="username-header"><span class="sr">${_("Username")}: </span><span class="username-label">${ user.username }</span></h2>
-			</header>
 			<section class="user-info">
 			  <ul>
+
 				<li class="info--email">
-				  <!--<span class="title">${_("Email")}</span>-->
 				  <span class="title">이메일</span>
 				  <span class="data">${ user.email | h }</span>
 				</li>
 				<li class="info--username">
-				  <!--<span class="title">${_("Full Name")}</span>
-				  <span class="data">${ user.profile.name | h }<a href="#apply_name_change" rel="leanModal" class="edit-name">${_("edit")}</a></span>-->
 				  <span class="title">이름</span>
-				  <span class="data">${ user.profile.name | h }<a href="#apply_name_change" rel="leanModal" class="edit-name">수정하기</a></span>
+				  <span class="data" style="display:inline-block;width: 158px;">${ user.profile.name | h }</span>
+				  <span class="control" style="display:inline-block;font-size: 12px;line-height: 17.76px;position: relative;top: -10px;right: -20px;">
+					<!-- <a href="#" onclick="">수정하기</a> -->
+				  </span>
 				</li>
-				<!--
 				<li class="info--username">
-					<span class="title">별명</span>
-					<span class="data">appleapple<a href="#apply_name_change" rel="leanModal" class="edit-name">수정하기</a></span>
+				  <span class="title">별명</span>
+				  <span class="data" style="display:inline-block;width: 158px;">${ user.username }</span>
 				</li>
-				-->
-				<li class="controls--account">
-							<span class="title">연결 된 계정정보</span>
-							<span class="data">
-								<span class="third-party-auth">
-									<div class="auth-provider">
-										<div class="status">
-											<i class="icon fa fa-unlink"></i><span class="copy">Not Linked</span>
-										</div>
-										<span class="provider">Facebook</span>
-										<span class="control">
-											<a href="/auth/login/facebook/?auth_entry=dashboard&next=%2F">연결하기</a>
-										</span>
-									</div>
-									<div class="auth-provider">
-										<div class="status">
-											<i class="icon fa fa-link"></i> <span class="copy">Linked</span>
-										</div>
-										<span class="provider">Google</span>
-										<span class="control">
-											<form action="/auth/disconnect/google-oauth2/?" method="post" name="Google_unlink_form">
-												<input type="hidden" name="csrfmiddlewaretoken" value="s2cy7pSY5j9EiU8sAW4CDpgmGAGHBPJr">
-												<a href="#" onclick="document.Google_unlink_form.submit()">연결끊기</a>
-											</form>
-										</span>
-									</div>
-								</span>
-							</span>
-						</li>
 
 				%if len(language_options) > 1:
 				<%include file='dashboard/_dashboard_info_language.html' />
 				%endif
 
 				% if third_party_auth.is_enabled():
-				<!--<li class="controls--account">
+				<li class="controls--account">
 				  <span class="title">
 					## Translators: this section lists all the third-party authentication providers (for example, Google and LinkedIn) the user can link with or unlink from their edX account.
-					${_("Connected Accounts")}
+					연결된 계정정보
 				  </span>
 
 				  <span class="data">
@@ -152,6 +120,7 @@
 					  </div>
 
 					  <span class="provider">${state.provider.NAME}</span>
+
 					  <span class="control">
 					  % if state.has_account:
 						<form
@@ -161,14 +130,12 @@
 						  <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}">
 
 						  <a href="#" onclick="document.${state.get_unlink_form_name()}.submit()">
-						  ## Translators: clicking on this removes the link between a user's edX account and their account with an external authentication provider (like Google or LinkedIn).
-						  ${_("Unlink")}
+						  연결끊기
 						  </a>
 						</form>
 					  % else:
 						  <a href="${pipeline.get_login_url(state.provider.NAME, pipeline.AUTH_ENTRY_DASHBOARD, redirect_url='/')}">
-						  ## Translators: clicking on this creates a link between a user's edX account and their account with an external authentication provider (like Google or LinkedIn).
-						  ${_("Link")}
+						  연결하기
 						  </a>
 					  % endif
 					  </span>
@@ -177,30 +144,6 @@
 
 					</span>
 				  </span>
-				</li>-->
-				<li class="controls--account">
-					<span class="title">연결 된 계정정보</span>
-					<span class="data">
-					<span class="third-party-auth">
-						<div class="auth-provider">
-							<div class="status">
-								<i class="icon fa fa-unlink"></i><span class="copy">연결끊김</span>
-							</div>
-							<span class="provider">Facebook</span>
-							<span class="control">
-							  <a href="/auth/login/facebook/?auth_entry=dashboard&amp;next=%2F">연결하기</a>
-							</span>
-						</div>
-						<div class="auth-provider">
-							<div class="status">
-								<i class="icon fa fa-link"></i> <span class="copy">연결중</span>
-							</div>
-							<span class="provider">Google</span>
-							<span class="control">
-								<a href="/auth/login/google-oauth2/?auth_entry=dashboard&amp;next=%2F">연결끊기</a>
-							</span>
-						</div>
-					</span>
 				</li>
 				% endif
 
@@ -215,15 +158,9 @@
 
 				% if external_auth_map is None or 'shib' not in external_auth_map.external_domain:
 				<li class="controls--account">
-					<!--<span class="title"><a href="#password_reset_complete" rel="leanModal" id="pwd_reset_button">${_("Reset Password")}</a></span>
+					<span class="title"><a href="#password_reset_complete" rel="leanModal" id="pwd_reset_button">비밀번호 수정</a></span>
 					<form id="password_reset_form" method="post" data-remote="true" action="${reverse('password_reset')}">
 					<input id="id_email" type="hidden" name="email" maxlength="75" value="${user.email}" />
-					<!-- <input type="submit" id="pwd_reset_button" value="${_("Reset Password")}" /> ->
-					</form>-->
-					<span class="title"><a href="#password_reset_complete" rel="leanModal" id="pwd_reset_button">비밀번호 수정</a><a href="#" rel="leanModal" id="">회원탈퇴</a></span>
-					<form id="password_reset_form" method="post" data-remote="true" action="/password_reset/">
-						<input id="id_email" type="hidden" name="email" maxlength="75" value="tena5@nate.com">
-						<!-- <input type="submit" id="pwd_reset_button" value="Reset Password" /> -->
 					</form>
 				</li>
 				% endif
@@ -368,7 +305,7 @@
 					<div id="printArea1" class="certificate_list_print">
 
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
-					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
+					<p class="certificate_info">${ user.profile.name | h } <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
 					
@@ -413,7 +350,7 @@
 
 					<div id="printArea2" class="certificate_list_print">
 
-					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
+					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
 					
@@ -458,7 +395,7 @@
 					<div id="printArea3" class="certificate_list_print">
 					
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
-					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
+					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
 					
@@ -504,7 +441,7 @@
 					<div id="printArea4" class="certificate_list_print">
 
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
-					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
+					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
 					
@@ -549,7 +486,7 @@
 					<div id="printArea5" class="certificate_list_print">
 
 					<h3 class="logo" style="margin-top:35px"><img class="image-style-none" src="/static/themes/default/images/certificate/meetadvisor_logo.png" alt="logo" title="MEET ADVISOR LOGO" /></h3>
-					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
+					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
 					
@@ -593,7 +530,7 @@
 					
 					<div id="printArea6" class="certificate_list_print">
 
-					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
+					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
 					
@@ -637,7 +574,7 @@
 					<div id="printArea7" class="certificate_list_print">
 
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/pagpartners_logo.png" alt="logo" title="PAG & 파트너스 LOGO" /></h3>
-					<p class="certificate_info">김지연 <span>2015.02.04 ~ 2015.04.01</span></p>
+					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
 					
@@ -715,7 +652,7 @@
 
     <header>
       <h2 id="password-reset-email">
-        ${_("Password Reset Email Sent")}
+        패스워드 변경
         <span class="sr">,
           ## Translators: this text gives status on if the modal interface (a menu or piece of UI that takes the full focus of the screen) is open or not
           ${_("window open")}
@@ -726,7 +663,7 @@
     <div>
       <form> <!-- Here for styling reasons -->
         <section>
-          <p>${_("An email has been sent to {email}. Follow the link in the email to change your password.").format(email=user.email)}</p>
+          <p>이메일은 ${_("{email}").format(email=user.email)}으로 전송되었습니다. 비밀번호를 변경하려면 이메일에 있는 링크를 따르십시오.</p>
         </section>
       </form>
     </div>
