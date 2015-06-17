@@ -360,7 +360,7 @@ def get_courses_search(request):
     '''
     Returns a list of courses available, sorted by course.number
     '''
-    courses = branding.get_visible_courses_search(request)
+    courses = branding.get_visible_courses(request)
 
     return courses
 
