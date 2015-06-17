@@ -46,6 +46,7 @@ def get_visible_courses():
         org_filter_out_set = microsite.get_all_orgs()
         return [course for course in courses if course.location.org not in org_filter_out_set]
 
+
 def get_visible_courses_search(request):
     if request.method == 'POST':
         filtered_by_org = request.POST['search_query']
@@ -67,8 +68,6 @@ def get_visible_courses_search(request):
     if hasattr(settings, 'COURSE_LISTINGS') and subdomain in settings.COURSE_LISTINGS and not settings.DEBUG:
         filtered_visible_ids = frozenset([SlashSeparatedCourseKey.from_deprecated_string(c) for c in settings.COURSE_LISTINGS[subdomain]])
 
-    if filtered_by_org:
-        return [course for course in courses if course.location.org == filtered_by_org]
     if filtered_visible_ids:
         return [course for course in courses if course.id in filtered_visible_ids]
     else:
