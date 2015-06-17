@@ -44,7 +44,7 @@ from lms.djangoapps.lms_xblock.mixin import LmsBlockMixin
 
 ################################### FEATURES ###################################
 # The display name of the platform to be used in templates/emails/etc.
-PLATFORM_NAME = "Your Platform Name Here"
+PLATFORM_NAME = "academyx.co"
 CC_MERCHANT_NAME = PLATFORM_NAME
 # Shows up in the platform footer, eg "(c) COPYRIGHT_YEAR"
 COPYRIGHT_YEAR = "2015"
@@ -65,7 +65,7 @@ FEATURES = {
     'SAMPLE': False,
     'USE_DJANGO_PIPELINE': True,
 
-    'DISPLAY_DEBUG_INFO_TO_STAFF': True,
+    'DISPLAY_DEBUG_INFO_TO_STAFF': False,
     'DISPLAY_HISTOGRAMS_TO_STAFF': False,  # For large courses this slows down courseware access for staff.
 
     'REROUTE_ACTIVATION_EMAIL': False,  # nonempty string = address for all activation emails
