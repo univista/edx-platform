@@ -158,7 +158,7 @@ from edxmako.shortcuts import marketing_link
               <div id="register_error"></div>
             %else:
               %if user.is_authenticated():
-              <a href="${course.id}/application" class="btn_block">
+              <a href="/courses/${course.id}/application" class="btn_block">
                 수강신청
               </a>
               %else:
@@ -260,8 +260,8 @@ $(function() {
           <div id="register_error"></div>
         %else:
               %if user.is_authenticated():
-              <a href="/${course.id}/application" class="btn_block">
-                수강신청 ${course.id}
+              <a href="/courses/${course.id}/application" class="btn_block">
+                수강신청
               </a>
               %else:
               <a href="/login" class="btn_block">
