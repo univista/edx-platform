@@ -1295,7 +1295,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             if format_string == "DATE_TIME":
                 return self._add_timezone_string(strftime(when, format_string))
 
-            return strftime(when, format_string)
+            return strftime(when, "%Y-%m-%d")
 
     def enrollment_end_datetime_text(self, format_string="SHORT_DATE"):
         i18n = self.runtime.service(self, "i18n")
@@ -1310,7 +1310,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             if format_string == "DATE_TIME":
                 return self._add_timezone_string(strftime(when, format_string))
 
-            return strftime(when, format_string)
+            return strftime(when, "%Y-%m-%d")
 
 
     def study_weeks_text(self, format_string="SHORT_DATE"):
@@ -1358,7 +1358,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             if format_string == "DATE_TIME":
                 return self._add_timezone_string(strftime(when, format_string))
 
-            return strftime(when, format_string)
+            return strftime(self.start, "%Y-%m-%d")
 
     @property
     def start_date_is_still_default(self):
@@ -1378,7 +1378,7 @@ class CourseDescriptor(CourseFields, SequenceDescriptor):
             return ''
         else:
             strftime = self.runtime.service(self, "i18n").strftime
-            date_time = strftime(self.end, format_string)
+            date_time = strftime(self.end, "%Y-%m-%d")
             return date_time if format_string == "SHORT_DATE" else self._add_timezone_string(date_time)
 
     def _add_timezone_string(self, date_time):
