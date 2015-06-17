@@ -138,7 +138,7 @@ from django.utils.http import urlquote_plus
       <header class="progress-certificates">
         <!--<h1 class="progress-certificates-title">${_("Course Progress for Student '{username}' ({email})").format(username=student.username, email=student.email)}</h1>-->
 		<h1 class="progress-certificates-title">교육과정 전체 진도율 확인 <!--여기 글자수가 줄어드니까 그래프에 %나와있는 왼쪽 글씨가 그래프를 침범하네요;;--></h1>
-		<a href="/certificate" class="enter-course">수료증 보기</a>
+		<a href="/certificate" class="enter-course">수료증 보기 ${section['section_total'].possible}</a>
       </header>
 
         %if show_generate_cert_btn:
@@ -200,14 +200,12 @@ from django.utils.http import urlquote_plus
 
               <h3><a href="${reverse('courseware_section', kwargs=dict(course_id=course.id.to_deprecated_string(), chapter=chapter['url_name'], section=section['url_name']))}">
                 ${ section['display_name'] }
-
 				%if total > 0 or earned > 0:
                   <span class="sr">
                     ${_("{earned:.3n} of {total:.3n} possible points").format( earned = float(earned), total = float(total) )}
                   </span>
                 %endif
                 </a>
-
               </h3>
 			  <em>
                   %if len(section['scores']) > 0:
@@ -216,7 +214,6 @@ from django.utils.http import urlquote_plus
               </em>
               <p>
                 ${section['format']}
-
                 %if section.get('due') is not None:
                   <%
                       formatted_string = get_time_display(section['due'], course.due_date_display_format, coerce_tz=settings.TIME_ZONE_DISPLAYED_FOR_DEADLINES)
@@ -227,7 +224,6 @@ from django.utils.http import urlquote_plus
                   </em>
                 %endif
               </p>
-
               <div class="scores">
                 %if len(section['scores']) > 0:
 				  <h3>연습문제 : ${int(total)}문제중 ${int(earned)}개 정답</h3>
@@ -235,8 +231,6 @@ from django.utils.http import urlquote_plus
 				  <h3 class="no-scores">현재 점수 기록이 없습니다.</h3>
                 %endif
               </div>
-
-
             </div> <!--End section-->
             %endfor
           </div> <!--End sections-->
@@ -244,7 +238,6 @@ from django.utils.http import urlquote_plus
         %endif
         %endfor
       </div> <!--End chapters-->
-
     </div>
   </div>
 </div>
