@@ -158,16 +158,17 @@
 
 				% if external_auth_map is None or 'shib' not in external_auth_map.external_domain:
 				<li class="controls--account">
-					<!--<span class="title"><a href="#password_reset_complete" rel="leanModal" id="pwd_reset_button">${_("Reset Password")}</a></span>
+					<span class="title"><a href="#password_reset_complete" rel="leanModal" id="pwd_reset_button">비밀번호 수정</a></span>
 					<form id="password_reset_form" method="post" data-remote="true" action="${reverse('password_reset')}">
 					<input id="id_email" type="hidden" name="email" maxlength="75" value="${user.email}" />
-					<!-- <input type="submit" id="pwd_reset_button" value="${_("Reset Password")}" /> ->
-					</form>-->
+					<input type="submit" id="pwd_reset_button" value="${_("Reset Password")}" /> ->
+					</form>
+					<!--
 					<span class="title"><a href="#password_reset_complete2" rel="leanModal" id="pwd_reset_button">비밀번호 수정</a><a href="#" rel="leanModal" id="">회원탈퇴</a></span>
 					<form id="password_reset_form" method="post" data-remote="true" action="/password_reset/">
 						<input id="id_email" type="hidden" name="email" maxlength="75" value="tena5@nate.com">
-						<!-- <input type="submit" id="pwd_reset_button" value="Reset Password" /> -->
 					</form>
+					-->
 				</li>
 				% endif
 
