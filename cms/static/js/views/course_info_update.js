@@ -14,6 +14,8 @@ define(["js/views/baseview", "codemirror", "js/models/course_update",
 
         initialize: function() {
             this.template = this.loadTemplate('course_info_update');
+            // seongho
+            this.$el.find('.date').datepicker({ 'dateFormat': 'yy-mm-dd' });
             this.render();
             // when the client refetches the updates as a whole, re-render them
             this.listenTo(this.collection, 'reset', this.render);
