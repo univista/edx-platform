@@ -69,7 +69,6 @@ define(["js/views/baseview", "codemirror", "js/models/course_update",
 
             $('.date').datepicker('destroy');
             $('.date').datepicker({ 'dateFormat': 'yy-mm-dd' });
-            alert("1");
         },
 
         onSave: function(event) {
