@@ -265,6 +265,6 @@ article.course h3 {max-width:477px}
 
            function set_unenroll_message(track_info, refund_info) {
                document.getElementById('track-info').innerHTML = interpolate(track_info, {course_number: "<span id='unenroll_course_number'></span>"}, true);
-               //document.getElementById('refund-info').innerHTML = refund_info;
+               document.getElementById('refund-info').innerHTML = refund_info;
            }
 </script>
