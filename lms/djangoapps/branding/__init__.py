@@ -61,14 +61,14 @@ def get_visible_courses_search(request):
         filtered_visible_ids = frozenset([SlashSeparatedCourseKey.from_deprecated_string(c) for c in settings.COURSE_LISTINGS[subdomain]])
 
     if filtered_by_display_name:
-        return [course for course in courses if course.location.course == filtered_by_display_name]
+        return [course for course in courses if course.location.display_name == filtered_by_display_name]
     if filtered_visible_ids:
         return [course for course in courses if course.id in filtered_visible_ids]
     else:
         # Let's filter out any courses in an "org" that has been declared to be
         # in a Microsite
         org_filter_out_set = microsite.get_all_orgs()
-        return [course for course in courses if course.location.course not in org_filter_out_set]
+        return [course for course in courses if course.location.display_name not in org_filter_out_set]
 
 def get_university_for_request():
     """
