@@ -584,7 +584,7 @@
 <script>
 $(function(){
 	//모달 팝업 닫기
-	$('.modal button.close-modal').add('.btnClose').click(function(){
+	$('.modal button.close-modal').add('.btnClose').add('#lean_overlay').click(function(){
 		$('.modal').add('#lean_overlay').hide();
 	});
 	
