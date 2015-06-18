@@ -44,7 +44,7 @@ def get_visible_courses_search(request):
         filtered_by_org = request.POST['search_query']
     else:
         filtered_by_org = microsite.get_value('course_org_filter')
-    filtered_by_org = microsite.get_value('course_org_filter')
+    #filtered_by_org = microsite.get_value('course_org_filter')
 
     _courses = modulestore().get_courses(name=filtered_by_org)
 
