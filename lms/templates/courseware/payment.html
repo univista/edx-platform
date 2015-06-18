@@ -150,7 +150,7 @@ from edxmako.shortcuts import marketing_link
 											<span></span>
 										</span>
 										<label for="pay03" class="post-type-label">
-											쿠폰
+											바우처
 										</label>
 									</div>
 								</dd>
@@ -176,7 +176,7 @@ from edxmako.shortcuts import marketing_link
 								</div>
 								<div class="payment-box03" style="display: none;">
 									<dl>
-									<dt>쿠폰 번호</dt>
+									<dt>바우처 번호</dt>
 									<dd>
 										<div><input type="text" name="text" value="" placeholder=""></div>
 									</dd>
@@ -296,6 +296,7 @@ $('iframe').load(function(){
 
 		function pcertResult() {
 			$("#lean_overlay").show();
+			$("#forgot-password-modal").css({'top': Math.max(0, (($(window).height() - $("#forgot-password-modal").outerHeight()) / 2) + $(window).scrollTop()) + "px"});
 			$("#forgot-password-modal").show();
 		}
 
@@ -319,12 +320,14 @@ $('iframe').load(function(){
 				alert("개인정보 제3자 제공에 동의하셔야 합니다.");
 				return false;
 			}
-			/*
+			
 			if (!gCert) {
-				alert("실명 인증하셔야 합니다");
+				$("#lean_overlay").show();
+				$("#forgot-password-modal3").css({'top': Math.max(0, (($(window).height() - $("#forgot-password-modal3").outerHeight()) / 2) + $(window).scrollTop()) + "px"});
+				$("#forgot-password-modal3").show();
 				return false;
 			}
-			*/
+			
 			return true;
 		}
 
@@ -356,6 +359,8 @@ $('iframe').load(function(){
 	function divHide(){
 		$("#lean_overlay").hide();
 		$("#forgot-password-modal").hide();
+		$("#forgot-password-modal2").hide();
+		$("#forgot-password-modal3").hide();
 	}
 </script>
 
@@ -368,11 +373,60 @@ $('iframe').load(function(){
         Close
       </span>
     </button>
-    <div id="password-reset">
+	<header style="padding-bottom:0;margin-bottom:10px">
+      <h2 id="password-reset-email" style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">
+        알림      
+      </h2>
+      <hr/>
+    </header>
+   <div id="password-reset"  style="text-align: center;">
       <div class="instructions">
 		<p>실명 인증 되었습니다.</p>
       </div>
+    </div>
+  </div>
+</section>
 
+﻿<section id="forgot-password-modal2" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
+  <div class="inner-wrapper">
+    <button class="close-modal" onclick="divHide();">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr" >
+        Close
+      </span>
+    </button>
+	<header style="padding-bottom:0;margin-bottom:10px">
+      <h2 id="password-reset-email" style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">
+        알림      
+      </h2>
+      <hr/>
+    </header>
+   <div id="password-reset"  style="text-align: center;">
+      <div class="instructions">
+		<p>바우처가 등록 되었습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+﻿<section id="forgot-password-modal3" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
+  <div class="inner-wrapper">
+    <button class="close-modal" onclick="divHide();">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr" >
+        Close
+      </span>
+    </button>
+	<header style="padding-bottom:0;margin-bottom:10px">
+      <h2 id="password-reset-email" style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">
+        알림      
+      </h2>
+      <hr/>
+    </header>
+   <div id="password-reset"  style="text-align: center;">
+      <div class="instructions">
+		<p>휴대폰 실명인증을 진행하여야<br>공식수료증 결제를 진행하실 수 있습니다.</p>
+      </div>
     </div>
   </div>
 </section>

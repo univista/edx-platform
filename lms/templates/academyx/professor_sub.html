@@ -6,6 +6,11 @@
 <style>
 .container-x .member-professor .professor-history {left:800px}
 </style>
+
+
+
+
+
 <section class="container-x">
 	<section class="member-professor">
 
@@ -574,4 +579,83 @@
 
 	</section><!-- //course-board-->
 
+</section>
+
+<script>
+$(function(){
+	//모달 팝업 닫기
+	$('.modal button.close-modal').add('.btnClose').click(function(){
+		$('.modal').add('#lean_overlay').hide();
+	});
+	
+	// pop_result1 띄우기
+	function result1Pop(){
+		$("#pop_result1").css({'top': Math.max(0, (($(window).height() - $("#pop_result1").outerHeight()) / 2) + $(window).scrollTop()) + "px"});
+		$('#lean_overlay').add('#pop_result1').show();
+	}
+
+	// pop_result2 띄우기
+	function result2Pop(){
+		$("#pop_result2").css({'top': Math.max(0, (($(window).height() - $("#pop_result2").outerHeight()) / 2) + $(window).scrollTop()) + "px"});
+		$('#lean_overlay').add('#pop_result2').show();
+	}
+		
+	//pop_result1 호출
+	//result1Pop();
+
+	//pop_result2 호출
+	//result2Pop();
+});
+</script>
+
+<section id="pop_result1" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="display:none;position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
+  <div class="inner-wrapper">
+    <button class="close-modal" onclick="divHide();">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr" >
+        Close
+      </span>
+    </button>
+	<header style="padding-bottom:0;margin-bottom:10px">
+      <h2 style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">알림</h2>
+      <hr>
+    </header>
+	<div id="password-reset" style="text-align: center;">
+      
+        <section class="instructions">
+          <p>등록된 질문은 답변이 완료되어<br>수정하실 수 없습니다.</p>
+        </section>		
+      
+    </div>
+	
+	<div class="form-actions" style="text-align:center">
+          <button style="width:90%;background:#2faa47;color:#fff;box-shadow:none;border:none;text-shadow:none;height:100%;margin:0 auto;padding:10px 0;margin-top:25px" name="submit" type="submit" id="btnConfirm" class="btnClose action action-primary action-update">확인</button>
+        </div>
+  </div>
+</section>
+<div id="lean_overlay" style="opacity: 1;"></div>
+<section id="pop_result2" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="display:none;position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
+  <div class="inner-wrapper">
+    <button class="close-modal" onclick="divHide();">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr" >
+        Close
+      </span>
+    </button>
+	<header style="padding-bottom:0;margin-bottom:10px">
+      <h2 style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">알림</h2>
+      <hr>
+    </header>
+	<div id="password-reset" style="text-align: center;">
+      
+        <section class="instructions">
+          <p>등록된 질문은 답변이 완료되어<br>삭제하실 수 없습니다.</p>
+        </section>		
+      
+    </div>
+	
+	<div class="form-actions" style="text-align:center">
+          <button style="width:90%;background:#2faa47;color:#fff;box-shadow:none;border:none;text-shadow:none;height:100%;margin:0 auto;padding:10px 0;margin-top:25px" name="submit" type="submit" id="btnConfirm2" class="btnClose action action-primary action-update">확인</button>
+        </div>
+  </div>
 </section>

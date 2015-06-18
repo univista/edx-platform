@@ -492,8 +492,9 @@ if ($(".certification").length) {
 
 <script type="text/javascript">
     function divShow(startDt) {
-        $(".instructions").html("<p>개강일은 "+startDt+"입니다.</p>");
+        $(".instructions").html("<p>아직 개강일이 되지 않았습니다.<br> "+startDt+"일에 개강합니다..</p>");
 		$("#lean_overlay").show();
+		$("#forgot-password-modal").css({'top': Math.max(0, (($(window).height() - $("#forgot-password-modal").outerHeight()) / 2) + $(window).scrollTop()) + "px"});
 		$("#forgot-password-modal").show();
     }
 
@@ -512,7 +513,13 @@ if ($(".certification").length) {
         Close
       </span>
     </button>
-    <div id="password-reset">
+	<header style="padding-bottom:0;margin-bottom:10px">
+      <h2 id="password-reset-email" style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">
+        알림      
+      </h2>
+      <hr/>
+    </header>
+   <div id="password-reset" style="text-align: center;">
       <div class="instructions">
       </div>
     </div>

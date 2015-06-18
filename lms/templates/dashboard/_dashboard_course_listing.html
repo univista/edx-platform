@@ -104,9 +104,12 @@ article.course h3 {max-width:477px}
 
 
 <script type="text/javascript">
+
     function divShow(startDt) {
-                $(".instructions").html("<p>개강일은 "+startDt+"입니다.</p>");
+        $(".instructions").html("<p>개강일은 "+startDt+"입니다.</p>");
 		$("#lean_overlay").show();
+
+		$("#forgot-password-modal").css({'top': Math.max(0, (($(window).height() - $("#forgot-password-modal").outerHeight()) / 2) + $(window).scrollTop()) + "px"});
 		$("#forgot-password-modal").show();
     }
 
@@ -125,10 +128,17 @@ article.course h3 {max-width:477px}
         Close
       </span>
     </button>
-    <div id="password-reset">
-      <div class="instructions">
-      </div>
-    </div>
+	<header style="padding-bottom:0;margin-bottom:10px">
+      <h2 style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">알림</h2>
+      <hr>
+    </header>
+	<div id="password-reset" style="text-align: center;">
+      <form> <!-- Here for styling reasons -->
+        <section class="instructions">
+          <p>이메일은 zudain@naver.com으로 전송되었습니다.<br>비밀번호를 변경하려면 이메일에 있는 링크를 따르십시오.</p>
+        </section>
+      </form>
+    </div>    
   </div>
 </section>
 

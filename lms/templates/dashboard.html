@@ -275,8 +275,8 @@
     </button>
 
     <header>
-      <h2 id="password-reset-email">
-        패스워드 변경
+      <h2 id="password-reset-email" style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">
+        비밀번호 수정 이메일을 발송하였습니다
         <span class="sr">,
           ## Translators: this text gives status on if the modal interface (a menu or piece of UI that takes the full focus of the screen) is open or not
           ${_("window open")}
@@ -479,4 +479,167 @@
     </form>
   </div>
 </section>
+<style>
+#forgot-password-modal2 .inner-wrapper {
+  border-radius: 2px;
+  background: #fbfbfb;
+  padding-bottom: 0 !important;
+}
+#forgot-password-modal2 #password-reset {
+  padding: 20px;
+}
+#forgot-password-modal2 #password-reset header {
+  margin: 0;
+  padding: 0;
+}
+#forgot-password-modal2 #password-reset .instructions p {
+  margin-bottom: 5px;
+}
+#forgot-password-modal2 #password-reset form {
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+#forgot-password-modal2 #password-reset form .group-form {
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 20px;
+}
+#forgot-password-modal2 #password-reset fieldset {
+  margin-bottom: 10px;
+  padding: 0;
+}
+#forgot-password-modal2 #password-reset form .list-input {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#forgot-password-modal2 #password-reset form .field:last-child {
+  margin-bottom: 0;
+}
+#forgot-password-modal2 #password-reset form .field.text input, #forgot-password-modal #password-reset form .field.email input, #forgot-password-modal #password-reset form .field.textarea input {background: #fafafa;
+  margin-bottom: 0;margin: 0;
+  padding: 10px 15px;  height: auto;
+  font-family: "NanumBarunGothic","Open Sans",Verdana,Geneva,sans-serif,sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  color: #2e2e2e;  border-radius: 0;}
+ #forgot-password-modal2 #password-reset form .form-actions {
+  padding: 0 !important;
+}
+.login .form-actions button[type="submit"], .register .form-actions button[type="submit"], .passwordreset .form-actions button[type="submit"], #forgot-password-modal #password-reset .form-actions button[type="submit"], .view-survey .action-primary, .view-partial-mktgregister .action.action-register, .view-partial-mktgregister .action.access-courseware {  background: #2faa47;
+  color: #f2f2f2;}
 
+#forgot-password-modal2 #password-reset .form-actions button[type="submit"] {  background: #2faa47;
+  color: #f2f2f2;border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-shadow: none;
+  font-weight: 500;
+  letter-spacing: 0;border-radius: 2px;cursor: pointer;
+  text-decoration: none;box-sizing: border-box;font-size: 16px;
+  line-height: 23.68px;font: normal 1.2rem/1.6rem "NanumBarunGothic","Open Sans",Verdana,Geneva,sans-serif,sans-serif;  
+  text-transform: uppercase;  -webkit-font-smoothing: antialiased;}
+</style>
+<script>
+$(function(){
+	//모달 팝업 닫기
+	$('.modal button.close-modal').click(function(){
+		$('.modal').add('#lean_overlay').hide();
+	});
+	
+	//회원탈퇴 팝업 띄우기
+	function outPop(){
+		$("#forgot-password-modal2").css({'top': Math.max(0, (($(window).height() - $("#forgot-password-modal2").outerHeight()) / 2) + $(window).scrollTop()) + "px"});
+		$('#lean_overlay').add('#forgot-password-modal2').show();
+	}
+	
+	//회원탈퇴 되었습니다. 확인버튼 클릭시 팝업 닫기
+	$('#btnConfirm').click(function(){
+		$('.modal').add('#lean_overlay').hide();
+
+		return false;
+	});	
+	
+	//회원탈퇴버튼 클릭시 회원탈퇴 확인팝업 호출
+	$('#pwd_reset_button2').click(function(){
+		$('#forgot-password-modal2').hide();
+		$("#pop_result").css({'top': Math.max(0, (($(window).height() - $("#forgot-password-modal").outerHeight()) / 2) + $(window).scrollTop()) + "px"});
+		$('#pop_result').show();
+
+		return false;
+	});	
+	
+	//회원탈퇴 팝업 띄우기 함수 호출
+	//outPop();
+});
+</script>
+
+<div id="lean_overlay" style="opacity: 1;"></div>
+<section id="forgot-password-modal2" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="display:none;position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;width:600px">
+  <div class="inner-wrapper">
+    <button class="close-modal">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr">
+        Close
+      </span>
+    </button>
+
+    <div id="password-reset">
+      <header>
+		<h2 class="element-invisible">회원탈퇴</h2>
+      </header>
+
+      <div class="instructions">
+		<p>회원탈퇴시 신청하신 교육과정의 수료증을 발급받지 못할 수 있습니다.<br>그래도 탈퇴하시겠습니까?</p>
+      </div>
+
+      <form id="pwd_reset_form" action="/password_reset/" method="post" data-remote="true">
+        <fieldset class="group group-form group-form-requiredinformation">
+          <legend class="is-hidden">Required Information</legend>
+
+          <ol class="list-input">
+            <li class="field required text" id="forgot-password-modal-field-email">
+             <p>이메일 : 이메일연동@연동 &nbsp;&nbsp;이름 : 연동이</p><br>
+              <span>비밀번호 : </span>&nbsp;<input style="border:1px solid #ccc;display:inline-block;width:86%;float:right;padding-top:0;padding-bottom:0" class="" id="pwd_reset_email" type="email" name="email" value="" placeholder="" aria-describedby="pwd_reset_email-tip" aria-required="true">
+              <!--<span class="tip tip-input" id="pwd_reset_email-tip">This is the e-mail address you used to register with academyx.co</span>-->
+            </li>
+          </ol>
+        </fieldset>
+
+        <div class="form-actions">
+          <button style="width:49%;display:inline-block !important" name="submit" type="submit" id="pwd_reset_button2" class="action action-primary action-update">회원탈퇴</button>
+		  <button style="width:49%;display:inline-block !important;background:gray;float:right;box-shadow:none" name="submit" type="submit" id="pwd_reset_button" class="action action-primary action-update">취소</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="pop_result" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset" style="display:none;position:absolute;top:50%;left:50%;margin-left:-250px;margin-top:-50px;z-index:1000;">
+  <div class="inner-wrapper">
+    <button class="close-modal" onclick="divHide();">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr" >
+        Close
+      </span>
+    </button>
+	<header style="padding-bottom:0;margin-bottom:10px">
+      <h2 style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">알림</h2>
+      <hr>
+    </header>
+	<div id="password-reset" style="text-align: center;">
+      
+        <section class="instructions">
+          <p>회원탈퇴 되었습니다.</p>
+        </section>		
+      
+    </div>
+	
+	<div class="form-actions" style="text-align:center">
+          <button style="width:90%;background:#2faa47;color:#fff;box-shadow:none;border:none;text-shadow:none;height:100%;margin:0 auto;padding:10px 0;margin-top:25px" name="submit" type="submit" id="btnConfirm" onclick="javascript:popClose()" class="action action-primary action-update">확인</button>
+        </div>
+  </div>
+</section>
