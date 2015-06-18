@@ -27,3 +27,12 @@
 		<div class="update-contents"><%= updateModel.get('content') %></div>
 	</div>
 </li>
+
+<script type="text/javascript">
+/*
+  var fullDate = new Date();
+  var twoDigitMonth = ((fullDate.getMonth().length+1) === 1)? (fullDate.getMonth()+1) : '0' + (fullDate.getMonth()+1);
+  var currentDate = fullDate.getFullYear() + "-" + twoDigitMonth + "-" + fullDate.getDate();
+  $(".date hasDatepicker").val(currentDate);
+  */
+</script>

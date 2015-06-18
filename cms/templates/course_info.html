@@ -25,7 +25,7 @@
   });
 </%block>
 
-<%block name="content">
+﻿<%block name="content">
   <div class="wrapper-mast wrapper">
     <header class="mast has-actions has-subtitle">
       <h1 class="page-header">
@@ -36,13 +36,21 @@
       <nav class="nav-actions" aria-label="${_('Page Actions')}">
         <h3 class="sr">${_('Page Actions')}</h3>
         <ul>
-          <li class="nav-item">
+          <li class="nav-item" onclick="setTimeout('currentDt();', 50);">
             <a href="#" class=" button new-button new-update-button"><i class="icon fa fa-plus"></i> ${_('New Update')}</a>
           </li>
         </ul>
       </nav>
     </header>
   </div>
+<script type="text/javascript">
+function currentDt() {
+    var fullDate = new Date();
+    var twoDigitMonth = ((fullDate.getMonth().length+1) === 1)? (fullDate.getMonth()+1) : '0' + (fullDate.getMonth()+1);
+    var currentDate = fullDate.getFullYear() + "-" + twoDigitMonth + "-" + fullDate.getDate();
+    $(".date.hasDatepicker").val(currentDate);
+}
+</script>
 
   <div class="wrapper-content wrapper">
     <section class="content">
