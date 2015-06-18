@@ -16,7 +16,7 @@ $(function() {
 
 	$('.datepair input.date').each(function(){
 		var $this = $(this);
-		$this.datepicker({ 'dateFormat': 'm/d/yy' });
+		$this.datepicker({ 'dateFormat': 'M/d/yy' });
 
 		if ($this.hasClass('start') || $this.hasClass('end')) {
 			$this.on('changeDate change', doDatepair);
