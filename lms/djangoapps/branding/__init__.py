@@ -49,7 +49,7 @@ def get_visible_courses_search(request):
     """
 
     #_courses = modulestore().get_courses(name=filtered_by_org)
-    _courses = modulestore().get_courses(course=request.POST['search_query'])
+    _courses = modulestore().get_courses(name=request.POST['search_query'])
 
     courses = [c for c in _courses
                if isinstance(c, CourseDescriptor)]
