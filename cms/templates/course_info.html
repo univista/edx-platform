@@ -36,7 +36,7 @@
       <nav class="nav-actions" aria-label="${_('Page Actions')}">
         <h3 class="sr">${_('Page Actions')}</h3>
         <ul>
-          <li class="nav-item" onclick="currentDt();">
+          <li class="nav-item" onclick="setTimeout(currentDt(), 1000);">
             <a href="#" class=" button new-button new-update-button"><i class="icon fa fa-plus"></i> ${_('New Update')}</a>
           </li>
         </ul>
@@ -46,8 +46,7 @@
 <!-- seongho -->
 <script type="text/javascript">
   function currentDt() {
-    //date hasDatepicker
-      var fullDate = new Date();
+    var fullDate = new Date();
     var twoDigitMonth = ((fullDate.getMonth().length+1) === 1)? (fullDate.getMonth()+1) : '0' + (fullDate.getMonth()+1);
     var currentDate = fullDate.getFullYear() + "-" + twoDigitMonth + "-" + fullDate.getDate();
     $(".date.hasDatepicker").val(currentDate);
