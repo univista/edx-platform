@@ -37,7 +37,6 @@ define(["js/views/baseview", "codemirror", "js/models/course_update",
             });
             this.$el.find(".new-update-form").hide();
             this.$el.find('.date').datepicker({ 'dateFormat': 'yy-mm-dd' });
-            alert("0");
             return this;
         },
 
