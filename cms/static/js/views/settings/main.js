@@ -26,8 +26,7 @@ var DetailsView = ValidatingView.extend({
         this.$el.find("#course-organization").val(this.model.get('org'));
         this.$el.find("#course-number").val(this.model.get('course_id'));
         this.$el.find("#course-name").val(this.model.get('run'));
-        this.$el.find('.set-date').datepicker({ 'dateFormat': 'm/d/yy' });
-        alert("3");
+        this.$el.find('.set-date').datepicker({ 'dateFormat': 'yy-mm-dd' });
 
         // Avoid showing broken image on mistyped/nonexistent image
         this.$el.find('img.course-image').error(function() {
