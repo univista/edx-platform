@@ -186,7 +186,8 @@ define(['jquery', 'backbone', 'underscore', 'gettext', 'js/views/baseview',
 
         afterRender: function () {
             AbstractEditor.prototype.afterRender.call(this);
-            this.$('input.date').datepicker({'dateFormat': 'm/d/yy'});
+            this.$('input.date').datepicker({'dateFormat': 'yy-mm-dd'});
+            alert("2");
             this.$('input.time').timepicker({
                 'timeFormat' : 'H:i',
                 'forceRoundTime': true
