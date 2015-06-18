@@ -69,13 +69,13 @@ article.course h3 {max-width:477px}
                         <hgroup>
                                 <p class="date-block">
           % if course.has_ended():
-            강의종${_(" - {end_date}").format(end_date=course.end_datetime_text("SHORT_DATE"))}
+            ${_("Ended - {end_date}").format(end_date=course.end_datetime_text("SHORT_DATE"))}
           % elif course.has_started():
-            강의중${_(" - {start_date}").format(start_date=course.start_datetime_text("SHORT_DATE"))}
+            ${_("Started - {start_date}").format(start_date=course.start_datetime_text("SHORT_DATE"))}
           % elif course.start_date_is_still_default: # Course start date TBD
             ${_("Coming Soon")}
           % else:   # hasn't started yet
-            시작일${_(" - {start_date}").format(start_date=course.start_datetime_text("SHORT_DATE"))}
+            ${_("Starts - {start_date}").format(start_date=course.start_datetime_text("SHORT_DATE"))}
           % endif
 
                                 </p>
@@ -91,6 +91,7 @@ article.course h3 {max-width:477px}
                             강의듣기</a>
                         % endif
 						<a href="#" class="enter-course" style="margin-left:10px;background:#ccc">수료증보기</a>
+						<a href="#" class="enter-course" style="background: #ccc;float: right;position: relative;bottom: -42px;right: -20px;">취소</a>
                 </section>
 
 
@@ -99,6 +100,9 @@ article.course h3 {max-width:477px}
 
 				<!--수강 확인증 아이콘-->
 				<span class="icon2"></span>
+
+				<!--취소버튼-->
+				
         </article>
 </li>
 
