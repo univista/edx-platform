@@ -105,12 +105,12 @@ article.course h3 {max-width:477px}
                         ## Translators: The course name will be added to the end of this sentence.
                         % if not is_course_blocked:
                         <a href="#unenroll-modal" class="action action-unenroll" rel="leanModal" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
-                           onclick="set_unenroll_message('${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will be refunded the amount you paid.")}')">
+                           onclick="set_unenroll_message('1${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will be refunded the amount you paid.")}')">
                           ${_('Unenroll')}
                         </a>
                         % else:
                         <a class="action action-unenroll is-disabled" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
-                           onclick="set_unenroll_message('${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will be refunded the amount you paid.")}')">
+                           onclick="set_unenroll_message('2${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will be refunded the amount you paid.")}')">
                           ${_('Unenroll')}
                         </a>
                         % endif
@@ -118,12 +118,12 @@ article.course h3 {max-width:477px}
                         ## Translators: The course's name will be added to the end of this sentence.
                         % if not is_course_blocked:
                         <a href="#unenroll-modal" class="action action-unenroll" rel="leanModal" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
-                           onclick="set_unenroll_message('${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will not be refunded the amount you paid.")}')">
+                           onclick="set_unenroll_message('3${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will not be refunded the amount you paid.")}')">
                           ${_('Unenroll')}
                         </a>
                         % else:
                         <a class="action action-unenroll is-disabled" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
-                           onclick="set_unenroll_message('${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will not be refunded the amount you paid.")}')">
+                           onclick="set_unenroll_message('4${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will not be refunded the amount you paid.")}')">
                           ${_('Unenroll')}
                         </a>
                         % endif
@@ -131,12 +131,12 @@ article.course h3 {max-width:477px}
                         ## Translators: The course's name will be added to the end of this sentence.
                         % if not is_course_blocked:
                         <a href="#unenroll-modal" class="action action-unenroll" rel="leanModal" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
-                           onclick="set_unenroll_message('${_("Are you sure you want to unenroll from %(course_number)s?")}', '')">
+                           onclick="set_unenroll_message('5${_("Are you sure you want to unenroll from %(course_number)s?")}', '')">
                           ${_('Unenroll')}
                         </a>
                         % else:
                         <a class="action action-unenroll is-disabled" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
-                           onclick="set_unenroll_message('${_("Are you sure you want to unenroll from %(course_number)s?")}', '')">
+                           onclick="set_unenroll_message('6${_("Are you sure you want to unenroll from %(course_number)s?")}', '')">
                           ${_('Unenroll')}
                         </a>
                         % endif
@@ -145,7 +145,7 @@ article.course h3 {max-width:477px}
                         % if not is_course_blocked:
                         <a href="#unenroll-modal" class="action action-unenroll" rel="leanModal" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message(
-                                        '${_("Are you sure you want to unenroll from the verified {cert_name_long} track of %(course_number)s?").format(cert_name_long=cert_name_long)}',
+                                        '7${_("Are you sure you want to unenroll from the verified {cert_name_long} track of %(course_number)s?").format(cert_name_long=cert_name_long)}',
                                         '${_("You will be refunded the amount you paid.")}'
                                     )"
                         >
@@ -154,7 +154,7 @@ article.course h3 {max-width:477px}
                         % else:
                         <a class="action action-unenroll is-disabled" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message(
-                                        '${_("Are you sure you want to unenroll from the verified {cert_name_long} track of %(course_number)s?").format(cert_name_long=cert_name_long)}',
+                                        '8${_("Are you sure you want to unenroll from the verified {cert_name_long} track of %(course_number)s?").format(cert_name_long=cert_name_long)}',
                                         '${_("You will be refunded the amount you paid.")}'
                                     )"
                         >
@@ -166,7 +166,7 @@ article.course h3 {max-width:477px}
                         % if not is_course_blocked:
                         <a href="#unenroll-modal" class="action action-unenroll" rel="leanModal" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message(
-                                        '${_("Are you sure you want to unenroll from the verified {cert_name_long} track of %(course_number)s?").format(cert_name_long=cert_name_long)}',
+                                        '9${_("Are you sure you want to unenroll from the verified {cert_name_long} track of %(course_number)s?").format(cert_name_long=cert_name_long)}',
                                         '${_("The refund deadline for this course has passed, so you will not receive a refund.")}'
                                     )"
                         >
@@ -175,7 +175,7 @@ article.course h3 {max-width:477px}
                         % else:
                         <a class="action action-unenroll is-disabled" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message(
-                                        '${_("Are you sure you want to unenroll from the verified {cert_name_long} track of %(course_number)s?").format(cert_name_long=cert_name_long)}',
+                                        '10${_("Are you sure you want to unenroll from the verified {cert_name_long} track of %(course_number)s?").format(cert_name_long=cert_name_long)}',
                                         '${_("The refund deadline for this course has passed, so you will not receive a refund.")}'
                                     )"
                         >
