@@ -367,7 +367,7 @@ def get_courses_search(request):
         settings.COURSE_CATALOG_VISIBILITY_PERMISSION
     )
 
-    courses = [c for c in courses if has_access(user, permission_name, c)]
+    courses = [c for c in courses if has_access(request.user, permission_name, c)]
 
     courses = sorted(courses, key=lambda course: course.number)
 
