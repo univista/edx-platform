@@ -136,7 +136,7 @@ article.course h3 {max-width:477px}
                         ## Translators: The course's name will be added to the end of this sentence.
                         % if not is_course_blocked:
                         <a href="#unenroll-modal" class="action action-unenroll" rel="leanModal" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
-                           onclick="set_unenroll_message('강의를 삭제하시겠습니까?', '')">
+                           onclick="set_unenroll_message('강의를 취소하시겠습니까?', '')">
                           강의취소
                         </a>
                         % else:
