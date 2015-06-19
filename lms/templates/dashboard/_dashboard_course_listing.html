@@ -95,7 +95,7 @@ article.course h3 {max-width:477px}
                         <a href="#" class="enter-course" style="background: #ccc;float: right;position: relative;bottom: -42px;right: -20px;">취소</a>
                         -->
 
-              % if !course.has_started():
+              % if !course.has_started() == False:
               <!--취소버튼-->
               <div class="wrapper-action-more">
                 <a href="#actions-dropdown-${dashboard_index}" class="action action-more" id="actions-dropdown-link-${dashboard_index}" aria-haspopup="true" aria-expanded="false" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}">
