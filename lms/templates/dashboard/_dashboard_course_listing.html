@@ -75,7 +75,7 @@ article.course h3 {max-width:477px}
                               % elif course.start_date_is_still_default: # Course start date TBD
                                 진행예정
                               % else:   # hasn't started yet
-                                시작${_(" - {start_date}").format(start_date=course.start_datetime_text("SHORT_DATE"))}
+                                시작일${_(" - {start_date}").format(start_date=course.start_datetime_text("SHORT_DATE"))}
                               % endif
 
                                 </p>
@@ -109,12 +109,12 @@ article.course h3 {max-width:477px}
                         % if not is_course_blocked:
                         <a href="#unenroll-modal" class="action action-unenroll" rel="leanModal" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message('1${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will be refunded the amount you paid.")}')">
-                          ${_('Unenroll')}
+                          강의취소
                         </a>
                         % else:
                         <a class="action action-unenroll is-disabled" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message('2${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will be refunded the amount you paid.")}')">
-                          ${_('Unenroll')}
+                          강의취소
                         </a>
                         % endif
                       % elif is_paid_course and not show_refund_option:
@@ -122,12 +122,12 @@ article.course h3 {max-width:477px}
                         % if not is_course_blocked:
                         <a href="#unenroll-modal" class="action action-unenroll" rel="leanModal" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message('3${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will not be refunded the amount you paid.")}')">
-                          ${_('Unenroll')}
+                          강의취소
                         </a>
                         % else:
                         <a class="action action-unenroll is-disabled" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message('4${_("Are you sure you want to unenroll from the purchased course %(course_number)s?")}', '${_("You will not be refunded the amount you paid.")}')">
-                          ${_('Unenroll')}
+                          강의취소
                         </a>
                         % endif
                       % elif enrollment.mode != "verified":
@@ -135,12 +135,12 @@ article.course h3 {max-width:477px}
                         % if not is_course_blocked:
                         <a href="#unenroll-modal" class="action action-unenroll" rel="leanModal" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message('강의를 삭제하시겠습니까?', '')">
-                          ${_('Unenroll')}
+                          강의취소
                         </a>
                         % else:
                         <a class="action action-unenroll is-disabled" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message('6${_("Are you sure you want to unenroll from %(course_number)s?")}', '')">
-                          ${_('Unenroll')}
+                          강의취소
                         </a>
                         % endif
                       % elif show_refund_option:
@@ -152,7 +152,7 @@ article.course h3 {max-width:477px}
                                         '${_("You will be refunded the amount you paid.")}'
                                     )"
                         >
-                          ${_('Unenroll')}
+                          강의취소
                         </a>
                         % else:
                         <a class="action action-unenroll is-disabled" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
@@ -161,7 +161,7 @@ article.course h3 {max-width:477px}
                                         '${_("You will be refunded the amount you paid.")}'
                                     )"
                         >
-                          ${_('Unenroll')}
+                          강의취소
                         </a>
                         % endif
                       % else:
@@ -173,7 +173,7 @@ article.course h3 {max-width:477px}
                                         '${_("The refund deadline for this course has passed, so you will not receive a refund.")}'
                                     )"
                         >
-                          ${_('Unenroll')}
+                          강의취소
                         </a>
                         % else:
                         <a class="action action-unenroll is-disabled" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
@@ -182,7 +182,7 @@ article.course h3 {max-width:477px}
                                         '${_("The refund deadline for this course has passed, so you will not receive a refund.")}'
                                     )"
                         >
-                          ${_('Unenroll')}
+                          강의취소
                         </a>
                         % endif
                       % endif
