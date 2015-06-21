@@ -116,7 +116,7 @@ from edxmako.shortcuts import marketing_link
 				<div class="course-info" id="course-info-progress" aria-label="Course Progress">
 					<h1 class="element-invisible">교육과정 결제</h1>
 					<div class="payment">
-						<form id="frm">
+						<form>
 						<section>
 							<h2>공식수료증 신청을 위해 결제 수단을 선택해주세요.</h2>
 							
@@ -222,7 +222,7 @@ from edxmako.shortcuts import marketing_link
 							</div>
 							<div class="btn-area">
 								<input class="check btn_block" type="button" value="결제하기" onclick="pg();">
-								<input class="reset btn_block" type="button" value="취소" onclick="$('#frm').reset();">
+								<input class="reset btn_block" type="button" value="취소">
 							</div>
 							</section> <!--End chapter-->
 						</form>
@@ -302,17 +302,14 @@ $('iframe').load(function(){
 
 		function pg() {
 			try {
-			/*
 			  $("#class_enroll_form").submit();
 			  event.preventDefault();
-			*/
 
+				/*
 				if ( validationCheck() ) {
 					callInicis();
 				}
-
-				//callInicis();
-
+				*/
 			} catch (e) {
 				alert(e.message);
 			}
@@ -342,7 +339,7 @@ $('iframe').load(function(){
 			inicis.find("input[name=buyername]").val("${ user.profile.name }");
 			inicis.find("input[name=buyeremail]").val("${ user.email }");
 			inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
-			//$("#inicis")[0].contentWindow.clickBtnImage();
+			$("#inicis")[0].contentWindow.clickBtnImage();
 		}
 
 
@@ -440,7 +437,6 @@ $('iframe').load(function(){
         <legend class="sr">${_("Enroll")}</legend>
         <input name="course_id" type="hidden" value="${course.id | h}">
         <input name="enrollment_action" type="hidden" value="enroll">
-		<input name="price" type="hidden" value="200000">
       </fieldset>
       <div class="submit">
         <input name="submit" type="submit" value="${_('enroll')}">
