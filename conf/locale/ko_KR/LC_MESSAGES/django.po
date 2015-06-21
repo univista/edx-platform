@@ -592,6 +592,8 @@ msgid ""
 "This account has not been activated. We have sent another activation "
 "message. Please check your email for the activation instructions."
 msgstr ""
+"이 계정은 활성화되지 않았습니다. 인증 활성화 메일을 보냈습니다."
+"등록하신 이메일주소로 활성화 메일을 확인해주세요."
 
 #: common/djangoapps/student/views.py
 msgid "Please enter a username"
@@ -9005,7 +9007,7 @@ msgstr ""
 
 #: lms/templates/dashboard.html
 msgid "Dashboard"
-msgstr "상황판"
+msgstr "마이페이지"
 
 #: lms/templates/dashboard.html
 msgid "Current Courses"
