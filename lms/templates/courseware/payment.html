@@ -319,13 +319,15 @@ $('iframe').load(function(){
 				alert("개인정보 제3자 제공에 동의하셔야 합니다.");
 				return false;
 			}
-			
+
+			/*
 			if (!gCert) {
 				$("#lean_overlay").show();
 				$("#forgot-password-modal3").css({'top': Math.max(0, (($(window).height() - $("#forgot-password-modal3").outerHeight()) / 2) + $(window).scrollTop()) + "px"});
 				$("#forgot-password-modal3").show();
 				return false;
 			}
+			*/
 			
 			return true;
 		}
