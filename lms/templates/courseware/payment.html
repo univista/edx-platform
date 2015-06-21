@@ -341,7 +341,6 @@ $('iframe').load(function(){
 			inicis.find("input[name=buyeremail]").val("${ user.email }");
 			inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
 			inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
-			var price = "200000";
 			$("#inicis")[0].contentWindow.clickBtnImage();
 		}
 
@@ -353,6 +352,7 @@ $('iframe').load(function(){
 	<input type="hidden" id="goodname" name="goodname" value="${ user.id }_${course.id}" />
 	<input type="hidden" id="buyername" name="buyername" value="${ user.profile.name }" />
 	<input type="hidden" id="buyeremail" name="buyeremail" value="${ user.email }" />
+	<input type="hidden" id="price" name="price" value="200000" />
 </form>
 
 <iframe name="pcert" id="pcert" src="http://academyx.co:8080/cert/cert_action.jsp" style="width:0px; height:0px; border: 0px"></iframe>
