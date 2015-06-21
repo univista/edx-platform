@@ -1597,10 +1597,18 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
         if third_party_auth_successful:
             redirect_url = pipeline.get_complete_url(backend_name)
 
-        response = JsonResponse({
-            "success": True,
-            "redirect_url": redirect_url,
-        })
+
+        if user.is_staff:
+            response = JsonResponse({
+                "success": True,
+                "redirect_url": redirect_url,
+            })
+        else:
+            response = JsonResponse({
+                "success": False,
+                "value": _('Too many failed login attempts. Try again later.'),
+            })
+
 
         # Ensure that the external marketing site can
         # detect that the user is logged in.
