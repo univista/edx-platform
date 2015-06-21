@@ -116,7 +116,7 @@ from edxmako.shortcuts import marketing_link
 				<div class="course-info" id="course-info-progress" aria-label="Course Progress">
 					<h1 class="element-invisible">교육과정 결제</h1>
 					<div class="payment">
-						<form>
+						<form id="frm">
 						<section>
 							<h2>공식수료증 신청을 위해 결제 수단을 선택해주세요.</h2>
 							
@@ -132,21 +132,21 @@ from edxmako.shortcuts import marketing_link
 								<dd>
 									<div>
 										<span class="radio-area">
-											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay01" value="Card:VCard">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay01" value="Card:VCard" checked>
 											<span></span>
 										</span>
 										<label for="pay01" class="post-type-label">
 											신용카드
 										</label>
 										<span class="radio-area">
-											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay02" value="HPP" checked="">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay02" value="HPP">
 											<span></span>
 										</span>
 										<label for="pay02" class="post-type-label">
 											휴대폰
 										</label>
 										<span class="radio-area">
-											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay03" value="coupon" checked="">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay03" value="coupon">
 											<span></span>
 										</span>
 										<label for="pay03" class="post-type-label">
@@ -222,7 +222,7 @@ from edxmako.shortcuts import marketing_link
 							</div>
 							<div class="btn-area">
 								<input class="check btn_block" type="button" value="결제하기" onclick="pg();">
-								<input class="reset btn_block" type="button" value="취소">
+								<input class="reset btn_block" type="button" value="취소" onclick="$('#frm')[0].reset();">
 							</div>
 							</section> <!--End chapter-->
 						</form>
@@ -302,14 +302,13 @@ $('iframe').load(function(){
 
 		function pg() {
 			try {
+			/*
 			  $("#class_enroll_form").submit();
 			  event.preventDefault();
-
-				/*
+			*/
 				if ( validationCheck() ) {
 					callInicis();
 				}
-				*/
 			} catch (e) {
 				alert(e.message);
 			}
@@ -320,13 +319,15 @@ $('iframe').load(function(){
 				alert("개인정보 제3자 제공에 동의하셔야 합니다.");
 				return false;
 			}
-			
+
+			/*
 			if (!gCert) {
 				$("#lean_overlay").show();
 				$("#forgot-password-modal3").css({'top': Math.max(0, (($(window).height() - $("#forgot-password-modal3").outerHeight()) / 2) + $(window).scrollTop()) + "px"});
 				$("#forgot-password-modal3").show();
 				return false;
 			}
+			*/
 			
 			return true;
 		}
@@ -338,6 +339,7 @@ $('iframe').load(function(){
 			inicis.find("input[name=goodname]").val("${ user.id }_${course.id}");
 			inicis.find("input[name=buyername]").val("${ user.profile.name }");
 			inicis.find("input[name=buyeremail]").val("${ user.email }");
+			inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
 			inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
 			$("#inicis")[0].contentWindow.clickBtnImage();
 		}

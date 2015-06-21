@@ -101,7 +101,7 @@ msgstr ""
 #: lms/djangoapps/django_comment_client/forum/views.py
 #: lms/templates/discussion/_underscore_templates.html
 msgid "Discussion"
-msgstr "토론"
+msgstr "강의게시판"
 
 #: cms/djangoapps/contentstore/views/component.py
 #: lms/djangoapps/class_dashboard/dashboard_data.py
@@ -545,20 +545,20 @@ msgstr "등록 작업이 무효합니다."
 msgid ""
 "You've successfully logged into your {provider_name} account, but this "
 "account isn't linked with an {platform_name} account yet."
-msgstr ""
+msgstr "당신은 성공적으로 당신의 {provider_name}계정에 로그인했지만, 이 계정은 아직 아카데미X계정과 연결되어 있지 않습니다."
 
 #: common/djangoapps/student/views.py
 msgid ""
 "Use your {platform_name} username and password to log into {platform_name} "
 "below, and then link your {platform_name} account with {provider_name} from "
 "your dashboard."
-msgstr ""
+msgstr "아카데미X에 로그인합니다. 아카데미X 사용자 이름과 암호를 사용하고 마이페이지에서 {provider_name}으로 아카데미X 계정으로 연결합니다."
 
 #: common/djangoapps/student/views.py
 msgid ""
 "If you don't have an {platform_name} account yet, click <strong>Register "
 "Now</strong> at the top of the page."
-msgstr ""
+msgstr "아직 아카데미X 계정이 없는 경우, 페이지상단 아카데미X회원가입을 클릭하세요."
 
 #: common/djangoapps/student/views.py
 msgid "There was an error receiving your login information. Please email us."
@@ -592,6 +592,8 @@ msgid ""
 "This account has not been activated. We have sent another activation "
 "message. Please check your email for the activation instructions."
 msgstr ""
+"이 계정은 활성화되지 않았습니다. 인증 활성화 메일을 보냈습니다."
+"등록하신 이메일주소로 활성화 메일을 확인해주세요."
 
 #: common/djangoapps/student/views.py
 msgid "Please enter a username"
@@ -4681,12 +4683,12 @@ msgstr ""
 #: lms/djangoapps/courseware/tabs.py
 #: lms/templates/courseware/courseware-error.html
 msgid "Courseware"
-msgstr "강좌물"
+msgstr "강좌듣기"
 
 #: lms/djangoapps/courseware/tabs.py
 #: lms/djangoapps/instructor/views/instructor_dashboard.py
 msgid "Course Info"
-msgstr "교재"
+msgstr "소식"
 
 #: lms/djangoapps/courseware/tabs.py lms/templates/courseware/syllabus.html
 msgid "Syllabus"
@@ -4695,7 +4697,7 @@ msgstr "강의 계획서"
 #: lms/djangoapps/courseware/tabs.py
 #: lms/templates/peer_grading/peer_grading.html
 msgid "Progress"
-msgstr "진도"
+msgstr "진도율"
 
 #. #-#-#-#-#  django-partial.po (edx-platform)  #-#-#-#-#
 #. Translators: 'Textbooks' refers to the tab in the course that leads to the
@@ -9005,7 +9007,7 @@ msgstr ""
 
 #: lms/templates/dashboard.html
 msgid "Dashboard"
-msgstr "상황판"
+msgstr "마이페이지"
 
 #: lms/templates/dashboard.html
 msgid "Current Courses"
@@ -12253,11 +12255,11 @@ msgstr "제목:"
 
 #: lms/templates/discussion/_underscore_templates.html
 msgid "Add a clear and descriptive title to encourage participation."
-msgstr ""
+msgstr "참여를 장려하기 위해 명확하고 설명 제목을 추가합니다."
 
 #: lms/templates/discussion/_underscore_templates.html
 msgid "Enter your question or comment"
-msgstr ""
+msgstr "당신의 질문 혹은 댓글을 입력하세요."
 
 #: lms/templates/discussion/_underscore_templates.html
 msgid "follow this post"
@@ -12290,11 +12292,11 @@ msgstr "질문"
 msgid ""
 "Questions raise issues that need answers. Discussions share ideas and start "
 "conversations."
-msgstr ""
+msgstr "게시물종류를 선택하세요."
 
 #: lms/templates/discussion/_underscore_templates.html
 msgid "Topic Area:"
-msgstr ""
+msgstr "주제영역"
 
 #: lms/templates/discussion/_underscore_templates.html
 msgid "Filter topics"
@@ -12302,7 +12304,7 @@ msgstr ""
 
 #: lms/templates/discussion/_underscore_templates.html
 msgid "Add your post to a relevant topic to help others find it."
-msgstr ""
+msgstr "다른사람들이 찾을수 있도록 주제를 선정합니다."
 
 #: lms/templates/discussion/_underscore_templates.html
 msgid "Endorse"
