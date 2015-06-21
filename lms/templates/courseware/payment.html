@@ -116,7 +116,7 @@ from edxmako.shortcuts import marketing_link
 				<div class="course-info" id="course-info-progress" aria-label="Course Progress">
 					<h1 class="element-invisible">교육과정 결제</h1>
 					<div class="payment">
-						<form>
+						<form id="frm">
 						<section>
 							<h2>공식수료증 신청을 위해 결제 수단을 선택해주세요.</h2>
 							
@@ -222,7 +222,7 @@ from edxmako.shortcuts import marketing_link
 							</div>
 							<div class="btn-area">
 								<input class="check btn_block" type="button" value="결제하기" onclick="pg();">
-								<input class="reset btn_block" type="button" value="취소">
+								<input class="reset btn_block" type="button" value="취소" onclick="$('#frm').reset();">
 							</div>
 							</section> <!--End chapter-->
 						</form>
@@ -307,11 +307,9 @@ $('iframe').load(function(){
 			  event.preventDefault();
 			*/
 
-/*
 				if ( validationCheck() ) {
 					callInicis();
 				}
-				*/
 
 				//callInicis();
 
