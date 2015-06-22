@@ -1816,11 +1816,10 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
         AUDIT_LOG.warning(u"Login failed - Account not active for user {0}, resending activation".format(username))
 
     reactivation_email_for_user(user)
-    #not_activated_msg = _("This account has not been activated. We have sent another activation message. Please check your email for the activation instructions.")
     not_activated_msg = _("This account has not been activated. We have sent another activation message. Please check your email for the activation instructions.")
     return JsonResponse({
         "success": False,
-        "value": "허용되지 않은 사용자입니다.",
+        "value": not_activated_msg,
     })  # TODO: this should be status code 400  # pylint: disable=fixme
 
 
