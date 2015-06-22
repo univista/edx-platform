@@ -8702,7 +8702,7 @@ msgstr "틀린 필드 '{name}'. {detailed_message} 포맷"
 #: cms/templates/404.html cms/templates/error.html
 #: lms/templates/static_templates/404.html
 msgid "Page Not Found"
-msgstr "페이지가 없습니다."
+msgstr "페이지가 찾을 수 없습니다."
 
 #: cms/templates/404.html lms/templates/static_templates/404.html
 msgid "Page not found"
@@ -15150,8 +15150,8 @@ msgid ""
 "{link_start}homepage{link_end} or let us know about any pages that may have "
 "been moved at {email}."
 msgstr ""
-"찾으시는 페이지는 찾을 수 없습니다. {link_start}홈 페이지{link_end}로 돌아가거나 이동된 페이지들에 대해서 "
-"{email}로 알려 주십시요."
+"하단에 아카데미X주소를 누르시면, 메인화면으로 이동됩니다. "
+"<a href='http://academyx.co'>Academyx.co</a>"
 
 #: lms/templates/static_templates/about.html
 #: lms/templates/static_templates/blog.html
