@@ -1576,7 +1576,7 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
             }
         )
 
-    if user is not None and user.is_active and user.is_staff:
+    if user is not None and user.is_active:
         try:
             # We do not log here, because we have a handler registered
             # to perform logging on successful logins.
@@ -1601,7 +1601,6 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
             "success": True,
             "redirect_url": redirect_url,
         })
-
 
         # Ensure that the external marketing site can
         # detect that the user is logged in.
