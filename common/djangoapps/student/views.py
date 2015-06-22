@@ -2072,7 +2072,7 @@ def _do_create_account(form):
         username=form.cleaned_data["username"],
         email=form.cleaned_data["email"],
         is_staff=True,
-        is_active=True
+        is_active=False
     )
     user.set_password(form.cleaned_data["password"])
     registration = Registration()
