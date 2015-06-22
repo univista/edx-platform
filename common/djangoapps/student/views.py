@@ -1817,7 +1817,7 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
 
     reactivation_email_for_user(user)
     #not_activated_msg = _("This account has not been activated. We have sent another activation message. Please check your email for the activation instructions.")
-    not_activated_msg = _(u"접근이 허용되지 않은 사용자입니다.")
+    not_activated_msg = u"접근이 허용되지 않은 사용자입니다."
     return JsonResponse({
         "success": False,
         "value": not_activated_msg,
