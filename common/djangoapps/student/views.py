@@ -1417,7 +1417,7 @@ def accounts_login(request):
 
 # Need different levels of logging
 @ensure_csrf_cookie
-def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,unused-argument
+def login_user_lms(request, error=""):  # pylint: disable-msg=too-many-statements,unused-argument
     """AJAX request to log in the user."""
 
     backend_name = None
@@ -1577,6 +1577,210 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
         )
 
     if user is not None and user.is_active:
+        try:
+            # We do not log here, because we have a handler registered
+            # to perform logging on successful logins.
+            login(request, user)
+            if request.POST.get('remember') == 'true':
+                request.session.set_expiry(604800)
+                log.debug("Setting user session to never expire")
+            else:
+                request.session.set_expiry(0)
+        except Exception as exc:  # pylint: disable=broad-except
+            AUDIT_LOG.critical("Login failed - Could not create session. Is memcached running?")
+            log.critical("Login failed - Could not create session. Is memcached running?")
+            log.exception(exc)
+            raise
+
+        redirect_url = try_change_enrollment(request)
+
+        if third_party_auth_successful:
+            redirect_url = pipeline.get_complete_url(backend_name)
+
+        response = JsonResponse({
+            "success": True,
+            "redirect_url": redirect_url,
+        })
+
+        # Ensure that the external marketing site can
+        # detect that the user is logged in.
+        return set_logged_in_cookie(request, response)
+
+    if settings.FEATURES['SQUELCH_PII_IN_LOGS']:
+        AUDIT_LOG.warning(u"Login failed - Account not active for user.id: {0}, resending activation".format(user.id))
+    else:
+        AUDIT_LOG.warning(u"Login failed - Account not active for user {0}, resending activation".format(username))
+
+    reactivation_email_for_user(user)
+    not_activated_msg = _("This account has not been activated. We have sent another activation message. Please check your email for the activation instructions.")
+    return JsonResponse({
+        "success": False,
+        "value": not_activated_msg,
+    })  # TODO: this should be status code 400  # pylint: disable=fixme
+
+
+# Need different levels of logging
+@ensure_csrf_cookie
+def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,unused-argument
+    """AJAX request to log in the user."""
+
+    backend_name = None
+    email = None
+    password = None
+    redirect_url = None
+    response = None
+    running_pipeline = None
+    third_party_auth_requested = third_party_auth.is_enabled() and pipeline.running(request)
+    third_party_auth_successful = False
+    trumped_by_first_party_auth = bool(request.POST.get('email')) or bool(request.POST.get('password'))
+    user = None
+
+    if third_party_auth_requested and not trumped_by_first_party_auth:
+        # The user has already authenticated via third-party auth and has not
+        # asked to do first party auth by supplying a username or password. We
+        # now want to put them through the same logging and cookie calculation
+        # logic as with first-party auth.
+        running_pipeline = pipeline.get(request)
+        username = running_pipeline['kwargs'].get('username')
+        backend_name = running_pipeline['backend']
+        requested_provider = provider.Registry.get_by_backend_name(backend_name)
+
+        try:
+            user = pipeline.get_authenticated_user(username, backend_name)
+            third_party_auth_successful = True
+        except User.DoesNotExist:
+            AUDIT_LOG.warning(
+                u'Login failed - user with username {username} has no social auth with backend_name {backend_name}'.format(
+                    username=username, backend_name=backend_name))
+            return HttpResponse(
+                _("You've successfully logged into your {provider_name} account, but this account isn't linked with an {platform_name} account yet.").format(
+                    platform_name=settings.PLATFORM_NAME, provider_name=requested_provider.NAME
+                )
+                + "<br/><br/>" +
+                _("Use your {platform_name} username and password to log into {platform_name} below, "
+                  "and then link your {platform_name} account with {provider_name} from your dashboard.").format(
+                      platform_name=settings.PLATFORM_NAME, provider_name=requested_provider.NAME
+                )
+                + "<br/><br/>" +
+                _("If you don't have an {platform_name} account yet, click <strong>Register Now</strong> at the top of the page.").format(
+                    platform_name=settings.PLATFORM_NAME
+                ),
+                content_type="text/plain",
+                status=403
+            )
+
+    else:
+
+        if 'email' not in request.POST or 'password' not in request.POST:
+            return JsonResponse({
+                "success": False,
+                "value": _('There was an error receiving your login information. Please email us.'),  # TODO: User error message
+            })  # TODO: this should be status code 400  # pylint: disable=fixme
+
+        email = request.POST['email']
+        password = request.POST['password']
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            if settings.FEATURES['SQUELCH_PII_IN_LOGS']:
+                AUDIT_LOG.warning(u"Login failed - Unknown user email")
+            else:
+                AUDIT_LOG.warning(u"Login failed - Unknown user email: {0}".format(email))
+
+    # check if the user has a linked shibboleth account, if so, redirect the user to shib-login
+    # This behavior is pretty much like what gmail does for shibboleth.  Try entering some @stanford.edu
+    # address into the Gmail login.
+    if settings.FEATURES.get('AUTH_USE_SHIB') and user:
+        try:
+            eamap = ExternalAuthMap.objects.get(user=user)
+            if eamap.external_domain.startswith(external_auth.views.SHIBBOLETH_DOMAIN_PREFIX):
+                return JsonResponse({
+                    "success": False,
+                    "redirect": reverse('shib-login'),
+                })  # TODO: this should be status code 301  # pylint: disable=fixme
+        except ExternalAuthMap.DoesNotExist:
+            # This is actually the common case, logging in user without external linked login
+            AUDIT_LOG.info(u"User %s w/o external auth attempting login", user)
+
+    # see if account has been locked out due to excessive login failures
+    user_found_by_email_lookup = user
+    if user_found_by_email_lookup and LoginFailures.is_feature_enabled():
+        if LoginFailures.is_user_locked_out(user_found_by_email_lookup):
+            return JsonResponse({
+                "success": False,
+                "value": _('This account has been temporarily locked due to excessive login failures. Try again later.'),
+            })  # TODO: this should be status code 429  # pylint: disable=fixme
+
+    # see if the user must reset his/her password due to any policy settings
+    if user_found_by_email_lookup and PasswordHistory.should_user_reset_password_now(user_found_by_email_lookup):
+        return JsonResponse({
+            "success": False,
+            "value": _('Your password has expired due to password policy on this account. You must '
+                       'reset your password before you can log in again. Please click the '
+                       '"Forgot Password" link on this page to reset your password before logging in again.'),
+        })  # TODO: this should be status code 403  # pylint: disable=fixme
+
+    # if the user doesn't exist, we want to set the username to an invalid
+    # username so that authentication is guaranteed to fail and we can take
+    # advantage of the ratelimited backend
+    username = user.username if user else ""
+
+    if not third_party_auth_successful:
+        try:
+            user = authenticate(username=username, password=password, request=request)
+        # this occurs when there are too many attempts from the same IP address
+        except RateLimitException:
+            return JsonResponse({
+                "success": False,
+                "value": _('Too many failed login attempts. Try again later.'),
+            })  # TODO: this should be status code 429  # pylint: disable=fixme
+
+    if user is None:
+        # tick the failed login counters if the user exists in the database
+        if user_found_by_email_lookup and LoginFailures.is_feature_enabled():
+            LoginFailures.increment_lockout_counter(user_found_by_email_lookup)
+
+        # if we didn't find this username earlier, the account for this email
+        # doesn't exist, and doesn't have a corresponding password
+        if username != "":
+            if settings.FEATURES['SQUELCH_PII_IN_LOGS']:
+                loggable_id = user_found_by_email_lookup.id if user_found_by_email_lookup else "<unknown>"
+                AUDIT_LOG.warning(u"Login failed - password for user.id: {0} is invalid".format(loggable_id))
+            else:
+                AUDIT_LOG.warning(u"Login failed - password for {0} is invalid".format(email))
+        return JsonResponse({
+            "success": False,
+            "value": _('Email or password is incorrect.'),
+        })  # TODO: this should be status code 400  # pylint: disable=fixme
+
+    # successful login, clear failed login attempts counters, if applicable
+    if LoginFailures.is_feature_enabled():
+        LoginFailures.clear_lockout_counter(user)
+
+    # Track the user's sign in
+    if settings.FEATURES.get('SEGMENT_IO_LMS') and hasattr(settings, 'SEGMENT_IO_LMS_KEY'):
+        tracking_context = tracker.get_tracker().resolve_context()
+        analytics.identify(user.id, {
+            'email': email,
+            'username': username,
+        })
+
+        analytics.track(
+            user.id,
+            "edx.bi.user.account.authenticated",
+            {
+                'category': "conversion",
+                'label': request.POST.get('course_id'),
+                'provider': None
+            },
+            context={
+                'Google Analytics': {
+                    'clientId': tracking_context.get('client_id')
+                }
+            }
+        )
+
+    if user is not None and user.is_active and user.is_staff:
         try:
             # We do not log here, because we have a handler registered
             # to perform logging on successful logins.
@@ -1786,6 +1990,71 @@ def user_signup_handler(sender, **kwargs):  # pylint: disable=unused-argument
             user_signup_source.save()
             log.info(u'user {} originated from a white labeled "Microsite"'.format(kwargs['instance'].id))
 
+def _do_create_account_lms(form):
+    """
+    Given cleaned post variables, create the User and UserProfile objects, as well as the
+    registration for this user.
+
+    Returns a tuple (User, UserProfile, Registration).
+
+    Note: this function is also used for creating test users.
+    """
+    if not form.is_valid():
+        raise ValidationError(form.errors)
+
+    user = User(
+        username=form.cleaned_data["username"],
+        email=form.cleaned_data["email"],
+        is_staff=True,
+        is_active=False
+    )
+    user.set_password(form.cleaned_data["password"])
+    registration = Registration()
+
+    # TODO: Rearrange so that if part of the process fails, the whole process fails.
+    # Right now, we can have e.g. no registration e-mail sent out and a zombie account
+    try:
+        user.save()
+    except IntegrityError:
+        # Figure out the cause of the integrity error
+        if len(User.objects.filter(username=user.username)) > 0:
+            raise AccountValidationError(
+                _("An account with the Public Username '{username}' already exists.").format(username=user.username),
+                field="username"
+            )
+        elif len(User.objects.filter(email=user.email)) > 0:
+            raise AccountValidationError(
+                _("An account with the Email '{email}' already exists.").format(email=user.email),
+                field="email"
+            )
+        else:
+            raise
+
+    # add this account creation to password history
+    # NOTE, this will be a NOP unless the feature has been turned on in configuration
+    password_history_entry = PasswordHistory()
+    password_history_entry.create(user)
+
+    registration.register(user)
+
+    profile_fields = [
+        "name", "level_of_education", "gender", "mailing_address", "city", "country", "goals",
+        "year_of_birth"
+    ]
+    profile = UserProfile(
+        user=user,
+        **{key: form.cleaned_data.get(key) for key in profile_fields}
+    )
+    extended_profile = form.cleaned_extended_profile
+    if extended_profile:
+        profile.meta = json.dumps(extended_profile)
+    try:
+        profile.save()
+    except Exception:  # pylint: disable=broad-except
+        log.exception("UserProfile creation failed for user {id}.".format(id=user.id))
+        raise
+
+    return (user, profile, registration)
 
 def _do_create_account(form):
     """
@@ -1851,6 +2120,239 @@ def _do_create_account(form):
         raise
 
     return (user, profile, registration)
+
+
+def create_account_with_params_lms(request, params):
+    """
+    Given a request and a dict of parameters (which may or may not have come
+    from the request), create an account for the requesting user, including
+    creating a comments service user object and sending an activation email.
+    This also takes external/third-party auth into account, updates that as
+    necessary, and authenticates the user for the request's session.
+
+    Does not return anything.
+
+    Raises AccountValidationError if an account with the username or email
+    specified by params already exists, or ValidationError if any of the given
+    parameters is invalid for any other reason.
+
+    Issues with this code:
+    * It is not transactional. If there is a failure part-way, an incomplete
+      account will be created and left in the database.
+    * Third-party auth passwords are not verified. There is a comment that
+      they are unused, but it would be helpful to have a sanity check that
+      they are sane.
+    * It is over 300 lines long (!) and includes disprate functionality, from
+      registration e-mails to all sorts of other things. It should be broken
+      up into semantically meaningful functions.
+    * The user-facing text is rather unfriendly (e.g. "Username must be a
+      minimum of two characters long" rather than "Please use a username of
+      at least two characters").
+    """
+    # Copy params so we can modify it; we can't just do dict(params) because if
+    # params is request.POST, that results in a dict containing lists of values
+    params = dict(params.items())
+
+    # allow for microsites to define their own set of required/optional/hidden fields
+    extra_fields = microsite.get_value(
+        'REGISTRATION_EXTRA_FIELDS',
+        getattr(settings, 'REGISTRATION_EXTRA_FIELDS', {})
+    )
+
+    # Boolean of whether a 3rd party auth provider and credentials were provided in
+    # the API so the newly created account can link with the 3rd party account.
+    #
+    # Note: this is orthogonal to the 3rd party authentication pipeline that occurs
+    # when the account is created via the browser and redirect URLs.
+    should_link_with_social_auth = third_party_auth.is_enabled() and 'provider' in params
+
+    if should_link_with_social_auth or (third_party_auth.is_enabled() and pipeline.running(request)):
+        params["password"] = pipeline.make_random_password()
+
+    # if doing signup for an external authorization, then get email, password, name from the eamap
+    # don't use the ones from the form, since the user could have hacked those
+    # unless originally we didn't get a valid email or name from the external auth
+    # TODO: We do not check whether these values meet all necessary criteria, such as email length
+    do_external_auth = 'ExternalAuthMap' in request.session
+    if do_external_auth:
+        eamap = request.session['ExternalAuthMap']
+        try:
+            validate_email(eamap.external_email)
+            params["email"] = eamap.external_email
+        except ValidationError:
+            pass
+        if eamap.external_name.strip() != '':
+            params["name"] = eamap.external_name
+        params["password"] = eamap.internal_password
+        log.debug(u'In create_account with external_auth: user = %s, email=%s', params["name"], params["email"])
+
+    extended_profile_fields = microsite.get_value('extended_profile_fields', [])
+    enforce_password_policy = (
+        settings.FEATURES.get("ENFORCE_PASSWORD_POLICY", False) and
+        not do_external_auth
+    )
+    # Can't have terms of service for certain SHIB users, like at Stanford
+    tos_required = (
+        not settings.FEATURES.get("AUTH_USE_SHIB") or
+        not settings.FEATURES.get("SHIB_DISABLE_TOS") or
+        not do_external_auth or
+        not eamap.external_domain.startswith(
+            external_auth.views.SHIBBOLETH_DOMAIN_PREFIX
+        )
+    )
+
+    form = AccountCreationForm(
+        data=params,
+        extra_fields=extra_fields,
+        extended_profile_fields=extended_profile_fields,
+        enforce_username_neq_password=True,
+        enforce_password_policy=enforce_password_policy,
+        tos_required=tos_required,
+    )
+
+    # Perform operations within a transaction that are critical to account creation
+    with transaction.commit_on_success():
+        # first, create the account
+        (user, profile, registration) = _do_create_account_lms(form)
+
+        # next, link the account with social auth, if provided
+        if should_link_with_social_auth:
+            request.social_strategy = social_utils.load_strategy(backend=params['provider'], request=request)
+            social_access_token = params.get('access_token')
+            if not social_access_token:
+                raise ValidationError({
+                    'access_token': [
+                        _("An access_token is required when passing value ({}) for provider.").format(
+                            params['provider']
+                        )
+                    ]
+                })
+            request.session[pipeline.AUTH_ENTRY_KEY] = pipeline.AUTH_ENTRY_REGISTER_API
+            pipeline_user = None
+            error_message = ""
+            try:
+                pipeline_user = request.social_strategy.backend.do_auth(social_access_token, user=user)
+            except AuthAlreadyAssociated:
+                error_message = _("The provided access_token is already associated with another user.")
+            except (HTTPError, AuthException):
+                error_message = _("The provided access_token is not valid.")
+            if not pipeline_user or not isinstance(pipeline_user, User):
+                # Ensure user does not re-enter the pipeline
+                request.social_strategy.clean_partial_pipeline()
+                raise ValidationError({'access_token': [error_message]})
+
+    # Perform operations that are non-critical parts of account creation
+    preferences_api.set_user_preference(user, LANGUAGE_KEY, get_language())
+
+    if settings.FEATURES.get('ENABLE_DISCUSSION_EMAIL_DIGEST'):
+        try:
+            enable_notifications(user)
+        except Exception:
+            log.exception("Enable discussion notifications failed for user {id}.".format(id=user.id))
+
+    dog_stats_api.increment("common.student.account_created")
+
+    # Track the user's registration
+    if settings.FEATURES.get('SEGMENT_IO_LMS') and hasattr(settings, 'SEGMENT_IO_LMS_KEY'):
+        tracking_context = tracker.get_tracker().resolve_context()
+        analytics.identify(user.id, {
+            'email': user.email,
+            'username': user.username,
+        })
+
+        # If the user is registering via 3rd party auth, track which provider they use
+        provider_name = None
+        if third_party_auth.is_enabled() and pipeline.running(request):
+            running_pipeline = pipeline.get(request)
+            current_provider = provider.Registry.get_by_backend_name(running_pipeline.get('backend'))
+            provider_name = current_provider.NAME
+
+        analytics.track(
+            user.id,
+            "edx.bi.user.account.registered",
+            {
+                'category': 'conversion',
+                'label': params.get('course_id'),
+                'provider': provider_name
+            },
+            context={
+                'Google Analytics': {
+                    'clientId': tracking_context.get('client_id')
+                }
+            }
+        )
+
+    create_comments_service_user(user)
+
+    context = {
+        'name': profile.name,
+        'key': registration.activation_key,
+    }
+
+    # composes activation email
+    subject = render_to_string('emails/activation_email_subject.txt', context)
+    # Email subject *must not* contain newlines
+    subject = ''.join(subject.splitlines())
+    message = render_to_string('emails/activation_email.txt', context)
+
+    # Don't send email if we are:
+    #
+    # 1. Doing load testing.
+    # 2. Random user generation for other forms of testing.
+    # 3. External auth bypassing activation.
+    # 4. Have the platform configured to not require e-mail activation.
+    #
+    # Note that this feature is only tested as a flag set one way or
+    # the other for *new* systems. we need to be careful about
+    # changing settings on a running system to make sure no users are
+    # left in an inconsistent state (or doing a migration if they are).
+    send_email = (
+        not settings.FEATURES.get('SKIP_EMAIL_VALIDATION', None) and
+        not settings.FEATURES.get('AUTOMATIC_AUTH_FOR_TESTING') and
+        not (do_external_auth and settings.FEATURES.get('BYPASS_ACTIVATION_EMAIL_FOR_EXTAUTH'))
+    )
+    if send_email:
+        from_address = microsite.get_value(
+            'email_from_address',
+            settings.DEFAULT_FROM_EMAIL
+        )
+        try:
+            if settings.FEATURES.get('REROUTE_ACTIVATION_EMAIL'):
+                dest_addr = settings.FEATURES['REROUTE_ACTIVATION_EMAIL']
+                message = ("Activation for %s (%s): %s\n" % (user, user.email, profile.name) +
+                           '-' * 80 + '\n\n' + message)
+                mail.send_mail(subject, message, from_address, [dest_addr], fail_silently=False)
+            else:
+                user.email_user(subject, message, from_address)
+        except Exception:  # pylint: disable=broad-except
+            log.error(u'Unable to send activation email to user from "%s"', from_address, exc_info=True)
+    else:
+        registration.activate()
+
+    # Immediately after a user creates an account, we log them in. They are only
+    # logged in until they close the browser. They can't log in again until they click
+    # the activation link from the email.
+    new_user = authenticate(username=user.username, password=params['password'])
+    login(request, new_user)
+    request.session.set_expiry(0)
+
+    # TODO: there is no error checking here to see that the user actually logged in successfully,
+    # and is not yet an active user.
+    if new_user is not None:
+        AUDIT_LOG.info(u"Login success on new account creation - {0}".format(new_user.username))
+
+    if do_external_auth:
+        eamap.user = new_user
+        eamap.dtsignup = datetime.datetime.now(UTC)
+        eamap.save()
+        AUDIT_LOG.info(u"User registered with external_auth %s", new_user.username)
+        AUDIT_LOG.info(u'Updated ExternalAuthMap for %s to be %s', new_user.username, eamap)
+
+        if settings.FEATURES.get('BYPASS_ACTIVATION_EMAIL_FOR_EXTAUTH'):
+            log.info('bypassing activation email')
+            new_user.is_active = True
+            new_user.save()
+            AUDIT_LOG.info(u"Login activated on extauth account - {0} ({1})".format(new_user.username, new_user.email))
 
 
 def create_account_with_params(request, params):
@@ -2111,6 +2613,44 @@ def set_marketing_cookie(request, response):
         secure=None,
         httponly=None
     )
+
+
+@csrf_exempt
+def create_account_lms(request, post_override=None):
+    """
+    JSON call to create new edX account.
+    Used by form in signup_modal.html, which is included into navigation.html
+    """
+    warnings.warn("Please use RegistrationView instead.", DeprecationWarning)
+
+    try:
+        create_account_with_params_lms(request, post_override or request.POST)
+    except AccountValidationError as exc:
+        return JsonResponse({'success': False, 'value': exc.message, 'field': exc.field}, status=400)
+    except ValidationError as exc:
+        field, error_list = next(exc.message_dict.iteritems())
+        return JsonResponse(
+            {
+                "success": False,
+                "field": field,
+                "value": error_list[0],
+            },
+            status=400
+        )
+
+    redirect_url = try_change_enrollment(request)
+
+    # Resume the third-party-auth pipeline if necessary.
+    if third_party_auth.is_enabled() and pipeline.running(request):
+        running_pipeline = pipeline.get(request)
+        redirect_url = pipeline.get_complete_url(running_pipeline['backend'])
+
+    response = JsonResponse({
+        'success': True,
+        'redirect_url': redirect_url,
+    })
+    set_marketing_cookie(request, response)
+    return response
 
 
 @csrf_exempt

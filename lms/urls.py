@@ -25,7 +25,8 @@ urlpatterns = (
     url(r'^dashboard$', 'student.views.dashboard', name="dashboard"),
     url(r'^certificate$', 'student.views.certificate', name="certificate"),
     url(r'^friends$', 'student.views.friends', name="friends"),
-    url(r'^login_ajax$', 'student.views.login_user', name="login"),
+    url(r'^login_ajax$', 'student.views.login_user_lms', name="login_lms"),
+
     url(r'^login_ajax/(?P<error>[^/]*)$', 'student.views.login_user'),
 
     url(r'^admin_dashboard$', 'dashboard.views.dashboard'),
