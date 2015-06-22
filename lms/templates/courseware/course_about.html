@@ -128,7 +128,7 @@ from edxmako.shortcuts import marketing_link
           ${get_course_about_section(course, "overview")}
             %if user.is_authenticated() and registered:
               %if show_courseware_link:
-                <a class="action access-courseware btn_block" href="${course_target}"><strong>수강 듣기</strong></a>
+                <a class="action access-courseware btn_block" href="${course_target}"><strong>강의 듣기</strong></a>
               %endif
             %elif in_cart:
               <span class="add-to-cart">
@@ -141,7 +141,7 @@ from edxmako.shortcuts import marketing_link
             % elif invitation_only and not can_enroll:
               <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
             % elif not is_shib_course and not can_enroll:
-              <a class="action access-courseware btn_block"><strong>수강신청 종료</strong></a>
+              <a class="action access-courseware btn_block"><strong>강의신청 종료</strong></a>
             %elif can_add_course_to_cart:
               <%
               if user.is_authenticated():
@@ -159,11 +159,11 @@ from edxmako.shortcuts import marketing_link
             %else:
               %if user.is_authenticated():
               <a href="/courses/${course.id}/application" class="btn_block">
-                수강신청
+                강의신청
               </a>
               %else:
               <a href="/login" class="btn_block">
-                수강신청
+                강의신청
               </a>
               %endif
               <div id="register_error"></div>
@@ -200,7 +200,7 @@ from edxmako.shortcuts import marketing_link
                 </div>
                 %if course.enrollment_start_datetime_text():
                 <div class="course-detail-start item">
-                        <span class="label">수강신청 </span>${course.enrollment_start_datetime_text()} ~
+                        <span class="label">강의신청 </span>${course.enrollment_start_datetime_text()} ~
                         %if course.enrollment_end_datetime_text():
                             ${course.enrollment_end_datetime_text()}
                         %endif
@@ -230,9 +230,9 @@ $(function() {
                                                         <div class="course-detail-register">
         %if user.is_authenticated() and registered:
           %if show_courseware_link:
-            <a class="action access-courseware btn_block" href="${course_target}"><strong>수강 듣기</strong></a>
+            <a class="action access-courseware btn_block" href="${course_target}"><strong>강의 듣기</strong></a>
           %else:
-            <a class="action access-courseware btn_block" href="javascript:divShow('${course.start_datetime_text()}');"><strong>수강 듣기</strong></a>
+            <a class="action access-courseware btn_block" href="javascript:divShow('${course.start_datetime_text()}');"><strong>강의 듣기</strong></a>
           %endif
         %elif in_cart:
           <span class="add-to-cart">
@@ -243,7 +243,7 @@ $(function() {
         % elif invitation_only and not can_enroll:
           <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
         % elif not is_shib_course and not can_enroll:
-          <a class="action access-courseware btn_block"><strong>수강신청 종료</strong></a>
+          <a class="action access-courseware btn_block"><strong>강의신청 종료</strong></a>
         %elif can_add_course_to_cart:
           <%
           if user.is_authenticated():
@@ -261,11 +261,11 @@ $(function() {
         %else:
               %if user.is_authenticated():
               <a href="/courses/${course.id}/application" class="btn_block">
-                수강신청
+                강의신청
               </a>
               %else:
               <a href="/login" class="btn_block">
-                수강신청
+                강의신청
               </a>
               %endif
               <div id="register_error"></div>
@@ -442,7 +442,7 @@ $(function() {
 </section>
 
 <script type="text/javascript">
-var certification_html = "<h3 class=\"course-how-take-title\">수강 신청 방법</h3>" +
+var certification_html = "<h3 class=\"course-how-take-title\">강의 신청 방법</h3>" +
 	"<div class=\"course-how-take-block course-how-take-verified\">" +
     "<h3 class=\"copy-lead\">공식 수료증</h3>" +
     "<div class=\"course-how-take-block-content\">" +
@@ -450,18 +450,18 @@ var certification_html = "<h3 class=\"course-how-take-title\">수강 신청 방�
     "<p class=\"info\">* 위 교육과정을 성공적으로 이수하면, AcademyX 계정 생성 시, 등록한 이메일 주소로  공식수료증을 보내드립니다.</p>" +
     "</div>" +
     "<div class=\"course-how-take-block-footer copy-meta\">" +
-    "<p class=\"course-take-audit-cost\">수강료 : 100,000원</p>" +
+    "<p class=\"course-take-audit-cost\">강의료 : 100,000원</p>" +
     "</div>" +
     "</div>" +
     "<div class=\"course-how-take-or\"><span>or</span></div>" +
     "<div class=\"course-how-take-block course-how-take-honor\">" +
-    "<h3 class=\"copy-lead\">수강 확인증</h3>" +
+    "<h3 class=\"copy-lead\">강의 확인증</h3>" +
     "<div class=\"course-how-take-block-content\">" +
     "<p>${course.display_name_with_default} 교육과정에 대해 동영상 강의 및 강의자료, 테스트를 받을 수 있습니다. </p>" +
-    "<p class=\"info\">* 위 교육과정을 성공적으로 마친다면, AcademyX 계정 생성 시, 등록한 이메일 주소로 수강확인증을 보내드립니다.</p>" +
+    "<p class=\"info\">* 위 교육과정을 성공적으로 마친다면, AcademyX 계정 생성 시, 등록한 이메일 주소로 강의확인증을 보내드립니다.</p>" +
     "</div>" +
     "<div class=\"course-how-take-block-footer copy-meta\">" +
-    "<p class=\"course-take-audit-cost\">수강료 : 무료</p>" +
+    "<p class=\"course-take-audit-cost\">강의료 : 무료</p>" +
     "</div>" +
     "</div>";
 
