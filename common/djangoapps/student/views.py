@@ -2623,7 +2623,7 @@ def create_account_lms(request, post_override=None):
     warnings.warn("Please use RegistrationView instead.", DeprecationWarning)
 
     try:
-        create_account_with_params(request, post_override or request.POST)
+        create_account_with_params_lms(request, post_override or request.POST)
     except AccountValidationError as exc:
         return JsonResponse({'success': False, 'value': exc.message, 'field': exc.field}, status=400)
     except ValidationError as exc:
