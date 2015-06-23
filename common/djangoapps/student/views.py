@@ -2686,6 +2686,7 @@ def create_account(request, post_override=None):
 
     response = JsonResponse({
         'success': True,
+        'value': "registration ok"
         #'redirect_url': redirect_url,
     })
     set_marketing_cookie(request, response)

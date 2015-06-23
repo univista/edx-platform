@@ -3,3 +3,5 @@ delete from social_auth_usersocialauth where user_id=13;
 delete from auth_userprofile where user_id=13;
 delete from user_api_userpreference where user_id=13;
 delete from auth_user where id=13;
+select * from auth_user;
+
