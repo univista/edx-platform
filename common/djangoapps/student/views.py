@@ -2522,10 +2522,10 @@ def create_account_with_params(request, params):
     }
 
     # composes activation email
-    subject = render_to_string('emails/activation_email_subject.txt', context)
+    #subject = render_to_string('emails/activation_email_subject.txt', context)
     # Email subject *must not* contain newlines
-    subject = ''.join(subject.splitlines())
-    message = render_to_string('emails/activation_email.txt', context)
+    #subject = ''.join(subject.splitlines())
+    #message = render_to_string('emails/activation_email.txt', context)
 
     # Don't send email if we are:
     #
@@ -2538,6 +2538,7 @@ def create_account_with_params(request, params):
     # the other for *new* systems. we need to be careful about
     # changing settings on a running system to make sure no users are
     # left in an inconsistent state (or doing a migration if they are).
+    """
     send_email = (
         not settings.FEATURES.get('SKIP_EMAIL_VALIDATION', None) and
         not settings.FEATURES.get('AUTOMATIC_AUTH_FOR_TESTING') and
@@ -2560,13 +2561,15 @@ def create_account_with_params(request, params):
             log.error(u'Unable to send activation email to user from "%s"', from_address, exc_info=True)
     else:
         registration.activate()
-
+    """
     # Immediately after a user creates an account, we log them in. They are only
     # logged in until they close the browser. They can't log in again until they click
     # the activation link from the email.
+    
     new_user = authenticate(username=user.username, password=params['password'])
     login(request, new_user)
     request.session.set_expiry(0)
+
 
     # TODO: there is no error checking here to see that the user actually logged in successfully,
     # and is not yet an active user.
