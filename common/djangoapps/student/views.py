@@ -2565,7 +2565,7 @@ def create_account_with_params(request, params):
     # Immediately after a user creates an account, we log them in. They are only
     # logged in until they close the browser. They can't log in again until they click
     # the activation link from the email.
-
+    """
     new_user = authenticate(username=user.username, password=params['password'])
     login(request, new_user)
     request.session.set_expiry(0)
@@ -2588,6 +2588,7 @@ def create_account_with_params(request, params):
             new_user.is_active = True
             new_user.save()
             AUDIT_LOG.info(u"Login activated on extauth account - {0} ({1})".format(new_user.username, new_user.email))
+            """
 
 
 def set_marketing_cookie(request, response):
