@@ -2677,7 +2677,7 @@ def create_account(request, post_override=None):
             status=400
         )
 
-    redirect_url = try_change_enrollment(request)
+    #redirect_url = try_change_enrollment(request)
 
     # Resume the third-party-auth pipeline if necessary.
     if third_party_auth.is_enabled() and pipeline.running(request):
