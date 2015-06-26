@@ -180,7 +180,7 @@
 					<ul>
 					<li><a href="/dashboard">내가 신청한 과정</a></li>
 					<!--<li><a href="/friend">친구가 신청한 과정</a></li>-->
-					<li class="on"><a href="/certificate">수료증 보기</a></li>
+					<!-- <li class="on"><a href="/certificate">수료증 보기</a></li> -->
 					</ul>
 				</nav>
 				<div class="x-sel">
@@ -199,7 +199,7 @@
 					var _url = encodeURIComponent(url);
 					var _txt = '';
 					var _br  = encodeURIComponent('\r\n');
-				 
+
 					switch(sns)
 					{
 						case 'facebook':
@@ -208,26 +208,26 @@
 								url:'http://www.facebook.com/sharer/sharer.php?u=' + _url
 							};
 							break;
-				 
+
 						case 'twitter':
 							o = {
 								method:'popup',
 								url:'http://twitter.com/intent/tweet?text=' + _txt + '&url=' + _url
 							};
 							break;
-						
+
 						case 'google':
 							o = {
 								method:'popup',
 								url:'https://plus.google.com/share?url=' + _url
 							};
 							break;
-				 
+
 						default:
 							alert('지원하지 않는 SNS입니다.');
 							return false;
 					}
-				 
+
 					switch(o.method)
 					{
 						case 'popup':
@@ -242,7 +242,7 @@
 							}
 							window.open(o.url,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height='+_height+',width=600'); return false;
 							break;
-				 
+
 						case 'web2app':
 							if(navigator.userAgent.match(/android/i))
 							{
@@ -252,7 +252,7 @@
 							else if(navigator.userAgent.match(/(iphone)|(ipod)|(ipad)/i))
 							{
 								// Apple
-								setTimeout(function(){ location.href = o.a_store; }, 200);          
+								setTimeout(function(){ location.href = o.a_store; }, 200);
 								setTimeout(function(){ location.href = o.a_proto + o.param }, 100);
 							}
 							else
@@ -264,7 +264,7 @@
 				}
 
 				//프린트 스크립트
-				var fnPrint = function(priName, typeClass) {					
+				var fnPrint = function(priName, typeClass) {
 					var strFeature = "";
 					var _priName = priName
 					strFeature += "width=800, height=850, all=no";
@@ -298,15 +298,15 @@
 							</a>
 						</div>
 						<!-- //마우스 오버할때 링크들 -->
-					
+
 					<div id="printArea1" class="certificate_list_print">
 
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
 					<p class="certificate_info">${ user.profile.name | h } <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-					
-					
+
+
 					<div class="list_footer">
 						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
 						<ul class="center">
@@ -321,7 +321,7 @@
 							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_venturesquire.png" alt="sign" title="sign" /></p></li>
 							<li class="professor">벤처스퀘어 명승은 대표</li>
 						</ul>
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
+						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
 					</div>
 
 					</div>
@@ -347,8 +347,8 @@
 					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-					
-					
+
+
 					<div class="list_footer">
 						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
 						<ul class="center">
@@ -363,7 +363,7 @@
 							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_roaconsulting.png" alt="sign" title="sign" /></p></li>
 							<li class="professor">로아컨설팅 김진영 대표</li>
 						</ul>
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
+						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
 					</div>
 
 					</div>
@@ -384,13 +384,13 @@
 					<!-- //마우스 오버할때 링크들 -->
 
 					<div id="printArea3" class="certificate_list_print">
-					
+
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
 					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-					
-					
+
+
 					<div class="list_footer">
 						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
 						<ul class="center">
@@ -405,16 +405,16 @@
 							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_venturesquire_grey.png" alt="sign" title="sign" /></p></li>
 							<li class="professor">벤처스퀘어 명승은 대표</li>
 						</ul>
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
+						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
 					</div>
 
 					</div>
 
 					</div><!-- //box_wrapper -->
 				</li>
-				
+
 				<li class="venturesquire_type3">
-				<div class="box_wrapper">										
+				<div class="box_wrapper">
 					<!-- 마우스 오버할때 링크들 -->
 					<div class="footer-follow-links certificate_over_links">
 						<a href="mailto:zudain@naver.com">
@@ -425,15 +425,15 @@
 						</a>
 					</div>
 					<!-- //마우스 오버할때 링크들 -->
-					
+
 					<div id="printArea4" class="certificate_list_print">
 
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
 					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-					
-					
+
+
 					<div class="list_footer">
 						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
 						<ul class="center">
@@ -448,7 +448,7 @@
 							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_venturesquire.png" alt="sign" title="sign" /></p></li>
 							<li class="professor">벤처스퀘어 명승은 대표</li>
 						</ul>
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
+						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
 					</div>
 
 					</div>
@@ -467,15 +467,15 @@
 						</a>
 					</div>
 					<!-- //마우스 오버할때 링크들 -->
-					
+
 					<div id="printArea5" class="certificate_list_print">
 
 					<h3 class="logo" style="margin-top:35px"><img class="image-style-none" src="/static/themes/default/images/certificate/meetadvisor_logo.png" alt="logo" title="MEET ADVISOR LOGO" /></h3>
 					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-					
-					
+
+
 					<div class="list_footer">
 						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
 						<ul class="center">
@@ -490,7 +490,7 @@
 							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_meetadvisor.png" alt="sign" title="sign" /></p></li>
 							<li class="professor">MEET ADVISOR 선성관 대표</li>
 						</ul>
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
+						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
 					</div>
 
 					</div>
@@ -509,14 +509,14 @@
 						</a>
 					</div>
 					<!-- //마우스 오버할때 링크들 -->
-					
+
 					<div id="printArea6" class="certificate_list_print">
 
 					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-					
-					
+
+
 					<div class="list_footer">
 						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
 						<ul class="center">
@@ -527,16 +527,16 @@
 							<li class="issuing"><p>발행기관 : <span>벤처스퀘어</sapn></p></li>
 							<li class="agencies"><p>수행기관 : <span>아카데미X</sapn></p></li>
 						</ul>
-						
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
+
+						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
 					</div>
 
 					</div>
 
 					</div><!-- //box_wrapper -->
 				</li>
-				
-				
+
+
 				<li class="pagpartners">
 				<div class="box_wrapper">
 					<!-- 마우스 오버할때 링크들 -->
@@ -549,15 +549,15 @@
 						</a>
 					</div>
 					<!-- //마우스 오버할때 링크들 -->
-					
+
 					<div id="printArea7" class="certificate_list_print">
 
 					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/pagpartners_logo.png" alt="logo" title="PAG & 파트너스 LOGO" /></h3>
 					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
 					<p class="certificate_course">스타트업을 위한 준비과정</p>
 					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-					
-					
+
+
 					<div class="list_footer">
 						<ul class="right">
 							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_pagpartners.png" alt="sign" title="sign" /></p></li>
@@ -572,8 +572,8 @@
 							<li class="agencies"><p>수행기관 : <span>아카데미X</sapn></p></li>
 						</ul>
 						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
-						
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>									
+
+						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
 					</div>
 
 					</div>
@@ -582,10 +582,10 @@
 				</li>
 			</ul>
 
-			
+
 
 		  </section>
-		  
+
 	</section>
 </div>
 <section id="email-settings-modal" class="modal" aria-hidden="true">
@@ -771,6 +771,6 @@
 
 <script>
 $(function() {
-  
+
 });
 </script>
