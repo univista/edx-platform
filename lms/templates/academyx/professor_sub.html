@@ -4,7 +4,7 @@
 %>
 <%inherit file="../main.html" />
 <style>
-.container-x .member-professor {width: 960px;height: 431px;position: relative;background: #fff;}
+.container-x .member-professor {width: 960px;height: 431px;position: relative;background: #fff; display: none;}
 .container-x .member-professor .professor-history {left:800px}
 .container-x .member-professor em {display: block;
   font-size: 40px;
@@ -26,8 +26,13 @@
   height: 0;
   width: 157px;
   z-index: 0;}
- .container-x .member-professor .professor {position: absolute;left: 0;top: 110px;z-index: 30;}
- .container-x .member-professor .professor-history {left:807px}
+.container-x .member-professor .professor {position: absolute;left: 0;top: 110px;z-index: 30;}
+.container-x .member-professor .professor-history {left:807px}
+
+.container-x .course-board .board-write {display: none;}
+.container-x .course-board .board-list {display: none;}
+.container-x .course-board .pagination {display: none;}
+.container-x .course-board header nav ul li:first-child::after {content:''}
 </style>
 
 <section class="container-x">
@@ -430,11 +435,33 @@
 			<h2 class="element-invisible">강의 한줄평</h2>
 			<nav>
 				<ul>
-				<li><a href="professor_sub1.html">강의 한줄평</a></li>
-				<li class="on"><a href="professor_sub2.html">Q&A게시판</a></li>
+				<li class="on"><a href="professor_sub1.html">강의 한줄평</a></li>
+				<!-- <li><a href="professor_sub2.html">Q&A게시판</a></li> -->
 				</ul>
 			</nav>
 		</header>
+
+		<!-- facebook comment -->
+		<div class="facebook">
+		<div id="fb-root"></div>
+		<script>
+		(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.3&appId=584504851686203";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
+		$(document).ready(function(){
+			var url = $(location).attr('href');
+			$('.fb-comments').attr('data-href',url);
+		});
+		</script>
+		<div class="fb-comments" data-href="http://academyx.co/" data-width="810" data-numposts="5" data-colorscheme="light" style="margin-top:20px"></div>
+		</div>
+		<!-- facebook comment -->
+
 		<section class="board-write">
 			<div>
 				<form>
@@ -644,6 +671,14 @@ $(function(){
 
 	//pop_result3 호출
 	//result3Pop();
+
+	try {
+		var param = parseInt(window.location.search.split('?pfs=')[1])-1;
+		$('.member-professor').eq(param).show();
+	} catch (e) {
+		location.href = '/';
+	}
+
 });
 </script>
 
