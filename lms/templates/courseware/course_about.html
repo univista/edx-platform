@@ -260,9 +260,11 @@ $(function() {
           <div id="register_error"></div>
         %else:
               %if user.is_authenticated():
-              <a href="/courses/${course.id}/application" class="btn_block">
-                강의신청
-              </a>
+                  %if course.id.org == 'Startup_Planner':		## 문화청업플래너(Startup_Planner) 일 경우 결재화면으로 이동
+                  <a href="/courses/${course.id}/payment" class="btn_block">강의신청</a>
+                  %else:
+                  <a href="/courses/${course.id}/application" class="btn_block">강의신청</a>
+                  %endif
               %else:
               <a href="/login" class="btn_block">
                 강의신청

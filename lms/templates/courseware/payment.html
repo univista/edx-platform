@@ -106,7 +106,7 @@ from edxmako.shortcuts import marketing_link
   </script>
   <script src="${static.url('js/course_info.js')}"></script>
   <link rel="stylesheet" href="/static/css/m2ly6jxt.css">
-
+  <script type="text/javascript">document.domain="academyx.co"</script>
 </%block>
 <style>
 	* {font-style:normal !important}
@@ -131,32 +131,29 @@ from edxmako.shortcuts import marketing_link
 								<dt>결제수단</dt>
 								<dd>
 									<div>
+										%if course.id.org != 'Startup_Planner':
 										<span class="radio-area">
 											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay01" value="Card:VCard" checked>
 											<span></span>
 										</span>
-										<label for="pay01" class="post-type-label">
-											신용카드
-										</label>
+										<label for="pay01" class="post-type-label">신용카드</label>
 										<span class="radio-area">
 											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay02" value="HPP">
 											<span></span>
 										</span>
-										<label for="pay02" class="post-type-label">
-											휴대폰
-										</label>
+										<label for="pay02" class="post-type-label">휴대폰</label>
+										%else:
 										<span class="radio-area">
-											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay03" value="coupon">
+											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay03" value="coupon" checked>
 											<span></span>
 										</span>
-										<label for="pay03" class="post-type-label">
-											바우처
-										</label>
+										<label for="pay03" class="post-type-label">바우처</label>
+										%endif
 									</div>
 								</dd>
 								</dl>
-
-								<div class="payment-box01" style="display: block;">
+								%if course.id.org != 'Startup_Planner':
+								<div class="payment-box01">
 									<dl>
 									<dt style="height:62px">전화번호</dt>
 									<dd style="height:62px">
@@ -174,14 +171,16 @@ from edxmako.shortcuts import marketing_link
 									</dd>
 									</dl>
 								</div>
-								<div class="payment-box03" style="display: none;">
+								%else:
+								<div class="payment-box03">
 									<dl>
 									<dt>바우처 번호</dt>
 									<dd>
-										<div><input type="text" name="text" value="" placeholder=""></div>
+										<div><input type="text" name="voucher" value="" placeholder=""></div>
 									</dd>
 									</dl>
 								</div>
+								%endif
 							</div>
 						<!--End section-->
 						</section> <!--End chapter-->
@@ -235,6 +234,7 @@ from edxmako.shortcuts import marketing_link
     </div>
 
 	<script type="text/javascript">
+		document.domain = "academyx.co";
 		$(function() {
 			// adding js class for styling with accessibility in mind
 			$('body').addClass('js');
@@ -244,11 +244,7 @@ from edxmako.shortcuts import marketing_link
 				$("label[for='" + this.id + "']").parent().toggleClass("is-focused");
 			});
 
-			$('#pay01').prop('checked',true); //휴대폰을 기본으로 설정
-			$('.payment-box01').show();
-			//$('.payment-box02').hide();
-			$('.payment-box03').hide();
-			$('#pay01').click(function(){ //아니오를 클릭하면
+			$('#pay01').click(function(){ //신용카드를 클릭하면
 				$('#pay01').prop('checked',true);
 				$('#pay02').prop('checked',false);
 				$('#pay03').prop('checked',false);
@@ -258,7 +254,7 @@ from edxmako.shortcuts import marketing_link
 				$("#hpInfo1").hide();
 				$("#hpInfo2").hide();
 			});
-			$('#pay02').click(function(){ //예를 클릭하면
+			$('#pay02').click(function(){ //휴대폰을 클릭하면
 				$('#pay02').prop('checked',true);
 				$('#pay01').prop('checked',false);
 				$('#pay03').prop('checked',false);
@@ -268,7 +264,7 @@ from edxmako.shortcuts import marketing_link
 				$("#hpInfo1").show();
 				$("#hpInfo2").show();
 			});
-			$('#pay03').click(function(){ //예를 클릭하면
+			$('#pay03').click(function(){ //바우처를 클릭하면
 				$('#pay03').prop('checked',true);
 				$('#pay01').prop('checked',false);
 				$('#pay02').prop('checked',false);
@@ -302,10 +298,6 @@ $('iframe').load(function(){
 
 		function pg() {
 			try {
-			/*
-			  $("#class_enroll_form").submit();
-			  event.preventDefault();
-			*/
 				if ( validationCheck() ) {
 					callInicis();
 				}
@@ -320,28 +312,51 @@ $('iframe').load(function(){
 				return false;
 			}
 
-			/*
 			if (!gCert) {
 				$("#lean_overlay").show();
 				$("#forgot-password-modal3").css({'top': Math.max(0, (($(window).height() - $("#forgot-password-modal3").outerHeight()) / 2) + $(window).scrollTop()) + "px"});
 				$("#forgot-password-modal3").show();
 				return false;
 			}
-			*/
-			
+
 			return true;
 		}
 
 		function callInicis(){
-			var inicis = $("iframe[name=inicis]").contents();
-			var paymethod = $('input[name=payradio]:checked').val();
-			inicis.find("input[name=gopaymethod]").val(paymethod);
-			inicis.find("input[name=goodname]").val("${ user.id }_${course.id}");
-			inicis.find("input[name=buyername]").val("${ user.profile.name }");
-			inicis.find("input[name=buyeremail]").val("${ user.email }");
-			inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
-			inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
-			$("#inicis")[0].contentWindow.clickBtnImage();
+			if ($('#pay03').prop('checked')) {	// 바우처
+				$.ajax({
+					url: 'http://academyx.co:8080/courses/payment/voucher_regist.ax',
+					dataType: "jsonp",
+					data: {user_id:"${ user.id }", course_id:"${ course.id }", course_name:"${get_course_about_section(course, 'title')}", voucher:$('input[name=voucher]').val()},
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",  
+					success: function(data) {
+						if (data.code == 0) {	// 유효한 바우처
+							$('#forgot-password-modal2 .instructions p').text('바우처가 등록 되었습니다.')
+							$('#forgot-password-modal2').show();
+							$('#forgot-password-modal2 .close-modal').one('click', function() {
+								$("#class_enroll_form").submit();
+								event.preventDefault();
+							});
+						} else if (data.code == 1) {		// 유효하지 않은 바우처
+							$('#forgot-password-modal2 .instructions p').text('유효하지 않은 바우처입니다.')
+							$('#forgot-password-modal2').show();
+						} else {	// 오류 발생
+							$('#forgot-password-modal2 .instructions p').text('오류가 발생했습니다.<br/>잠시 후 다시 시도하세요.')
+							$('#forgot-password-modal2').show();
+						}
+					}
+				});
+			} else {	// 신용카드, 휴대폰
+				var inicis = $("iframe[name=inicis]").contents();
+				var paymethod = $('input[name=payradio]:checked').val();
+				inicis.find("input[name=gopaymethod]").val(paymethod);
+				inicis.find("input[name=goodname]").val("${ user.id }_${course.id}");
+				inicis.find("input[name=buyername]").val("${ user.profile.name }");
+				inicis.find("input[name=buyeremail]").val("${ user.email }");
+				inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
+				inicis.find("input[name=buyertel]").val($('input[name=buyertelCard]').val());
+				$("#inicis")[0].contentWindow.clickBtnImage();
+			}
 		}
 
 
@@ -355,8 +370,9 @@ $('iframe').load(function(){
 </form>
 
 <iframe name="pcert" id="pcert" src="http://academyx.co:8080/cert/cert_action.jsp" style="width:0px; height:0px; border: 0px"></iframe>
+%if course.id.org != 'Startup_Planner':
 <iframe name="inicis" id="inicis" src="http://academyx.co:8080/INIpay50/sample/INIsecurestart.jsp" style="width:0px; height:0px; border: 0px"></iframe>
-
+%endif
 <script type="text/javascript">
 	function divHide(){
 		$("#lean_overlay").hide();
