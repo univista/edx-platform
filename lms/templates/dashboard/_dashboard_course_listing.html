@@ -135,16 +135,20 @@ article.course h3 {max-width:477px}
                         % endif
                       % elif enrollment.mode != "verified":
                         ## Translators: The course's name will be added to the end of this sentence.
-                        % if not is_course_blocked and enrollment.payment_gb < 3:
+                        % if not is_course_blocked :
+                            % if enrollment.payment_gb < 3:
                         <a href="#unenroll-modal" class="enter-course" style="margin-left:10px;background:#ccc" rel="leanModal" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message('강의를 취소하시겠습니까?', '')">
                           강의취소
                         </a>
+                            % endif
                         % else:
+                            % if enrollment.payment_gb < 3:
                         <a class="enter-course" style="margin-left:10px;background:#ccc" data-course-id="${course.id | h}" data-course-number="${course.number | h}" data-dashboard-index="${dashboard_index}"
                            onclick="set_unenroll_message('6${_("Are you sure you want to unenroll from %(course_number)s?")}', '')">
                           강의취소
                         </a>
+                             % endif
                         % endif
                       % elif show_refund_option:
                         ## Translators: The course's name will be added to the end of this sentence.
