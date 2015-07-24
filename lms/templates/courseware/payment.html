@@ -119,7 +119,7 @@ from edxmako.shortcuts import marketing_link
 						<form id="frm">
 						<section>
 							<h2>공식수료증 신청을 위해 결제 수단을 선택해주세요.</h2>
-							
+
 							<div class="sections">
 								<dl>
 								<dt>휴대폰 실명인증</dt>
@@ -328,9 +328,10 @@ $('iframe').load(function(){
 					url: 'http://academyx.co:8080/courses/payment/voucher_regist.ax',
 					dataType: "jsonp",
 					data: {user_id:"${ user.id }", course_id:"${ course.id }", course_name:"${get_course_about_section(course, 'title')}", voucher:$('input[name=voucher]').val()},
-					contentType: "application/x-www-form-urlencoded; charset=UTF-8",  
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					success: function(data) {
 						if (data.code == 0) {	// 유효한 바우처
+							$('#payment_gb').val(3);
 							$('#forgot-password-modal2 .instructions p').text('바우처가 등록 되었습니다.')
 							$('#forgot-password-modal2').show();
 							$('#forgot-password-modal2 .close-modal').one('click', function() {
@@ -393,7 +394,7 @@ $('iframe').load(function(){
     </button>
 	<header style="padding-bottom:0;margin-bottom:10px">
       <h2 id="password-reset-email" style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">
-        알림      
+        알림
       </h2>
       <hr/>
     </header>
@@ -415,7 +416,7 @@ $('iframe').load(function(){
     </button>
 	<header style="padding-bottom:0;margin-bottom:10px">
       <h2 id="password-reset-email" style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">
-        알림      
+        알림
       </h2>
       <hr/>
     </header>
@@ -437,7 +438,7 @@ $('iframe').load(function(){
     </button>
 	<header style="padding-bottom:0;margin-bottom:10px">
       <h2 id="password-reset-email" style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">
-        알림      
+        알림
       </h2>
       <hr/>
     </header>
@@ -454,6 +455,7 @@ $('iframe').load(function(){
       <fieldset class="enroll_fieldset">
         <legend class="sr">${_("Enroll")}</legend>
         <input name="course_id" type="hidden" value="${course.id | h}">
+        <input name="payment_gb" id="payment_gb" type="hidden" value="0">
         <input name="enrollment_action" type="hidden" value="enroll">
       </fieldset>
       <div class="submit">

@@ -147,6 +147,11 @@
             $("#unenroll_course_number").text( $(event.target).data("course-number") );
         });
 
+	$(".enter-course").click(function(event) {
+            $("#unenroll_course_id").val( $(event.target).data("course-id") );
+            $("#unenroll_course_number").text( $(event.target).data("course-number") );
+        });
+
         $('#unenroll_form').on('ajax:complete', function(event, xhr) {
             if(xhr.status === 200) {
                 location.href = urls.dashboard;

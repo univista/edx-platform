@@ -646,7 +646,7 @@ class CourseEnrollment(models.Model):
     checking course dates, user permissions, etc.) This logic is currently
     scattered across our views.
     """
-    MODEL_TAGS = ['course_id', 'is_active', 'mode']
+    MODEL_TAGS = ['course_id', 'is_active', 'mode', 'payment_gb']
 
     user = models.ForeignKey(User)
     course_id = CourseKeyField(max_length=255, db_index=True)
@@ -659,6 +659,7 @@ class CourseEnrollment(models.Model):
     # Represents the modes that are possible. We'll update this later with a
     # list of possible values.
     mode = models.CharField(default="honor", max_length=100)
+    payment_gb = models.IntegerField();
 
     class Meta:
         unique_together = (('user', 'course_id'),)
@@ -666,8 +667,8 @@ class CourseEnrollment(models.Model):
 
     def __unicode__(self):
         return (
-            "[CourseEnrollment] {}: {} ({}); active: ({})"
-        ).format(self.user, self.course_id, self.created, self.is_active)
+            "[CourseEnrollment] {}: {} ({}); active: ({}), payment_gb({})"
+        ).format(self.user, self.course_id, self.created, self.is_active, self.payment_gb)
 
     @classmethod
     def get_or_create_enrollment(cls, user, course_key):
@@ -706,6 +707,7 @@ class CourseEnrollment(models.Model):
         if created:
             enrollment.mode = "honor"
             enrollment.is_active = False
+            enrollment.payment_gb = 0
             enrollment.save()
 
         return enrollment
@@ -762,7 +764,7 @@ class CourseEnrollment(models.Model):
             is_course_full = cls.num_enrolled_in(course.id) >= course.max_student_enrollments_allowed
         return is_course_full
 
-    def update_enrollment(self, mode=None, is_active=None, skip_refund=False):
+    def update_enrollment(self, mode=None, is_active=None, payment_gb=None, skip_refund=False):
         """
         Updates an enrollment for a user in a class.  This includes options
         like changing the mode, toggling is_active True/False, etc.
@@ -786,7 +788,12 @@ class CourseEnrollment(models.Model):
             self.mode = mode
             mode_changed = True
 
-        if activation_changed or mode_changed:
+        payment_change = False
+        if self.payment_gb != payment_gb and payment_gb is not None:
+            self.payment_gb  = payment_gb
+            payment_change =True
+
+        if activation_changed or mode_changed or  payment_change:
             self.save()
 
         if activation_changed:
@@ -858,7 +865,7 @@ class CourseEnrollment(models.Model):
                 )
 
     @classmethod
-    def enroll(cls, user, course_key, mode="honor", check_access=False):
+    def enroll(cls, user, course_key, mode="honor", check_access=False,payment_gb=0):
         """
         Enroll a user in a course. This saves immediately.
 
@@ -931,7 +938,7 @@ class CourseEnrollment(models.Model):
 
         # User is allowed to enroll if they've reached this point.
         enrollment = cls.get_or_create_enrollment(user, course_key)
-        enrollment.update_enrollment(is_active=True, mode=mode)
+        enrollment.update_enrollment(is_active=True, mode=mode,payment_gb=payment_gb)
         return enrollment
 
     @classmethod

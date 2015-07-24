@@ -207,13 +207,13 @@ article.course h3 {max-width:477px}
 
                 </section>
 
-
+				% if enrollment.payment_gb > 0 :
 				<!--공식 수료증 아이콘-->
-				<!--<span class="icon1"></span>-->
-
+				<span class="icon1"></span>
+				% else:
 				<!--수강 확인증 아이콘-->
 				<span class="icon2"></span>
-
+				% endif
 
         </article>
 </li>

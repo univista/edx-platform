@@ -1360,7 +1360,8 @@ def change_enrollment(request, check_access=True):
             # for no such model to exist, even though we've set the enrollment type
             # to "honor".
             try:
-                CourseEnrollment.enroll(user, course_id, check_access=check_access)
+                payment_gb = request.POST.get("payment_gb")
+                CourseEnrollment.enroll(user, course_id, check_access=check_access, payment_gb=payment_gb)
             except Exception:
                 return HttpResponseBadRequest(_("Could not enroll"))
 
