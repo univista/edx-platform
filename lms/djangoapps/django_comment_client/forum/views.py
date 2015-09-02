@@ -209,6 +209,11 @@ def forum_form_discussion(request, course_key):
     course = get_course_with_access(request.user, 'load_forum', course_key, check_if_enrolled=True)
     course_settings = make_course_settings(course, request.user)
 
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
+
     user = cc.User.from_django_user(request.user)
     user_info = user.to_dict()
 
@@ -252,6 +257,7 @@ def forum_form_discussion(request, course_key):
             'annotated_content_info': _attr_safe_json(annotated_content_info),
             'course_id': course.id.to_deprecated_string(),
             'roles': _attr_safe_json(utils.get_role_ids(course_key)),
+            'checkmyparnter' : checkmyparnter,
             'is_moderator': cached_has_permission(request.user, "see_all_cohorts", course_key),
             'cohorts': course_settings["cohorts"],  # still needed to render _thread_list_template
             'user_cohort': user_cohort_id,  # read from container in NewPostView

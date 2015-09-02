@@ -111,6 +111,9 @@ from django.conf import settings
 from django.utils.http import urlquote_plus
 %>
 
+
+
+
 <%block name="js_extra">
 <script type="text/javascript" src="${static.url('js/vendor/flot/jquery.flot.js')}"></script>
 <script type="text/javascript" src="${static.url('js/vendor/flot/jquery.flot.stack.js')}"></script>
@@ -124,7 +127,6 @@ from django.utils.http import urlquote_plus
 <%include file="/dashboard/_dashboard_prompt_midcourse_reverify.html" />
 
 <%include file="/courseware/course_navigation.html" args="active_page='progress'" />
-
 <div class="container">
   <div class="profile-wrapper">
 
@@ -138,7 +140,9 @@ from django.utils.http import urlquote_plus
       <header class="progress-certificates">
         <!--<h1 class="progress-certificates-title">${_("Course Progress for Student '{username}' ({email})").format(username=student.username, email=student.email)}</h1>-->
 		<h1 class="progress-certificates-title">교육과정 전체 진도율 확인 <!--여기 글자수가 줄어드니까 그래프에 %나와있는 왼쪽 글씨가 그래프를 침범하네요;;--></h1>
-		<!--<a href="/certificate" class="enter-course">수료증 보기 </a>-->
+        % if grade_summary["percent"] >= gr_cutoff:
+		<a href="/certificate" class="enter-course">수료증 보기 </a>
+        % endif
       </header>
 
         %if show_generate_cert_btn:

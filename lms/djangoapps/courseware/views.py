@@ -33,7 +33,7 @@ from markupsafe import escape
 from courseware import grades
 from courseware.access import has_access, _adjust_start_date_for_beta_testers
 from courseware.courses import (
-    get_courses, get_courses_search, get_course,
+    get_courses, get_courses_search, get_course, get_courses_partner,
     get_studio_url, get_course_with_access,
     sort_by_announcement,
     sort_by_start_date,
@@ -120,6 +120,10 @@ def courses(request):
     """
     Render "find courses" page.  The course selection work is done in courseware.courses.
     """
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
     courses = get_courses(request.user, request.META.get('HTTP_HOST'))
 
     if microsite.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
@@ -128,7 +132,7 @@ def courses(request):
     else:
         courses = sort_by_announcement(courses)
 
-    return render_to_response("courseware/courses.html", {'courses': courses})
+    return render_to_response("courseware/courses.html", {'courses': courses, 'checkmyparnter' : checkmyparnter})
 
 
 @csrf_exempt
@@ -136,6 +140,10 @@ def courses_search(request):
     """
     Render "find courses" page.  The course selection work is done in courseware.courses.
     """
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
     courses = get_courses_search(request)
 
     if microsite.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
@@ -144,17 +152,42 @@ def courses_search(request):
     else:
         courses = sort_by_announcement(courses)
 
-    return render_to_response("courseware/courses.html", {'courses': courses})
+    return render_to_response("courseware/courses.html", {'courses': courses, 'checkmyparnter' : checkmyparnter})
 
 @ensure_csrf_cookie
 @cache_if_anonymous()
 def professor(request):
-    return render_to_response("academyx/professor.html")
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
+    return render_to_response("academyx/professor.html",{'checkmyparnter' : checkmyparnter})
 
 @ensure_csrf_cookie
 @cache_if_anonymous()
 def partner(request):
-    return render_to_response("academyx/partner.html")
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
+    return render_to_response("academyx/partner.html",{'checkmyparnter' : checkmyparnter})
+
+@csrf_exempt
+def partner_groups(request, app_id):
+    courses = get_courses_partner(request, app_id)
+    #courses = get_courses(request.user, request.META.get('HTTP_HOST'))
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
+
+    if microsite.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
+                  settings.FEATURES["ENABLE_COURSE_SORTING_BY_START_DATE"]):
+       courses = sort_by_start_date(courses)
+    else:
+       courses = sort_by_announcement(courses)
+
+    return render_to_response("academyx/partner_group.html",{'app_id': app_id, 'courses': courses, 'checkmyparnter' : checkmyparnter})
 
 @ensure_csrf_cookie
 @cache_if_anonymous()
@@ -206,7 +239,11 @@ def partner_roa(request):
 @ensure_csrf_cookie
 @cache_if_anonymous()
 def professor_sub(request):
-    return render_to_response("academyx/professor_sub.html")
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
+    return render_to_response("academyx/professor_sub.html" ,{'checkmyparnter' : checkmyparnter})
 
 
 @ensure_csrf_cookie
@@ -458,6 +495,7 @@ def _index_bulk_op(request, course_key, chapter, section, position):
             raise Http404("Position {} is not an integer!".format(position))
 
     user = request.user
+    checkmyparnter = request.session['mypartner']
     course = get_course_with_access(user, 'load', course_key, depth=2)
 
     staff_access = has_access(user, 'staff', course)
@@ -516,6 +554,7 @@ def _index_bulk_op(request, course_key, chapter, section, position):
             'staff_access': staff_access,
             'studio_url': studio_url,
             'masquerade': masquerade,
+            'checkmyparnter' : checkmyparnter,
             'xqa_server': settings.FEATURES.get('USE_XQA_SERVER', 'http://xqa:server@content-qa.mitx.mit.edu/xqa'),
             'reverifications': fetch_reverify_banner_info(request, course_key),
         }
@@ -755,6 +794,10 @@ def course_info(request, course_id):
     Assumes the course_id is in a valid format.
     """
     course_key = SlashSeparatedCourseKey.from_deprecated_string(course_id)
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
 
     with modulestore().bulk_operations(course_key):
         course = get_course_with_access(request.user, 'load', course_key)
@@ -790,6 +833,7 @@ def course_info(request, course_id):
             'staff_access': staff_access,
             'masquerade': masquerade,
             'studio_url': studio_url,
+            'checkmyparnter' : checkmyparnter,
             'reverifications': reverifications,
             'show_enroll_banner': show_enroll_banner,
             'url_to_enroll': url_to_enroll,
@@ -900,6 +944,10 @@ def course_about(request, course_id):
     """
 
     course_key = SlashSeparatedCourseKey.from_deprecated_string(course_id)
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
 
     with modulestore().bulk_operations(course_key):
         permission_name = microsite.get_value(
@@ -981,6 +1029,7 @@ def course_about(request, course_id):
             'invitation_only': invitation_only,
             'active_reg_button': active_reg_button,
             'is_shib_course': is_shib_course,
+            'checkmyparnter' : checkmyparnter,
             # We do not want to display the internal courseware header, which is used when the course is found in the
             # context. This value is therefor explicitly set to render the appropriate header.
             'disable_courseware_header': True,
@@ -994,6 +1043,10 @@ def course_about(request, course_id):
 @cache_if_anonymous()
 def course_application(request, course_id):
     course_key = SlashSeparatedCourseKey.from_deprecated_string(course_id)
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
 
     with modulestore().bulk_operations(course_key):
         permission_name = microsite.get_value(
@@ -1070,6 +1123,7 @@ def course_application(request, course_id):
             'in_cart': in_cart,
             'reg_then_add_to_cart_link': reg_then_add_to_cart_link,
             'show_courseware_link': show_courseware_link,
+            'checkmyparnter' : checkmyparnter,
             'is_course_full': is_course_full,
             'can_enroll': can_enroll,
             'invitation_only': invitation_only,
@@ -1087,6 +1141,10 @@ def course_application(request, course_id):
 @cache_if_anonymous()
 def course_payment(request, course_id):
     course_key = SlashSeparatedCourseKey.from_deprecated_string(course_id)
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
 
     with modulestore().bulk_operations(course_key):
         permission_name = microsite.get_value(
@@ -1165,6 +1223,7 @@ def course_payment(request, course_id):
             'show_courseware_link': show_courseware_link,
             'is_course_full': is_course_full,
             'can_enroll': can_enroll,
+            'checkmyparnter' : checkmyparnter,
             'invitation_only': invitation_only,
             'active_reg_button': active_reg_button,
             'is_shib_course': is_shib_course,
@@ -1278,7 +1337,9 @@ def progress(request, course_id, student_id=None):
     there are unanticipated errors.
     """
 
+    log.info(course_id)
     course_key = SlashSeparatedCourseKey.from_deprecated_string(course_id)
+    log.info(course_key)
 
     with modulestore().bulk_operations(course_key):
         with grades.manual_transaction():
@@ -1294,6 +1355,10 @@ def _progress(request, course_key, student_id):
     Course staff are allowed to see the progress of students in their class.
     """
     course = get_course_with_access(request.user, 'load', course_key, depth=None, check_if_enrolled=True)
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
 
     # check to see if there is a required survey that must be taken before
     # the user can access the course.
@@ -1332,7 +1397,16 @@ def _progress(request, course_key, student_id):
 
     # checking certificate generation configuration
     show_generate_cert_btn = certs_api.cert_generation_enabled(course_key)
-
+    check_temp = course.grade_cutoffs
+    log.info(check_temp)
+    check_temp2 = str(check_temp)
+    check_temp2_1 = check_temp2.replace("u", "")
+    check_temp3 = check_temp2_1[9:]
+    log.info(check_temp3)
+    check_temp4 = check_temp3[:3]
+    log.info(check_temp4)
+    gr_cutoff = float(check_temp4)
+    log.info(gr_cutoff)
     context = {
         'course': course,
         'courseware_summary': courseware_summary,
@@ -1340,6 +1414,8 @@ def _progress(request, course_key, student_id):
         'grade_summary': grade_summary,
         'staff_access': staff_access,
         'student': student,
+        'gr_cutoff':gr_cutoff,
+        'checkmyparnter' : checkmyparnter,
         'reverifications': fetch_reverify_banner_info(request, course_key),
         'passed': is_course_passed(course, grade_summary),
         'show_generate_cert_btn': show_generate_cert_btn

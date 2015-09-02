@@ -58,6 +58,10 @@ def instructor_dashboard_2(request, course_id):
         return HttpResponseServerError()
 
     course = get_course_by_id(course_key, depth=0)
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
 
     access = {
         'admin': request.user.is_staff,
@@ -132,6 +136,7 @@ def instructor_dashboard_2(request, course_id):
         'old_dashboard_url': reverse('instructor_dashboard_legacy', kwargs={'course_id': unicode(course_key)}),
         'studio_url': get_studio_url(course, 'course'),
         'sections': sections,
+        'checkmyparnter' : checkmyparnter,
         'disable_buttons': disable_buttons,
         'analytics_dashboard_message': analytics_dashboard_message
     }

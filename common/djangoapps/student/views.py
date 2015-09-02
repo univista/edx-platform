@@ -12,6 +12,7 @@ from pytz import UTC
 from ipware.ip import get_ip
 
 from django.conf import settings
+
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.auth.decorators import login_required
@@ -114,6 +115,8 @@ from shoppingcart.models import DonationConfiguration, CourseRegistrationCode
 
 from embargo import api as embargo_api
 
+from django.template import RequestContext
+
 import analytics
 from eventtracking import tracker
 
@@ -122,6 +125,9 @@ from notification_prefs.views import enable_notifications
 
 # Note that this lives in openedx, so this dependency should be refactored.
 from openedx.core.djangoapps.user_api.preferences import api as preferences_api
+
+from courseware.courses import get_course_with_access
+from courseware import grades
 
 
 log = logging.getLogger("edx.student")
@@ -158,14 +164,20 @@ def index(request, extra_context=None, user=AnonymousUser()):
     if domain is False:
         domain = request.META.get('HTTP_HOST')
 
+
     courses = get_courses(user, domain=domain)
+    if request.user.is_authenticated():
+       checkmyparnter = request.session['mypartner']
+    else :
+       checkmyparnter = ""
     if microsite.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
                            settings.FEATURES["ENABLE_COURSE_SORTING_BY_START_DATE"]):
         courses = sort_by_start_date(courses)
     else:
         courses = sort_by_announcement(courses)
+    checkDomainBro = "successBro"
 
-    context = {'courses': courses}
+    context = {'courses': courses, 'checkmyparnter' : checkmyparnter, 'checkDomainBro' : checkDomainBro}
 
     context.update(extra_context)
     return render_to_response('index.html', context)
@@ -370,6 +382,7 @@ def _cert_info(user, course, cert_status, course_mode):
 @ensure_csrf_cookie
 def signin_user(request):
     """Deprecated. To be replaced by :class:`student_account.views.login_and_registration_form`."""
+    log.error("checking singin_user 0001")
     external_auth_response = external_auth_login(request)
     if external_auth_response is not None:
         return external_auth_response
@@ -399,6 +412,7 @@ def signin_user(request):
 @ensure_csrf_cookie
 def register_user(request, extra_context=None):
     """Deprecated. To be replaced by :class:`student_account.views.login_and_registration_form`."""
+    log.error("checking 0001")
     if request.user.is_authenticated():
         return redirect(reverse('dashboard'))
 
@@ -497,7 +511,7 @@ def is_course_blocked(request, redeemed_registration_codes, course_key):
 @ensure_csrf_cookie
 def dashboard(request):
     user = request.user
-
+    checkmyparnter = request.session['mypartner']
     platform_name = microsite.get_value("platform_name", settings.PLATFORM_NAME)
 
     # for microsites, we want to filter and only show enrollments for courses within
@@ -704,6 +718,7 @@ def dashboard(request):
         'provider_states': [],
         'order_history_list': order_history_list,
         'courses_requirements_not_met': courses_requirements_not_met,
+        'checkmyparnter':checkmyparnter,
         'ccx_membership_triplets': ccx_membership_triplets,
     }
 
@@ -718,6 +733,7 @@ def dashboard(request):
 @ensure_csrf_cookie
 def certificate(request):
     user = request.user
+    checkmyparnter = request.session['mypartner']
 
     platform_name = microsite.get_value("platform_name", settings.PLATFORM_NAME)
 
@@ -737,9 +753,35 @@ def certificate(request):
     # longer exist (because the course IDs have changed). Still, we don't delete those
     # enrollments, because it could have been a data push snafu.
     course_enrollment_pairs = list(get_course_enrollment_pairs(user, course_org_filter, org_filter_out_set))
+    student = request.user
 
     # sort the enrollment pairs by the enrollment date
     course_enrollment_pairs.sort(key=lambda x: x[1].created, reverse=True)
+    if len(course_enrollment_pairs) > 0:
+        course_cer =[]
+        for dashboard_index, (course, enrollment) in enumerate(course_enrollment_pairs):
+            course_key = course.id
+            course_sec = get_course_with_access(request.user, 'load', course_key, depth=None, check_if_enrolled=True)
+            check_temp = course_sec.grade_cutoffs
+            check_temp2 = str(check_temp)
+            check_temp2_1 = check_temp2.replace("u", "")
+
+            check_temp3 = check_temp2_1[9:]
+            check_temp4 = check_temp3[:3]
+            gr_cutoff = float(check_temp4)
+            grade_summary = grades.grade(student, request, course_sec)
+            gr_total_temp = grade_summary["percent"]
+            gr_total = float(gr_total_temp)
+
+            course_key_temp = str(course_key)
+            course_key_spl = course_key_temp.split("/")
+
+            if gr_total >= gr_cutoff :
+                #log.error(enrollment)
+                cource_temp = {"id" :course_key,"orgs":course_key_spl[0],"name":course.display_name_with_default,"payment":enrollment.payment_gb}
+                course_cer.append(cource_temp) 
+
+
 
     # Retrieve the course modes for each course
     enrolled_course_ids = [course.id for course, __ in course_enrollment_pairs]
@@ -751,6 +793,7 @@ def certificate(request):
         }
         for course_id, modes in unexpired_course_modes.iteritems()
     }
+
 
     # Check to see if the student has recently enrolled in a course.
     # If so, display a notification message confirming the enrollment.
@@ -902,6 +945,7 @@ def certificate(request):
         'external_auth_map': external_auth_map,
         'staff_access': staff_access,
         'errored_courses': errored_courses,
+        'course_cer':course_cer,
         'show_courseware_links_for': show_courseware_links_for,
         'all_course_modes': course_mode_info,
         'cert_statuses': cert_statuses,
@@ -925,6 +969,7 @@ def certificate(request):
         'provider_states': [],
         'order_history_list': order_history_list,
         'courses_requirements_not_met': courses_requirements_not_met,
+        'checkmyparnter' : checkmyparnter,
         'ccx_membership_triplets': ccx_membership_triplets,
     }
 
@@ -939,6 +984,7 @@ def certificate(request):
 @ensure_csrf_cookie
 def friends(request):
     user = request.user
+    checkmyparnter = request.session['mypartner']
 
     platform_name = microsite.get_value("platform_name", settings.PLATFORM_NAME)
 
@@ -1146,6 +1192,7 @@ def friends(request):
         'provider_states': [],
         'order_history_list': order_history_list,
         'courses_requirements_not_met': courses_requirements_not_met,
+        'checkmyparnter' : checkmyparnter,
         'ccx_membership_triplets': ccx_membership_triplets,
     }
 
@@ -1301,6 +1348,7 @@ def change_enrollment(request, check_access=True):
     """
     # Get the user
     user = request.user
+    checkmyparnter = request.session['mypartner']
 
     # Ensure the user is authenticated
     if not user.is_authenticated():
@@ -1362,6 +1410,37 @@ def change_enrollment(request, check_access=True):
             try:
                 payment_gb = request.POST.get("payment_gb")
                 CourseEnrollment.enroll(user, course_id, check_access=check_access, payment_gb=payment_gb)
+                """
+                if payment_gb != 3:
+                   do_external_auth = 'ExternalAuthMap' in request.session
+                   context = {
+                        'name': "testnametestname",
+                        'key': 'testtesttesttesttest',
+                        'pygb':payment_gb
+                   }
+                   subject = render_to_string('emails/activation_email_subject.txt',context)
+                   subject = ''.join(subject.splitlines())
+                   message = render_to_string('emails/activation_email.txt', context)
+                   send_email = (
+                        not settings.FEATURES.get('SKIP_EMAIL_VALIDATION', None) and
+                        not settings.FEATURES.get('AUTOMATIC_AUTH_FOR_TESTING') and
+                        not (do_external_auth and settings.FEATURES.get('BYPASS_ACTIVATION_EMAIL_FOR_EXTAUTH'))
+                   )
+                   if send_email:
+                      from_address = microsite.get_value(
+                            'email_from_address',
+                            settings.DEFAULT_FROM_EMAIL
+                      )
+                      try:
+                          if settings.FEATURES.get('REROUTE_ACTIVATION_EMAIL'):
+                             dest_addr = settings.FEATURES['REROUTE_ACTIVATION_EMAIL']
+                             message = ("Activation for %s (%s): %s\n" % (user, user.email, "testnametestname") +'-' * 80 + '\n\n' + message)
+                             mail.send_mail(subject, message, from_address, [dest_addr], fail_silently=False)
+                          else:
+                             user.email_user(subject, message, from_address)
+                      except Exception:  # pylint: disable=broad-except
+                        log.error(u'Unable to send activation email to user from "%s"', from_address, exc_info=True)
+                        """
             except Exception:
                 return HttpResponseBadRequest(_("Could not enroll"))
 
@@ -1432,6 +1511,7 @@ def login_user_lms(request, error=""):  # pylint: disable-msg=too-many-statement
     trumped_by_first_party_auth = bool(request.POST.get('email')) or bool(request.POST.get('password'))
     user = None
 
+
     if third_party_auth_requested and not trumped_by_first_party_auth:
         # The user has already authenticated via third-party auth and has not
         # asked to do first party auth by supplying a username or password. We
@@ -1476,6 +1556,8 @@ def login_user_lms(request, error=""):  # pylint: disable-msg=too-many-statement
 
         email = request.POST['email']
         password = request.POST['password']
+        #log.error("fisrt password")
+        #log.error(password)
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
@@ -1524,6 +1606,8 @@ def login_user_lms(request, error=""):  # pylint: disable-msg=too-many-statement
 
     if not third_party_auth_successful:
         try:
+            #log.error("second password")
+            #log.error(password)
             user = authenticate(username=username, password=password, request=request)
         # this occurs when there are too many attempts from the same IP address
         except RateLimitException:
@@ -1602,6 +1686,19 @@ def login_user_lms(request, error=""):  # pylint: disable-msg=too-many-statement
             "success": True,
             "redirect_url": redirect_url,
         })
+        check_ref = request.POST.get('checkref')
+        log.error(check_ref)
+
+        if check_ref : 
+            if check_ref == "IdeaCloud":
+                request.session["mypartner"] = "IdeaCloud"
+            elif check_ref == "Startup_Planner":
+                request.session["mypartner"] = "Startup_Planner"
+            else :
+                request.session["mypartner"] = ""
+        else :
+            request.session["mypartner"] = ""
+        log.error(request.session['mypartner'])
 
         # Ensure that the external marketing site can
         # detect that the user is logged in.
@@ -1806,6 +1903,7 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
             "success": True,
             "redirect_url": redirect_url,
         })
+
 
         # Ensure that the external marketing site can
         # detect that the user is logged in.
@@ -2153,6 +2251,7 @@ def create_account_with_params_lms(request, params):
     # Copy params so we can modify it; we can't just do dict(params) because if
     # params is request.POST, that results in a dict containing lists of values
     params = dict(params.items())
+    request.session["mypartner"] = ""
 
     # allow for microsites to define their own set of required/optional/hidden fields
     extra_fields = microsite.get_value(
@@ -2290,6 +2389,8 @@ def create_account_with_params_lms(request, params):
         'key': registration.activation_key,
     }
 
+    log.error("email context check")
+
     # composes activation email
     subject = render_to_string('emails/activation_email_subject.txt', context)
     # Email subject *must not* contain newlines
@@ -2312,6 +2413,7 @@ def create_account_with_params_lms(request, params):
         not settings.FEATURES.get('AUTOMATIC_AUTH_FOR_TESTING') and
         not (do_external_auth and settings.FEATURES.get('BYPASS_ACTIVATION_EMAIL_FOR_EXTAUTH'))
     )
+
     if send_email:
         from_address = microsite.get_value(
             'email_from_address',
@@ -2992,6 +3094,7 @@ def change_email_request(request):
         raise Http404
 
     user = request.user
+    checkmyparnter = request.session['mypartner']
 
     if not user.check_password(request.POST['password']):
         return JsonResponse({

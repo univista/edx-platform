@@ -286,6 +286,7 @@ if settings.COURSEWARE_ENABLED:
 
         url(r'^professor/?$', 'branding.views.professor', name="courses"),
         url(r'^partner/?$', 'branding.views.partner', name="courses"),
+        url(r'^partner_groups/(?P<app_id>.+)/$', 'courseware.views.partner_groups', name="partner_groups"),
         url(r'^adx_terms_service/?$', 'branding.views.adx_terms_service', name="courses"),
         url(r'^adx_notify/?$', 'branding.views.adx_notify', name="courses"),
         url(r'^adx_privacy_policy/?$', 'branding.views.adx_privacy_policy', name="courses"),

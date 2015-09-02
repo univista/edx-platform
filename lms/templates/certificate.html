@@ -6,11 +6,16 @@
 
 <%!
   from django.core.urlresolvers import reverse
+  import time
 %>
 
 <%
   cert_name_short = settings.CERT_NAME_SHORT
   cert_name_long = settings.CERT_NAME_LONG
+  now = time.localtime()
+  toyear = now.tm_year
+  tomonth = now.tm_mon
+  today = now.tm_mday
 %>
 
 <%inherit file="main.html" />
@@ -180,16 +185,16 @@
 					<ul>
 					<li><a href="/dashboard">내가 신청한 과정</a></li>
 					<!--<li><a href="/friend">친구가 신청한 과정</a></li>-->
-					<!-- <li class="on"><a href="/certificate">수료증 보기</a></li> -->
+					<li class="on"><a href="/certificate">수료증 보기</a></li>
 					</ul>
 				</nav>
-				<div class="x-sel">
+				<!--<div class="x-sel">
 					<select>
 						<option>전체</option>
 						<option>공식수료증</option>
 						<option>수강확인증</option>
 					</select>
-				</div>
+				</div>-->
 			</header>
 			<script type="text/javascript">
 				function sendSns(sns)
@@ -285,236 +290,27 @@
 					setTimeout(function(){ objWin.print();objWin.close(); }, 1000);
 				};
 			  </script>
+
 			<ul class="certificate_list">
-				<li class="venturesquire_type2">
-				    <div class="box_wrapper">
-						<!-- 마우스 오버할때 링크들 -->
-						<div class="footer-follow-links certificate_over_links">
-							<a href="mailto:zudain@naver.com">
-								<i class="fa fa-email">E-maiil</i>
-							</a>
-							<a href="#" onclick="javascript:fnPrint('printArea1','venturesquire_type2'); return false;">
-								<i class="fa fa-print">Print</i>
-							</a>
-						</div>
-						<!-- //마우스 오버할때 링크들 -->
-
-					<div id="printArea1" class="certificate_list_print">
-
-					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
-					<p class="certificate_info">${ user.profile.name | h } <span>2015.02.04 ~ 2015.04.01</span></p>
-					<p class="certificate_course">스타트업을 위한 준비과정</p>
-					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-
-
-					<div class="list_footer">
-						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
-						<ul class="center">
-							<li class="date"><p>2015년 3월 7일</p></li>
-							<li><p>공식수료증 진위 확인</p></li>
-						</ul>
-						<ul class="organic">
-							<li class="issuing"><p>발행기관 : <span>벤처스퀘어</sapn></p></li>
-							<li class="agencies"><p>수행기관 : <span>아카데미X</sapn></p></li>
-						</ul>
-						<ul class="right">
-							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_venturesquire.png" alt="sign" title="sign" /></p></li>
-							<li class="professor">벤처스퀘어 명승은 대표</li>
-						</ul>
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
-					</div>
-
-					</div>
-
-					</div><!-- //box_wrapper -->
-				</li>
-				<li class="roaconsulting">
-				<div class="box_wrapper">
-					<!-- 마우스 오버할때 링크들 -->
-					<div class="footer-follow-links certificate_over_links">
-						<a href="mailto:zudain@naver.com">
-							<i class="fa fa-email">E-maiil</i>
-						</a>
-						<a href="#" onclick="javascript:fnPrint('printArea2','roaconsulting'); return false;">
-							<i class="fa fa-print">Print</i>
-						</a>
-					</div>
-					<!-- //마우스 오버할때 링크들 -->
-
-
-					<div id="printArea2" class="certificate_list_print">
-
-					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
-					<p class="certificate_course">스타트업을 위한 준비과정</p>
-					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-
-
-					<div class="list_footer">
-						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
-						<ul class="center">
-							<li class="date"><p>2015년 3월 7일</p></li>
-							<li><p>공식수료증 진위 확인</p></li>
-						</ul>
-						<ul class="organic">
-							<li class="issuing"><p>발행기관 : <span>벤처스퀘어</sapn></p></li>
-							<li class="agencies"><p>수행기관 : <span>아카데미X</sapn></p></li>
-						</ul>
-						<ul class="right">
-							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_roaconsulting.png" alt="sign" title="sign" /></p></li>
-							<li class="professor">로아컨설팅 김진영 대표</li>
-						</ul>
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
-					</div>
-
-					</div>
-
-					</div><!-- //box_wrapper -->
-				</li>
-				<li class="venturesquire">
+			%for cert_list in course_cer:
+			     <li class="academyx">
 					<div class="box_wrapper">
 					<!-- 마우스 오버할때 링크들 -->
-					<div class="footer-follow-links certificate_over_links">
-						<a href="mailto:zudain@naver.com">
-							<i class="fa fa-email">E-maiil</i>
-						</a>
-						<a href="#" onclick="javascript:fnPrint('printArea3','venturesquire'); return false;">
-							<i class="fa fa-print">Print</i>
-						</a>
-					</div>
-					<!-- //마우스 오버할때 링크들 -->
-
-					<div id="printArea3" class="certificate_list_print">
-
-					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
-					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
-					<p class="certificate_course">스타트업을 위한 준비과정</p>
-					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-
-
-					<div class="list_footer">
-						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
-						<ul class="center">
-							<li class="date"><p>2015년 3월 7일</p></li>
-							<li><p>공식수료증 진위 확인</p></li>
-						</ul>
-						<ul class="organic">
-							<li class="issuing"><p>발행기관 : <span>벤처스퀘어</sapn></p></li>
-							<li class="agencies"><p>수행기관 : <span>아카데미X</sapn></p></li>
-						</ul>
-						<ul class="right">
-							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_venturesquire_grey.png" alt="sign" title="sign" /></p></li>
-							<li class="professor">벤처스퀘어 명승은 대표</li>
-						</ul>
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
-					</div>
-
-					</div>
-
-					</div><!-- //box_wrapper -->
-				</li>
-
-				<li class="venturesquire_type3">
-				<div class="box_wrapper">
-					<!-- 마우스 오버할때 링크들 -->
-					<div class="footer-follow-links certificate_over_links">
-						<a href="mailto:zudain@naver.com">
-							<i class="fa fa-email">E-maiil</i>
-						</a>
-						<a href="#" onclick="javascript:fnPrint('printArea4','venturesquire_type3'); return false;">
-							<i class="fa fa-print">Print</i>
-						</a>
-					</div>
-					<!-- //마우스 오버할때 링크들 -->
-
-					<div id="printArea4" class="certificate_list_print">
-
-					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/venturesquire_logo.png" alt="logo" title="logo" /></h3>
-					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
-					<p class="certificate_course">스타트업을 위한 준비과정</p>
-					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-
-
-					<div class="list_footer">
-						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
-						<ul class="center">
-							<li class="date"><p>2015년 3월 7일</p></li>
-							<li><p>공식수료증 진위 확인</p></li>
-						</ul>
-						<ul class="organic">
-							<li class="issuing"><p>발행기관 : <span>벤처스퀘어</sapn></p></li>
-							<li class="agencies"><p>수행기관 : <span>아카데미X</sapn></p></li>
-						</ul>
-						<ul class="right">
-							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_venturesquire.png" alt="sign" title="sign" /></p></li>
-							<li class="professor">벤처스퀘어 명승은 대표</li>
-						</ul>
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
-					</div>
-
-					</div>
-
-					</div><!-- //box_wrapper -->
-				</li>
-				<li class="meetadvisor">
-				<div class="box_wrapper">
-					<!-- 마우스 오버할때 링크들 -->
-					<div class="footer-follow-links certificate_over_links">
-						<a href="mailto:zudain@naver.com">
-							<i class="fa fa-email">E-maiil</i>
-						</a>
-						<a href="#" onclick="javascript:fnPrint('printArea5','meetadvisor'); return false;">
-							<i class="fa fa-print">Print</i>
-						</a>
-					</div>
-					<!-- //마우스 오버할때 링크들 -->
-
-					<div id="printArea5" class="certificate_list_print">
-
-					<h3 class="logo" style="margin-top:35px"><img class="image-style-none" src="/static/themes/default/images/certificate/meetadvisor_logo.png" alt="logo" title="MEET ADVISOR LOGO" /></h3>
-					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
-					<p class="certificate_course">스타트업을 위한 준비과정</p>
-					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-
-
-					<div class="list_footer">
-						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
-						<ul class="center">
-							<li class="date"><p>2015년 3월 7일</p></li>
-							<li><p>공식수료증 진위 확인</p></li>
-						</ul>
-						<ul class="organic">
-							<li class="issuing"><p>발행기관 : <span>벤처스퀘어</sapn></p></li>
-							<li class="agencies"><p>수행기관 : <span>아카데미X</sapn></p></li>
-						</ul>
-						<ul class="right">
-							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_meetadvisor.png" alt="sign" title="sign" /></p></li>
-							<li class="professor">MEET ADVISOR 선성관 대표</li>
-						</ul>
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
-					</div>
-
-					</div>
-
-					</div><!-- //box_wrapper -->
-				</li>
-				<li class="academyx">
-					<div class="box_wrapper">
-					<!-- 마우스 오버할때 링크들 -->
-					<div class="footer-follow-links certificate_over_links">
-						<a href="mailto:zudain@naver.com">
-							<i class="fa fa-email">E-maiil</i>
-						</a>
-						<a href="#" onclick="javascript:fnPrint('printArea6','academyx'); return false;">
-							<i class="fa fa-print">Print</i>
-						</a>
+						<div style="padding-left: 50px;" class="footer-follow-links certificate_over_links">
+						<!--	<a href="mailto:zudain@naver.com">
+									<i class="fa fa-email">E-maiil</i>
+								</a> -->
+								<a href="#" style="width:32px; height:32px;" onclick="javascript:fnPrint('printArea1','venturesquire_type2'); return false;">
+									<i class="fa fa-print">Print</i>
+								</a>
 					</div>
 					<!-- //마우스 오버할때 링크들 -->
 
 					<div id="printArea6" class="certificate_list_print">
 
-					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
-					<p class="certificate_course">스타트업을 위한 준비과정</p>
-					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
+					<p class="certificate_info"> <span>${ user.profile.name | h }</span></p>
+					<p class="certificate_course">${cert_list["name"]}</p>
+					<p class="certificate_text">위 사람은 경기콘텐츠진흥원에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
 
 
 					<div class="list_footer">
@@ -524,7 +320,7 @@
 							<li><p>공식수료증 진위 확인</p></li>
 						</ul>
 						<ul class="organic">
-							<li class="issuing"><p>발행기관 : <span>벤처스퀘어</sapn></p></li>
+							<li class="issuing"><p>발행기관 : <span>경기콘텐츠진흥원</sapn></p></li>
 							<li class="agencies"><p>수행기관 : <span>아카데미X</sapn></p></li>
 						</ul>
 
@@ -535,55 +331,8 @@
 
 					</div><!-- //box_wrapper -->
 				</li>
-
-
-				<li class="pagpartners">
-				<div class="box_wrapper">
-					<!-- 마우스 오버할때 링크들 -->
-					<div class="footer-follow-links certificate_over_links">
-						<a href="mailto:zudain@naver.com">
-							<i class="fa fa-email">E-maiil</i>
-						</a>
-						<a href="#" onclick="javascript:fnPrint('printArea7','pagpartners'); return false;">
-							<i class="fa fa-print">Print</i>
-						</a>
-					</div>
-					<!-- //마우스 오버할때 링크들 -->
-
-					<div id="printArea7" class="certificate_list_print">
-
-					<h3 class="logo"><img class="image-style-none" src="/static/themes/default/images/certificate/pagpartners_logo.png" alt="logo" title="PAG & 파트너스 LOGO" /></h3>
-					<p class="certificate_info"> <span>2015.02.04 ~ 2015.04.01</span></p>
-					<p class="certificate_course">스타트업을 위한 준비과정</p>
-					<p class="certificate_text">위 사람은 벤처스퀘어에서 제공한 온라인 및 오프라인 강의를  아카데미X를 통하여 성공적으로 수료하였기에 공식수료증을 수여합니다.</p>
-
-
-					<div class="list_footer">
-						<ul class="right">
-							<li><p class="signWrite"><img src="/static/themes/default/images/certificate/sign_pagpartners.png" alt="sign" title="sign" /></p></li>
-							<li class="professor">PAG &amp; 파트너스 박성현 대표</li>
-						</ul>
-						<ul class="center">
-							<li class="date"><p>2015년 3월 7일</p></li>
-							<li><p>공식수료증 진위 확인</p></li>
-						</ul>
-						<ul class="organic">
-							<li class="issuing"><p>발행기관 : <span>벤처스퀘어</sapn></p></li>
-							<li class="agencies"><p>수행기관 : <span>아카데미X</sapn></p></li>
-						</ul>
-						<img class="qr_coder left" src="/static/themes/default/images/certificate/qr_code.png" alt="QR_code" title="QR_code" />
-
-						<p class="address">https://academyx.co/certificate/ereireo34325jklgjeou3oiu42oi4u2</p>
-					</div>
-
-					</div>
-
-					</div><!-- //box_wrapper -->
-				</li>
+			% endfor
 			</ul>
-
-
-
 		  </section>
 
 	</section>

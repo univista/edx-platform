@@ -373,6 +373,17 @@ def get_courses_search(request):
 
     return courses
 
+def get_courses_partner(request, app_id):
+    courses = branding.get_visible_courses_partner(request, app_id)
+
+    permission_name = microsite.get_value(
+        'COURSE_CATALOG_VISIBILITY_PERMISSION',
+        settings.COURSE_CATALOG_VISIBILITY_PERMISSION
+    )
+    courses = [c for c in courses]
+    courses = sorted(courses, key=lambda course: course.number)
+    return courses
+
 
 def sort_by_announcement(courses):
     """

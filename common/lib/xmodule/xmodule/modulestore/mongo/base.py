@@ -959,12 +959,42 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
         '''
 
         course_org_filter = kwargs.get('org')
+        course_name_filter = kwargs.get('display_name')
 
+        #regx = re.compile('^course_name_filter', re.IGNORECASE)
+
+        if course_name_filter:
+            course_records = self.collection.find({'_id.category': 'course', 'metadata.display_name': {'$regex':re.escape(course_name_filter)}})
+        else:
+            course_records = self.collection.find({'_id.category': 'course'})
+
+        base_list = sum(
+            [
+                self._load_items(
+                    SlashSeparatedCourseKey(course['_id']['org'], course['_id']['course'], course['_id']['name']),
+                    [course]
+                )
+                for course
+                # I tried to add '$and': [{'_id.org': {'$ne': 'edx'}}, {'_id.course': {'$ne': 'templates'}}]
+                # but it didn't do the right thing (it filtered all edx and all templates out)
+                in course_records
+                if not (  # TODO kill this
+                    course['_id']['org'] == 'edx' and
+                    course['_id']['course'] == 'templates'
+                )
+            ],
+            []
+        )
+        return [course for course in base_list if not isinstance(course, ErrorDescriptor)]
+
+    @autoretry_read()
+    def get_courses_partner(self, **kwargs):
+        course_org_filter = kwargs.get('org')
         if course_org_filter:
             course_records = self.collection.find({'_id.category': 'course', '_id.org': course_org_filter})
         else:
             course_records = self.collection.find({'_id.category': 'course'})
-
+            
         base_list = sum(
             [
                 self._load_items(
