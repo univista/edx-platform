@@ -1690,8 +1690,8 @@ def login_user_lms(request, error=""):  # pylint: disable-msg=too-many-statement
         log.error(check_ref)
 
         if check_ref : 
-            if check_ref == "IdeaCloud":
-                request.session["mypartner"] = "IdeaCloud"
+            if check_ref == "Idea_Cloud":
+                request.session["mypartner"] = "Idea_Cloud"
             elif check_ref == "Startup_Planner":
                 request.session["mypartner"] = "Startup_Planner"
             else :
