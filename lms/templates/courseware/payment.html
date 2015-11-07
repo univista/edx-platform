@@ -131,7 +131,7 @@ from edxmako.shortcuts import marketing_link
 								<dt>결제수단</dt>
 								<dd>
 									<div>
-										%if course.id.org != 'Startup_Planner':
+										%if course.id.org != 'Startup_Planner' and course.id.org != 'Idea_Cloud':
 										<span class="radio-area">
 											<input aria-describedby="field_help_post_type" type="radio" name="payradio" class="post-type-input" id="pay01" value="Card:VCard" checked>
 											<span></span>
@@ -152,7 +152,7 @@ from edxmako.shortcuts import marketing_link
 									</div>
 								</dd>
 								</dl>
-								%if course.id.org != 'Startup_Planner':
+								%if course.id.org != 'Startup_Planner' and course.id.org != 'Idea_Cloud':
 								<div class="payment-box01">
 									<dl>
 									<dt style="height:62px">전화번호</dt>
