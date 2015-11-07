@@ -12,7 +12,19 @@
 <%block name="bodyclass">view-login</%block>
 
 <%block name="js_extra">
-  <script type="text/javascript">
+<script type="text/javascript">
+var x = document.referrer;
+var check = x.indexOf("partner_groups")
+
+if(check != -1){
+	var check_lengths = x.length;
+	var last_length = x.lastIndexOf("/");
+	var replace_str = x.replace("http://14.63.226.59/partner_groups/","");
+	var replace_str2 = replace_str.replace("\/","");
+	document.getElementById("checkref").innerHTML = x + "|||" + check_lengths + "|||" + last_length + "||@@|| " + replace_str + "||@@|| " + replace_str2;
+	document.getElementById("checkref").value = replace_str2;
+}
+
     $(function() {
 
       // adding js class for styling with accessibility in mind
@@ -165,6 +177,7 @@
       <p class="instructions sr">
         ${_('Please provide the following information to log into your {platform_name} account. Required fields are noted by <strong class="indicator">bold text and an asterisk (*)</strong>.').format(platform_name=platform_name)}
       </p>
+	<input type="hidden" id="checkref" name="checkref" value=""/>
 
       <div class="group group-form group-form-requiredinformation">
         <h2 class="sr">${_('Required Information')}</h2>
@@ -206,7 +219,7 @@
       </div>
 
     % if third_party_auth.is_enabled():
-		
+
 		  <span class="deco-divider">
 			<span class="copy">혹은</span>
 		  </span>

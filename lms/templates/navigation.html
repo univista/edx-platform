@@ -816,7 +816,7 @@ text-align: right;
 
 
 .certificate_list > li .box_wrapper::after {
-    
+
     border-radius: 2px;
     box-sizing: border-box;
     color: white;
@@ -849,9 +849,9 @@ font-size: 22px;
   width: 32px;
   height: 32px;
   border-radius: 16px;
-  text-align: center;	
-  background-position: 0 6px;  
-  
+  text-align: center;
+  background-position: 0 6px;
+
 }
 
 .certificate_over_links .fa-email:before {display: inline-block;
@@ -862,9 +862,9 @@ font-size: 22px;
   width: 32px;
   height: 32px;
   border-radius: 16px;
-  text-align: center;	
-  background-position: -32px 6px;  
-  
+  text-align: center;
+  background-position: -32px 6px;
+
 }
 .certificate_over_links .fa-print:before { display: inline-block;
 background: url("/static/themes/default/images/certificate/over_icon.png") no-repeat scroll 0px 0px rgba(255, 255, 255, 1);
@@ -875,7 +875,7 @@ font-size: 22px;
   height: 32px;
   border-radius: 16px;
   text-align: center;
-  background-position: -63px 6px; 
+  background-position: -63px 6px;
 }
 
 
@@ -922,7 +922,7 @@ ul.v2 li.off:before {background:none}
   color: #f2f2f2;  border: none;
   padding: 10px 20px;
   text-align: center;
-  text-shadow: none;  border-radius: 2px;  
+  text-shadow: none;  border-radius: 2px;
   box-sizing: border-box;
   transition: color 0.25s ease-in-out,background 0.25s ease-in-out,box-shadow 0.25s ease-in-out;
   display: inline-block;
@@ -931,9 +931,9 @@ ul.v2 li.off:before {background:none}
   line-height: 23.68px;  width: 100%;text-transform: none;
   vertical-align: middle;
   font-weight: 600 !important;
-  letter-spacing: 0 !important;  
-  -webkit-appearance: button;  margin: 0;  
-  font: normal 1.2rem/1.6rem "NanumBarunGothic","Open Sans",Verdana,Geneva,sans-serif,sans-serif;  
+  letter-spacing: 0 !important;
+  -webkit-appearance: button;  margin: 0;
+  font: normal 1.2rem/1.6rem "NanumBarunGothic","Open Sans",Verdana,Geneva,sans-serif,sans-serif;
   ;-webkit-font-smoothing: antialiased;
   box-shadow: inset 0 1px 0 0 #54c753
  }
@@ -948,8 +948,23 @@ ul.v2 li.off:before {background:none}
  .container-x .register .group-form.group-form-requiredinformation {padding-bottom:10px}
  .modal .inner-wrapper header hr, .leanModal_box .inner-wrapper header hr { background-image: -webkit-linear-gradient(#2faa47 0%, #2faa47);}
  .modal .inner-wrapper header hr::after, .leanModal_box .inner-wrapper header hr::after { background-image: -webkit-linear-gradient(#2faa47 0%, #2faa47);}
+  /*ie8 일때 나오는 레이어*/
+ .modal.ie8_modal{width:1280px; left: 50%; margin-left: -640px; top:0;border:1px solid #ccc;}
+ .modal.ie8_modal h2{border-bottom:2px solid #2faa47;padding-bottom:10px;}
 </style>
 
+<script type="text/javascript">
+$('#forgot-password-modal2').show();
+//ie8 일때 나오는 레이어 - 시작
+$(function(){
+	$('#ie8-modal').show();
+});
+function divHide(){
+		$("#ie8-modal").hide();
+		location.href = "http://blog.academyx.co/notice/"
+	}
+//ie8 일때 나오는 레이어 - 끝
+</script>
 
 <header class="global-x" aria-label="Global Navigation">
         <nav>
@@ -958,6 +973,15 @@ ul.v2 li.off:before {background:none}
                         <img src="/static/themes/default/images/logo_b3.png" alt="AcademyX"/>
                 </a>
                 </h1>
+
+                % if checkmyparnter:
+                    % if checkmyparnter == "Idea_Cloud":
+                    <img style="width: 192px; max-width: none; margin-top: 18px; margin-left: -960px;" src="/static/themes/default/images/ide_cloud_nav_03.png" alt="Idea_Cloud"/>
+                    % endif
+                    % if checkmyparnter == "Startup_Planner":
+                    <img style="width: 192px; max-width: none; margin-top: 18px; margin-left: -960px;" src="/static/themes/default/images/Startup_Planner_nav_01.png" alt="Startup_Planner"/>
+                    % endif
+                % endif
 				<!--
 				<span class="beta" style="display:none">
 					베타버전
@@ -983,14 +1007,60 @@ ul.v2 li.off:before {background:none}
         </nav>
 </header>
 
+﻿<section id="forgot-password-modal2" class="modal" role="dialog" tabindex="-1" aria-label="Password Reset">
+  <div class="inner-wrapper">
+    <button class="close-modal" onclick="divHide();">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr" >
+        Close
+      </span>
+    </button>
+	<header style="padding-bottom:0;margin-bottom:10px">
+      <h2 id="password-reset-email" style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">
+        알림
+      </h2>
+      <hr/>
+    </header>
+   <div id="password-reset"  style="text-align: center;">
+      <div class="instructions">
+		<p>바우처가 등록 되었습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 % if course:
 <!--[if lte IE 8]>
 <div class="ie-banner" aria-hidden="true">${_('<strong>Warning:</strong> Your browser is not fully supported. We strongly recommend using {chrome_link} or {ff_link}.').format(chrome_link='<a href="https://www.google.com/intl/en/chrome/browser/" target="_blank">Chrome</a>', ff_link='<a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a>')}</div>
 <![endif]-->
+%else:
+	%if checkDomainBro:
+<!--[if lte IE 8]>
+﻿<section id="ie8-modal" class="modal ie8_modal" role="dialog" tabindex="-1" aria-label="Password Reset">
+  <div class="inner-wrapper">
+    <button class="close-modal" onclick="divHide();">
+      <i class="icon fa fa-remove"></i>
+      <span class="sr" >
+        Close
+      </span>
+    </button>
+	<header style="padding-bottom:0;margin-bottom:10px">
+      <h2 id="password-reset-email" style="color: #2e2e2e;font-family: 'NanumBarunGothic' !important;margin-bottom: 10px;">
+        알림
+      </h2>
+    </header>
+   <div id="password-reset"  style="text-align: center;">
+      <div class="instructions">
+		<p>● 경고: 사용하고 있는 브라우저가 충분히 지원되지 않고 있습니다. Chrome 이나 Firefox 사용을 강력히 권장합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<![endif]-->
+	% endif
 % endif
 
-%if not user.is_authenticated():
+%if not request.user.is_authenticated():
   <%include file="forgot_password_modal.html" />
 %endif
 
