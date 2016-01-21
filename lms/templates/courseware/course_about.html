@@ -260,7 +260,7 @@ $(function() {
           <div id="register_error"></div>
         %else:
               %if user.is_authenticated():
-                  %if course.id.org == 'Startup_Planner' or course.id.org == 'Idea_Cloud':		## 문화청업플래너(Startup_Planner)/아이디어클라우드(Idea_Cloud) 일 경우 결재화면으로 이동
+                  %if course.id.org == 'Startup_Planner' or course.id.org == 'Idea_Cloud' or course.id.org == 'IoT_Startup':		## 문화청업플래너(Startup_Planner)/아이디어클라우드(Idea_Cloud)/IoT스타트업(IoT_Startup) 일 경우 결재화면으로 이동
                   <a href="/courses/${course.id}/payment" class="btn_block">강의신청</a>
                   %else:
                   <a href="/courses/${course.id}/application" class="btn_block">강의신청</a>
